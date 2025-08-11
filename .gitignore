@@ -24,8 +24,12 @@
 *.smod
 
 # Build
-bin-inc
+bin-int
 bin
+.vs
+*.vcxproj*
+*.sln
+*.bak
 
 # Executables
 *.exe

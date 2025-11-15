@@ -10,5 +10,9 @@ workspace "BitPounce"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+defines {
+	"FMT_UNICODE=0"
+}
+
 include "Sandbox"
 include "BitPounce"

@@ -1,8 +1,25 @@
-#include <BitPounce/Core/Base.h>
-import std;
+#include <BitPounce.h>
+#include "BitPounce/Core/EntryPoint.h"
 
-int main()
+
+class Sandbox : public BitPounce::Application
 {
-	SayHello();
-	return 0;
+public:
+
+	Sandbox()
+	{
+	}
+
+	~Sandbox()
+
+	{
+	}
+
+private:
+
+};
+
+BitPounce::Application* CreateApp()
+{
+	return new Sandbox();
 }

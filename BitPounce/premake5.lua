@@ -13,7 +13,8 @@ project "BitPounce"
 
 	includedirs
 	{
-		"src"
+		"src",
+		"../BitPounce/vendor/spdlog/include"
 	}
 	
 	links

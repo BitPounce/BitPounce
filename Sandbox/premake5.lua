@@ -14,7 +14,8 @@ project "Sandbox"
 	includedirs
 	{
 		"src",
-		"../BitPounce/src"
+		"../BitPounce/src",
+		"../BitPounce/vendor/spdlog/include"
 	}
 
 	links

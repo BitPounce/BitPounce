@@ -1,10 +1,17 @@
 #include "Application.h"
 #include "Logger.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 namespace BitPounce
 {
+	Application* s_Instance = nullptr;
+
 	Application::Application()
 	{
+		s_Instance = this;
 	}
 
 	Application::~Application()
@@ -14,10 +21,16 @@ namespace BitPounce
 	
 	int Application::Run()
 	{
-		while (true)
-		{
-			Update();
-		}
+#ifdef __EMSCRIPTEN__
+        emscripten_set_main_loop([]() {
+            s_Instance->Update();
+        }, 0, true);
+#else
+        while (true)
+        {
+            Update();
+        }
+#endif
 
 		return 0;
 	}

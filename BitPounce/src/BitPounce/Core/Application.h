@@ -13,6 +13,7 @@ namespace BitPounce
 		int Run();
 	private:
 		void Update();
+		static Application* s_Instance;
 	};
 
 	

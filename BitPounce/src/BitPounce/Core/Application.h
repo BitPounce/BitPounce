@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.h"
+#include "BitPounce/Events/Event.h"
 
 namespace BitPounce
 {

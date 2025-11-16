@@ -21,6 +21,8 @@ namespace BitPounce
 	
 	int Application::Run()
 	{
+
+
 #ifdef __EMSCRIPTEN__
         emscripten_set_main_loop([]() {
             s_Instance->Update();

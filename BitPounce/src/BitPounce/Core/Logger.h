@@ -2,6 +2,7 @@
 
 #include <spdlog/spdlog.h>
 #include "Base.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace BitPounce
 {

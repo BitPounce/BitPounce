@@ -1,9 +1,7 @@
+#include "bp_pch.h"
+
 #include "Application.h"
 #include "Logger.h"
-
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#endif
 #include <BitPounce/Events/ApplicationEvent.h>
 
 namespace BitPounce
@@ -32,7 +30,7 @@ namespace BitPounce
 			BP_CORE_INFO("{}", e);
 		}
 
-#ifdef __EMSCRIPTEN__
+#ifdef BP_PLATFORM_WEB
         emscripten_set_main_loop([]() {
             s_Instance->Update();
         }, 0, true);
@@ -48,6 +46,6 @@ namespace BitPounce
 
 	void Application::Update()
 	{
-		BP_CORE_INFO("Update called");
+		
 	}
 }

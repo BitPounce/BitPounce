@@ -5,6 +5,9 @@ project "BitPounce"
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "bp_pch.h"
+	pchsource "src/bp_pch.cpp"
+
 	files
 	{
 		"src/**.h",

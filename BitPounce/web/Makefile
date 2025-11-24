@@ -1,3 +1,6 @@
+# Automatically enable parallel builds using all CPU cores
+MAKEFLAGS += -j$(shell nproc)
+
 # Compiler
 CXX := emcc
 
@@ -19,9 +22,9 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
 INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)"
-
+CXXFLAGS += -DFMT_HEADER_ONLY
 # Compiler options (empty default)
-OPTIONS :=
+OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 
 
 all: print-info $(DIST_DIR)/libBitPounce.a
 
@@ -38,12 +41,12 @@ print-info:
 $(BUILD_DIR)/%.o: $(ENGINE_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	@echo "Compiling C++: $<"
-	$(CXX) -std=c++20 $(OPTIONS) -c $< -o $@ $(INCLUDES)
+	$(CXX) -std=c++20 $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
 
 $(BUILD_DIR)/%.o: $(ENGINE_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling C:   $<"
-	$(CXX) $(OPTIONS) -c $< -o $@ $(INCLUDES)
+	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
 
 # Archive
 $(DIST_DIR)/libBitPounce.a: $(OBJ)

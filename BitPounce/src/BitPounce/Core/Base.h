@@ -1,7 +1,7 @@
 #pragma once
 
 // TODO
-
+#include "PlatformDetection.hpp"
 
 #include <memory>
 

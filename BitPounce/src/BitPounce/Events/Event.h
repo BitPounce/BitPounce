@@ -27,14 +27,20 @@ namespace BitPounce {
         EventCategoryMouseButton = BIT(4)
     };
 
+    // ---------------------
+    // Macros (fixed)
+    // ---------------------
 #define EVENT_CLASS_TYPE(type) \
-    static EventType GetStaticType() { return EventType::##type; } \
+    static EventType GetStaticType() { return EventType::type; } \
     virtual EventType GetEventType() const override { return GetStaticType(); } \
     virtual const char* GetName() const override { return #type; }
 
 #define EVENT_CLASS_CATEGORY(category) \
     virtual int GetCategoryFlags() const override { return category; }
 
+    // ---------------------
+    // Base Event class
+    // ---------------------
     class Event
     {
         friend class EventDispatcher;
@@ -53,6 +59,9 @@ namespace BitPounce {
         bool m_Handled = false;
     };
 
+    // ---------------------
+    // Event Dispatcher
+    // ---------------------
     class EventDispatcher
     {
         template<typename T>
@@ -76,17 +85,23 @@ namespace BitPounce {
         Event& m_Event;
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const Event& e)
+    
+
+    template<typename T>
+    concept DerivedEvent = std::is_base_of_v<Event, T>;
+
+    template<DerivedEvent T>
+    inline std::ostream& operator<<(std::ostream& os, const T& e)
     {
         return os << e.ToString();
     }
 
 } // namespace BitPounce
 
-// ----------------------
-// fmt v11 formatter fix
-// ----------------------
+
 namespace fmt {
-    template <>
-    struct formatter<BitPounce::Event> : fmt::ostream_formatter {};
-}
+
+    template<typename T>
+    struct formatter<T, std::enable_if_t<std::is_base_of_v<BitPounce::Event, T>, char>> : ostream_formatter {};
+
+} // namespace fmt

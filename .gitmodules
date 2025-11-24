@@ -1,3 +1,6 @@
 [submodule "BitPounce/vendor/spdlog"]
 	path = BitPounce/vendor/spdlog
 	url = https://github.com/BitPounce/spdlog
+[submodule "BitPounce/vendor/GLFW"]
+	path = BitPounce/vendor/GLFW
+	url = https://github.com/BitPounce/glfw

@@ -19,6 +19,16 @@ namespace BitPounce
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
 
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
+	}
+
 	Application::~Application()
 	{
 	}
@@ -62,6 +72,10 @@ namespace BitPounce
 	{
 		glClearColor(1, 0, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (Layer* layer : m_LayerStack)
+			layer->OnUpdate();
+
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
 	void Application::OnEvent(Event& event)
@@ -74,6 +88,13 @@ namespace BitPounce
 			this->Close(0);
 			return false;
 		});
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			(*--it)->OnEvent(event);
+			if (event.Handled)
+				break;
+		}
 
 		BP_CORE_INFO("{}", event)
 

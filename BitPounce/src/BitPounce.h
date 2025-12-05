@@ -1,3 +1,5 @@
 #pragma once
 
-#include "BitPounce/Core/Base.h"
+#include "BitPounce/Core/Application.h"
+#include "BitPounce/Core/Layer.h"
+#include "BitPounce/Core/Logger.h"

@@ -23,6 +23,7 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include"
+CXXFLAGS += -DFMT_HEADER_ONLY
 
 # Compiler options
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
@@ -30,7 +31,7 @@ OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
            -msimd128 -msse -gsource-map \
            --source-map-base http://localhost:8000/$(DIST_DIR)/ \
            -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
-           $(INCLUDES)
+           $(INCLUDES) $(CXXFLAGS)
 
 # Default target
 all: buildEngine $(DIST_DIR)/index.html

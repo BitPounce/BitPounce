@@ -54,9 +54,9 @@ namespace BitPounce {
         inline bool IsInCategory(EventCategory category) const {
             return GetCategoryFlags() & category;
         }
-
+        bool Handled = false;
     protected:
-        bool m_Handled = false;
+        
     };
 
     // ---------------------
@@ -75,7 +75,7 @@ namespace BitPounce {
         {
             if (m_Event.GetEventType() == T::GetStaticType())
             {
-                m_Event.m_Handled = func(static_cast<T&>(m_Event));
+                m_Event.Handled = func(static_cast<T&>(m_Event));
                 return true;
             }
             return false;

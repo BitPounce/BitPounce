@@ -11,18 +11,25 @@ project "BitPounce"
 	files
 	{
 		"src/**.h",
-		"src/**.cpp"
+		"src/**.hpp",
+		"src/**.cpp",
+		
+		"Platform/Windows/**.h",
+		"Platform/Windows/**.hpp",
+		"Platform/Windows/**.cpp"
 	}
 
 	includedirs
 	{
 		"src",
-		"../BitPounce/vendor/spdlog/include"
+		"../BitPounce/vendor/spdlog/include",
+		"vendor/GLFW/include",
+		"./"
 	}
 	
 	links
 	{
-		
+		"GLFW"
 	}
 
 	filter "system:windows"
@@ -33,6 +40,11 @@ project "BitPounce"
 		defines
 		{
 			"BP_PLATFORM_WINDOWS",
+		}
+		
+		links
+		{
+			"Opengl32.lib"
 		}
 
 	filter "configurations:Debug"

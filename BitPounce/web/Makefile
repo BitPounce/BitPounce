@@ -12,7 +12,7 @@ BUILD_DIR  := $(BASE_DIR)/bin-int/Debug-WebGL/BitPounce
 VENDOR_DIR := $(ENGINE_DIR)/vendor
 
 # Source files
-SRC_CPP := $(shell find $(ENGINE_DIR)/src -name "*.cpp")
+SRC_CPP := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp")
 SRC_C   := $(shell find $(ENGINE_DIR)/src -name "*.c")
 
 # Object files
@@ -21,7 +21,7 @@ OBJ_C   := $(patsubst $(ENGINE_DIR)/%, $(BUILD_DIR)/%, $(SRC_C:.c=.o))
 OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
-INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)"
+INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)"
 CXXFLAGS += -DFMT_HEADER_ONLY
 # Compiler options (empty default)
 OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 

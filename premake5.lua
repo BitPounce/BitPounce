@@ -16,3 +16,4 @@ defines {
 
 include "Sandbox"
 include "BitPounce"
+include "BitPounce/vendor/GLFW"

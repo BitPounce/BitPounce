@@ -16,21 +16,36 @@ project "BitPounce"
 		
 		"Platform/Windows/**.h",
 		"Platform/Windows/**.hpp",
-		"Platform/Windows/**.cpp"
+		"Platform/Windows/**.cpp",
+		
+		"Platform/OpenGL/**.h",
+		"Platform/OpenGL/**.hpp",
+		"Platform/OpenGL/**.cpp",
+		
+		"../BitPounce/vendor/glad/src/gl.c"
 	}
 
 	includedirs
 	{
 		"src",
 		"../BitPounce/vendor/spdlog/include",
+		"../BitPounce/vendor/glad/include",
 		"vendor/GLFW/include",
 		"./"
 	}
 	
 	links
 	{
-		"GLFW"
+		"GLFW",
+		
 	}
+	-- %{cfg.buildcfg}
+	-- GLFW_INCLUDE_NONE
+	defines {"GLFW_INCLUDE_NONE"}
+	
+	filter "files:vendor/**.*"
+		flags { "NoPCH" }
+	filter {}
 
 	filter "system:windows"
 		cppdialect "C++23"

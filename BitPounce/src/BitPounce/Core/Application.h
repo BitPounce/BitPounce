@@ -20,7 +20,6 @@ namespace BitPounce
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 	private:
-		
 		void Update();
 		static Application* s_Instance;
 		Scope<Window> m_Window;

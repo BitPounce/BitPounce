@@ -14,7 +14,7 @@ ENGINE_LIB := $(BASE_DIR)/bin/Debug-WebGL/BitPounce/libengine.a
 
 # Source files
 SRC_CPP := $(shell find $(APP_DIR)/src -name "*.cpp")
-SRC_C   := $(shell find $(APP_DIR)/src -name "*.c")
+SRC_C   := $(shell find $(APP_DIR)/src -name "*.c") 
 
 # Object files (preserve directory structure)
 OBJ_CPP := $(patsubst $(APP_DIR)/src/%.cpp, $(BUILD_DIR)/%.o, $(SRC_CPP))
@@ -22,7 +22,7 @@ OBJ_C   := $(patsubst $(APP_DIR)/src/%.c,   $(BUILD_DIR)/%.o, $(SRC_C))
 OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
-INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include"
+INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include"
 CXXFLAGS += -DFMT_HEADER_ONLY
 
 # Compiler options
@@ -71,7 +71,7 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB)
 clean:
 	@echo "Cleaning build directories..."
 	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)"
-	$(MAKE) -C $(ENGINE_DIR)/WebGL clean || true
+	$(MAKE) -C $(ENGINE_DIR)/web clean
 
 # Auto-dependency includes
 -include $(OBJ:.o=.d)

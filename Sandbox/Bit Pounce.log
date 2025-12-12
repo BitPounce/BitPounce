@@ -1,264 +1,63 @@
-[2025-12-05 19:25:48.214] [BIT POUNCE] [info] Logger initialized successfully
-[2025-12-05 19:25:48.216] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
-[2025-12-05 19:25:48.630] [BIT POUNCE] [info] WindowResizeEvent: 1280, 720
-[2025-12-05 19:25:48.630] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.649] [APP] [trace] MouseMovedEvent: 397, 251
-[2025-12-05 19:25:48.649] [BIT POUNCE] [info] MouseMovedEvent: 397, 251
-[2025-12-05 19:25:48.650] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.654] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.752] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.755] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.770] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.786] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.806] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.819] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.836] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.852] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.870] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.886] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.904] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.919] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.936] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.953] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.970] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:48.988] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.005] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.019] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.037] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.052] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.069] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.087] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.104] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.119] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.136] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.154] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.170] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.205] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.205] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.222] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.341] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.367] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.490] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.517] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.526] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.527] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.536] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.555] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.570] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.588] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.603] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.620] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.640] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.654] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.671] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.699] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.703] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.720] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.736] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.756] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.771] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.787] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.806] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.819] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.836] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.852] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.869] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.886] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.903] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.919] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.936] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.952] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.969] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:49.986] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.002] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.019] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.036] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.053] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.069] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.086] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.103] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.119] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.136] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.153] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.170] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.186] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.203] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.219] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.236] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.253] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.269] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.286] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.303] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.319] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.337] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.353] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.371] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.388] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.403] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.419] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.436] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.452] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.471] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.486] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.502] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.519] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.536] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.555] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.574] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.593] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.604] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.619] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.636] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.654] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.670] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.686] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.703] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.719] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.736] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.760] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.769] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.786] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.804] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.819] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.836] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.853] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.870] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.886] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.903] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.919] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.937] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.953] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.969] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:50.987] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.002] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.019] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.037] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.055] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.069] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.086] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.105] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.120] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.136] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.153] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.169] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.186] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.203] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.219] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.237] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.256] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.270] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.286] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.302] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.320] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.336] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.354] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.370] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.386] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.404] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.419] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.437] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.452] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.470] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.486] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.502] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.519] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.536] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.553] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.569] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.570] [APP] [trace] MouseMovedEvent: 397, 247
-[2025-12-05 19:25:51.572] [BIT POUNCE] [info] MouseMovedEvent: 397, 247
-[2025-12-05 19:25:51.572] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.588] [APP] [trace] MouseMovedEvent: 410, 228
-[2025-12-05 19:25:51.589] [BIT POUNCE] [info] MouseMovedEvent: 410, 228
-[2025-12-05 19:25:51.590] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.607] [APP] [trace] MouseMovedEvent: 428, 205
-[2025-12-05 19:25:51.608] [BIT POUNCE] [info] MouseMovedEvent: 428, 205
-[2025-12-05 19:25:51.608] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.621] [APP] [trace] MouseMovedEvent: 436, 199
-[2025-12-05 19:25:51.622] [BIT POUNCE] [info] MouseMovedEvent: 436, 199
-[2025-12-05 19:25:51.623] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.653] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.669] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.686] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.689] [APP] [trace] MouseMovedEvent: 445, 194
-[2025-12-05 19:25:51.689] [BIT POUNCE] [info] MouseMovedEvent: 445, 194
-[2025-12-05 19:25:51.689] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.705] [APP] [trace] MouseMovedEvent: 463, 184
-[2025-12-05 19:25:51.705] [BIT POUNCE] [info] MouseMovedEvent: 463, 184
-[2025-12-05 19:25:51.706] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.721] [APP] [trace] MouseMovedEvent: 504, 154
-[2025-12-05 19:25:51.722] [BIT POUNCE] [info] MouseMovedEvent: 504, 154
-[2025-12-05 19:25:51.722] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.737] [APP] [trace] MouseMovedEvent: 575, 77
-[2025-12-05 19:25:51.738] [BIT POUNCE] [info] MouseMovedEvent: 575, 77
-[2025-12-05 19:25:51.738] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.769] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.786] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.803] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.820] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.837] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.853] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.869] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.886] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.903] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.919] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.936] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.953] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.969] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:51.986] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.003] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.019] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.036] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.053] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.069] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.086] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.102] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.105] [APP] [trace] MouseMovedEvent: 1561, 9
-[2025-12-05 19:25:52.105] [BIT POUNCE] [info] MouseMovedEvent: 1561, 9
-[2025-12-05 19:25:52.106] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.124] [APP] [trace] MouseMovedEvent: 1596, 22
-[2025-12-05 19:25:52.124] [BIT POUNCE] [info] MouseMovedEvent: 1596, 22
-[2025-12-05 19:25:52.125] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.153] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.171] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.186] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.202] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.220] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.236] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.252] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.270] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.286] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.303] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.319] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.336] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.353] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.369] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.386] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.402] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.419] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.436] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.453] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.469] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.486] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.502] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.519] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.536] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.553] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.569] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.586] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.602] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.619] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.636] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.652] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.669] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.686] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.702] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.719] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.736] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.752] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.769] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.786] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.802] [APP] [info] ExampleLayer::Update
-[2025-12-05 19:25:52.902] [APP] [trace] WindowClose
-[2025-12-05 19:25:52.902] [BIT POUNCE] [info] WindowClose
-[2025-12-05 19:25:52.903] [APP] [info] ExampleLayer::Update
+[2025-12-08 19:26:51.244] [BIT POUNCE] [info] Logger initialized successfully
+[2025-12-08 19:26:51.245] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
+[2025-12-08 19:26:51.828] [BIT POUNCE] [info] WindowResizeEvent: 1280, 720
+[2025-12-08 19:27:12.488] [APP] [trace] MouseMovedEvent: 1564, 184
+[2025-12-08 19:27:12.489] [BIT POUNCE] [info] MouseMovedEvent: 1564, 184
+[2025-12-08 19:27:12.505] [APP] [trace] MouseMovedEvent: 1491, 153
+[2025-12-08 19:27:12.505] [BIT POUNCE] [info] MouseMovedEvent: 1491, 153
+[2025-12-08 19:27:12.522] [APP] [trace] MouseMovedEvent: 1452, 140
+[2025-12-08 19:27:12.523] [BIT POUNCE] [info] MouseMovedEvent: 1452, 140
+[2025-12-08 19:27:12.537] [APP] [trace] MouseMovedEvent: 1436, 136
+[2025-12-08 19:27:12.537] [BIT POUNCE] [info] MouseMovedEvent: 1436, 136
+[2025-12-08 19:27:12.553] [APP] [trace] MouseMovedEvent: 1433, 134
+[2025-12-08 19:27:12.554] [BIT POUNCE] [info] MouseMovedEvent: 1433, 134
+[2025-12-08 19:27:12.570] [APP] [trace] MouseMovedEvent: 1432, 134
+[2025-12-08 19:27:12.572] [BIT POUNCE] [info] MouseMovedEvent: 1432, 134
+[2025-12-08 19:27:12.703] [APP] [trace] MouseMovedEvent: 1432, 132
+[2025-12-08 19:27:12.703] [BIT POUNCE] [info] MouseMovedEvent: 1432, 132
+[2025-12-08 19:27:12.721] [APP] [trace] MouseMovedEvent: 1437, 124
+[2025-12-08 19:27:12.721] [BIT POUNCE] [info] MouseMovedEvent: 1437, 124
+[2025-12-08 19:27:12.737] [APP] [trace] MouseMovedEvent: 1443, 116
+[2025-12-08 19:27:12.738] [BIT POUNCE] [info] MouseMovedEvent: 1443, 116
+[2025-12-08 19:27:12.755] [APP] [trace] MouseMovedEvent: 1454, 101
+[2025-12-08 19:27:12.756] [BIT POUNCE] [info] MouseMovedEvent: 1454, 101
+[2025-12-08 19:27:12.774] [APP] [trace] MouseMovedEvent: 1467, 83
+[2025-12-08 19:27:12.775] [BIT POUNCE] [info] MouseMovedEvent: 1467, 83
+[2025-12-08 19:27:12.789] [APP] [trace] MouseMovedEvent: 1489, 57
+[2025-12-08 19:27:12.789] [BIT POUNCE] [info] MouseMovedEvent: 1489, 57
+[2025-12-08 19:27:12.804] [APP] [trace] MouseMovedEvent: 1517, 14
+[2025-12-08 19:27:12.804] [BIT POUNCE] [info] MouseMovedEvent: 1517, 14
+[2025-12-08 19:27:15.539] [APP] [trace] MouseMovedEvent: 1128, 844
+[2025-12-08 19:27:15.540] [BIT POUNCE] [info] MouseMovedEvent: 1128, 844
+[2025-12-08 19:27:15.556] [APP] [trace] MouseMovedEvent: 1121, 811
+[2025-12-08 19:27:15.557] [BIT POUNCE] [info] MouseMovedEvent: 1121, 811
+[2025-12-08 19:27:15.574] [APP] [trace] MouseMovedEvent: 1108, 755
+[2025-12-08 19:27:15.576] [BIT POUNCE] [info] MouseMovedEvent: 1108, 755
+[2025-12-08 19:27:15.589] [APP] [trace] MouseMovedEvent: 1085, 661
+[2025-12-08 19:27:15.589] [BIT POUNCE] [info] MouseMovedEvent: 1085, 661
+[2025-12-08 19:27:15.604] [APP] [trace] MouseMovedEvent: 1059, 587
+[2025-12-08 19:27:15.604] [BIT POUNCE] [info] MouseMovedEvent: 1059, 587
+[2025-12-08 19:27:15.621] [APP] [trace] MouseMovedEvent: 1038, 542
+[2025-12-08 19:27:15.621] [BIT POUNCE] [info] MouseMovedEvent: 1038, 542
+[2025-12-08 19:27:15.637] [APP] [trace] MouseMovedEvent: 1035, 539
+[2025-12-08 19:27:15.637] [BIT POUNCE] [info] MouseMovedEvent: 1035, 539
+[2025-12-08 19:27:15.687] [APP] [trace] MouseButtonPressedEvent: 0
+[2025-12-08 19:27:15.687] [BIT POUNCE] [info] MouseButtonPressedEvent: 0
+[2025-12-08 19:27:15.786] [APP] [trace] MouseButtonReleasedEvent: 0
+[2025-12-08 19:27:15.786] [BIT POUNCE] [info] MouseButtonReleasedEvent: 0
+[2025-12-08 19:27:15.820] [APP] [trace] MouseMovedEvent: 1034, 538
+[2025-12-08 19:27:15.820] [BIT POUNCE] [info] MouseMovedEvent: 1034, 538
+[2025-12-08 19:27:15.838] [APP] [trace] MouseMovedEvent: 1033, 529
+[2025-12-08 19:27:15.838] [BIT POUNCE] [info] MouseMovedEvent: 1033, 529
+[2025-12-08 19:27:15.855] [APP] [trace] MouseMovedEvent: 1040, 497
+[2025-12-08 19:27:15.856] [BIT POUNCE] [info] MouseMovedEvent: 1040, 497
+[2025-12-08 19:27:15.873] [APP] [trace] MouseMovedEvent: 1071, 415
+[2025-12-08 19:27:15.874] [BIT POUNCE] [info] MouseMovedEvent: 1071, 415
+[2025-12-08 19:27:15.887] [APP] [trace] MouseMovedEvent: 1107, 315
+[2025-12-08 19:27:15.888] [BIT POUNCE] [info] MouseMovedEvent: 1107, 315
+[2025-12-08 19:27:15.903] [APP] [trace] MouseMovedEvent: 1158, 189
+[2025-12-08 19:27:15.904] [BIT POUNCE] [info] MouseMovedEvent: 1158, 189
+[2025-12-08 19:27:15.920] [APP] [trace] MouseMovedEvent: 1245, 37
+[2025-12-08 19:27:15.921] [BIT POUNCE] [info] MouseMovedEvent: 1245, 37
+[2025-12-08 19:27:16.751] [APP] [trace] WindowClose
+[2025-12-08 19:27:16.751] [BIT POUNCE] [info] WindowClose

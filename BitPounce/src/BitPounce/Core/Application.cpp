@@ -1,10 +1,9 @@
-#include "bp_pch.h"
+﻿#include "bp_pch.h"
 
+#include "Platform/OpenGL/gl.h"
 #include "Application.h"
 #include "Logger.h"
 #include <BitPounce/Events/ApplicationEvent.h>
-
-#include <GLFW/glfw3.h>
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -14,7 +13,9 @@ namespace BitPounce
 
 	Application::Application()
 	{
+
 		s_Instance = this;
+		
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -39,9 +40,11 @@ namespace BitPounce
 		m_IsRunning = false;
 	}
 
-	
+
 	int Application::Run()
 	{
+		
+
 		WindowResizeEvent e(1280, 720);
 		if (e.IsInCategory(EventCategoryApplication))
 		{
@@ -52,17 +55,15 @@ namespace BitPounce
 			BP_CORE_INFO("{}", e);
 		}
 
-		
-
 #ifdef BP_PLATFORM_WEB
-        emscripten_set_main_loop([]() {
-            s_Instance->Update();
-        }, 0, true);
+		emscripten_set_main_loop([]() {
+			s_Instance->Update();
+			}, 0, true);
 #else
-        while (m_IsRunning)
-        {
-            Update();
-        }
+		while (m_IsRunning)
+		{
+			Update();
+		}
 #endif
 
 		return m_ErrorCode;
@@ -78,6 +79,9 @@ namespace BitPounce
 
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
+
+		
+	
 	void Application::OnEvent(Event& event)
 	{
 		m_IsPoolingEvents = true;

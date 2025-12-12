@@ -1,6 +1,8 @@
 #include "bp_pch.h"
 #include "WebWindow.h"
 
+#include "Platform/OpenGL/gl.h"
+
 namespace BitPounce
 {
 	static bool s_GLFWInitialized = false;
@@ -125,6 +127,8 @@ namespace BitPounce
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
+
+		gladLoadGLSC2((GLADloadfunc)glfwGetProcAddress);
 
 		SetupGLFWCallback();
 	}

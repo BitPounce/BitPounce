@@ -1,5 +1,6 @@
 #include "bp_pch.h"
 #include "WindowsWindow.h"
+#include "Platform/OpenGL/gl.h"
 
 namespace BitPounce {
 
@@ -125,6 +126,8 @@ namespace BitPounce {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
+
+		int version = gladLoadGL(glfwGetProcAddress);
 
 		SetupGLFWCallback();
 	}

@@ -13,7 +13,7 @@ VENDOR_DIR := $(ENGINE_DIR)/vendor
 
 # Source files
 SRC_CPP := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp")
-SRC_C   := $(shell find $(ENGINE_DIR)/src -name "*.c")
+SRC_C   := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/glsc2.c
 
 # Object files
 OBJ_CPP := $(patsubst $(ENGINE_DIR)/%, $(BUILD_DIR)/%, $(SRC_CPP:.cpp=.o))
@@ -21,8 +21,8 @@ OBJ_C   := $(patsubst $(ENGINE_DIR)/%, $(BUILD_DIR)/%, $(SRC_C:.c=.o))
 OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
-INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)"
-CXXFLAGS += -DFMT_HEADER_ONLY
+INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/glad/include"
+CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
 # Compiler options (empty default)
 OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 
 

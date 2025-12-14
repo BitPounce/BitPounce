@@ -17,6 +17,5 @@ public:
 
 	void OnEvent(BitPounce::Event& event) override
 	{
-		BP_TRACE("{0}", event);
 	}
 };

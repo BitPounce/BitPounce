@@ -13,5 +13,7 @@ print("Gening for: " + build_os)
 if build_os.lower() == "windows":
     os.system("Gen-Proj.bat")
     exit(0)
+if build_os.lower() == "linux":
+    exit()
 
 print(build_os + " build not supported yet")

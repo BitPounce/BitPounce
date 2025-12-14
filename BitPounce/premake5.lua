@@ -1,6 +1,7 @@
 project "BitPounce"
 	kind "StaticLib"
 	language "C++"
+	cppdialect "C++23"
 
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
@@ -13,10 +14,6 @@ project "BitPounce"
 		"src/**.h",
 		"src/**.hpp",
 		"src/**.cpp",
-		
-		"Platform/Windows/**.h",
-		"Platform/Windows/**.hpp",
-		"Platform/Windows/**.cpp",
 		
 		"Platform/OpenGL/**.h",
 		"Platform/OpenGL/**.hpp",
@@ -60,6 +57,44 @@ project "BitPounce"
 		links
 		{
 			"Opengl32.lib"
+		}
+
+		files
+		{
+			"Platform/Windows/**.h",
+			"Platform/Windows/**.hpp",
+			"Platform/Windows/**.cpp"
+		}
+
+	filter "system:linux"
+		cppdialect "C++23"
+		staticruntime "On"
+		systemversion "latest"
+
+		defines
+		{
+			"BP_PLATFORM_LINUX",
+		}
+		
+		links
+	{
+		"GLFW",
+		"X11",
+		"Xrandr",
+		"Xi",
+		"Xcursor",
+		"Xinerama",
+		"GL",
+		"pthread",
+		"dl",
+		"m"
+	}
+
+		files
+		{
+			"Platform/Linux/**.h",
+			"Platform/Linux/**.hpp",
+			"Platform/Linux/**.cpp"
 		}
 
 	filter "configurations:Debug"

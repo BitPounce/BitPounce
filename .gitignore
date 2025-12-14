@@ -38,3 +38,6 @@ bin
 
 # debug information files
 *.dwo
+Sandbox/Makefile
+BitPounce/Makefile
+Makefile

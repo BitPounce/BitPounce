@@ -43,17 +43,6 @@ namespace BitPounce
 
 	int Application::Run()
 	{
-		
-
-		WindowResizeEvent e(1280, 720);
-		if (e.IsInCategory(EventCategoryApplication))
-		{
-			BP_CORE_INFO("{}", e);
-		}
-		if (e.IsInCategory(EventCategoryInput))
-		{
-			BP_CORE_INFO("{}", e);
-		}
 
 #ifdef BP_PLATFORM_WEB
 		emscripten_set_main_loop([]() {
@@ -99,8 +88,6 @@ namespace BitPounce
 			if (event.Handled)
 				break;
 		}
-
-		BP_CORE_INFO("{}", event)
 
 		Update();
 		m_IsPoolingEvents = false;

@@ -20,7 +20,32 @@ project "Sandbox"
 
 	links
 	{
+		"GLFW",
 		"BitPounce"
+	}
+
+	filter "system:linux"
+		cppdialect "C++23"
+		staticruntime "On"
+		systemversion "latest"
+
+		defines
+		{
+			"BP_PLATFORM_LINUX",
+		}
+		
+		links
+	{
+		"GLFW",
+		"X11",
+		"Xrandr",
+		"Xi",
+		"Xcursor",
+		"Xinerama",
+		"GL",
+		"pthread",
+		"dl",
+		"m"
 	}
 
 	filter "system:windows"

@@ -85,23 +85,6 @@ namespace BitPounce {
         Event& m_Event;
     };
 
-    
 
-    template<typename T>
-    concept DerivedEvent = std::is_base_of_v<Event, T>;
-
-    template<DerivedEvent T>
-    inline std::ostream& operator<<(std::ostream& os, const T& e)
-    {
-        return os << e.ToString();
-    }
 
 } // namespace BitPounce
-
-
-namespace fmt {
-
-    template<typename T>
-    struct formatter<T, std::enable_if_t<std::is_base_of_v<BitPounce::Event, T>, char>> : ostream_formatter {};
-
-} // namespace fmt

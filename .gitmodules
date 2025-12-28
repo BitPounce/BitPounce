@@ -4,3 +4,7 @@
 [submodule "BitPounce/vendor/GLFW"]
 	path = BitPounce/vendor/GLFW
 	url = https://github.com/BitPounce/glfw
+[submodule "BitPounce/vendor/imgui"]
+	path = BitPounce/vendor/imgui
+	url = https://github.com/BitPounce/imgui
+	branch = docking

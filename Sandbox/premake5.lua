@@ -21,6 +21,7 @@ project "Sandbox"
 	links
 	{
 		"GLFW",
+		"ImGui",
 		"BitPounce"
 	}
 
@@ -35,18 +36,18 @@ project "Sandbox"
 		}
 		
 		links
-	{
-		"GLFW",
-		"X11",
-		"Xrandr",
-		"Xi",
-		"Xcursor",
-		"Xinerama",
-		"GL",
-		"pthread",
-		"dl",
-		"m"
-	}
+		{
+			"GLFW",
+			"X11",
+			"Xrandr",
+			"Xi",
+			"Xcursor",
+			"Xinerama",
+			"GL",
+			"pthread",
+			"dl",
+			"m"
+		}
 
 	filter "system:windows"
 		cppdialect "C++23"

@@ -14,12 +14,21 @@ project "BitPounce"
 		"src/**.h",
 		"src/**.hpp",
 		"src/**.cpp",
-		
+
 		"Platform/OpenGL/**.h",
 		"Platform/OpenGL/**.hpp",
 		"Platform/OpenGL/**.cpp",
-		
-		"../BitPounce/vendor/glad/src/gl.c"
+
+		"../BitPounce/vendor/glad/src/gl.c",
+
+		"vendor/imgui/backends/imgui_impl_opengl3.cpp",
+		"vendor/imgui/backends/imgui_impl_glfw.cpp",
+
+		"vendor/imgui/imgui_demo.cpp",
+		"vendor/imgui/imgui_draw.cpp",
+		"vendor/imgui/imgui_tables.cpp",
+		"vendor/imgui/imgui_widgets.cpp",
+		"vendor/imgui/imgui.cpp"
 	}
 
 	includedirs
@@ -28,18 +37,19 @@ project "BitPounce"
 		"../BitPounce/vendor/spdlog/include",
 		"../BitPounce/vendor/glad/include",
 		"vendor/GLFW/include",
-		"./"
+		"./",
+		"vendor/imgui"
 	}
-	
+
 	links
 	{
 		"GLFW",
-		
+		"ImGui"
 	}
 	-- %{cfg.buildcfg}
 	-- GLFW_INCLUDE_NONE
 	defines {"GLFW_INCLUDE_NONE"}
-	
+
 	filter "files:vendor/**.*"
 		flags { "NoPCH" }
 	filter {}
@@ -53,7 +63,7 @@ project "BitPounce"
 		{
 			"BP_PLATFORM_WINDOWS",
 		}
-		
+
 		links
 		{
 			"Opengl32.lib"
@@ -68,14 +78,13 @@ project "BitPounce"
 
 	filter "system:linux"
 		cppdialect "C++23"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
 			"BP_PLATFORM_LINUX",
 		}
-		
+
 		links
 	{
 		"GLFW",
@@ -87,7 +96,8 @@ project "BitPounce"
 		"GL",
 		"pthread",
 		"dl",
-		"m"
+		"m",
+		"ImGui"
 	}
 
 		files

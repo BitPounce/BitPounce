@@ -18,6 +18,9 @@ namespace BitPounce
 		
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -66,6 +69,16 @@ namespace BitPounce
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate();
 
+		m_ImGuiLayer->Begin();
+
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->OnImGuiRender();
+		}
+		
+
+		m_ImGuiLayer->End();
+		
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
 
@@ -88,8 +101,13 @@ namespace BitPounce
 			if (event.Handled)
 				break;
 		}
+		
 
+		// HACK
+		#ifdef BP_PLATFORM_WINDOWS
 		Update();
+		#endif
+
 		m_IsPoolingEvents = false;
 	}
 }

@@ -3,8 +3,8 @@
 #define FMT_HEADER_ONLY
 
 #include <spdlog/spdlog.h>
-#include "Base.h"
 #include "spdlog/fmt/ostr.h"
+#include "BitPounce/Core/Base.h"
 
 namespace BitPounce
 {

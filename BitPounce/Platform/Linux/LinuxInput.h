@@ -5,7 +5,7 @@ namespace BitPounce
     class LinuxInput : public Input
     {
         public:
-            virtual bool IsKeyPressedImpl(KeyCode key) override;
+            virtual bool IsKeyPressedImpl(Key key) override;
         private:
 
     };

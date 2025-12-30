@@ -1,7 +1,5 @@
-#include "BitPounce/Core/Base.h"
+#include "BitPounce/Core/KeyCode.h"
 
-// TODO: make unicode!
-typedef uint16_t KeyCode;
 
 namespace BitPounce
 {
@@ -9,10 +7,10 @@ namespace BitPounce
 	{
 		public:
 			
-			static bool IsKeyPressed(KeyCode key) { return s_Instance->IsKeyPressedImpl(key); };
+			static bool IsKeyPressed(Key key) { return s_Instance->IsKeyPressedImpl(key); };
 		
 		protected:
-			virtual bool IsKeyPressedImpl(KeyCode key) = 0;
+			virtual bool IsKeyPressedImpl(Key key) = 0;
 		private:
 			static Input* s_Instance;
 	};

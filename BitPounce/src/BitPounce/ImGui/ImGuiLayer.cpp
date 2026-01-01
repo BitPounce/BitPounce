@@ -26,8 +26,10 @@ void ImGuiLayer::OnAttach()
     // Config flags
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;        
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    #ifndef __EMSCRIPTEN__
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     
+    #endif
 
     ImGui::StyleColorsDark();
     ImGuiStyle& style = ImGui::GetStyle();
@@ -47,7 +49,11 @@ void ImGuiLayer::OnAttach()
 
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
+    #ifdef __EMSCRIPTEN__
+    ImGui_ImplOpenGL3_Init("#version 300 es");
+    #else
     ImGui_ImplOpenGL3_Init("#version 410");
+    #endif
 }
 
 void ImGuiLayer::OnDetach()

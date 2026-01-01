@@ -24,6 +24,7 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 # Include directories
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include"
 CXXFLAGS += -DFMT_HEADER_ONLY
+CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3
 
 # Compiler options
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
@@ -31,7 +32,7 @@ OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
            -msimd128 -msse -gsource-map \
            --source-map-base http://localhost:8000/$(DIST_DIR)/ \
            -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
-           $(INCLUDES) $(CXXFLAGS)
+           $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED
 
 # Default target
 all: buildEngine $(DIST_DIR)/index.html
@@ -52,11 +53,14 @@ buildEngine:
 	@echo "Building Engine..."
 	$(MAKE) -C $(ENGINE_DIR)/web $(MAKEFLAGS)
 
+./assets:
+	cp -r $(APP_DIR)/assets ./assets
+
 # Ensure engine library exists before linking
 $(ENGINE_LIB): buildEngine
 
 # Link final WebAssembly app
-$(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB)
+$(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 	@mkdir -p $(DIST_DIR)
 	@echo "Linking index.html with WebAssembly..."
 	$(CXX) $(OBJ) -o $@ \

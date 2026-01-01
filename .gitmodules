@@ -8,3 +8,6 @@
 	path = BitPounce/vendor/imgui
 	url = https://github.com/BitPounce/imgui
 	branch = docking
+[submodule "BitPounce/vendor/glm"]
+	path = BitPounce/vendor/glm
+	url = https://github.com/BitPounce/glm

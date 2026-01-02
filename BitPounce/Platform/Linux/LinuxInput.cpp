@@ -141,4 +141,41 @@ namespace BitPounce
 		return glfwGetKey((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow(), glfwKey);
 	}
 
+    bool LinuxInput::IsMouseButtonPressedImpl(int button)
+    {
+        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetMouseButton(window, button);
+		return state == GLFW_PRESS;
+    }
+
+    glm::vec2 LinuxInput::GetMousePositionImpl()
+    {
+        auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		return { (float)xpos, (float)ypos };
+    }
+
+    float LinuxInput::GetMouseXImpl()
+    {
+        auto pos = GetMousePositionImpl();
+		return pos.x;
+    }
+
+    float LinuxInput::GetMouseYImpl()
+    {
+        auto pos = GetMousePositionImpl();
+		return pos.y;
+    }
+
+    Key PlatformKeyToKey(uint32_t key)
+    {
+        return GLFWKeyToCustom(key);
+    }
+    uint32_t KeyToPlatformKey(Key key)
+    {
+        return CustomKeyToGLFW(key);
+    }
+
 }

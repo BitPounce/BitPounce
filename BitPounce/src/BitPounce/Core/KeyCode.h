@@ -1,6 +1,5 @@
 #include "BitPounce/Core/Base.h"
 
-
 enum class Key : uint16_t {
     // Row 1
     Esc = 1, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
@@ -31,3 +30,11 @@ enum class Key : uint16_t {
     Numpad1, Numpad2, Numpad3,
     Numpad0, NumpadDot, NumpadEnter
 };
+
+
+namespace BitPounce
+{
+    Key PlatformKeyToKey(uint32_t key);
+    uint32_t KeyToPlatformKey(Key key);
+
+}

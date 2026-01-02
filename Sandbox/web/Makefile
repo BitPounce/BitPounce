@@ -1,3 +1,5 @@
+PORT = 8000
+
 # Automatically enable parallel builds using all CPU cores
 MAKEFLAGS += -j$(shell nproc)
 
@@ -22,7 +24,7 @@ OBJ_C   := $(patsubst $(APP_DIR)/src/%.c,   $(BUILD_DIR)/%.o, $(SRC_C))
 OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
-INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include"
+INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
 CXXFLAGS += -DFMT_HEADER_ONLY
 CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3
 
@@ -30,7 +32,7 @@ CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
            -sNO_DISABLE_EXCEPTION_CATCHING -sFULL_ES3=1 -O2 \
            -msimd128 -msse -gsource-map \
-           --source-map-base http://localhost:8000/$(DIST_DIR)/ \
+           --source-map-base http://localhost:$(PORT)/$(DIST_DIR)/ \
            -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
            $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED
 
@@ -74,7 +76,7 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 # Clean build directories
 clean:
 	@echo "Cleaning build directories..."
-	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)"
+	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)" ./assets
 	$(MAKE) -C $(ENGINE_DIR)/web clean
 
 # Auto-dependency includes

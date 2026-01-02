@@ -38,7 +38,8 @@ project "BitPounce"
 		"../BitPounce/vendor/glad/include",
 		"vendor/GLFW/include",
 		"./",
-		"vendor/imgui"
+		"vendor/imgui",
+		"vendor/glm"
 	}
 
 	links

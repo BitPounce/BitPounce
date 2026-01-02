@@ -24,7 +24,8 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
 INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/glad/include"
-INCLUDES += -I"$(IMGUI_DIR)"
+
+INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm"
 CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
 # Compiler options (empty default)
 OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 

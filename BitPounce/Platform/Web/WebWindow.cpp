@@ -2,6 +2,7 @@
 #include "WebWindow.h"
 #include "BitPounce/Core/KeyCode.h"
 #include "Platform/OpenGL/gl.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace BitPounce
 {
@@ -128,7 +129,9 @@ namespace BitPounce
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		gladLoadGLSC2((GLADloadfunc)glfwGetProcAddress);
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+		
 
 		SetupGLFWCallback();
 	}
@@ -146,7 +149,7 @@ namespace BitPounce
 			glfwPollEvents();
 		}
 
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WebWindow::SetVSync(bool enabled)

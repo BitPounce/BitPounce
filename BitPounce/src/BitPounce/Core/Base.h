@@ -10,13 +10,7 @@
 #define BP_EXPAND_MACRO(x) x
 #define BP_STRINGIFY_MACRO(x) #x
 
-#define BP_ENABLE_ASSERTS
-
-#ifdef BP_ENABLE_ASSERTS
-
-#define BP_ASSERT(x, ...) { if(!(x)) { BP_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define BP_CORE_ASSERT(x, ...) { if(!(x)) { BP_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#endif
+#include "Assert.h"
 
 namespace BitPounce
 {

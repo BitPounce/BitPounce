@@ -2,6 +2,12 @@
 #include "LinuxWindow.h"
 #include "Platform/OpenGL/gl.h"
 #include "BitPounce/Core/KeyCode.h"
+#include "BitPounce/Events/KeyEvent.h"
+#include "BitPounce/Events/ApplicationEvent.h"
+#include "BitPounce/Events/MouseEvent.h"
+#include "BitPounce/Core/Logger.h"
+
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace BitPounce {
 
@@ -128,7 +134,8 @@ namespace BitPounce {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		int version = gladLoadGL(glfwGetProcAddress);
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		SetupGLFWCallback();
 	}
@@ -146,7 +153,7 @@ namespace BitPounce {
 			glfwPollEvents();
 		}
 		
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void LinuxWindow::SetVSync(bool enabled)

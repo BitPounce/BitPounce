@@ -39,7 +39,8 @@ project "BitPounce"
 		"vendor/GLFW/include",
 		"./",
 		"vendor/imgui",
-		"vendor/glm"
+		"vendor/glm",
+		"vendor/debugbreak"
 	}
 
 	links

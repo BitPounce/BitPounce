@@ -14,7 +14,7 @@ IMGUI_DIR  := $(VENDOR_DIR)/imgui
 
 # Source files
 IMGUI_SRC := $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
-SRC_CPP	  := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp") $(IMGUI_SRC)
+SRC_CPP	  := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/OpenGL -name "*.cpp") $(IMGUI_SRC)
 SRC_C	  := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/glsc2.c
 
 # Object files
@@ -24,8 +24,8 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directories
 INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/glad/include"
+INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm" -I"$(ENGINE_DIR)/vendor/debugbreak"
 
-INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm"
 CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
 # Compiler options (empty default)
 OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 

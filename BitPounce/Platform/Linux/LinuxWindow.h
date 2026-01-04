@@ -1,6 +1,7 @@
 #pragma once
 #include "BitPounce/Core/Window.h"
 #include <GLFW/glfw3.h>
+#include "BitPounce/Renderer/GraphicsContext.h"
 
 namespace BitPounce
 {
@@ -29,6 +30,7 @@ namespace BitPounce
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

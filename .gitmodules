@@ -11,3 +11,6 @@
 [submodule "BitPounce/vendor/glm"]
 	path = BitPounce/vendor/glm
 	url = https://github.com/BitPounce/glm
+[submodule "BitPounce/vendor/debugbreak"]
+	path = BitPounce/vendor/debugbreak
+	url = https://github.com/BitPounce/debugbreak

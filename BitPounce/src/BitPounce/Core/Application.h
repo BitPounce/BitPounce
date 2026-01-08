@@ -6,6 +6,7 @@
 #include "BitPounce/Events/Event.h"
 #include "Window.h"
 #include "BitPounce/ImGui/ImGuiLayer.h"
+#include "BitPounce/Renderer/Shader.h"
 
 namespace BitPounce
 {
@@ -43,6 +44,7 @@ namespace BitPounce
 		int m_ErrorCode = -1;
 		bool m_IsRunning = true;
 		bool m_IsPoolingEvents = false;
+		std::unique_ptr<Shader> m_Shader;
 		void OnEvent(Event& event);
 		
 	};

@@ -95,8 +95,6 @@ void ImGuiLayer::End()
 
 void ImGuiLayer::OnImGuiRender()
 {
-    static bool show_demo = true;
-    ImGui::ShowDemoWindow(&show_demo);
 }
 
 } // namespace BitPounce

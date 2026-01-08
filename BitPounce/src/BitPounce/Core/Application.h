@@ -34,6 +34,7 @@ namespace BitPounce
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 		void Update();
 		ImGuiLayer* m_ImGuiLayer;
 		static Application* s_Instance;

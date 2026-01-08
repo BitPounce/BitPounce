@@ -22,13 +22,7 @@ project "BitPounce"
 		"../BitPounce/vendor/glad/src/gl.c",
 
 		"vendor/imgui/backends/imgui_impl_opengl3.cpp",
-		"vendor/imgui/backends/imgui_impl_glfw.cpp",
-
-		"vendor/imgui/imgui_demo.cpp",
-		"vendor/imgui/imgui_draw.cpp",
-		"vendor/imgui/imgui_tables.cpp",
-		"vendor/imgui/imgui_widgets.cpp",
-		"vendor/imgui/imgui.cpp"
+		"vendor/imgui/backends/imgui_impl_glfw.cpp"
 	}
 
 	includedirs
@@ -120,3 +114,41 @@ project "BitPounce"
 	filter "configurations:Dist"
 		defines "BP_DIST"
 		optimize "On"
+
+function exposeBitPounceDeps()
+
+    links { "GLFW", "ImGui", "BitPounce" }
+
+    -- Include BitPounce headers
+    includedirs
+    {
+        "src",
+        "vendor/spdlog/include",
+        "vendor/glm",
+        "vendor/imgui",
+        "vendor/glad/include",
+        "vendor/debugbreak"
+    }
+
+    -- Platform-specific libraries
+    filter "system:windows"
+        links { "GLFW", "ImGui", "Opengl32.lib" }
+
+    filter "system:linux"
+        links
+        {
+            "GLFW",
+            "ImGui",
+            "X11",
+            "Xrandr",
+            "Xi",
+            "Xcursor",
+            "Xinerama",
+            "GL",
+            "pthread",
+            "dl",
+            "m"
+        }
+
+    filter {} -- clear filter
+end

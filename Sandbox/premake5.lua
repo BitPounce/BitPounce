@@ -16,13 +16,15 @@ project "Sandbox"
 		"src",
 		"../BitPounce/src",
 		"../BitPounce/vendor/spdlog/include",
-		"../BitPounce/vendor/glm"
+		"../BitPounce/vendor/glm",
+		"../BitPounce/vendor/imgui"
 	}
+
+	exposeBitPounceDeps();
 
 	links
 	{
 		"GLFW",
-		"ImGui",
 		"BitPounce"
 	}
 

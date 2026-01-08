@@ -14,7 +14,10 @@ defines {
 	"FMT_UNICODE=0"
 }
 
-include "Sandbox"
 include "BitPounce"
-include "BitPounce/vendor/GLFW"
-include "BitPounce/vendor/imgui"
+
+include "Sandbox"
+group "Dependencies"
+	include "BitPounce/vendor/GLFW"
+	include "BitPounce/vendor/imgui"
+group ""

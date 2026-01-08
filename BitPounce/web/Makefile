@@ -15,7 +15,7 @@ IMGUI_DIR  := $(VENDOR_DIR)/imgui
 # Source files
 IMGUI_SRC := $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
 SRC_CPP	  := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/OpenGL -name "*.cpp") $(IMGUI_SRC)
-SRC_C	  := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/glsc2.c
+SRC_C	  := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/gles2.c
 
 # Object files
 OBJ_CPP := $(patsubst $(ENGINE_DIR)/%, $(BUILD_DIR)/%, $(SRC_CPP:.cpp=.o))

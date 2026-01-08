@@ -148,7 +148,7 @@ namespace BitPounce {
 			glfwPollEvents();
 		}
 		
-		m_Context->SwapBuffers()
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

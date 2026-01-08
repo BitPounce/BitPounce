@@ -45,8 +45,8 @@ namespace BitPounce
 		unsigned int indices[3] = { 0, 1, 2 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		std::string vertexSrc = R"(
-			#version 330 core
+		std::string vertexSrc = R"(#version 300 es
+			precision mediump float;
 			
 			layout(location = 0) in vec3 a_Position;
 
@@ -59,8 +59,8 @@ namespace BitPounce
 			}
 		)";
 
-		std::string fragmentSrc = R"(
-			#version 330 core
+		std::string fragmentSrc = R"(#version 300 es
+			precision mediump float;
 			
 			layout(location = 0) out vec4 color;
 

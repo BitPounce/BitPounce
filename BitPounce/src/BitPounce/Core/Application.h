@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "BitPounce/ImGui/ImGuiLayer.h"
 #include "BitPounce/Renderer/Shader.h"
+#include "BitPounce/Renderer/Buffer.h"
 
 namespace BitPounce
 {
@@ -35,7 +36,9 @@ namespace BitPounce
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		void Update();
 		ImGuiLayer* m_ImGuiLayer;
 		static Application* s_Instance;

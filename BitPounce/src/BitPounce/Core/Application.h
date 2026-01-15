@@ -8,6 +8,7 @@
 #include "BitPounce/ImGui/ImGuiLayer.h"
 #include "BitPounce/Renderer/Shader.h"
 #include "BitPounce/Renderer/Buffer.h"
+#include "BitPounce/Renderer/VertexArray.h"
 
 namespace BitPounce
 {
@@ -36,8 +37,11 @@ namespace BitPounce
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
-		unsigned int m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		void Update();
 		ImGuiLayer* m_ImGuiLayer;
@@ -47,7 +51,6 @@ namespace BitPounce
 		int m_ErrorCode = -1;
 		bool m_IsRunning = true;
 		bool m_IsPoolingEvents = false;
-		std::unique_ptr<Shader> m_Shader;
 		void OnEvent(Event& event);
 		
 	};

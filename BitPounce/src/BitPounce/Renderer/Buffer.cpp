@@ -11,8 +11,8 @@ namespace BitPounce {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:    BP_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::API::None:    BP_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		BP_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -23,8 +23,8 @@ namespace BitPounce {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:    BP_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL:  return new OpenGLIndexBuffer(indices, size);
+			case RendererAPI::API::None:    BP_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(indices, size);
 		}
 
 		BP_CORE_ASSERT(false, "Unknown RendererAPI!");

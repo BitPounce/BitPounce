@@ -5,6 +5,9 @@
 #include "Logger.h"
 #include <BitPounce/Events/ApplicationEvent.h>
 
+
+#include "BitPounce/Renderer/Renderer.h"
+
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 namespace BitPounce
@@ -170,16 +173,18 @@ namespace BitPounce
 
 	void Application::Update()
 	{
-		glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		Renderer::BeginScene();
 
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		m_BlueShader->Bind();
+		Renderer::Submit(m_SquareVA);
+
+		m_Shader->Bind();
+		Renderer::Submit(m_VertexArray);
+
+		Renderer::EndScene();
 
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate();

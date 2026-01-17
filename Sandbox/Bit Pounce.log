@@ -1,6 +1,6 @@
-[2026-01-15 19:48:40.162] [BIT POUNCE] [info] Logger initialized successfully
-[2026-01-15 19:48:40.162] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
-[2026-01-15 19:48:40.567] [BIT POUNCE] [info] OpenGL Info:
-[2026-01-15 19:48:40.567] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-01-15 19:48:40.567] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-01-15 19:48:40.567] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.95.05
+[2026-01-16 19:46:38.700] [BIT POUNCE] [info] Logger initialized successfully
+[2026-01-16 19:46:38.700] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
+[2026-01-16 19:46:39.000] [BIT POUNCE] [info] OpenGL Info:
+[2026-01-16 19:46:39.000] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-01-16 19:46:39.000] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-01-16 19:46:39.000] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.95.05

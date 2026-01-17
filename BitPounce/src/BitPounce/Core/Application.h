@@ -10,6 +10,8 @@
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/VertexArray.h"
 
+#include "BitPounce/Renderer/OrthographicCamera.h"
+
 namespace BitPounce
 {
 	class Application
@@ -39,6 +41,7 @@ namespace BitPounce
 	private:
 		std::shared_ptr<Shader> m_Shader;
 		std::shared_ptr<VertexArray> m_VertexArray;
+		OrthographicCamera m_Camera;
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;

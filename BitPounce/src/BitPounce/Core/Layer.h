@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include "BitPounce/Core/Base.h"
 #include "BitPounce/Events/Event.h"
+#include "BitPounce/Core/Timestep.h"
 
 namespace BitPounce
 {
@@ -14,7 +14,7 @@ namespace BitPounce
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep& ts) {}
 		virtual void OnEvent(Event& event) {}
 
 		virtual void OnImGuiRender() {}

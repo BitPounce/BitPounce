@@ -6,11 +6,8 @@
 #include "BitPounce/Events/Event.h"
 #include "Window.h"
 #include "BitPounce/ImGui/ImGuiLayer.h"
-#include "BitPounce/Renderer/Shader.h"
-#include "BitPounce/Renderer/Buffer.h"
-#include "BitPounce/Renderer/VertexArray.h"
+#include "BitPounce/Core/Timestep.h"
 
-#include "BitPounce/Renderer/OrthographicCamera.h"
 
 namespace BitPounce
 {
@@ -39,13 +36,7 @@ namespace BitPounce
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-		OrthographicCamera m_Camera;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		float m_LastFrameTime = 0.0f;
 		void Update();
 		ImGuiLayer* m_ImGuiLayer;
 		static Application* s_Instance;

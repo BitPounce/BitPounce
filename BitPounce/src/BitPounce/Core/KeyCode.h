@@ -1,4 +1,8 @@
+#pragma once
+
 #include "BitPounce/Core/Base.h"
+
+namespace BitPounce {
 
 enum class Key : uint16_t {
     // Row 1
@@ -31,7 +35,7 @@ enum class Key : uint16_t {
     Numpad0, NumpadDot, NumpadEnter
 };
 
-
+};
 namespace BitPounce
 {
     Key PlatformKeyToKey(uint32_t key);

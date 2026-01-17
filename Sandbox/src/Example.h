@@ -6,13 +6,148 @@ class ExampleLayer : public BitPounce::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example")
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
+		m_VertexArray.reset(BitPounce::VertexArray::Create());
+
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
+
+		std::shared_ptr<BitPounce::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(BitPounce::VertexBuffer::Create(vertices, sizeof(vertices)));
+		BitPounce::BufferLayout layout = {
+			{ BitPounce::ShaderDataType::Float3, "a_Position" },
+			{ BitPounce::ShaderDataType::Float4, "a_Color" }
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+
+		uint32_t indices[3] = { 0, 1, 2 };
+		std::shared_ptr<BitPounce::IndexBuffer> indexBuffer;
+		indexBuffer.reset(BitPounce::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		m_SquareVA.reset(BitPounce::VertexArray::Create());
+
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		std::shared_ptr<BitPounce::VertexBuffer> squareVB;
+		squareVB.reset(BitPounce::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ BitPounce::ShaderDataType::Float3, "a_Position" }
+		});
+		m_SquareVA->AddVertexBuffer(squareVB);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<BitPounce::IndexBuffer> squareIB;
+		squareIB.reset(BitPounce::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVA->SetIndexBuffer(squareIB);
+
+		std::string vertexSrc = R"(#version 300 es
+			precision mediump float;
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			uniform mat4 u_ViewProjection;
+
+			out vec3 v_Position;
+			out vec4 v_Color;
+
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string fragmentSrc = R"(#version 300 es
+			precision mediump float;
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
+
+		m_Shader.reset(new BitPounce::Shader(vertexSrc, fragmentSrc));
+
+		std::string blueShaderVertexSrc = R"(#version 300 es
+			precision mediump float;
+			
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			uniform mat4 u_ViewProjection;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string blueShaderFragmentSrc = R"(#version 300 es
+			precision mediump float;
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		m_BlueShader.reset(new BitPounce::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(BitPounce::Timestep& ts) override
 	{
-		//BP_INFO("ExampleLayer::Update");
+		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::LeftArrow))
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
+		else if (BitPounce::Input::IsKeyPressed(BitPounce::Key::RightArrow))
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
+
+		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::UpArrow))
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
+		else if (BitPounce::Input::IsKeyPressed(BitPounce::Key::DownArrow))
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
+
+		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::A))
+			m_CameraRotation += m_CameraRotationSpeed * ts;
+		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::D))
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
+
+		BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		BitPounce::RenderCommand::Clear();
+
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
+
+		BitPounce::Renderer::BeginScene(m_Camera);
+
+		BitPounce::Renderer::Submit(m_BlueShader, m_SquareVA);
+		BitPounce::Renderer::Submit(m_Shader, m_VertexArray);
+
+		BitPounce::Renderer::EndScene();
 	}
 
 	void OnEvent(BitPounce::Event& event) override
@@ -26,4 +161,19 @@ public:
             1000.0/(ImGui::GetIO().Framerate),(ImGui::GetIO().Framerate));
 		ImGui::End();
 	}
+
+	private:
+	std::shared_ptr<BitPounce::Shader> m_Shader;
+	std::shared_ptr<BitPounce::VertexArray> m_VertexArray;
+
+	std::shared_ptr<BitPounce::Shader> m_BlueShader;
+	std::shared_ptr<BitPounce::VertexArray> m_SquareVA;
+
+	BitPounce::OrthographicCamera m_Camera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraMoveSpeed = 5.0f;
+
+	float m_CameraRotation = 0.0f;
+	float m_CameraRotationSpeed = 180.0f;
+
 };

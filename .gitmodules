@@ -14,3 +14,6 @@
 [submodule "BitPounce/vendor/debugbreak"]
 	path = BitPounce/vendor/debugbreak
 	url = https://github.com/BitPounce/debugbreak
+[submodule "BitPounce/vendor/stb"]
+	path = BitPounce/vendor/stb
+	url = https://github.com/BitPounce/stb.git

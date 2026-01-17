@@ -83,7 +83,7 @@ namespace BitPounce
 
 		m_ImGuiLayer->End();
 		
-		m_Window->SetVSync(false);
+		//m_Window->SetVSync(false);
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
 

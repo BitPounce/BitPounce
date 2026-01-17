@@ -25,7 +25,7 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directoriesgf
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
-INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui"
+INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)"
 CXXFLAGS += -DFMT_HEADER_ONLY
 CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3
 

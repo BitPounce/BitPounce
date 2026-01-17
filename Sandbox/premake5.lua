@@ -15,6 +15,7 @@ project "Sandbox"
 	{
 		"src",
 		"../BitPounce/src",
+		"../BitPounce/",
 		"../BitPounce/vendor/spdlog/include",
 		"../BitPounce/vendor/glm",
 		"../BitPounce/vendor/imgui"

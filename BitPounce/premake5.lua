@@ -14,6 +14,7 @@ project "BitPounce"
 		"src/**.h",
 		"src/**.hpp",
 		"src/**.cpp",
+		"src/**.c",
 
 		"Platform/OpenGL/**.h",
 		"Platform/OpenGL/**.hpp",
@@ -34,7 +35,8 @@ project "BitPounce"
 		"./",
 		"vendor/imgui",
 		"vendor/glm",
-		"vendor/debugbreak"
+		"vendor/debugbreak",
+		"vendor/stb"
 	}
 
 	links

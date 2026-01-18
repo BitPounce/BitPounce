@@ -36,17 +36,18 @@ public:
 
 		m_SquareVA.reset(BitPounce::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		std::shared_ptr<BitPounce::VertexBuffer> squareVB;
 		squareVB.reset(BitPounce::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ BitPounce::ShaderDataType::Float3, "a_Position" }
+			{ BitPounce::ShaderDataType::Float3, "a_Position" },
+			{ BitPounce::ShaderDataType::Float2, "a_TexCoord" }
 		});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -92,39 +93,50 @@ public:
 
 		m_Shader.reset(BitPounce::Shader::Create(vertexSrc, fragmentSrc));
 
-		std::string flatColorShaderVertexSrc = R"(#version 300 es
+		std::string textureShaderVertexSrc = R"(#version 300 es
 			precision mediump float;
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
 
 			out vec3 v_Position;
+			out vec2 v_TexCoord;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
 			void main()
 			{
+				v_TexCoord = a_TexCoord;
 				v_Position = a_Position;
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
-		std::string flatColorShaderFragmentSrc = R"(#version 300 es
+		std::string textureShaderFragmentSrc = R"(#version 300 es
 			precision mediump float;
 			
 			layout(location = 0) out vec4 color;
 		
+			in vec2 v_TexCoord;
 			in vec3 v_Position;
 
 			uniform vec3 u_Color;
+			uniform sampler2D u_Texture;
 
 			void main()
 			{
-				color = vec4(u_Color, 1.0);
+				color = texture(u_Texture, v_TexCoord) * vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_FlatColorShader.reset(BitPounce::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_Texture = BitPounce::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		m_TextureShader.reset(BitPounce::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		m_TextureShader->Unbind();
 	}
 
 	void OnUpdate(BitPounce::Timestep& ts) override
@@ -154,16 +166,17 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
+		m_Texture->Bind();
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				BitPounce::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
+				BitPounce::Renderer::Submit(m_TextureShader, m_SquareVA, transform);
 			}
 		}
 
@@ -190,11 +203,12 @@ public:
 	}
 
 	private:
-		std::shared_ptr<BitPounce::Shader> m_Shader;
-		std::shared_ptr<BitPounce::VertexArray> m_VertexArray;
+		BitPounce::Ref<BitPounce::Shader> m_Shader;
+		BitPounce::Ref<BitPounce::VertexArray> m_VertexArray;
 
-		std::shared_ptr<BitPounce::Shader> m_FlatColorShader;
-		std::shared_ptr<BitPounce::VertexArray> m_SquareVA;
+		BitPounce::Ref<BitPounce::Shader> m_TextureShader;
+		BitPounce::Ref<BitPounce::Texture2D> m_Texture;
+		BitPounce::Ref<BitPounce::VertexArray> m_SquareVA;
 
 		BitPounce::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;

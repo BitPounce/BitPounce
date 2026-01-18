@@ -17,3 +17,4 @@
 #include "BitPounce/Renderer/RendererAPI.h"
 #include "BitPounce/Renderer/Shader.h"
 #include "BitPounce/Renderer/VertexArray.h"
+#include "BitPounce/Renderer/Texture.h"

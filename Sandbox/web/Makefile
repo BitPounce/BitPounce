@@ -27,7 +27,7 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
 INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)"
 CXXFLAGS += -DFMT_HEADER_ONLY
-CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3
+CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1
 
 # Compiler options
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
@@ -73,11 +73,13 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 	    -sEXPORTED_RUNTIME_METHODS='["ccall","cwrap","requestFullscreen"]' \
 	    $(OPTIONS) \
 	    --preload-file "assets"
+	
+	@rm -rf ./assets
 
 # Clean build directories
 clean:
 	@echo "Cleaning build directories..."
-	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)" ./assets
+	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)"
 	$(MAKE) -C $(ENGINE_DIR)/web clean
 
 # Auto-dependency includes

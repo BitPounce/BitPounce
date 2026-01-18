@@ -8,6 +8,7 @@
 #include "BitPounce/Core/Timestep.h"
 #include "BitPounce/Core/MouseButtonCodes.h"
 #include "BitPounce/Core/KeyCode.h"
+#include "BitPounce/Core/PlatformTools.h"
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"

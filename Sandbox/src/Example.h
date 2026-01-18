@@ -12,6 +12,16 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
+		size_t size = 20000;
+		test = (char*)DiskAlloc(size);
+		for (size_t i = 0; i < size; i++)
+		{
+			test[i] = 'w';
+		}
+		
+		DiskFree(size, test);
+
+
 		m_VertexArray.reset(BitPounce::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -203,6 +213,7 @@ public:
 	}
 
 	private:
+		char* test;
 		BitPounce::Ref<BitPounce::Shader> m_Shader;
 		BitPounce::Ref<BitPounce::VertexArray> m_VertexArray;
 

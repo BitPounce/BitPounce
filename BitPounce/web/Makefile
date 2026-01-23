@@ -1,3 +1,7 @@
+ifndef verbose
+  SILENT = @
+endif
+
 # Automatically enable parallel builds using all CPU cores
 MAKEFLAGS += -j$(shell nproc)
 
@@ -28,7 +32,7 @@ INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm" -I"$(ENGINE_DIR)/vendor/debug
 
 CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
 # Compiler options (empty default)
-OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/= 
+OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128
 
 all: print-info $(DIST_DIR)/libBitPounce.a
 
@@ -45,18 +49,18 @@ print-info:
 $(BUILD_DIR)/%.o: $(ENGINE_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	@echo "Compiling C++: $<"
-	$(CXX) -std=c++20 $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
+	$(SILENT) $(CXX) -std=c++20 $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
 
 $(BUILD_DIR)/%.o: $(ENGINE_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling C:   $<"
-	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
+	$(SILENT) $(CXX) $(OPTIONS) -MMD -MP -c $< -o $@ $(INCLUDES)
 
 # Archive
 $(DIST_DIR)/libBitPounce.a: $(OBJ)
 	@mkdir -p $(DIST_DIR)
 	@echo "Archiving libBitPounce.a"
-	emar rcs $@ $(OBJ)
+	$(SILENT) emar rcs $@ $(OBJ)
 
 # Clean
 clean:

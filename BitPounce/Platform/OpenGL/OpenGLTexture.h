@@ -1,6 +1,9 @@
 #pragma once
 
 #include "BitPounce/Renderer/Texture.h"
+#include "BitPounce/Core/PlatformTools.h"
+#include "BitPounce/Core/Buffer.h"
+#include "BitPounce/Core/FileSystem.h"
 
 namespace BitPounce {
 

@@ -5,6 +5,7 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <BitPounce/Core/FileSystem.h>
 
 class ExampleLayer : public BitPounce::Layer
 {
@@ -20,6 +21,8 @@ public:
 		}
 		
 		DiskFree(size, test);
+
+		BitPounce::FileSystem::AddFile("assets/textures/Checkerboard.png");
 
 
 		m_VertexArray.reset(BitPounce::VertexArray::Create());

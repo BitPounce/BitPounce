@@ -1,5 +1,9 @@
 PORT = 8000
 
+ifndef verbose
+  SILENT = @
+endif
+
 # Automatically enable parallel builds using all CPU cores
 MAKEFLAGS += -j$(shell nproc)
 
@@ -44,17 +48,17 @@ all: buildEngine $(DIST_DIR)/index.html
 $(BUILD_DIR)/%.o: $(APP_DIR)/src/%.cpp
 	@mkdir -p $(dir $@)
 	@echo "Compiling C++: $<"
-	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
+	$(SILENT) $(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(APP_DIR)/src/%.c
 	@mkdir -p $(dir $@)
 	@echo "Compiling C:   $<"
-	$(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
+	$(SILENT) $(CXX) $(OPTIONS) -MMD -MP -c $< -o $@
 
 # Build engine recursively
 buildEngine:
 	@echo "Building Engine..."
-	$(MAKE) -C $(ENGINE_DIR)/web $(MAKEFLAGS)
+	$(SILENT) $(MAKE) -C $(ENGINE_DIR)/web $(MAKEFLAGS)
 
 ./assets:
 	cp -r $(APP_DIR)/assets ./assets
@@ -66,7 +70,7 @@ $(ENGINE_LIB): buildEngine
 $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 	@mkdir -p $(DIST_DIR)
 	@echo "Linking index.html with WebAssembly..."
-	$(CXX) $(OBJ) -o $@ \
+	$(SILENT) $(CXX) $(OBJ) -o $@ \
 	    -L"$(BASE_DIR)/bin/Debug-WebGL/BitPounce" \
 	    -Wl,--whole-archive -lBitPounce -Wl,--no-whole-archive \
 	    -sEXPORTED_FUNCTIONS='["_main", "_malloc", "_free"]' \
@@ -80,7 +84,7 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 clean:
 	@echo "Cleaning build directories..."
 	@rm -rf "$(BUILD_DIR)" "$(DIST_DIR)"
-	$(MAKE) -C $(ENGINE_DIR)/web clean
+	$(SILENT) $(MAKE) -C $(ENGINE_DIR)/web clean
 
 # Auto-dependency includes
 -include $(OBJ:.o=.d)

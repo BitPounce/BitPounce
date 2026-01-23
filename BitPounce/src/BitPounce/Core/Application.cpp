@@ -4,6 +4,7 @@
 #include "Logger.h"
 #include <BitPounce/Events/ApplicationEvent.h>
 #include <GLFW/glfw3.h>
+#include "BitPounce/Renderer/Renderer.h"
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -19,6 +20,8 @@ namespace BitPounce
 		
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

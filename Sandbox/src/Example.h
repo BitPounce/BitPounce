@@ -144,6 +144,7 @@ public:
 		)";
 
 		m_Texture = BitPounce::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_PlayerTexture = BitPounce::Texture2D::Create("assets/textures/Player.png");
 
 		m_TextureShader.reset(BitPounce::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
@@ -194,7 +195,8 @@ public:
 		}
 
 		BitPounce::Renderer::Submit(m_Shader, m_VertexArray);
-
+		m_PlayerTexture->Bind();
+		BitPounce::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		BitPounce::Renderer::EndScene();
 	}
@@ -221,7 +223,7 @@ public:
 		BitPounce::Ref<BitPounce::VertexArray> m_VertexArray;
 
 		BitPounce::Ref<BitPounce::Shader> m_TextureShader;
-		BitPounce::Ref<BitPounce::Texture2D> m_Texture;
+		BitPounce::Ref<BitPounce::Texture2D> m_Texture, m_PlayerTexture;
 		BitPounce::Ref<BitPounce::VertexArray> m_SquareVA;
 
 		BitPounce::OrthographicCamera m_Camera;

@@ -37,8 +37,17 @@ namespace BitPounce {
 		return 0;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
+		m_Name = name;
+
+		std::unordered_map<GLenum, std::string> sources;
+		sources[GL_VERTEX_SHADER] = vertexSrc;
+		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
+
+		Compile(sources);
+
+		/* 
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -138,7 +147,7 @@ namespace BitPounce {
 
 		// Always detach shaders after a successful link.
 		glDetachShader(program, vertexShader);
-		glDetachShader(program, fragmentShader);
+		glDetachShader(program, fragmentShader);*/
 	}
 
 	OpenGLShader::OpenGLShader(const std::filesystem::path& filepath)
@@ -192,6 +201,13 @@ namespace BitPounce {
 
 		std::string includePath = filepath.parent_path().string();
     	std::string filename    = filepath.filename().string();
+		std::string filepathStr = includePath + '/' + filename;
+
+		auto lastSlash = filepathStr.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filepathStr.rfind('.');
+		auto count = lastDot == std::string::npos ? filepathStr.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepathStr.substr(lastSlash, count);
 
 		for (auto& src : shaderSources)
 		{

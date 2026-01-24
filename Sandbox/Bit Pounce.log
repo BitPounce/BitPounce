@@ -1,20 +1,20 @@
-[2026-01-24 18:24:19.441] [BIT POUNCE] [info] Logger initialized successfully
-[2026-01-24 18:24:19.441] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
-[2026-01-24 18:24:19.902] [BIT POUNCE] [info] OpenGL Info:
-[2026-01-24 18:24:19.903] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-01-24 18:24:19.903] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-01-24 18:24:19.903] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
-[2026-01-24 18:24:19.913] [BIT POUNCE] [info] Adding real file: assets/textures/Checkerboard.png
-[2026-01-24 18:24:19.913] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
-[2026-01-24 18:24:19.913] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Successfully added real file: assets/textures/Checkerboard.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Found real file in cache: assets/textures/Checkerboard.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
-[2026-01-24 18:24:22.626] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png
-[2026-01-24 18:24:22.627] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
-[2026-01-24 18:24:22.638] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-01-24 18:24:22.638] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
-[2026-01-24 18:24:22.638] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl
-[2026-01-24 18:24:22.638] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-01-24 20:20:52.608] [BIT POUNCE] [info] Logger initialized successfully
+[2026-01-24 20:20:52.608] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
+[2026-01-24 20:20:53.142] [BIT POUNCE] [info] OpenGL Info:
+[2026-01-24 20:20:53.142] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-01-24 20:20:53.142] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-01-24 20:20:53.142] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Adding real file: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Successfully added real file: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Found real file in cache: assets/textures/Checkerboard.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
+[2026-01-24 20:20:53.152] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png
+[2026-01-24 20:20:53.153] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
+[2026-01-24 20:20:53.174] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-01-24 20:20:53.174] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
+[2026-01-24 20:20:53.174] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl
+[2026-01-24 20:20:53.174] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl

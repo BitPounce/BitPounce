@@ -13,14 +13,6 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
-		size_t size = 20000;
-		test = (char*)DiskAlloc(size);
-		for (size_t i = 0; i < size; i++)
-		{
-			test[i] = 'w';
-		}
-		
-		DiskFree(size, test);
 
 		BitPounce::FileSystem::AddFile("assets/textures/Checkerboard.png");
 
@@ -104,7 +96,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(BitPounce::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = BitPounce::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string textureShaderVertexSrc = R"(#version 300 es
 			precision mediump float;
@@ -146,11 +138,11 @@ public:
 		m_Texture = BitPounce::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_PlayerTexture = BitPounce::Texture2D::Create("assets/textures/Player.png");
 
-		m_TextureShader.reset(BitPounce::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
-		m_TextureShader->Unbind();
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Unbind();
 	}
 
 	void OnUpdate(BitPounce::Timestep& ts) override
@@ -180,8 +172,10 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		m_Texture->Bind();
 		for (int y = 0; y < 20; y++)
@@ -190,13 +184,13 @@ public:
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				BitPounce::Renderer::Submit(m_TextureShader, m_SquareVA, transform);
+				BitPounce::Renderer::Submit(textureShader, m_SquareVA, transform);
 			}
 		}
 
 		BitPounce::Renderer::Submit(m_Shader, m_VertexArray);
 		m_PlayerTexture->Bind();
-		BitPounce::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		BitPounce::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		BitPounce::Renderer::EndScene();
 	}
@@ -218,11 +212,10 @@ public:
 	}
 
 	private:
-		char* test;
+		BitPounce::ShaderLibrary m_ShaderLibrary;
 		BitPounce::Ref<BitPounce::Shader> m_Shader;
 		BitPounce::Ref<BitPounce::VertexArray> m_VertexArray;
 
-		BitPounce::Ref<BitPounce::Shader> m_TextureShader;
 		BitPounce::Ref<BitPounce::Texture2D> m_Texture, m_PlayerTexture;
 		BitPounce::Ref<BitPounce::VertexArray> m_SquareVA;
 

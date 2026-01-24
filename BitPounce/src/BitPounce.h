@@ -9,6 +9,7 @@
 #include "BitPounce/Core/MouseButtonCodes.h"
 #include "BitPounce/Core/KeyCode.h"
 #include "BitPounce/Core/PlatformTools.h"
+#include <BitPounce/Core/FileSystem.h>
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"
@@ -19,3 +20,4 @@
 #include "BitPounce/Renderer/Shader.h"
 #include "BitPounce/Renderer/VertexArray.h"
 #include "BitPounce/Renderer/Texture.h"
+#include "BitPounce/Renderer/OrthographicCameraController.h"

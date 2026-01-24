@@ -5,13 +5,13 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <BitPounce/Core/FileSystem.h>
+
 
 class ExampleLayer : public BitPounce::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 
 		BitPounce::FileSystem::AddFile("assets/textures/Checkerboard.png");
@@ -147,28 +147,13 @@ public:
 
 	void OnUpdate(BitPounce::Timestep& ts) override
 	{
-		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::LeftArrow))
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		else if (BitPounce::Input::IsKeyPressed(BitPounce::Key::RightArrow))
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-
-		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::UpArrow))
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		else if (BitPounce::Input::IsKeyPressed(BitPounce::Key::DownArrow))
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-
-		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::A))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		if (BitPounce::Input::IsKeyPressed(BitPounce::Key::D))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
+		m_CameraController.OnUpdate(ts);
 
 		BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		BitPounce::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
 
-		BitPounce::Renderer::BeginScene(m_Camera);
+		BitPounce::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -197,6 +182,7 @@ public:
 
 	void OnEvent(BitPounce::Event& event) override
 	{
+		m_CameraController.OnEvent(event);
 	}
 
 	void OnImGuiRender() override
@@ -212,6 +198,7 @@ public:
 	}
 
 	private:
+		
 		BitPounce::ShaderLibrary m_ShaderLibrary;
 		BitPounce::Ref<BitPounce::Shader> m_Shader;
 		BitPounce::Ref<BitPounce::VertexArray> m_VertexArray;
@@ -219,12 +206,8 @@ public:
 		BitPounce::Ref<BitPounce::Texture2D> m_Texture, m_PlayerTexture;
 		BitPounce::Ref<BitPounce::VertexArray> m_SquareVA;
 
-		BitPounce::OrthographicCamera m_Camera;
-		glm::vec3 m_CameraPosition;
-		float m_CameraMoveSpeed = 5.0f;
+		BitPounce::OrthographicCameraController m_CameraController;
 
-		float m_CameraRotation = 0.0f;
-		float m_CameraRotationSpeed = 180.0f;
 		glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 };

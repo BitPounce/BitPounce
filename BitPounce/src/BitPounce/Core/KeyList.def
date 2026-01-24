@@ -1,0 +1,46 @@
+// Format: BP_KEY(MACRO_NAME, EnumName)
+BP_KEY(ESC,        Esc)
+BP_KEY(F1,         F1)  BP_KEY(F2, F2)  BP_KEY(F3, F3)  BP_KEY(F4, F4)
+BP_KEY(F5,         F5)  BP_KEY(F6, F6)  BP_KEY(F7, F7)  BP_KEY(F8, F8)
+BP_KEY(F9,         F9)  BP_KEY(F10, F10) BP_KEY(F11, F11) BP_KEY(F12, F12)
+
+// Number row
+BP_KEY(KEY_1,      Key1) BP_KEY(KEY_2, Key2) BP_KEY(KEY_3, Key3) BP_KEY(KEY_4, Key4)
+BP_KEY(KEY_5,      Key5) BP_KEY(KEY_6, Key6) BP_KEY(KEY_7, Key7) BP_KEY(KEY_8, Key8)
+BP_KEY(KEY_9,      Key9) BP_KEY(KEY_0, Key0)
+BP_KEY(MINUS,      Minus) BP_KEY(EQUAL, Equal) BP_KEY(BACKSPACE, Backspace)
+
+// QWERTY row
+BP_KEY(TAB,        Tab) BP_KEY(Q, Q) BP_KEY(W, W) BP_KEY(E, E) BP_KEY(R, R) BP_KEY(T, T)
+BP_KEY(Y,          Y) BP_KEY(U, U) BP_KEY(I, I) BP_KEY(O, O) BP_KEY(P, P)
+BP_KEY(LEFT_BRACKET, LeftBracket) BP_KEY(RIGHT_BRACKET, RightBracket) BP_KEY(BACKSLASH, Backslash)
+
+// Home row
+BP_KEY(CAPS_LOCK, CapsLock) BP_KEY(A, A) BP_KEY(S, S) BP_KEY(D, D) BP_KEY(F, F) BP_KEY(G, G)
+BP_KEY(H, H) BP_KEY(J, J) BP_KEY(K, K) BP_KEY(L, L)
+BP_KEY(SEMICOLON, Semicolon) BP_KEY(APOSTROPHE, Apostrophe) BP_KEY(ENTER, Enter)
+
+// Bottom row
+BP_KEY(LEFT_SHIFT, LeftShift) BP_KEY(Z, Z) BP_KEY(X, X) BP_KEY(C, C) BP_KEY(V, V) BP_KEY(B, B)
+BP_KEY(N, N) BP_KEY(M, M)
+BP_KEY(COMMA, Comma) BP_KEY(PERIOD, Period) BP_KEY(SLASH, Slash) BP_KEY(RIGHT_SHIFT, RightShift)
+
+// Modifiers & space
+BP_KEY(LEFT_CTRL, LeftCtrl) BP_KEY(RIGHT_CTRL, RightCtrl)
+BP_KEY(LEFT_ALT, LeftAlt) BP_KEY(RIGHT_ALT, RightAlt)
+BP_KEY(LEFT_WIN, LeftWin) BP_KEY(RIGHT_WIN, RightWin)
+BP_KEY(MENU, Menu) BP_KEY(SPACE, Space)
+
+// Arrow/navigation
+BP_KEY(UP, UpArrow) BP_KEY(DOWN, DownArrow) BP_KEY(LEFT, LeftArrow) BP_KEY(RIGHT, RightArrow)
+BP_KEY(INSERT, Insert) BP_KEY(HOME, Home) BP_KEY(PAGE_UP, PageUp)
+BP_KEY(DELETE, Delete) BP_KEY(END, End) BP_KEY(PAGE_DOWN, PageDown)
+
+// Numpad
+BP_KEY(NUM_LOCK, NumLock)
+BP_KEY(NUMPAD_DIV, NumpadDiv) BP_KEY(NUMPAD_MUL, NumpadMul) BP_KEY(NUMPAD_SUB, NumpadSub)
+BP_KEY(NUMPAD_ADD, NumpadAdd) BP_KEY(NUMPAD_0, Numpad0) BP_KEY(NUMPAD_1, Numpad1)
+BP_KEY(NUMPAD_2, Numpad2) BP_KEY(NUMPAD_3, Numpad3) BP_KEY(NUMPAD_4, Numpad4)
+BP_KEY(NUMPAD_5, Numpad5) BP_KEY(NUMPAD_6, Numpad6) BP_KEY(NUMPAD_7, Numpad7)
+BP_KEY(NUMPAD_8, Numpad8) BP_KEY(NUMPAD_9, Numpad9)
+BP_KEY(NUMPAD_DOT, NumpadDot) BP_KEY(NUMPAD_ENTER, NumpadEnter)

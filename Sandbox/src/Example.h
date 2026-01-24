@@ -17,7 +17,7 @@ public:
 		BitPounce::FileSystem::AddFile("assets/textures/Checkerboard.png");
 
 
-		m_VertexArray.reset(BitPounce::VertexArray::Create());
+		m_VertexArray = BitPounce::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -26,7 +26,7 @@ public:
 		};
 
 		std::shared_ptr<BitPounce::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(BitPounce::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = BitPounce::VertexBuffer::Create(vertices, sizeof(vertices));
 		BitPounce::BufferLayout layout = {
 			{ BitPounce::ShaderDataType::Float3, "a_Position" },
 			{ BitPounce::ShaderDataType::Float4, "a_Color" }
@@ -36,10 +36,10 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		std::shared_ptr<BitPounce::IndexBuffer> indexBuffer;
-		indexBuffer.reset(BitPounce::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer =BitPounce::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(BitPounce::VertexArray::Create());
+		m_SquareVA = BitPounce::VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -49,7 +49,7 @@ public:
 		};
 
 		std::shared_ptr<BitPounce::VertexBuffer> squareVB;
-		squareVB.reset(BitPounce::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB =BitPounce::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ BitPounce::ShaderDataType::Float3, "a_Position" },
 			{ BitPounce::ShaderDataType::Float2, "a_TexCoord" }
@@ -58,7 +58,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<BitPounce::IndexBuffer> squareIB;
-		squareIB.reset(BitPounce::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB =BitPounce::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(#version 300 es

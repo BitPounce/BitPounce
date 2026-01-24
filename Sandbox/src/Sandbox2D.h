@@ -1,0 +1,25 @@
+#pragma once
+
+#include "BitPounce.h"
+
+class Sandbox2D : public BitPounce::Layer
+{
+public:
+	Sandbox2D();
+	virtual ~Sandbox2D() = default;
+
+	virtual void OnAttach() override;
+	virtual void OnDetach() override;
+
+	void OnUpdate(BitPounce::Timestep& ts) override;
+	virtual void OnImGuiRender() override;
+	void OnEvent(BitPounce::Event& e) override;
+private:
+	BitPounce::OrthographicCameraController m_CameraController;
+	
+	// Temp
+	BitPounce::Ref<BitPounce::VertexArray> m_SquareVA;
+	BitPounce::Ref<BitPounce::Shader> m_FlatColorShader;
+
+	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+};

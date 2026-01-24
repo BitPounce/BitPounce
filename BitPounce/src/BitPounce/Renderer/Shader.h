@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdint>
 #include <glm/glm.hpp>
-
+#include <filesystem>
 namespace BitPounce
 {
     class Shader
@@ -15,5 +15,6 @@ namespace BitPounce
 		virtual void Unbind() const = 0;
 
 		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+        static Shader* Create(const std::filesystem::path& filepath);
     };
 }

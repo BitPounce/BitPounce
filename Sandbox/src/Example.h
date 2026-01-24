@@ -146,7 +146,7 @@ public:
 		m_Texture = BitPounce::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_PlayerTexture = BitPounce::Texture2D::Create("assets/textures/Player.png");
 
-		m_TextureShader.reset(BitPounce::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_TextureShader.reset(BitPounce::Shader::Create("assets/shaders/Texture.glsl"));
 
 		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);

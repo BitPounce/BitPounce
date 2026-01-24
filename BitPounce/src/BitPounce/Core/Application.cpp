@@ -103,6 +103,8 @@ namespace BitPounce
 			return false;
 		});
 
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(event);
@@ -117,5 +119,11 @@ namespace BitPounce
 		#endif
 
 		m_IsPoolingEvents = false;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent &e)
+	{
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+    	return false;
 	}
 }

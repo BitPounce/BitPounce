@@ -155,7 +155,7 @@ namespace BitPounce {
 		BufferBase source = FileSystem::LoadFile(filepath);
 		Buffer tmp = Buffer(source.Size);
 		DiskMemCpy(tmp.As<uint8_t>(), source.Data, source.Size);
-		std::string src = std::string(tmp.As<char>());
+		std::string src = std::string(tmp.As<char>(), tmp.Size);
 		auto shaderSources = PreProcess(src, filepath);
 		Compile(shaderSources);
 		
@@ -181,6 +181,7 @@ namespace BitPounce {
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+
 		}
 
 		

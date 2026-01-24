@@ -7,8 +7,7 @@
 #include "Window.h"
 #include "BitPounce/ImGui/ImGuiLayer.h"
 #include "BitPounce/Core/Timestep.h"
-
-
+#include "BitPounce/Events/ApplicationEvent.h"
 namespace BitPounce
 {
 	class Application
@@ -46,6 +45,7 @@ namespace BitPounce
 		bool m_IsRunning = true;
 		bool m_IsPoolingEvents = false;
 		void OnEvent(Event& event);
+		bool OnWindowResize(WindowResizeEvent& e);
 		
 	};
 

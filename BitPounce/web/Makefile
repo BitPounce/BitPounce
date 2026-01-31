@@ -32,7 +32,7 @@ INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm" -I"$(ENGINE_DIR)/vendor/debug
 
 CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
 # Compiler options (empty default)
-OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128
+OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128 --use-port=emdawnwebgpu
 
 all: print-info $(DIST_DIR)/libBitPounce.a
 

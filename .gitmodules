@@ -17,3 +17,12 @@
 [submodule "BitPounce/vendor/stb"]
 	path = BitPounce/vendor/stb
 	url = https://github.com/BitPounce/stb.git
+[submodule "BitPounce/vendor/bgfx"]
+	path = BitPounce/vendor/bgfx
+	url = https://github.com/BitPounce/bgfx
+[submodule "BitPounce/vendor/bimg"]
+	path = BitPounce/vendor/bimg
+	url = https://github.com/BitPounce/bimg
+[submodule "BitPounce/vendor/bx"]
+	path = BitPounce/vendor/bx
+	url = https://github.com/BitPounce/bx

@@ -10,6 +10,17 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-clang-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
+        },
+        {
+            "name": "Web",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/mnt/library/dev/emsdk/upstream/emscripten/system/include"
+            ],
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4

@@ -1,4 +1,5 @@
 {
     "cmake.ignoreCMakeListsMissing": true,
-    "C_Cpp.default.compilerPath": "/usr/bin/g++"
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "makefile.makefilePath": "/mnt/library/Games_In_C++/26/1/BitPounce/Sandbox/web/Makefile"
 }

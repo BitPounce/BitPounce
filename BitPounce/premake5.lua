@@ -1,3 +1,64 @@
+function exposeBitPounceDeps()
+
+    links { "GLFW", "ImGui" }
+
+    -- Include BitPounce headers
+    includedirs
+    {
+        "../BitPounce/src",
+        "../BitPounce/vendor/spdlog/include",
+        "../BitPounce/vendor/glm",
+        "../BitPounce/vendor/imgui",
+        "../BitPounce/vendor/glad/include",
+        "../BitPounce/vendor/debugbreak"
+    }
+
+    -- Platform-specific libraries
+    filter "system:windows"
+        links { "GLFW", "ImGui", "Opengl32.lib" }
+
+    filter "system:linux"
+        links
+        {
+            "GLFW",
+            "ImGui",
+            "X11",
+            "Xrandr",
+            "Xi",
+            "Xcursor",
+            "Xinerama",
+            "GL",
+            "pthread",
+            "dl",
+            "m"
+        }
+
+		libdirs
+    	{
+    	     "../BitPounce/vendor/bgfx/.build/linux64_gcc/bin"
+    	}
+
+	
+filter "system:Bindoj"
+    libdirs
+    {
+        "../BitPounce/vendor/bgfx/.build/win64_vs2022/bin"
+    }
+
+filter { "configurations:Debug", "system:linux or system:Bindoj" }
+    links
+    {
+        "bxDebug",
+        "bimg_decodeDebug",
+        "bgfxDebug"
+    }
+
+filter {}
+
+
+    filter {} -- clear filter
+end
+
 project "BitPounce"
 	kind "StaticLib"
 	language "C++"
@@ -44,6 +105,8 @@ project "BitPounce"
 		"GLFW",
 		"ImGui"
 	}
+
+	exposeBitPounceDeps()
 	-- %{cfg.buildcfg}
 	-- GLFW_INCLUDE_NONE
 	defines {"GLFW_INCLUDE_NONE"}
@@ -117,40 +180,3 @@ project "BitPounce"
 		defines "BP_DIST"
 		optimize "On"
 
-function exposeBitPounceDeps()
-
-    links { "GLFW", "ImGui", "BitPounce" }
-
-    -- Include BitPounce headers
-    includedirs
-    {
-        "src",
-        "vendor/spdlog/include",
-        "vendor/glm",
-        "vendor/imgui",
-        "vendor/glad/include",
-        "vendor/debugbreak"
-    }
-
-    -- Platform-specific libraries
-    filter "system:windows"
-        links { "GLFW", "ImGui", "Opengl32.lib" }
-
-    filter "system:linux"
-        links
-        {
-            "GLFW",
-            "ImGui",
-            "X11",
-            "Xrandr",
-            "Xi",
-            "Xcursor",
-            "Xinerama",
-            "GL",
-            "pthread",
-            "dl",
-            "m"
-        }
-
-    filter {} -- clear filter
-end

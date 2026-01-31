@@ -31,15 +31,20 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
 INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)"
 CXXFLAGS += -DFMT_HEADER_ONLY
-CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1
-
+CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1 
+LINKDIRS := -L"$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin"
+LINKS := \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bxDebug.a" \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimgDebug.a" \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimg_decodeDebug.a" \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bgfxDebug.a"
 # Compiler options
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
            -sNO_DISABLE_EXCEPTION_CATCHING -sFULL_ES3=1 -O2 \
            -msimd128 -msse -gsource-map \
            --source-map-base http://localhost:$(PORT)/$(DIST_DIR)/ \
            -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
-           $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED
+           $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED $(LINKDIRS) $(LINKS)
 
 # Default target
 all: buildEngine $(DIST_DIR)/index.html

@@ -5,17 +5,6 @@
 #include <fstream>
 #include <unordered_map>
 
-#ifdef BP_PLATFORM_WEB
-namespace std {
-    template<>
-    struct hash<std::filesystem::path> {
-        std::size_t operator()(const std::filesystem::path& path) const noexcept {
-            return std::hash<std::string>()(path.string());
-        }
-    };
-}
-#endif
-
 namespace BitPounce
 {
 	static std::unordered_map<std::filesystem::path, DiskBuffer> s_RealFiles;

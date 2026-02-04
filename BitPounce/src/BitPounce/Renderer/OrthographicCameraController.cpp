@@ -48,11 +48,7 @@ namespace BitPounce {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
-        #ifdef BP_PLATFORM_WEB
-        float ts = (.1f / ImGui::GetIO().Framerate);
-        #else
         float ts = (10.f / ImGui::GetIO().Framerate);
-        #endif
 		m_ZoomLevel -= e.GetYOffset() * ts;
 		m_ZoomLevel = std::max(m_ZoomLevel, ts);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);

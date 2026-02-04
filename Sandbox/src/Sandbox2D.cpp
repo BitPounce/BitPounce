@@ -13,28 +13,6 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
-	m_SquareVA = BitPounce::VertexArray::Create();
-
-	float squareVertices[5 * 4] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
-	};
-
-	BitPounce::Ref<BitPounce::VertexBuffer> squareVB;
-	squareVB =BitPounce::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
-	squareVB->SetLayout({
-		{ BitPounce::ShaderDataType::Float3, "a_Position" }
-	});
-	m_SquareVA->AddVertexBuffer(squareVB);
-
-	uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	BitPounce::Ref<BitPounce::IndexBuffer> squareIB;
-	squareIB =BitPounce::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
-	m_SquareVA->SetIndexBuffer(squareIB);
-
-	m_FlatColorShader = BitPounce::Shader::Create("assets/shaders/FlatColor.glsl");
 }
 
 void Sandbox2D::OnDetach()
@@ -52,10 +30,9 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 
 	BitPounce::Renderer::BeginScene(m_CameraController.GetCamera());
 
-	std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_FlatColorShader)->Bind();
-	std::dynamic_pointer_cast<BitPounce::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
-
-	BitPounce::Renderer::Submit(m_FlatColorShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+	BitPounce::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	BitPounce::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
+	BitPounce::Renderer2D::EndScene();
 
 	BitPounce::Renderer::EndScene();
 }

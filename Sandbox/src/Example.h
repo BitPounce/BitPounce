@@ -140,8 +140,8 @@ public:
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 		textureShader->Unbind();
 	}
 
@@ -159,8 +159,8 @@ public:
 
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<BitPounce::OpenGLShader>(textureShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		textureShader->Bind();
+		textureShader->SetFloat3("u_Color", m_SquareColor);
 
 		m_Texture->Bind();
 		for (int y = 0; y < 20; y++)

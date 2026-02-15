@@ -51,7 +51,26 @@ project "OpenAL-Soft"
 
 		links
 		{
-			"winmm"
+			"winmm",
+			"ole32"
+		}
+
+	filter "system:linux"
+		pic "On"
+
+		defines
+		{
+			"AL_BUILD_LIBRARY",
+			"AL_ALEXT_PROTOTYPES",
+			"HAVE_ALSA",
+			"HAVE_PTHREAD"
+		}
+
+		links
+		{
+			"pthread",
+			"dl",
+			"asound"
 		}
 
 	filter "configurations:Debug"
@@ -61,3 +80,9 @@ project "OpenAL-Soft"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
+		symbols "on"
+
+	filter "configurations:Dist"
+		runtime "Release"
+		optimize "Full"
+		symbols "off"

@@ -39,13 +39,13 @@ function exposeBitPounceDeps()
     	}
 
 	
-filter "system:Bindoj"
+filter "system:Windows"
     libdirs
     {
         "../BitPounce/vendor/bgfx/.build/win64_vs2022/bin"
     }
 
-filter { "configurations:Debug", "system:linux or system:Bindoj" }
+filter { "configurations:Debug", "system:linux or system:Windows" }
     links
     {
         "bxDebug",

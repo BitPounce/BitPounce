@@ -97,7 +97,8 @@ project "BitPounce"
 		"vendor/imgui",
 		"vendor/glm",
 		"vendor/debugbreak",
-		"vendor/stb"
+		"vendor/stb",
+		"vendor/miniaudio"
 	}
 
 	links

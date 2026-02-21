@@ -16,7 +16,7 @@ public:
 	void OnEvent(BitPounce::Event& e) override;
 private:
 	BitPounce::OrthographicCameraController m_CameraController;
-	
+	float m_time = 0.0f;
 	// Temp
 
 	BitPounce::Ref<BitPounce::Texture2D> m_CheckerboardTexture;

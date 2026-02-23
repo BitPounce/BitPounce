@@ -319,7 +319,13 @@ namespace BitPounce {
 		glUniform1i(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
+    void OpenGLShader::UploadUniformInts(const std::string &name, int *values, uint32_t count)
+    {
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
+    }
+
+    void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1f(location, value);
@@ -360,7 +366,12 @@ namespace BitPounce {
 		UploadUniformInt(name, value);
 	}
 
-	void OpenGLShader::SetFloat(const std::string& name, const float& value) 
+    void OpenGLShader::SetIntArray(const std::string &name, int *values, uint32_t count)
+    {
+		UploadUniformInts(name, values, count);
+    }
+
+    void OpenGLShader::SetFloat(const std::string& name, const float& value) 
 	{
 		UploadUniformFloat(name, value);
 	}

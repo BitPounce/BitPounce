@@ -38,6 +38,8 @@ namespace BitPounce
 		uint32_t TextureSlotIndex = 1;
 
 		Renderer2D::Renderer2DData RenderData;
+
+		glm::vec4 QuadVertexPositions[4];
 	};
 
 
@@ -103,6 +105,11 @@ namespace BitPounce
 		s_Data.MainShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 		
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
+
+		s_Data.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		s_Data.QuadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
+		s_Data.QuadVertexPositions[2] = {  0.5f,  0.5f, 0.0f, 1.0f };
+		s_Data.QuadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 	}
 
 	void Renderer2D::Shutdown()
@@ -148,27 +155,30 @@ namespace BitPounce
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
 		s_Data.RenderData.Quads += 1;
 		s_Data.RenderData.Tries += 2;
 		s_Data.RenderData.Vertices += 4;
 		s_Data.RenderData.Indices += 6;
 
-		s_Data.QuadVertexBufferPtr->Position = position;
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
 		s_Data.QuadVertexBufferPtr->Colour = color; 
 		s_Data.QuadVertexBufferPtr->TexCoord = {0.0f, 0.0f};
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = {position.x + size.x, position.y, 0};
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
 		s_Data.QuadVertexBufferPtr->Colour = color; 
 		s_Data.QuadVertexBufferPtr->TexCoord = {1.0f, 0.0f};
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = {position.x + size.x, position.y + size.y, 0};
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
 		s_Data.QuadVertexBufferPtr->Colour = color; 
 		s_Data.QuadVertexBufferPtr->TexCoord = {1.0f, 1.0f};
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = {position.x, position.y + size.y, 0};
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
 		s_Data.QuadVertexBufferPtr->Colour = color; 
 		s_Data.QuadVertexBufferPtr->TexCoord = {0.0f, 1.0f};
 		s_Data.QuadVertexBufferPtr++;
@@ -198,6 +208,9 @@ namespace BitPounce
 	{
 		int texIndex = 0;
 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
 		{
@@ -215,25 +228,27 @@ namespace BitPounce
 			s_Data.TextureSlotIndex++;
 		}
 
-		s_Data.QuadVertexBufferPtr->Position = position;
+		
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
 		s_Data.QuadVertexBufferPtr->Colour = tintColour;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
 		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
 		s_Data.QuadVertexBufferPtr->Colour = tintColour;
 		s_Data.QuadVertexBufferPtr->TexCoord = { tillingFactor, 0.0f };
 		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
 		s_Data.QuadVertexBufferPtr->Colour = tintColour;
 		s_Data.QuadVertexBufferPtr->TexCoord = { tillingFactor, tillingFactor };
 		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
 		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
 		s_Data.QuadVertexBufferPtr->Colour = tintColour;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, tillingFactor };
 		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
@@ -267,19 +282,39 @@ namespace BitPounce
 
     void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
     {
-		s_Data.MainShader->SetFloat4("u_Color", colour);
-		s_Data.MainShader->SetFloat("m_TillingFactor", 1.0);
-		s_Data.WhiteTexture->Bind();
+		const float textureIndex = 0.0f; // White Texture
+		const float tilingFactor = 1.0f;
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
-		glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f }) * 
-		glm::rotate(glm::mat4(1), rotation, {0,0,1});
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+                        * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+                        * glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
 
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
+		s_Data.QuadVertexBufferPtr->Colour = colour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
 
-		s_Data.MainShader->SetMat4("u_Transform", transform);
-		s_Data.QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
-    }
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
+		s_Data.QuadVertexBufferPtr->Colour = colour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
+		s_Data.QuadVertexBufferPtr->Colour = colour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
+		s_Data.QuadVertexBufferPtr->Colour = colour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadIndexCount += 6;
+	}
 
     void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const Ref<Texture2D> &texture, float tilingFactor, const glm::vec4& tintColour)
     {
@@ -288,21 +323,54 @@ namespace BitPounce
 
     void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const Ref<Texture2D> &texture, float tilingFactor, const glm::vec4& tintColour)
     {
-		s_Data.RenderData.RenderCalls += 1;
-		s_Data.RenderData.Quads += 1;
-		s_Data.RenderData.Tries += 2;
-		s_Data.RenderData.Vertices += 4;
-		s_Data.RenderData.Indices += 6;
-		s_Data.MainShader->SetFloat4("u_Color",  tintColour);
+		int texIndex = 0;
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1), rotation, {0,0,1}) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f }) ;
-		s_Data.MainShader->SetMat4("u_Transform", transform);
-		s_Data.MainShader->SetFloat("m_TillingFactor", tilingFactor);
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*s_Data.TextureSlots[i].get() == *texture.get())
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
 
-		texture->Bind();
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
+			s_Data.TextureSlotIndex++;
+		}
 
-		s_Data.QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+                        * glm::rotate(glm::mat4(1.0f), (rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+                        * glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
+		s_Data.QuadVertexBufferPtr->Colour = tintColour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
+		s_Data.QuadVertexBufferPtr->Colour = tintColour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { tilingFactor, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
+		s_Data.QuadVertexBufferPtr->Colour = tintColour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { tilingFactor, tilingFactor };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
+		s_Data.QuadVertexBufferPtr->Colour = tintColour;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, tilingFactor };
+		s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadIndexCount += 6;
     }
 
 #else

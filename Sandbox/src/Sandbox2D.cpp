@@ -53,10 +53,12 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 
 	BitPounce::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, 10);
 
+	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -1.5f }, { 0.9f, 0.75f }, glm::radians(m_time * 40), m_PlayerTexture, 1, m_SquareColor);
+	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -2.5f }, { 0.9f, 0.75f }, glm::radians(m_time * 40), m_PlayerTexture);
+
 	#if !BP_RENDERER2D_USE_BATCH_RENDERING
 
-	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -1.5f }, { 0.9f, 0.75f }, glm::radians(45.f), m_PlayerTexture, 1, m_SquareColor);
-	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -2.5f }, { 0.9f, 0.75f }, glm::radians(45.f), m_PlayerTexture);
+	
 
 	
 	#endif

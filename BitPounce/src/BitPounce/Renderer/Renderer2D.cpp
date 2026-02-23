@@ -20,9 +20,9 @@ namespace BitPounce
 	};
 	struct Renderer2DData
 	{
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxQuads = 10000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32;
 
 		Ref<VertexArray> QuadVertexArray;
@@ -44,6 +44,18 @@ namespace BitPounce
 
 
 	static Renderer2DData s_Data;
+
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
+	}
+
+	
 
 	void Renderer2D::Init()
 	{
@@ -155,6 +167,9 @@ namespace BitPounce
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
@@ -206,6 +221,9 @@ namespace BitPounce
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tillingFactor, const glm::vec4& tintColour)
 	{
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
 		int texIndex = 0;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
@@ -282,6 +300,9 @@ namespace BitPounce
 
     void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
     {
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
 		const float textureIndex = 0.0f; // White Texture
 		const float tilingFactor = 1.0f;
 
@@ -323,6 +344,9 @@ namespace BitPounce
 
     void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const Ref<Texture2D> &texture, float tilingFactor, const glm::vec4& tintColour)
     {
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
 		int texIndex = 0;
 
 		float textureIndex = 0.0f;

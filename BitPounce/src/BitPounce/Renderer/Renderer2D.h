@@ -44,6 +44,8 @@ namespace BitPounce {
 		};
 
 		static Renderer2DData Get();
+	private:
+		static void FlushAndReset();
 	};
 
 }

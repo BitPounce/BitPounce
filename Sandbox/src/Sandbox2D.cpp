@@ -17,6 +17,7 @@ Sandbox2D::Sandbox2D()
 void Sandbox2D::OnAttach()
 {
 	m_CheckerboardTexture = BitPounce::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_PlayerTexture = BitPounce::Texture2D::Create("assets/textures/Player.png");
 
 	
 	s_Audio =BitPounce::Audio::Create("assets/file_example_WAV_10MG.wav");
@@ -48,8 +49,12 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 
 	BitPounce::Renderer2D::BeginScene(m_CameraController.GetCamera());
 	BitPounce::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor);
+
+	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -1.5f }, { 0.9f, 0.75f }, glm::radians(45.f), m_PlayerTexture, 1, m_SquareColor);
+	BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -2.5f }, { 0.9f, 0.75f }, glm::radians(45.f), m_PlayerTexture);
+
 	BitPounce::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-	BitPounce::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture);
+	BitPounce::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, 10);
 
 	BitPounce::Renderer2D::EndScene();
 
@@ -60,6 +65,18 @@ void Sandbox2D::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::End();
+
+	ImGui::Begin("Render Data");
+	BitPounce::Renderer2D::Renderer2DData renderer2d = BitPounce::Renderer2D::Get();
+
+	ImGui::Text((std::string("Render Calls: ") + std::to_string(renderer2d.RenderCalls)).c_str());
+	ImGui::Text((std::string("Tries: ") + std::to_string(renderer2d.Tries)).c_str());
+	ImGui::Text((std::string("Quads: ") + std::to_string(renderer2d.Quads)).c_str());
+	ImGui::Text((std::string("Indices: ") + std::to_string(renderer2d.Indices)).c_str());
+	ImGui::Text((std::string("Vertices: ") + std::to_string(renderer2d.Vertices)).c_str());
+	
+
 	ImGui::End();
 }
 

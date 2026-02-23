@@ -3,6 +3,8 @@
 #include "OrthographicCamera.h"
 #include "Texture.h"
 
+#define BP_RENDERER2D_USE_BATCH_RENDERING 0
+
 namespace BitPounce {
 
 	class Renderer2D

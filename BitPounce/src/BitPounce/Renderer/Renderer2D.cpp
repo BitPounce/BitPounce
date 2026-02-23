@@ -7,8 +7,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace BitPounce {
-
+namespace BitPounce 
+{
+#if BP_RENDERER2D_USE_BATCH_RENDERING
+#else
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> QuadVertexArray;
@@ -203,6 +205,7 @@ namespace BitPounce {
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
     }*/
+#endif
 
     Renderer2D::Renderer2DData Renderer2D::Get()
 	{

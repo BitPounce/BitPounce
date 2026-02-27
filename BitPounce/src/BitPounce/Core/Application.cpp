@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "BitPounce/Renderer/Renderer.h"
 #include "BitPounce/Audio/AudioDevice.h"
+#include "BitPounce/Core/SystemManager.h"
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
@@ -76,10 +77,14 @@ namespace BitPounce
 		Timestep timestep = time - m_LastFrameTime;
 		m_LastFrameTime = time;
 
+		SystemManager::OnUpdate(timestep);
+
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate(timestep);
 
 		m_ImGuiLayer->Begin();
+
+		SystemManager::OnImGuiDraw();
 
 		for (Layer* layer : m_LayerStack)
 		{
@@ -107,6 +112,8 @@ namespace BitPounce
 		});
 
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+
+		SystemManager::OnEvent(event);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{

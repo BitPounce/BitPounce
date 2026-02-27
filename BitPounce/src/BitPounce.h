@@ -13,6 +13,8 @@
 #include "BitPounce/Core/KeyCode.h"
 #include "BitPounce/Core/PlatformTools.h"
 #include <BitPounce/Core/FileSystem.h>
+#include <BitPounce/Core/SystemManager.h>
+
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"

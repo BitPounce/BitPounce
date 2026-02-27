@@ -13,6 +13,7 @@ public:
 
 	void OnUpdate(BitPounce::Timestep& ts) override;
 	virtual void OnImGuiRender() override;
+	void OnDockSpace();
 	void OnEvent(BitPounce::Event& e) override;
 private:
 	BitPounce::OrthographicCameraController m_CameraController;

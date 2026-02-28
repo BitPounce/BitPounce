@@ -10,10 +10,25 @@
 #include "BitPounce/Events/ApplicationEvent.h"
 namespace BitPounce
 {
+	struct ApplicationProps
+	{
+		std::string Title;
+		std::string IconPath;
+		uint32_t Width;
+		uint32_t Height;
+
+		ApplicationProps(const std::string& title = "BitPounce",
+			uint32_t width = 1600,
+			uint32_t height = 900, const std::string& iconPath = "NULL")
+			: Title(title), Width(width), Height(height), IconPath(iconPath)
+		{
+		}
+	};
+
 	class Application
 	{
 	public:
-		Application();
+		Application(const ApplicationProps& props = ApplicationProps());
 		virtual ~Application();
 		void Close(int errorCode);
 		

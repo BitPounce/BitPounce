@@ -1,0 +1,23 @@
+[2026-02-28 19:39:58.845] [BIT POUNCE] [info] Logger initialized successfully
+[2026-02-28 19:39:58.845] [BIT POUNCE] [info] Creating window BitPounce (1600, 900)
+[2026-02-28 19:39:59.497] [BIT POUNCE] [info] OpenGL Info:
+[2026-02-28 19:39:59.497] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-02-28 19:39:59.497] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-02-28 19:39:59.497] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
+[2026-02-28 19:39:59.498] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-02-28 19:39:59.498] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
+[2026-02-28 19:39:59.498] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (3307 bytes)
+[2026-02-28 19:39:59.498] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png (1823 bytes)
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Checkerboard.png
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
+[2026-02-28 19:39:59.526] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png (386778 bytes)
+[2026-02-28 19:39:59.527] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
+[2026-02-28 19:39:59.538] [BIT POUNCE] [info] Loading file: assets/textures/Icon.png
+[2026-02-28 19:39:59.538] [BIT POUNCE] [info] Reading file from disk: assets/textures/Icon.png
+[2026-02-28 19:39:59.538] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Icon.png (574956 bytes)
+[2026-02-28 19:39:59.539] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Icon.png
+[2026-02-28 19:39:59.646] [BIT POUNCE] [info] STARTING TEST SYS

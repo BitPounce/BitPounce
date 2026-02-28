@@ -9,13 +9,14 @@ namespace BitPounce
 	struct WindowProps
 	{
 		std::string Title;
+		std::string IconPath;
 		uint32_t Width;
 		uint32_t Height;
 
 		WindowProps(const std::string& title = "BitPounce",
 			uint32_t width = 1600,
-			uint32_t height = 900)
-			: Title(title), Width(width), Height(height)
+			uint32_t height = 900, const std::string& iconPath = "NULL")
+			: Title(title), Width(width), Height(height), IconPath(iconPath)
 		{
 		}
 	};

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient-0">
+      <stop offset="0" style="stop-color: rgb(115, 255, 0);"/>
+      <stop offset="1" style="stop-color: rgb(0, 25, 255);"/>
+    </linearGradient>
+    <linearGradient id="gradient-2">
+      <stop offset="0" style="stop-color: rgb(0, 255, 206);"/>
+      <stop offset="0" style="stop-color: rgb(255, 255, 255);"/>
+      <stop offset="0.533" style="stop-color: rgb(194, 173, 255);"/>
+      <stop offset="1" style="stop-color: rgb(255, 148, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-2-0" href="#gradient-2" gradientUnits="userSpaceOnUse" x1="205.063" y1="146.202" x2="205.063" y2="411.392" gradientTransform="matrix(1, 0, 0, 1, 44.926727, -37.294387)"/>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="198.53" y1="186.806" x2="198.53" y2="351.821" id="gradient-0-0" href="#gradient-0" spreadMethod="pad" gradientTransform="matrix(1, 0, 0, 1, 44.926727, -37.294387)"/>
+    <path id="text-path-0" d="M 76.58200073242188 462.0251235961914 Q 80.46913146972656 429.74664306640625 84.35626220703125 462.0251235961914"/>
+    <bx:export>
+      <bx:file format="svg" href="#object-0"/>
+    </bx:export>
+    <linearGradient id="gradient-1">
+      <stop offset="0" style=""/>
+      <stop offset="0.516" style="stop-color: rgb(255, 214, 0);"/>
+      <stop offset="1" style="stop-color: rgb(255, 99, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-1-0" href="#gradient-1" gradientUnits="userSpaceOnUse" x1="252.085" y1="391.299" x2="252.085" y2="493.939" gradientTransform="matrix(1, 0, 0, 1, -5.141692, -28.532416)"/>
+    <linearGradient id="gradient-0-1" href="#gradient-0" gradientUnits="userSpaceOnUse" x1="252.085" y1="391.299" x2="252.085" y2="493.939" gradientTransform="matrix(1, 0, 0, 1, -5.141692, -28.532416)"/>
+    <linearGradient id="gradient-1-1" href="#gradient-1" gradientUnits="userSpaceOnUse" x1="255.131" y1="137.44" x2="255.131" y2="402.63" gradientTransform="matrix(1, 0, 0, 1, -5.141692, -28.532416)"/>
+    <linearGradient id="gradient-0-2" href="#gradient-0" gradientUnits="userSpaceOnUse" x1="319.287" y1="107.376" x2="319.287" y2="212.025" gradientTransform="matrix(1, 0, 0, 1, 0.00041, 0.00003)"/>
+    <linearGradient id="gradient-2-1" href="#gradient-2" gradientUnits="userSpaceOnUse" x1="319.287" y1="107.376" x2="319.287" y2="212.025" spreadMethod="reflect" gradientTransform="matrix(1, 0, 0, 1, 0.00041, 0.00003)"/>
+    <linearGradient id="gradient-2-2" href="#gradient-2" gradientUnits="userSpaceOnUse" x1="318.522" y1="107.376" x2="318.522" y2="212.025" gradientTransform="matrix(1, 0, 0, 1, 0.000329, 0.000333)"/>
+    <linearGradient id="gradient-0-3" href="#gradient-0" gradientUnits="userSpaceOnUse" x1="318.522" y1="107.376" x2="318.522" y2="212.025" gradientTransform="matrix(1, 0, 0, 1, 0.000329, 0.000333)"/>
+  </defs>
+  <ellipse style="fill: url(&quot;#gradient-2-0&quot;); stroke: url(&quot;#gradient-1-1&quot;); stroke-width: 2px;" cx="249.989" cy="241.502" rx="139.873" ry="132.595"/>
+  <path d="M 343.829 108.97 Q 345.661 105.783 345.888 108.97 L 352.982 208.838 Q 353.208 212.025 351.15 212.025 L 286.659 212.025 Q 284.601 212.025 286.433 208.838 Z" style="stroke-miterlimit: 1; stroke: url(&quot;#gradient-0-2&quot;); fill: url(&quot;#gradient-2-1&quot;); paint-order: fill; stroke-width: 5px; transform-origin: 319.287px 159.701px 0px;" transform="matrix(0.927184, 0.374607, -0.374607, 0.927184, 44.926335, -37.294663)" bx:shape="triangle 284.601 105.783 68.607 106.242 0.89 0.03 1@270c29ae"/>
+  <path d="M 291.921 108.97 Q 292.148 105.783 293.98 108.97 L 351.376 208.838 Q 353.208 212.025 351.15 212.025 L 286.659 212.025 Q 284.601 212.025 284.827 208.838 Z" style="stroke-miterlimit: 1; fill: url(&quot;#gradient-2-2&quot;); stroke: url(&quot;#gradient-0-3&quot;); stroke-width: 5px; transform-origin: 319.287px 159.701px 0px;" transform="matrix(0.945519, -0.325568, 0.325568, 0.945519, -167.732236, -48.0543)" bx:shape="triangle 284.601 105.783 68.607 106.242 0.11 0.03 1@0f535991"/>
+  <path d="M 169.673 227.642 C 172.913 227.198 178.114 227.776 181.698 229.54 C 185.427 231.376 187.952 233.637 191.508 238.718 C 197.291 246.979 206.124 277.142 211.129 279.54 C 213.619 280.734 215.111 277.627 217.458 274.794 C 221.343 270.102 227.089 254.558 231.065 250.427 C 233.362 248.04 234.862 247.833 237.394 247.262 C 240.389 246.586 244.711 246.244 248.154 247.262 C 251.795 248.339 254.518 250.164 258.597 253.908 C 264.879 259.672 273.95 280.751 281.698 282.072 C 288.309 283.199 298.157 270.946 301.635 267.832 C 303.4 266.251 302.77 265.319 304.483 264.351 C 307.201 262.813 314.419 260.514 318.407 261.186 C 321.996 261.791 325.622 264.251 327.584 267.199 C 329.678 270.344 330.935 275.861 330.116 279.857 C 329.267 284 326.627 287.296 322.204 291.566 C 315.617 297.926 299.201 309.973 290.559 313.085 C 284.585 315.236 279.937 314.566 275.369 313.718 C 271.149 312.934 267.241 310.887 263.977 308.654 C 260.851 306.517 258.729 303.841 256.065 300.743 C 253.04 297.224 250.38 288.422 246.888 288.401 C 242.995 288.378 238.443 299.621 233.597 303.591 C 229.102 307.274 224.1 310.362 219.04 311.819 C 214.169 313.221 209.503 314.343 203.85 312.452 C 196.18 309.886 185.157 300.641 177.584 293.148 C 170.1 285.743 161.807 277.017 158.597 267.832 C 155.519 259.024 156.413 245.724 157.964 239.351 C 158.989 235.142 161.208 232.78 163.344 230.806 C 165.196 229.094 167.065 227.999 169.673 227.642 Z M 217.141 149.794 C 219.759 149.29 223.32 149.434 226.002 150.427 C 228.704 151.426 231.641 153.145 233.28 155.806 C 235.17 158.873 236.201 163.173 235.812 168.464 C 235.268 175.862 230.325 189.643 226.951 196.945 C 224.352 202.571 222.134 207.367 218.407 209.92 C 214.946 212.291 209.475 213.148 205.749 212.452 C 202.257 211.8 198.533 209.386 196.572 206.439 C 194.478 203.294 193.408 198.746 194.04 193.781 C 194.87 187.261 202.425 176.435 204.167 170.363 C 205.374 166.155 204.263 163.187 205.432 160.237 C 206.547 157.424 208.738 154.722 210.812 152.958 C 212.691 151.36 214.751 150.253 217.141 149.794 Z M 296.888 180.806 C 299.634 180.277 303.565 180.411 306.382 181.439 C 309.142 182.447 312.021 184.158 313.66 186.819 C 315.55 189.886 317.425 194.105 316.192 199.477 C 314.253 207.918 301.789 228.138 294.989 233.338 C 290.662 236.647 286.058 236.566 282.331 235.87 C 278.839 235.217 275.127 232.944 273.154 229.857 C 270.932 226.379 269.708 220.288 270.622 215.3 C 271.654 209.672 278.908 200.061 280.432 197.895 C 280.95 197.159 280.842 197.613 281.382 196.945 C 282.831 195.153 287.583 186.632 290.559 183.971 C 292.712 182.045 294.448 181.277 296.888 180.806 Z" style="paint-order: fill; stroke: rgb(0, 0, 0); stroke-width: 8px; fill: url(&quot;#gradient-0-0&quot;);"/>
+  <text style="fill: url(&quot;#gradient-1-0&quot;); font-family: &quot;DotGothic16&quot;; font-size: 70px; stroke: url(&quot;#gradient-0-1&quot;); white-space: pre; stroke-width: 1px;" id="object-0" x="89.415" y="444.127">BitPounce</text>
+</svg>

@@ -14,7 +14,10 @@ defines {
 	"FMT_UNICODE=0"
 }
 
+group "Core"
 include "BitPounce"
+include "PounceEdit"
+group ""
 
 include "Sandbox"
 group "Dependencies"

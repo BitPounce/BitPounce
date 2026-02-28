@@ -6,8 +6,62 @@
 #include "BitPounce/Events/ApplicationEvent.h"
 #include "BitPounce/Events/MouseEvent.h"
 #include "BitPounce/Core/Logger.h"
+#include <stb_image.h>
+#include "stb_image_resize2.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
+
+static void SetWindowIconSafe(GLFWwindow* window, const std::string& path)
+{
+    int w, h, channels;
+
+    unsigned char* pixels =
+        stbi_load(path.c_str(), &w, &h, &channels, 4);
+
+    if (!pixels)
+    {
+        std::cerr << "Failed to load icon: " << path << std::endl;
+        return;
+    }
+
+    const int MAX_ICON_SIZE = 256*2;
+
+    unsigned char* finalPixels = pixels;
+    int finalW = w;
+    int finalH = h;
+
+    // Auto-downscale if too large
+    if (w > MAX_ICON_SIZE || h > MAX_ICON_SIZE)
+    {
+        float scale = std::min(
+            (float)MAX_ICON_SIZE / w,
+            (float)MAX_ICON_SIZE / h);
+
+        finalW = (int)(w * scale);
+        finalH = (int)(h * scale);
+
+        finalPixels = new unsigned char[finalW * finalH * 4];
+
+        stbir_resize_uint8_srgb(
+            pixels, w, h, 0,
+            finalPixels, finalW, finalH, 0,
+            STBIR_RGBA);
+
+        stbi_image_free(pixels);
+    }
+
+    GLFWimage image{};
+    image.width  = finalW;
+    image.height = finalH;
+    image.pixels = finalPixels;
+
+    glfwSetWindowIcon(window, 1, &image);
+
+    if (finalPixels != pixels)
+        delete[] finalPixels;
+    else
+        stbi_image_free(finalPixels);
+}
 
 namespace BitPounce {
 
@@ -134,6 +188,11 @@ namespace BitPounce {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
+
+		if (props.IconPath != "NULL")
+    		SetWindowIconSafe(m_Window, props.IconPath);
+
+		
 
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();

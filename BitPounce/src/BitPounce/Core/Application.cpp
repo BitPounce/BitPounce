@@ -15,12 +15,12 @@ namespace BitPounce
 	Application* Application::s_Instance = nullptr;
 
 
-	Application::Application()
+	Application::Application(const ApplicationProps& props)
 	{
 
 		s_Instance = this;
 		
-		m_Window = Window::Create();
+		m_Window = Window::Create(WindowProps(props.Title, props.Width, props.Height, props.IconPath));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();

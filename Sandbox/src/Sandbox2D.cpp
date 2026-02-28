@@ -138,7 +138,7 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
     m_SysManager.OnUpdate(ts);
 	m_CameraController.OnUpdate(ts);
 
-    m_Framebuffer->Bind();
+    //m_Framebuffer->Bind();
 	// Render
 	BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	BitPounce::RenderCommand::Clear();
@@ -175,19 +175,12 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 	BitPounce::Renderer2D::EndScene();
 
 	BitPounce::Renderer::EndScene();
-    m_Framebuffer->Unbind();
+    //m_Framebuffer->Unbind();
 }
 
 void Sandbox2D::OnImGuiRender()
 {
-	Dockspace([this]() { this->OnDockSpace(); });
 	
-
-
-}
-
-void Sandbox2D::OnDockSpace()
-{
     m_SysManager.OnImGuiDraw();
 
 	ImGui::Begin("Settings");
@@ -214,6 +207,12 @@ void Sandbox2D::OnDockSpace()
     }
 
     ImGui::End();
+
+}
+
+void Sandbox2D::OnDockSpace()
+{
+    
 
     ImGui::Begin("Render");
 

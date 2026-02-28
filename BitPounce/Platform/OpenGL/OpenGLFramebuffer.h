@@ -10,6 +10,8 @@ namespace BitPounce {
 		OpenGLFramebuffer(const FramebufferSpecification& spec);
 		virtual ~OpenGLFramebuffer();
 
+		virtual void Resize(uint32_t width, uint32_t height) override;
+
 		void Invalidate();
 
 		virtual void Bind() override;

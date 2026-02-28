@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+namespace BitPounce {
+
 class TestSystem : public BitPounce::System
 {
 public:
@@ -44,8 +46,9 @@ void EditorLayer::OnAttach()
     m_SysManager.Start();
 
     BitPounce::FramebufferSpecification fbSpec;
-	fbSpec.Width = 1600;
-	fbSpec.Height = 900;
+	fbSpec.Width = BitPounce::Application::Get().GetWindow().GetWidth();
+	fbSpec.Height = BitPounce::Application::Get().GetWindow().GetHeight();
+    m_RendorSize = glm::vec2(BitPounce::Application::Get().GetWindow().GetWidth(), BitPounce::Application::Get().GetWindow().GetHeight());
 	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
 }
 
@@ -218,14 +221,26 @@ void EditorLayer::OnDockSpace()
 
     ImGui::Begin("Render");
 
+    ImVec2 rendorPanelSize = ImGui::GetContentRegionAvail();
+    glm::vec2 panelSize = { rendorPanelSize.x, rendorPanelSize.y };
+    if ((m_RendorSize.x != panelSize.x) || (m_RendorSize.y != panelSize.y))
+    {
+        m_Framebuffer->Resize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
+        m_RendorSize = {panelSize.x, panelSize.y};
+
+        m_CameraController.OnResize(panelSize.x, panelSize.y);
+    }
+    
+
     uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-	ImGui::Image((void*)textureID, ImVec2{ 1600, 900 });
+	ImGui::Image((void*)textureID, rendorPanelSize);
 
     ImGui::End();
 }
 
-void EditorLayer::OnEvent(BitPounce::Event& e)
+void EditorLayer::OnEvent(Event& e)
 {
     m_SysManager.OnEvent(e);
 	m_CameraController.OnEvent(e);
+}
 }

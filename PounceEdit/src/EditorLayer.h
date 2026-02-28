@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BitPounce.h"
-
+namespace BitPounce {
 class EditorLayer : public BitPounce::Layer
 {
 public:
@@ -28,4 +28,7 @@ private:
 	BitPounce::Ref<BitPounce::Framebuffer> m_Framebuffer;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	glm::vec2 m_RendorSize = {};
 };
+
+}

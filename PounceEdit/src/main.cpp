@@ -10,7 +10,7 @@ public:
 	Editor(const BitPounce::ApplicationProps& props): Application(props)
 	{
 		//PushLayer(new ExampleLayer());
-		PushLayer(new EditorLayer());
+		PushLayer(new BitPounce::EditorLayer());
 	}
 
 	~Editor()
@@ -26,6 +26,7 @@ BitPounce::Application* CreateApp()
 {
 	BitPounce::ApplicationProps props = BitPounce::ApplicationProps();
 	props.IconPath = "assets/textures/Icon.png";
+	props.Title = "PounceEdit";
 
 	return new Editor(props);
 }

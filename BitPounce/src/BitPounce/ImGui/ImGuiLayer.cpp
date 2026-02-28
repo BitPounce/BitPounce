@@ -80,13 +80,20 @@ void ImGuiLayer::End()
         static_cast<float>(app.GetWindow().GetHeight())
     );
 
+    ImGui::EndFrame();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     // Handle multi-viewport rendering, whyyy
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
+        GLFWwindow* mainWindow =
+            static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+
         GLFWwindow* backup_context = glfwGetCurrentContext();
+
+        glfwMakeContextCurrent(mainWindow);
+
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_context);

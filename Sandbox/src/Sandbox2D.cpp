@@ -5,8 +5,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
 class TestSystem : public BitPounce::System
 {
 public:
@@ -41,14 +39,18 @@ void Sandbox2D::OnAttach()
 	s_Audio =BitPounce::Audio::Create("assets/file_example_WAV_10MG.wav");
 	s_Audio->Play();
 
-    BitPounce::SystemManager::AddSystem<TestSystem>();
-    BitPounce::SystemManager::Start();
+    m_SysManager.AddSystem<TestSystem>();
+    m_SysManager.Start();
 
+    BitPounce::FramebufferSpecification fbSpec;
+	fbSpec.Width = 1600;
+	fbSpec.Height = 900;
+	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
 }
 
 void Sandbox2D::OnDetach()
 {
-    BitPounce::SystemManager::Stop();
+    m_SysManager.Stop();
 }
 
 void Dockspace(std::function<void()> callback)
@@ -133,11 +135,15 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 
 
 	// Update
+    m_SysManager.OnUpdate(ts);
 	m_CameraController.OnUpdate(ts);
 
+    m_Framebuffer->Bind();
 	// Render
 	BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	BitPounce::RenderCommand::Clear();
+
+    m_SysManager.OnDraw(ts);
 
 	BitPounce::Renderer::BeginScene(m_CameraController.GetCamera());
 
@@ -169,6 +175,7 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
 	BitPounce::Renderer2D::EndScene();
 
 	BitPounce::Renderer::EndScene();
+    m_Framebuffer->Unbind();
 }
 
 void Sandbox2D::OnImGuiRender()
@@ -181,6 +188,8 @@ void Sandbox2D::OnImGuiRender()
 
 void Sandbox2D::OnDockSpace()
 {
+    m_SysManager.OnImGuiDraw();
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 	ImGui::End();
@@ -199,15 +208,23 @@ void Sandbox2D::OnDockSpace()
 
     ImGui::Begin("Systems");
 
-    for(auto sys : BitPounce::SystemManager::Get())
+    for(auto sys : m_SysManager.Get())
     {
         ImGui::Text(sys->GetName().c_str());
     }
+
+    ImGui::End();
+
+    ImGui::Begin("Render");
+
+    uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+	ImGui::Image((void*)textureID, ImVec2{ 1600, 900 });
 
     ImGui::End();
 }
 
 void Sandbox2D::OnEvent(BitPounce::Event& e)
 {
+    m_SysManager.OnEvent(e);
 	m_CameraController.OnEvent(e);
 }

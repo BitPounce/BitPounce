@@ -7,32 +7,35 @@ namespace BitPounce
     {
 
     public:
+        SystemManager() {};
+        ~SystemManager();
 
         template<typename SystemType>
-        static SystemType* AddSystem()
+        SystemType* AddSystem()
         {
             SystemType* sys = new SystemType();
             AddSys_in(sys);
             return sys;
         }
 
-        static void OnUpdate(Timestep& ts);
-        static void OnEvent(Event& event);
-        static void OnImGuiDraw();
-        static void Start();
-        static void Stop();
+        virtual void OnUpdate(Timestep& ts);
+        virtual void OnDraw(Timestep& ts);
+        virtual void OnEvent(Event& event);
+        virtual void OnImGuiDraw();
+        virtual void Start();
+        virtual void Stop();
 
-        static void StopSystem(System* sys);
-        static void StartSystem(System* sys);
+        virtual void StopSystem(System* sys);
+        virtual void StartSystem(System* sys);
 
-        static std::vector<System*> Get()
+        virtual std::vector<System*> Get()
         {
-            return s_systems;
+            return m_systems;
         }
     private:
-        static void AddSys_in(System* sys);
+        virtual void AddSys_in(System* sys);
 
-        static std::vector<System*> s_systems;
+        std::vector<System*> m_systems;
     };
     
     

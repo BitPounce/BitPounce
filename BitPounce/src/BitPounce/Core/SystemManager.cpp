@@ -3,19 +3,35 @@
 
 namespace BitPounce
 {
-	std::vector<System*> SystemManager::s_systems = std::vector<System*>();
+    SystemManager::~SystemManager()
+    {
+		for (auto& sys : m_systems)
+		{
+			delete sys;
+		}
+		m_systems.clear();
+		
+    }
 
-	void SystemManager::OnUpdate(Timestep& ts)
+    void SystemManager::OnUpdate(Timestep& ts)
 	{
-		for (auto& sys : s_systems)
+		for (auto& sys : m_systems)
 		{
 			sys->OnUpdate(ts);
 		}
 	}
 
-	void SystemManager::OnEvent(Event& event)
+    void SystemManager::OnDraw(Timestep &ts)
+    {
+		for (auto& sys : m_systems)
+		{
+			sys->OnDraw(ts);
+		}
+    }
+
+    void SystemManager::OnEvent(Event& event)
 	{
-		for (auto& sys : s_systems)
+		for (auto& sys : m_systems)
 		{
 			sys->OnEvent(event);
 		}
@@ -23,7 +39,7 @@ namespace BitPounce
 
 	void SystemManager::OnImGuiDraw()
 	{
-		for (auto& sys : s_systems)
+		for (auto& sys : m_systems)
 		{
 			sys->OnImGuiDraw();
 		}
@@ -31,7 +47,7 @@ namespace BitPounce
 
     void SystemManager::Start()
     {
-		for (auto& sys : s_systems)
+		for (auto& sys : m_systems)
 		{
 			sys->Start();
 		}
@@ -39,7 +55,7 @@ namespace BitPounce
 
     void SystemManager::Stop()
     {
-		for (auto& sys : s_systems)
+		for (auto& sys : m_systems)
 		{
 			sys->Stop();
 		}
@@ -47,7 +63,7 @@ namespace BitPounce
 
     void SystemManager::StopSystem(System* sys)
 	{
-		for (auto* s : s_systems)
+		for (auto* s : m_systems)
 		{
 			if (s == sys)
 			{
@@ -59,7 +75,7 @@ namespace BitPounce
 
     void SystemManager::StartSystem(System* sys)
     {
-		for (auto* s : s_systems)
+		for (auto* s : m_systems)
 		{
 			if (s == sys)
 			{
@@ -71,7 +87,7 @@ namespace BitPounce
 
     void SystemManager::AddSys_in(System* sys)
 	{
-		s_systems.push_back(sys);
+		m_systems.push_back(sys);
 	}
 
 }

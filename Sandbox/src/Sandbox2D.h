@@ -15,12 +15,16 @@ public:
 	virtual void OnImGuiRender() override;
 	void OnDockSpace();
 	void OnEvent(BitPounce::Event& e) override;
+
+	
 private:
+	BitPounce::SystemManager m_SysManager;
 	BitPounce::OrthographicCameraController m_CameraController;
 	float m_time = 0.0f;
 
 	BitPounce::Ref<BitPounce::Texture2D> m_PlayerTexture;
 	BitPounce::Ref<BitPounce::Texture2D> m_CheckerboardTexture;
+	BitPounce::Ref<BitPounce::Framebuffer> m_Framebuffer;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

@@ -8,7 +8,7 @@ BitPounce is a unity like game engine, Currently not much is implemented.
 VS 2022 or gcc is recommended, BitPounce is untested on other environments.
 
 <ins>**1. Downloading the repository:**</ins>
-Start by cloning the repository with `git clone --recursive https://github.com/BitPounce/BitPounce.
+Start by cloning the repository with `git clone --recursive https://github.com/BitPounce/BitPounce`.
 
 <ins>**2. Configuring the dependencies:**</ins>
 Run the [Setup.py](https://github.com/BitPounce/BitPounce/blob/main/scripts/Setup.py) file found in `scripts` folder. (For windows run it in a VS 2022 command prompt) 

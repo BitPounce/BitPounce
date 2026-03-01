@@ -22,6 +22,7 @@ private:
 	BitPounce::OrthographicCameraController m_CameraController;
 	float m_time = 0.0f;
 
+	bool m_ViewportFocused = false, m_ViewportHovered = false;
 	BitPounce::Ref<BitPounce::Texture2D> m_PlayerTexture;
 	BitPounce::Ref<BitPounce::Texture2D> m_Icon;
 	BitPounce::Ref<BitPounce::Texture2D> m_CheckerboardTexture;

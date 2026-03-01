@@ -220,10 +220,14 @@ namespace BitPounce {
 		ImGui::End();
 	
 		ImGui::Begin("Render");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 	
 		ImVec2 rendorPanelSize = ImGui::GetContentRegionAvail();
 		glm::vec2 panelSize = { rendorPanelSize.x, rendorPanelSize.y };
-		if ((m_RendorSize.x != panelSize.x) || (m_RendorSize.y != panelSize.y))
+		if (((m_RendorSize.x != panelSize.x) || (m_RendorSize.y != panelSize.y)) && ((m_RendorSize.x >= 1) || (m_RendorSize.x >= 1)))
 		{
 			m_Framebuffer->Resize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
 			m_RendorSize = {panelSize.x, panelSize.y};
@@ -233,7 +237,7 @@ namespace BitPounce {
 		
 	
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, rendorPanelSize);
+		ImGui::Image((void*)textureID, rendorPanelSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 	
 		ImGui::End();
 	}

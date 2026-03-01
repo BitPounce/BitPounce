@@ -31,6 +31,7 @@ namespace BitPounce
 		Application(const ApplicationProps& props = ApplicationProps());
 		virtual ~Application();
 		void Close(int errorCode);
+
 		
 		int Run();
 

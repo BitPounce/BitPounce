@@ -29,3 +29,6 @@
 [submodule "BitPounce/vendor/miniaudio"]
 	path = BitPounce/vendor/miniaudio
 	url = https://github.com/BitPounce/miniaudio
+[submodule "BitPounce/vendor/entt"]
+	path = BitPounce/vendor/entt
+	url = https://github.com/BitPounce/entt

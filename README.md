@@ -20,8 +20,14 @@ The plan for BitPounce is to make a powerful easy to use 3D engine.
 ### Main features to come:
 - A full 3D and 2D Editor.
 - High-fidelity Physically-Based 3D rendering (this will be expanded later, 2D to come first)
-- Fully scripted interaction and behavior
+- Fully scripted interaction and behaviour
 - Integrated 3rd party 2D and 3D physics engine
 
 ## Short term goals:
-*Note: this is subject to change at any time! Follow the roadmap over at [https://app.milanote.com/1VBm1A1Gl7fl2D/bp?p=1TgyLVuL7vU](http://bit.ly/4slZQ6Q).*
+**Note: this is subject to change at any time! Follow the roadmap over at [https://app.milanote.com/1VBm1A1Gl7fl2D/bp?p=1TgyLVuL7vU](http://bit.ly/4slZQ6Q).**
+By May, I want to make a game using the BitPounce game engine. This means I need to add a full 2D (Or 3D) workflow:
+
+- Design the game scene by using **PounceEdit**, the **BitPounce** editor,
+- Test the game inside **PounceEdit**, including the ability to save/load the created game,
+- Load and play the game inside **Sandbox**.
+I want everyone to be able to play the game on all desktop platforms (Windows, Mac and Linux).

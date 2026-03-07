@@ -6,6 +6,8 @@
 #include "BitPounce/Core/Timestep.h"
 #include <utility>
 #include <optional>
+#include <BitPounce/Events/Event.h>
+#include <BitPounce/Events/ApplicationEvent.h>
 
 namespace BitPounce {
 
@@ -23,6 +25,8 @@ struct TransformComponent;
 
 
 		void OnUpdate(Timestep ts);
+		void OnEvent(Event& e);
+		void OnViewportResize(uint32_t width, uint32_t height);
 
 		template<typename SystemType>
         SystemType* AddSystem()
@@ -39,6 +43,10 @@ struct TransformComponent;
 
 		std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
 	private:
+	
+		bool OnResize(WindowResizeEvent& e);
+
+		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
 		entt::registry m_Registry;
 		ECSSystemManager m_sysManager;
 

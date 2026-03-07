@@ -61,7 +61,7 @@ namespace BitPounce {
 		m_SquareEntity = square;
 
 		m_CameraEntity = m_ActiveScene->CreateEntity();
-		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f)).Primary = true;
+		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
 	}
 	
 	void EditorLayer::OnDetach()
@@ -225,6 +225,7 @@ namespace BitPounce {
 			m_RendorSize = {panelSize.x, panelSize.y};
 		
 			m_CameraController.OnResize(panelSize.x, panelSize.y);
+			m_ActiveScene->OnViewportResize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
 		}
 		
 	

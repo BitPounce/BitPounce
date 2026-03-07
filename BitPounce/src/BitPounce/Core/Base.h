@@ -12,7 +12,7 @@
 
 #include "Assert.h"
 
-#define BP_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define BP_BIND_EVENT_FN(fn) [this](auto&& e) { return this->fn(std::forward<decltype(e)>(e)); }
 
 
 namespace BitPounce

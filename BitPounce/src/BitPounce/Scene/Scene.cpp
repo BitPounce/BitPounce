@@ -37,6 +37,31 @@ namespace BitPounce {
 
 	}
 
+    void Scene::OnEvent(Event &e)
+    {
+		m_sysManager.OnEvent(e);
+
+		EventDispatcher dis = EventDispatcher(e);
+		dis.Dispatch<WindowResizeEvent>(BP_BIND_EVENT_FN(OnResize));
+
+        return;
+    }
+
+    void Scene::OnViewportResize(uint32_t width, uint32_t height)
+    {
+		m_ViewportWidth = width;
+		m_ViewportHeight = height;
+
+		// Resize our non-FixedAspectRatio cameras
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			auto& cameraComponent = view.get<CameraComponent>(entity);
+			if (!cameraComponent.FixedAspectRatio)
+				cameraComponent.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+		}
+    }
+
     void Scene::AddedAllSys()
     {
 		m_sysManager.Start();
@@ -56,4 +81,8 @@ namespace BitPounce {
 
 	    return {nullptr, nullptr};
 	}
+    bool Scene::OnResize(WindowResizeEvent &e)
+    {
+        
+    }
 }

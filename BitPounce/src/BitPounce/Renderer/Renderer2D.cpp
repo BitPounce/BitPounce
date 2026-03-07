@@ -126,7 +126,7 @@ namespace BitPounce
 
     void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		
+		BeginScene(camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()

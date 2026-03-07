@@ -1,3 +1,4 @@
+#pragma once
 #include <BitPounce/Core/Base.h>
 #include <BitPounce/Core/Timestep.h>
 #include <BitPounce/Events/Event.h>

@@ -94,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for README"
             }
           },
           {
@@ -183,11 +184,45 @@
   },
   "active": "31fc37d041c20ec2",
   "lastOpenFiles": [
-    "bin/Debug-linux-x86_64/BitPounce/sttmLVE0",
-    "Resources/Branding/Icon.png",
-    "Resources/Branding/Icon.svg",
-    "PounceEdit/assets/textures/Icon.svg",
+    "bin-int/Debug-linux-x86_64/Sandbox",
+    "bin-int/Debug-linux-x86_64/PounceEdit",
+    "bin/Debug-linux-x86_64/BitPounce/st5cd6lZ",
+    "bin-int/Debug-linux-x86_64/BitPounce",
+    "bin-int/Debug-linux-x86_64",
+    "bin-int",
+    "bin/Debug-linux-x86_64/BitPounce/stbeLhv8",
+    "PounceEdit/assets/textures/ArrowL.png",
+    "PounceEdit/assets/textures/ArrowL.svg",
+    "PounceEdit/assets/textures/ArrowR copy.svg",
+    "PounceEdit/assets/textures/ArrowR.png",
+    "PounceEdit/assets/textures/ArrowR.svg",
+    "PounceEdit/assets/textures/>.svg",
+    "PounceEdit/assets/textures/_.svg",
+    "PounceEdit/assets/textures/ReloadIcon@05x.png",
+    "PounceEdit/assets/textures/ReloadIcon@4x.png",
+    "PounceEdit/assets/textures/ReloadIcon@2x.png",
+    "PounceEdit/assets/textures/Export.zip",
+    "doc",
     "README.md",
+    "bin/Debug-linux-x86_64/BitPounce/sttF8B0i",
+    "BitPounce/vendor/entt/testbed/system/rendering_system.h",
+    "BitPounce/vendor/entt/docs/md/signal.md",
+    "BitPounce/vendor/entt/docs/md/resource.md",
+    "BitPounce/vendor/entt/docs/md/reference.md",
+    "BitPounce/vendor/entt/docs/md/process.md",
+    "BitPounce/vendor/entt/docs/md/poly.md",
+    "BitPounce/vendor/entt/docs/md/locator.md",
+    "BitPounce/vendor/entt/docs/md/meta.md",
+    "BitPounce/vendor/entt/docs/md/links.md",
+    "BitPounce/vendor/entt/docs/md/lib.md",
+    "BitPounce/vendor/entt/docs/md/graph.md",
+    "BitPounce/vendor/entt/docs/md/faq.md",
+    "BitPounce/vendor/entt/docs/md/entity.md",
+    "BitPounce/vendor/entt/docs/md/core.md",
+    "BitPounce/vendor/entt/docs/md/container.md",
+    "BitPounce/vendor/entt/docs/md/config.md",
+    "BitPounce/vendor/entt/README.md",
+    "BitPounce/vendor/entt/CONTRIBUTING.md",
     "README.md.md",
     "Welcome.md"
   ]

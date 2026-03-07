@@ -50,6 +50,16 @@ namespace BitPounce {
 		fbSpec.Height = BitPounce::Application::Get().GetWindow().GetHeight();
 		m_RendorSize = glm::vec2(BitPounce::Application::Get().GetWindow().GetWidth(), BitPounce::Application::Get().GetWindow().GetHeight());
 		m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
+
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->AddSystem<Renderer2DSystem>();
+		m_ActiveScene->AddedAllSys();
+
+		auto square = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+
+		m_SquareEntity = square;
 	}
 	
 	void EditorLayer::OnDetach()
@@ -152,29 +162,9 @@ namespace BitPounce {
 		BitPounce::Renderer::BeginScene(m_CameraController.GetCamera());
 	
 		BitPounce::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		BitPounce::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor);
-		BitPounce::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-	
-		BitPounce::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerboardTexture, 20);
-	
-		BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -1.5f }, { 0.9f, 0.75f }, glm::radians(m_time * 40), m_PlayerTexture, 1, m_SquareColor);
-		BitPounce::Renderer2D::DrawRotatedQuad({ 1.5f, -2.5f }, { 0.9f, 0.75f }, glm::radians(m_time * 40), m_Icon);
-	
-		for (float y = -10.0f; y < 10.0f; y += 0.2f)
-			{
-				for (float x = -10.0f; x < 10.0f; x += 0.2f)
-				{
-					glm::vec4 color = { (x + 10.0f) / 20.0f, 0.4f, (y + 10.0f) / 20.0f, 0.7f };
-					BitPounce::Renderer2D::DrawQuad({ x, y }, { 0.2f, 0.2f }, color);
-				}
-			}
 		
-		#if !BP_RENDERER2D_USE_BATCH_RENDERING
-		
-		
-		
-		
-		#endif
+		// Update scene
+		m_ActiveScene->OnUpdate(ts);
 		
 		BitPounce::Renderer2D::EndScene();
 		

@@ -9,8 +9,6 @@
 
 namespace BitPounce 
 {
-#if BP_RENDERER2D_USE_BATCH_RENDERING
-
 	struct QuadVertex
 	{
 		glm::vec3 Position;
@@ -229,7 +227,74 @@ namespace BitPounce
 		s_Data.QuadIndexCount += 6;
 	}
 
-	// Rotated textured quads (radians)
+    void Renderer2D::DrawQuad(const glm::mat4 transform, const glm::vec4 &colour)
+    {
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
+		for (int i = 0; i < 4; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Colour = colour;
+			s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1); // I DO NOT CARE
+			s_Data.QuadVertexBufferPtr->TexID = 0;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
+    }
+
+    void Renderer2D::DrawQuad(const glm::mat4 transform, const Ref<Texture2D> &texture, const glm::vec4& tintColour, float tilingFactor)
+    {
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*s_Data.TextureSlots[i] == *texture)
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
+			s_Data.TextureSlotIndex++;
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Colour = tintColour;
+			s_Data.QuadVertexBufferPtr->TexCoord = { i == 1 || i == 2 ? tilingFactor : 0.0f, i >= 2 ? tilingFactor : 0.0f };
+			s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
+    }
+
+    void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
+    {
+		DrawRotatedQuad(glm::vec3(position, 1), size, rotation, colour);
+    }
+
+    void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
+    {
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		DrawQuad(transform, colour);
+
+
+    }
+
+    // Rotated textured quads (radians)
 	void Renderer2D::DrawRotatedQuad( const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColour)
 	{
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tilingFactor, tintColour);
@@ -278,7 +343,5 @@ namespace BitPounce
 		return s_Data.RenderData;
 	}
 
-#else
-	// Non-batch version not included here for brevity
-#endif
+
 }

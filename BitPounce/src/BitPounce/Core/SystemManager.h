@@ -1,3 +1,4 @@
+#pragma once
 #include "System.h"
 #include <memory>
 
@@ -32,7 +33,7 @@ namespace BitPounce
         {
             return m_systems;
         }
-    private:
+    protected:
         virtual void AddSys_in(System* sys);
 
         std::vector<System*> m_systems;

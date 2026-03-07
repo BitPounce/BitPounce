@@ -1,5 +1,7 @@
 {
-    "cmake.ignoreCMakeListsMissing": true,
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
-    "makefile.makefilePath": "/mnt/library/Games_In_C++/26/1/BitPounce/Sandbox/web/Makefile"
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.makefilePath": "${workspaceFolder}/BitPounce/Makefile",
+    "makefile.configureOnOpen": true,
+    "C_Cpp.errorSquiggles": "enabled"
 }

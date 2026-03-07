@@ -3,24 +3,25 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/BitPounce",
+                "${workspaceFolder}/BitPounce/src",
+                "${workspaceFolder}/BitPounce/vendor/bgfx/include",
+                "${workspaceFolder}/BitPounce/vendor/entt/single_include",
+                "${workspaceFolder}/BitPounce/vendor/debugbreak",
+                "${workspaceFolder}/BitPounce/vendor/glad/include",
+                "${workspaceFolder}/BitPounce/vendor/GLFW/include",
+                "${workspaceFolder}/BitPounce/vendor/glm",
+                "${workspaceFolder}/BitPounce/vendor/imgui",
+                "${workspaceFolder}/BitPounce/vendor/miniaudio",
+                "${workspaceFolder}/BitPounce/vendor/spdlog/include",
+                "${workspaceFolder}/BitPounce/vendor/stb"
             ],
             "defines": [],
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-clang-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
-        },
-        {
-            "name": "Web",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "/mnt/library/dev/emsdk/upstream/emscripten/system/include"
-            ],
-            "defines": [],
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4

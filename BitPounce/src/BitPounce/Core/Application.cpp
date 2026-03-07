@@ -7,6 +7,7 @@
 #include "BitPounce/Renderer/Renderer.h"
 #include "BitPounce/Audio/AudioDevice.h"
 #include "BitPounce/Core/SystemManager.h"
+#include <functional>
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 

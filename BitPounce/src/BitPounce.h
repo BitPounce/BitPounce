@@ -28,3 +28,6 @@
 #include "BitPounce/Renderer/OrthographicCameraController.h"
 #include "BitPounce/Renderer/Renderer2D.h"
 #include "BitPounce/Renderer/Framebuffer.h"
+
+#include "BitPounce/Scene/Scene.h"
+#include "BitPounce/Scene/Systems/Renderer2DSystem.h"

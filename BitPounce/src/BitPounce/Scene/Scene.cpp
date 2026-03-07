@@ -3,6 +3,7 @@
 
 #include "Components.h"
 #include "BitPounce/Renderer/Renderer2D.h"
+#include "BitPounce/Scene/Entity.h"
 
 #include <glm/glm.hpp>
 
@@ -20,9 +21,12 @@ namespace BitPounce {
 	{
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		auto e = Entity{ m_Registry.create(), this };
+		e.AddComponent<TransformComponent>();
+		e.AddComponent<TagComponent>(name);
+		return e;
 	}
 
 	void Scene::OnUpdate(Timestep ts)

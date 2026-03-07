@@ -15,7 +15,7 @@ namespace BitPounce
 
 		virtual void OnDraw(Timestep& ts) override 
 		{
-			auto group = m_Scene->Reg().group<TransformComponent>(entt::get<SpriteRendererComponent>);
+			auto group = m_Scene->GetRegistry(*this).group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
 			{
 				auto&& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);

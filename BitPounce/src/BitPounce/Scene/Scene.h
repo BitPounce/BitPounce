@@ -7,16 +7,16 @@
 
 namespace BitPounce {
 
+	class Entity;
+
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene();
 
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = std::string("Entity"));
 
-		// TEMP
-		entt::registry& Reg() { return m_Registry; }
 
 		void OnUpdate(Timestep ts);
 
@@ -28,9 +28,15 @@ namespace BitPounce {
         }
 
 		void AddedAllSys();
+
+
+		// USE ENITY, ONLY USE IN SYSTEMS
+		entt::registry& GetRegistry(ECSSystem& sys) { (void)sys; return m_Registry; }
 	private:
 		entt::registry m_Registry;
 		ECSSystemManager m_sysManager;
+
+		friend class Entity;
 	};
 
 }

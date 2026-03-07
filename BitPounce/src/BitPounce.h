@@ -30,4 +30,5 @@
 #include "BitPounce/Renderer/Framebuffer.h"
 
 #include "BitPounce/Scene/Scene.h"
+#include "BitPounce/Scene/Entity.h"
 #include "BitPounce/Scene/Systems/Renderer2DSystem.h"

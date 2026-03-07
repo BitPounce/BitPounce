@@ -23,7 +23,7 @@ private:
 	float m_time = 0.0f;
 
 	Ref<Scene> m_ActiveScene;
-	entt::entity m_SquareEntity;
+	Entity m_SquareEntity;
 
 	bool m_ViewportFocused = false, m_ViewportHovered = false;
 	BitPounce::Ref<BitPounce::Texture2D> m_PlayerTexture;

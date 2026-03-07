@@ -232,6 +232,10 @@ namespace BitPounce
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
+		s_Data.RenderData.Quads += 1;
+		s_Data.RenderData.Vertices += 4;
+		s_Data.RenderData.Indices += 6;
+
 		for (int i = 0; i < 4; i++)
 		{
 			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
@@ -248,6 +252,10 @@ namespace BitPounce
     {
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
+
+		s_Data.RenderData.Quads += 1;
+		s_Data.RenderData.Vertices += 4;
+		s_Data.RenderData.Indices += 6;
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)

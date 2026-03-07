@@ -32,3 +32,4 @@
 #include "BitPounce/Scene/Scene.h"
 #include "BitPounce/Scene/Entity.h"
 #include "BitPounce/Scene/Systems/Renderer2DSystem.h"
+#include "BitPounce/Scene/Systems/ScriptableEntitySystem.h"

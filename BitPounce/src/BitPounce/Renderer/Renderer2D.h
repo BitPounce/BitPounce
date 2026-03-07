@@ -3,6 +3,8 @@
 #include "OrthographicCamera.h"
 #include "Texture.h"
 
+#include "BitPounce/Renderer/Camera.h"
+
 #define BP_RENDERER2D_USE_BATCH_RENDERING 1
 
 namespace BitPounce {
@@ -13,6 +15,8 @@ namespace BitPounce {
 		static void Init();
 		static void Shutdown();
 
+		static void BeginScene(const glm::mat4& matrix);
+		static void BeginScene(const Camera& camera, const glm::mat4& transform);
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 		static void Flush();

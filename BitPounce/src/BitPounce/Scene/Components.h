@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "BitPounce/Renderer/Camera.h"
+
 namespace BitPounce {
 
 	struct TagComponent
@@ -37,4 +39,15 @@ namespace BitPounce {
 			: Color(color) {}
 	};
 
+	struct CameraComponent
+	{
+		BitPounce::Camera Camera;
+		bool Primary = true;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projection)
+			: Camera(projection) {}
+	};
+	
 }

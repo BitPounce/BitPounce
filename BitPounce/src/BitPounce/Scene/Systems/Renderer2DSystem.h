@@ -15,6 +15,13 @@ namespace BitPounce
 
 		virtual void OnDraw(Timestep& ts) override 
 		{
+			auto campar = m_Scene->GetActiveCamera();
+			if(!campar.first) { return; }
+			auto mainCamera = campar.first->Camera;
+			auto cameraTransform = campar.second->Transform;
+
+			Renderer2D::BeginScene(mainCamera.GetProjection(), cameraTransform);
+
 			auto group = m_Scene->GetRegistry(*this).group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
 			{
@@ -22,6 +29,8 @@ namespace BitPounce
 
 				Renderer2D::DrawQuad(transform, sprite.Color);
 			}
+
+			Renderer2D::EndScene();
 		};
 	};
 }

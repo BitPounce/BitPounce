@@ -109,14 +109,24 @@ namespace BitPounce
 		delete[] s_Data.QuadVertexBufferBase;
 	}
 
-	void Renderer2D::BeginScene(const OrthographicCamera& camera)
-	{
+    void Renderer2D::BeginScene(const glm::mat4 &matrix)
+    {
 		s_Data.RenderData = Renderer2D::Renderer2DData();
 		s_Data.MainShader->Bind();
-		s_Data.MainShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data.MainShader->SetMat4("u_ViewProjection", matrix);
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 		s_Data.TextureSlotIndex = 1;
+    }
+
+    void Renderer2D::BeginScene(const Camera &camera, const glm::mat4 &transform)
+    {
+		BeginScene(camera.GetProjection() * glm::inverse(transform));
+    }
+
+    void Renderer2D::BeginScene(const OrthographicCamera& camera)
+	{
+		
 	}
 
 	void Renderer2D::EndScene()

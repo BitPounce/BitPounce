@@ -41,4 +41,19 @@ namespace BitPounce {
     {
 		m_sysManager.Start();
     }
+    std::pair<CameraComponent*, TransformComponent*> Scene::GetActiveCamera()
+	{
+	    auto view = m_Registry.view<TransformComponent, CameraComponent>();
+
+	    for (auto entity : view)
+	    {
+	        auto& camera = view.get<CameraComponent>(entity);
+			auto& transform = view.get<TransformComponent>(entity);
+
+	        if (camera.Primary)
+	            return {&camera, &transform};
+	    }
+
+	    return {nullptr, nullptr};
+	}
 }

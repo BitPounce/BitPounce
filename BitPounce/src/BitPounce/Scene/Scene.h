@@ -4,10 +4,14 @@
 
 #include "ECSSystemManager.h"
 #include "BitPounce/Core/Timestep.h"
+#include <utility>
+#include <optional>
 
 namespace BitPounce {
 
 	class Entity;
+	struct CameraComponent;
+struct TransformComponent;
 
 	class Scene
 	{
@@ -32,6 +36,8 @@ namespace BitPounce {
 
 		// USE ENITY, ONLY USE IN SYSTEMS
 		entt::registry& GetRegistry(ECSSystem& sys) { (void)sys; return m_Registry; }
+
+		std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
 	private:
 		entt::registry m_Registry;
 		ECSSystemManager m_sysManager;

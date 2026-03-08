@@ -15,6 +15,7 @@ namespace BitPounce
         void SetContext(const Ref<Scene>& scene);
     private:
         void DrawEntityNode(Entity entity, TagComponent tc);
+        void DrawComponents(Entity entity);
     private:
         Ref<Scene> m_Context;
         Entity m_SelectionContext;

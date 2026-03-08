@@ -7,24 +7,6 @@
 
 namespace BitPounce {
 	
-	class TestSystem : public System
-	{
-	public:
-		TestSystem()
-		{
-			m_name = std::string("Test System");
-		}
-	
-		virtual void Start() override
-		{
-			BP_CORE_INFO("STARTING TEST SYS");
-		}
-		virtual void Stop() override
-		{
-			BP_CORE_INFO("STOPING TEST SYS");
-		}
-	};
-	
 	static Ref<Audio> s_Audio;
 	
 	EditorLayer::EditorLayer()
@@ -34,6 +16,8 @@ namespace BitPounce {
 	
 	void EditorLayer::OnAttach()
 	{
+		m_ActiveScene = CreateRef<Scene>();
+
 		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 		m_PlayerTexture = Texture2D::Create("assets/textures/Player.png");
 		m_Icon = Texture2D::Create("assets/textures/Icon.png");
@@ -42,8 +26,8 @@ namespace BitPounce {
 		s_Audio =Audio::Create("assets/file_example_WAV_10MG.wav");
 		s_Audio->Play();
 	
-		m_SysManager.AddSystem<TestSystem>();
-		m_SysManager.Start();
+		m_SceneHierarchyPanel = *m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
+		m_Panels.Start();
 	
 		FramebufferSpecification fbSpec;
 		fbSpec.Width = Application::Get().GetWindow().GetWidth();
@@ -51,22 +35,22 @@ namespace BitPounce {
 		m_RendorSize = glm::vec2(Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight());
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
-		m_ActiveScene = CreateRef<Scene>();
+		
 		m_ActiveScene->AddSystem<Renderer2DSystem>();
 		m_ActiveScene->AddedAllSys();
 
-		auto square = m_ActiveScene->CreateEntity();
+		auto square = m_ActiveScene->CreateEntity("Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
 
 		m_SquareEntity = square;
 
-		m_CameraEntity = m_ActiveScene->CreateEntity();
+		m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
 		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
 	}
 	
 	void EditorLayer::OnDetach()
 	{
-		m_SysManager.Stop();
+		m_Panels.Stop();
 	}
 	
 	void Dockspace(std::function<void()> callback)
@@ -151,7 +135,7 @@ namespace BitPounce {
 	
 	
 		// Update
-		m_SysManager.OnUpdate(ts);
+		m_Panels.OnUpdate(ts);
 		m_CameraController.OnUpdate(ts);
 	
 		m_Framebuffer->Bind();
@@ -159,7 +143,7 @@ namespace BitPounce {
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 	
-		m_SysManager.OnDraw(ts);
+		m_Panels.OnDraw(ts);
 	
 		Renderer::BeginScene(m_CameraController.GetCamera());
 	
@@ -182,7 +166,7 @@ namespace BitPounce {
 	
 	void EditorLayer::OnDockSpace()
 	{
-		m_SysManager.OnImGuiDraw();
+		m_Panels.OnImGuiDraw();
 	
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
@@ -204,7 +188,7 @@ namespace BitPounce {
 	
 		ImGui::Begin("Systems");
 	
-		for(auto sys : m_SysManager.Get())
+		for(auto sys : m_Panels.Get())
 		{
 			ImGui::Text(sys->GetName().c_str());
 		}
@@ -237,7 +221,7 @@ namespace BitPounce {
 	
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_SysManager.OnEvent(e);
+		m_Panels.OnEvent(e);
 		m_CameraController.OnEvent(e);
 	}
 }

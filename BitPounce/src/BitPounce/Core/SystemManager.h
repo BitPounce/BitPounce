@@ -11,10 +11,11 @@ namespace BitPounce
         SystemManager() {};
         ~SystemManager();
 
-        template<typename SystemType>
-        SystemType* AddSystem()
+        template<typename SystemType, typename... Args>
+        SystemType* AddSystem(Args&&... args)
         {
-            SystemType* sys = new SystemType();
+            
+            SystemType* sys = new SystemType(std::forward<Args>(args)...);
             AddSys_in(sys);
             return sys;
         }

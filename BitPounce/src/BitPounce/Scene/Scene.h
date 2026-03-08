@@ -28,11 +28,11 @@ struct TransformComponent;
 		void OnEvent(Event& e);
 		void OnViewportResize(uint32_t width, uint32_t height);
 
-		template<typename SystemType>
-        SystemType* AddSystem()
+		template<typename SystemType, typename... Args>
+        SystemType* AddSystem(Args&&... args)
         {
             
-            return m_sysManager.AddSystem<SystemType>();
+            return m_sysManager.AddSystem<SystemType>(std::forward<Args>(args)...);
         }
 
 		void AddedAllSys();

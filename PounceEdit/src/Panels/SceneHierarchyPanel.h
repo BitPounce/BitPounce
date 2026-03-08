@@ -1,0 +1,22 @@
+#pragma once
+
+#include "Panel.h"
+#include "BitPounce.h"
+
+namespace BitPounce
+{
+    class SceneHierarchyPanel : public Panel
+    {
+    public:
+        SceneHierarchyPanel() {};
+        SceneHierarchyPanel(const Ref<Scene>& scene);
+
+        virtual void OnImGuiDraw() override;
+        void SetContext(const Ref<Scene>& scene);
+    private:
+        void DrawEntityNode(Entity entity, TagComponent tc);
+    private:
+        Ref<Scene> m_Context;
+        Entity m_SelectionContext;
+    };
+}

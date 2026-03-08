@@ -1,6 +1,9 @@
 #pragma once
 
 #include "BitPounce.h"
+#include "Panels/Panel.h"
+#include "Panels/SceneHierarchyPanel.h"
+
 namespace BitPounce {
 
 	class EditorLayer : public Layer
@@ -19,7 +22,7 @@ namespace BitPounce {
 
 
 	private:
-		SystemManager m_SysManager;
+		PanelManager m_Panels;
 		OrthographicCameraController m_CameraController;
 		float m_time = 0.0f;
 
@@ -35,6 +38,7 @@ namespace BitPounce {
 
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 		glm::vec2 m_RendorSize = {};
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 
 }

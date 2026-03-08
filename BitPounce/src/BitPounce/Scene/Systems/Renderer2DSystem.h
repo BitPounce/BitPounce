@@ -20,7 +20,7 @@ namespace BitPounce
 			auto campar = m_Scene->GetActiveCamera();
 			if(!campar.first) { return; }
 			auto mainCamera = campar.first->Camera;
-			auto cameraTransform = campar.second->Transform;
+			auto cameraTransform = campar.second->GetTransform();
 
 			Renderer2D::BeginScene(mainCamera.GetProjection(), cameraTransform);
 
@@ -29,7 +29,7 @@ namespace BitPounce
 			{
 				auto&& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform, sprite.Colour);
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour);
 			}
 
 			Renderer2D::EndScene();

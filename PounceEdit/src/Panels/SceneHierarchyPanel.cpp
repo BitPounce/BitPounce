@@ -3,6 +3,7 @@
 #include <string>
 #include <glm/gtc/type_ptr.hpp>
 #include "imgui.h"
+#include <BitPounce/ImGui/ImGuiUtils.h>
 
 namespace BitPounce
 {
@@ -57,8 +58,12 @@ namespace BitPounce
 		{
 			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
 			{
-				auto& transform = entity.GetComponent<TransformComponent>().Transform;
-				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.1f);
+				auto& tc = entity.GetComponent<TransformComponent>();
+				ImGuiUtils::DrawVec3Control("Translation", tc.Translation);
+				glm::vec3 rotation = glm::degrees(tc.Rotation);
+				ImGuiUtils::DrawVec3Control("Rotation", rotation);
+				tc.Rotation = glm::radians(rotation);
+				ImGuiUtils::DrawVec3Control("Scale", tc.Scale, 1.0f);
 
 				ImGui::TreePop();
 			}

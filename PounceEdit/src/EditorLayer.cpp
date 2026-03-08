@@ -172,7 +172,7 @@ namespace BitPounce {
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 		ImGui::DragFloat3("Camera Transform",
-			glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+			glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Translation));
 		ImGui::End();
 	
 		ImGui::Begin("Render Data");

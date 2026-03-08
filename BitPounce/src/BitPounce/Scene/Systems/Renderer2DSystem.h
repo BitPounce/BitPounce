@@ -5,6 +5,8 @@
 #include <entt/entt.hpp>
 #include <BitPounce/Renderer/Renderer2D.h>
 #include "../Components.h"
+#include <imgui.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace BitPounce
 {
@@ -27,10 +29,25 @@ namespace BitPounce
 			{
 				auto&& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform, sprite.Color);
+				Renderer2D::DrawQuad(transform, sprite.Colour);
 			}
 
 			Renderer2D::EndScene();
 		};
+
+
+		virtual void OnEditorPropImguiDraw(Entity& entity) override
+		{
+			if (entity.HasComponent<SpriteRendererComponent>())
+			{
+				if (ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite Renderer"))
+				{
+					auto& src = entity.GetComponent<SpriteRendererComponent>();
+					ImGui::ColorEdit4("Colour", glm::value_ptr(src.Colour));
+					ImGui::TreePop();
+				}
+			}
+		}
+
 	};
 }

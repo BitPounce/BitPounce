@@ -37,6 +37,7 @@ namespace BitPounce {
 
 		
 		m_ActiveScene->AddSystem<Renderer2DSystem>();
+		m_ActiveScene->AddSystem<CameraSystem>();
 		m_ActiveScene->AddedAllSys();
 
 		auto square = m_ActiveScene->CreateEntity("Square");

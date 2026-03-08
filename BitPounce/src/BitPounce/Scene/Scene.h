@@ -26,6 +26,7 @@ struct TransformComponent;
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
+		void OnEditorPropImguiDraw(Entity& entity);
 		void OnViewportResize(uint32_t width, uint32_t height);
 
 		template<typename SystemType, typename... Args>

@@ -9,7 +9,7 @@ namespace BitPounce
 	class ECSSystemManager : public SystemManager
 	{
 	public:
-		
+		void OnEditorPropImguiDraw(Entity& entity);
 	protected:
 		Scene* m_Scene;
 

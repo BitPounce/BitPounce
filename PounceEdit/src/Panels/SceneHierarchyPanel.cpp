@@ -63,6 +63,8 @@ namespace BitPounce
 				ImGui::TreePop();
 			}
 		}
+
+        m_Context->OnEditorPropImguiDraw(entity);
     }
 
     void SceneHierarchyPanel::OnImGuiDraw()

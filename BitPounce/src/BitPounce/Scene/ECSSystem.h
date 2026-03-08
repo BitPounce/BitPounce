@@ -3,12 +3,13 @@
 
 namespace BitPounce
 {
-	class Scene;
+	class Entity;
+    class Scene;
 
 	class ECSSystem : public System
 	{
 	public:
-		
+		virtual void OnEditorPropImguiDraw(Entity& entity) {};
 	protected:
 		Scene* m_Scene;
 	private:

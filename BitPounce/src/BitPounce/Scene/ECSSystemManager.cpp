@@ -3,7 +3,15 @@
 
 namespace BitPounce
 {
-	void ECSSystemManager::AddSys_in(System *sys)
+    void ECSSystemManager::OnEditorPropImguiDraw(Entity &entity)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->OnEditorPropImguiDraw(entity);
+		}
+    }
+
+    void ECSSystemManager::AddSys_in(System *sys)
 	{
 
 		if(!dynamic_cast<ECSSystem*>(sys))

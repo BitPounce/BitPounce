@@ -22,12 +22,13 @@ struct TransformComponent;
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string("Entity"));
-
+		void DestroyEntity(Entity entity);
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 		void OnEditorPropImguiDraw(Entity& entity);
 		void OnViewportResize(uint32_t width, uint32_t height);
+		void AddComponentPopupImguiDraw(Entity& ent);
 
 		template<typename SystemType, typename... Args>
         SystemType* AddSystem(Args&&... args)
@@ -44,6 +45,15 @@ struct TransformComponent;
 
 		std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
 	private:
+		template<typename T>
+		void OnComponentAdded(Entity& entity, T& component)
+		{
+			for(System* sys : m_sysManager.Get())
+			{
+				((ECSSystem*)sys)->OnComponentAdded<T>(entity, component);
+			}
+		}
+	private:
 	
 		bool OnResize(WindowResizeEvent& e);
 
@@ -52,6 +62,7 @@ struct TransformComponent;
 		ECSSystemManager m_sysManager;
 
 		friend class Entity;
+		friend class ECSSystem;
 	};
 
 }

@@ -10,6 +10,12 @@ namespace BitPounce
 	{
 	public:
 		virtual void OnEditorPropImguiDraw(Entity& entity) {};
+
+		// HACK because c++ is c++, and templates using you can not use virtual for this idk why and this is why c++ is evil 😈!!!!
+		template<typename T>
+		void OnComponentAdded(Entity entity, T& component);
+
+		virtual void AddComponentPopupImguiDraw(Entity& ent) {};
 	protected:
 		Scene* m_Scene;
 	private:

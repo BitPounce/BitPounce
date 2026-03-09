@@ -29,7 +29,12 @@ namespace BitPounce {
 		return e;
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+    void Scene::DestroyEntity(Entity entity)
+    {
+		m_Registry.destroy(entity);
+    }
+
+    void Scene::OnUpdate(Timestep ts)
 	{
 		m_sysManager.OnUpdate(ts);
 		m_sysManager.OnDraw(ts);
@@ -67,6 +72,11 @@ namespace BitPounce {
 		}
     }
 
+    void Scene::AddComponentPopupImguiDraw(Entity &ent)
+    {
+		m_sysManager.AddComponentPopupImguiDraw(ent);
+    }
+
     void Scene::AddedAllSys()
     {
 		m_sysManager.Start();
@@ -90,4 +100,30 @@ namespace BitPounce {
     {
         
     }
+
+	template<>
+	void ECSSystem::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
+	{
+		component.Camera.SetViewportSize(m_Scene->m_ViewportWidth, m_Scene->m_ViewportWidth);
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+	}
 }

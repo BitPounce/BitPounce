@@ -14,6 +14,15 @@ namespace BitPounce
 	public:
 		CameraSystem() {};
 
+		virtual void AddComponentPopupImguiDraw(Entity& ent) override
+		{
+			if (ImGui::MenuItem("Camera"))
+			{
+				ent.AddComponent<CameraComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+		};
+
         virtual void OnEditorPropImguiDraw(Entity& entity)
         {
             if (entity.HasComponent<CameraComponent>())

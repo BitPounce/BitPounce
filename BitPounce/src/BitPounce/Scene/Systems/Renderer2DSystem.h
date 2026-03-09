@@ -35,6 +35,14 @@ namespace BitPounce
 			Renderer2D::EndScene();
 		};
 
+		virtual void AddComponentPopupImguiDraw(Entity& ent) override
+		{
+			if (ImGui::MenuItem("Sprite Renderer"))
+			{
+				ent.AddComponent<SpriteRendererComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+		};
 
 		virtual void OnEditorPropImguiDraw(Entity& entity) override
 		{

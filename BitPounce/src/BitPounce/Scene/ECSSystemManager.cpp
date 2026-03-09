@@ -11,6 +11,14 @@ namespace BitPounce
 		}
     }
 
+    void ECSSystemManager::AddComponentPopupImguiDraw(Entity &ent)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->AddComponentPopupImguiDraw(ent);
+		}
+    }
+
     void ECSSystemManager::AddSys_in(System *sys)
 	{
 

@@ -10,6 +10,7 @@ namespace BitPounce
 	{
 	public:
 		void OnEditorPropImguiDraw(Entity& entity);
+		void AddComponentPopupImguiDraw(Entity& ent);
 	protected:
 		Scene* m_Scene;
 

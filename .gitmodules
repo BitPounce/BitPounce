@@ -32,3 +32,6 @@
 [submodule "BitPounce/vendor/entt"]
 	path = BitPounce/vendor/entt
 	url = https://github.com/BitPounce/entt
+[submodule "BitPounce/vendor/nlohmannjson"]
+	path = BitPounce/vendor/nlohmannjson
+	url = https://github.com/BitPounce/nlohmann-json

@@ -7,6 +7,7 @@
 #include "../Components.h"
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "BitPounce/ImGui/ImGuiUtils.h"
 
 namespace BitPounce
 {
@@ -46,15 +47,10 @@ namespace BitPounce
 
 		virtual void OnEditorPropImguiDraw(Entity& entity) override
 		{
-			if (entity.HasComponent<SpriteRendererComponent>())
+			ImGuiUtils::DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](SpriteRendererComponent& component)
 			{
-				if (ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite Renderer"))
-				{
-					auto& src = entity.GetComponent<SpriteRendererComponent>();
-					ImGui::ColorEdit4("Colour", glm::value_ptr(src.Colour));
-					ImGui::TreePop();
-				}
-			}
+				ImGui::ColorEdit4("Colour", glm::value_ptr(component.Colour));
+			});
 		}
 
 	};

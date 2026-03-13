@@ -108,6 +108,9 @@ namespace BitPounce {
 		// REMINDER: THIS IS A DEMO FOR ADVANCED USAGE OF DockSpace()!
 		// MOST REGULAR APPLICATIONS WILL SIMPLY WANT TO CALL DockSpaceOverViewport(). READ COMMENTS ABOVE.
 		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370.0f;
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
@@ -115,8 +118,9 @@ namespace BitPounce {
 		}
 		else
 		{
-			BP_CORE_ASSERT(0,"NO DOCKING FOR EDITOR SOMEONE DISBALE IT WHYYYYYY!");
+			BP_CORE_ASSERT(0,"NO DOCKING FOR EDITOR SOMEONE DISABLED IT WHYYYYYY!");
 		}
+		style.WindowMinSize.x = minWinSizeX;
 	
 		// Show demo options and help
 		callback();

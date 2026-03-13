@@ -48,26 +48,20 @@ namespace BitPounce
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
 			std::strncpy(buffer, tag.c_str(), sizeof(buffer));
-			if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
+			if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
 			{
 				tag = std::string(buffer);
 			}
 		}
 
-		if (entity.HasComponent<TransformComponent>())
+		ImGuiUtils::DrawComponent<TransformComponent>("Transform", entity, [](auto& component)
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
-			{
-				auto& tc = entity.GetComponent<TransformComponent>();
-				ImGuiUtils::DrawVec3Control("Translation", tc.Translation);
-				glm::vec3 rotation = glm::degrees(tc.Rotation);
-				ImGuiUtils::DrawVec3Control("Rotation", rotation);
-				tc.Rotation = glm::radians(rotation);
-				ImGuiUtils::DrawVec3Control("Scale", tc.Scale, 1.0f);
-
-				ImGui::TreePop();
-			}
-		}
+			ImGuiUtils::DrawVec3Control("Translation", component.Translation);
+			glm::vec3 rotation = glm::degrees(component.Rotation);
+			ImGuiUtils::DrawVec3Control("Rotation", rotation);
+			component.Rotation = glm::radians(rotation);
+			ImGuiUtils::DrawVec3Control("Scale", component.Scale, 1.0f);
+		});
 
         m_Context->OnEditorPropImguiDraw(entity);
     }
@@ -102,6 +96,8 @@ namespace BitPounce
 		{
 			DrawComponents(m_SelectionContext);
 
+			ImGui::SameLine();
+			ImGui::PushItemWidth(-1);
 			if (ImGui::Button("Add Component"))
 				ImGui::OpenPopup("AddComponent");
 
@@ -111,6 +107,8 @@ namespace BitPounce
 
 				ImGui::EndPopup();
 			}
+
+			ImGui::PopItemWidth();
 		}
 			
 

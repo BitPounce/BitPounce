@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient-0" bx:pinned="true">
+      <stop offset="0" style="stop-color: rgb(255, 255, 255);"/>
+      <stop offset="0.298" style="stop-color: rgb(157, 255, 255);"/>
+      <stop offset="0.571" style="stop-color: rgb(178, 196, 154);"/>
+      <stop offset="1" style="stop-color: rgb(255, 0, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-1" bx:pinned="true">
+      <stop offset="0" style=""/>
+      <stop offset="0.527" style="stop-color: rgb(0, 69, 31);"/>
+      <stop offset="1" style="stop-color: rgb(70, 0, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-0-1" href="#gradient-0" gradientUnits="userSpaceOnUse" x1="84.81" y1="41.772" x2="84.81" y2="458.228" gradientTransform="matrix(1, 0, 0, 1, 11.999904, 0)"/>
+    <linearGradient id="gradient-1-0" href="#gradient-1" gradientUnits="userSpaceOnUse" x1="415.19" y1="41.772" x2="415.19" y2="458.228" gradientTransform="matrix(1, 0, 0, 1, -11.999903, 0)"/>
+    <linearGradient id="gradient-1-1" href="#gradient-1" gradientUnits="userSpaceOnUse" x1="84.81" y1="41.772" x2="84.81" y2="458.228" gradientTransform="matrix(1, 0, 0, 1, 11.999904, 0)"/>
+    <linearGradient id="gradient-0-0" href="#gradient-0" gradientUnits="userSpaceOnUse" x1="403.19" y1="41.772" x2="403.19" y2="458.228"/>
+  </defs>
+  <rect style="fill: url(&quot;#gradient-0-1&quot;); stroke: url(&quot;#gradient-1-1&quot;); stroke-width: 23px;" x="12" y="41.772" width="169.62" height="416.456" rx="35" ry="35"/>
+  <rect width="169.62" height="416.456" style="stroke: url(&quot;#gradient-1-0&quot;); stroke-width: 23px; fill: url(&quot;#gradient-0-0&quot;);" x="318.38" y="41.772" rx="35" ry="35"/>
+</svg>

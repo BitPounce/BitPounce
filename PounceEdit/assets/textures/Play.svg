@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="gradient-1" bx:pinned="true">
+      <stop offset="0" style="stop-color: rgb(255, 255, 255);"/>
+      <stop offset="0.298" style="stop-color: rgb(157, 255, 255);"/>
+      <stop offset="0.571" style="stop-color: rgb(178, 196, 154);"/>
+      <stop offset="1" style="stop-color: rgb(255, 0, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-2" bx:pinned="true">
+      <stop offset="0" style=""/>
+      <stop offset="0.527" style="stop-color: rgb(0, 69, 31);"/>
+      <stop offset="1" style="stop-color: rgb(70, 0, 0);"/>
+    </linearGradient>
+    <linearGradient id="gradient-1-0" href="#gradient-1" gradientUnits="userSpaceOnUse" x1="250.949" y1="29.009" x2="250.949" y2="463.923"/>
+    <linearGradient id="gradient-2-0" href="#gradient-2" gradientUnits="userSpaceOnUse" x1="250.949" y1="29.009" x2="250.949" y2="463.923"/>
+    <bx:export>
+      <bx:file format="png" path="Play.png" dpi="56"/>
+    </bx:export>
+  </defs>
+  <path d="M 210.117 69.411 Q 250.949 -11.393 291.781 69.411 L 450.307 383.119 Q 491.139 463.923 409.474 463.923 L 92.424 463.923 Q 10.759 463.923 51.591 383.119 Z" bx:shape="triangle 10.759 -11.393 480.38 475.316 0.5 0.17 1@e9a8ec8a" style="transform-origin: 250.949px 246.466px 0px; stroke-width: 23px; fill: url(&quot;#gradient-1-0&quot;); stroke: url(&quot;#gradient-2-0&quot;);" transform="matrix(0, 1, -1, 0, 0.000112, 0.000141)" id="object-0"/>
+</svg>

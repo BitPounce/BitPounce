@@ -17,6 +17,8 @@ namespace BitPounce
 
 			void BlockEvents(bool block) { m_BlockEvents = block; }
 
+			void SetDarkThemeColors();
+
 			void Begin();
 			void End();
 

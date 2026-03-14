@@ -19,6 +19,22 @@ namespace BitPounce
 		}
     }
 
+    void ECSSystemManager::Serialize(nlohmann::json& json) 
+	{
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->Serialize(json);
+		}
+	}
+
+	void ECSSystemManager::Deserialize(nlohmann::json & json)
+	{
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->Deserialize(json);
+		}
+	}
+
     void ECSSystemManager::AddSys_in(System *sys)
 	{
 

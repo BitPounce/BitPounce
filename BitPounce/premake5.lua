@@ -11,7 +11,8 @@ function exposeBitPounceDeps()
         "../BitPounce/vendor/imgui",
         "../BitPounce/vendor/glad/include",
         "../BitPounce/vendor/debugbreak",
-        "../BitPounce/vendor/entt/single_include"
+        "../BitPounce/vendor/entt/single_include",
+		"../BitPounce/vendor/nlohmannjson/single_include",
     }
 
     -- Platform-specific libraries

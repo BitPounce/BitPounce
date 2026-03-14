@@ -39,14 +39,6 @@ namespace BitPounce {
 		m_ActiveScene->AddSystem<Renderer2DSystem>();
 		m_ActiveScene->AddSystem<CameraSystem>();
 		m_ActiveScene->AddedAllSys();
-
-		auto square = m_ActiveScene->CreateEntity("Square");
-		square.AddComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
-
-		m_SquareEntity = square;
-
-		m_CameraEntity = m_ActiveScene->CreateEntity("Camera");
-		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
 	}
 	
 	void EditorLayer::OnDetach()
@@ -171,12 +163,33 @@ namespace BitPounce {
 	
 	void EditorLayer::OnDockSpace()
 	{
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
+			{
+
+				if (ImGui::MenuItem("Serialize"))
+				{
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Serialize("assets/scenes/Example.bitPounce");
+				}
+
+				if (ImGui::MenuItem("Deserialize"))
+				{
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Deserialize("assets/scenes/Example.bitPounce");
+				}
+
+				if (ImGui::MenuItem("Exit")) Application::Get().Close(0);
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+
 		m_Panels.OnImGuiDraw();
 	
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-		ImGui::DragFloat3("Camera Transform",
-			glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Translation));
 		ImGui::End();
 	
 		ImGui::Begin("Render Data");

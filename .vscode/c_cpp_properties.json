@@ -15,7 +15,8 @@
                 "${workspaceFolder}/BitPounce/vendor/imgui",
                 "${workspaceFolder}/BitPounce/vendor/miniaudio",
                 "${workspaceFolder}/BitPounce/vendor/spdlog/include",
-                "${workspaceFolder}/BitPounce/vendor/stb"
+                "${workspaceFolder}/BitPounce/vendor/stb",
+                "${workspaceFolder}/BitPounce/vendor/nlohmannjson/single_include"
             ],
             "defines": [],
             "cStandard": "c17",

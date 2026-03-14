@@ -34,3 +34,4 @@
 #include "BitPounce/Scene/Systems/Renderer2DSystem.h"
 #include "BitPounce/Scene/Systems/ScriptableEntitySystem.h"
 #include "BitPounce/Scene/Systems/CameraSystem.h"
+#include "BitPounce/Scene/SceneSerializer.h"

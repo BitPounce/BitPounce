@@ -96,7 +96,6 @@ namespace BitPounce
 		{
 			DrawComponents(m_SelectionContext);
 
-			ImGui::SameLine();
 			ImGui::PushItemWidth(-1);
 			if (ImGui::Button("Add Component"))
 				ImGui::OpenPopup("AddComponent");

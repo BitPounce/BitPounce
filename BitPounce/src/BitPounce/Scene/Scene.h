@@ -8,12 +8,13 @@
 #include <optional>
 #include <BitPounce/Events/Event.h>
 #include <BitPounce/Events/ApplicationEvent.h>
+#include "SceneSerializerUtils.h"
 
 namespace BitPounce {
 
 	class Entity;
 	struct CameraComponent;
-struct TransformComponent;
+	struct TransformComponent;
 
 	class Scene
 	{
@@ -38,6 +39,8 @@ struct TransformComponent;
         }
 
 		void AddedAllSys();
+		void Serialize(nlohmann::json& json);
+		void Deserialize(nlohmann::json& json);
 
 
 		// USE ENITY, ONLY USE IN SYSTEMS

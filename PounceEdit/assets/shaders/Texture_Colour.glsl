@@ -1,5 +1,5 @@
 layout(location = 0) out vec4 color;
-
+layout(location = 1) out int color2;
 
 in vec4 v_Colour;
 in vec2 v_TexCoord;
@@ -48,6 +48,8 @@ else if (v_TexIndex == 30.0) texColor = texture(u_Textures[30], v_TexCoord);
 else if (v_TexIndex == 31.0) texColor = texture(u_Textures[31], v_TexCoord);
 
     color = texColor * v_Colour;
+
+    color2 = 50;
 
     if (color.a <= 0.1)
         discard;

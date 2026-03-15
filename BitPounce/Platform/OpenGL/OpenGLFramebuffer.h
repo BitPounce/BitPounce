@@ -11,6 +11,7 @@ namespace BitPounce {
 		virtual ~OpenGLFramebuffer();
 
 		virtual void Resize(uint32_t width, uint32_t height) override;
+		virtual int ReadPixel(uint32_t attachmentIndex, int x, int y) override;
 
 		void Invalidate();
 

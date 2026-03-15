@@ -56,6 +56,17 @@ namespace BitPounce {
 		return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
 	}
 
+	static GLenum BitPounceFBTextureFormatToGL(FramebufferTextureFormat format)
+	{
+		switch (format)
+		{
+			case FramebufferTextureFormat::RGBA8:       return GL_RGBA8;
+			case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+		}
+		BP_CORE_ASSERT(false, "");
+		return 0;
+	}
+
 	static void CreateTextures(bool multisampled, uint32_t* outID, uint32_t count)
 	{
 		glCreateTextures(TextureTarget(multisampled), count, outID);
@@ -252,6 +263,18 @@ namespace BitPounce {
 		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
 		return pixelData;
 
+	}
+
+
+	
+
+	void OpenGLFramebuffer::ClearAttachment(uint32_t attachmentIndex, int value)
+	{
+		BP_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size(), "");
+
+		auto& spec = m_ColorAttachmentSpecifications[attachmentIndex];
+		glClearTexImage(m_ColorAttachments[attachmentIndex], 0,
+			Utils::BitPounceFBTextureFormatToGL(spec.TextureFormat), GL_INT, &value);
 	}
 
 } // namespace BitPounce

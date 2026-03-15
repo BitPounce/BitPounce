@@ -116,7 +116,7 @@ namespace BitPounce
             if (entityJson.contains("TransformComponent"))
             {
                 auto& transformJson = entityJson["TransformComponent"];
-                TransformComponent comp = entity.GetComponent<TransformComponent>();
+                TransformComponent& comp = entity.GetComponent<TransformComponent>();
                 if (transformJson.contains("Translation"))
                     comp.Translation = transformJson["Translation"].get<glm::vec3>();
                 if (transformJson.contains("Scale"))

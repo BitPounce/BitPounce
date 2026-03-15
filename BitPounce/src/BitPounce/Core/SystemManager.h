@@ -1,6 +1,7 @@
 #pragma once
 #include "System.h"
 #include <memory>
+#include <iostream>
 
 namespace BitPounce
 {
@@ -16,7 +17,9 @@ namespace BitPounce
         {
             
             SystemType* sys = new SystemType(std::forward<Args>(args)...);
+            std::cout << "[AddSystem] Created: " << sys << std::endl;
             AddSys_in(sys);
+            std::cout << "[AddSystem] Returning: " << sys << std::endl;
             return sys;
         }
 
@@ -30,7 +33,7 @@ namespace BitPounce
         virtual void StopSystem(System* sys);
         virtual void StartSystem(System* sys);
 
-        virtual std::vector<System*> Get()
+        virtual std::vector<System*>& Get()
         {
             return m_systems;
         }

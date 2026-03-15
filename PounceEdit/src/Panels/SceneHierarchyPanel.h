@@ -12,7 +12,8 @@ namespace BitPounce
         SceneHierarchyPanel(const Ref<Scene>& scene);
 
         virtual void OnImGuiDraw() override;
-        void SetContext(const Ref<Scene>& scene);
+        void SetContext(const Ref<Scene> scene);
+        Entity& GetSelectedEntity() { return m_SelectionContext; }
     private:
         void DrawEntityNode(Entity entity, TagComponent tc);
         void DrawComponents(Entity entity);

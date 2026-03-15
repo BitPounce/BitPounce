@@ -15,6 +15,10 @@
 #include <BitPounce/Core/FileSystem.h>
 #include <BitPounce/Core/SystemManager.h>
 
+#include "BitPounce/Events/Event.h"
+#include "BitPounce/Events/ApplicationEvent.h"
+#include "BitPounce/Events/KeyEvent.h"
+#include "BitPounce/Events/MouseEvent.h"
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"
@@ -31,7 +35,12 @@
 
 #include "BitPounce/Scene/Scene.h"
 #include "BitPounce/Scene/Entity.h"
+#include "BitPounce/Scene/Components.h"
 #include "BitPounce/Scene/Systems/Renderer2DSystem.h"
 #include "BitPounce/Scene/Systems/ScriptableEntitySystem.h"
 #include "BitPounce/Scene/Systems/CameraSystem.h"
 #include "BitPounce/Scene/SceneSerializer.h"
+
+#include "BitPounce/Utils/PlatformUtils.h"
+
+#include "BitPounce/Math/Math.h"

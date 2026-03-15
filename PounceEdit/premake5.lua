@@ -18,7 +18,7 @@ project "PounceEdit"
 		"../BitPounce/",
 		"../BitPounce/vendor/spdlog/include",
 		"../BitPounce/vendor/glm",
-		"../BitPounce/vendor/imgui"
+		"../BitPounce/vendor/imgui",
 	}
 
 	exposeBitPounceDeps();

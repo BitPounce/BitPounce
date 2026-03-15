@@ -9,6 +9,9 @@
 #include <GLFW/glfw3.h>
 #include <BitPounce/Core/Logger.h>
 #include <BitPounce/Core/FileSystem.h>
+
+#include "ImGuizmo.h"
+
 namespace BitPounce {
 
 	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") { }
@@ -87,6 +90,7 @@ namespace BitPounce {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+        ImGuizmo::BeginFrame();
     }
 
     void ImGuiLayer::SetDarkThemeColors()

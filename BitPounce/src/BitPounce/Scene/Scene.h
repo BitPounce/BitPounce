@@ -19,7 +19,7 @@ namespace BitPounce {
 	class Scene
 	{
 	public:
-		Scene();
+		Scene(const std::string& name = std::string("Scene"));
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string("Entity"));
@@ -41,6 +41,9 @@ namespace BitPounce {
 		void AddedAllSys();
 		void Serialize(nlohmann::json& json);
 		void Deserialize(nlohmann::json& json);
+		void RemoveAll();
+
+		std::string name;
 
 
 		// USE ENITY, ONLY USE IN SYSTEMS

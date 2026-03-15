@@ -87,7 +87,9 @@ namespace BitPounce
 
     void SystemManager::AddSys_in(System* sys)
 	{
+		std::cout << "[AddSys_in] Received: " << sys << std::endl;
 		m_systems.push_back(sys);
+		std::cout << "[AddSys_in] Stored, vector size now " << m_systems.size() << std::endl;
 	}
 
 }

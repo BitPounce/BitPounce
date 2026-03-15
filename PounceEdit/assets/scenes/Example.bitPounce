@@ -1,23 +1,33 @@
 {
 	"Entities": [
 		{
-			"ID": 362623186,
-			"SpriteRenderer": {
-				"Colour": [
-					1.0,
-					0.0,
-					0.0,
-					1.0
-				]
+			"CameraComponent": {
+				"Camera": {
+					"AspectRatio": 1.0,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": -8.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
 			},
+			"ID": 362623186,
 			"TagComponent": {
-				"Tag": "Empty Entity"
+				"Tag": "Camera"
 			},
 			"TransformComponent": {
 				"Rotation": [
 					0.0,
 					0.0,
-					1.1554079055786133
+					0.0
 				],
 				"Scale": [
 					1.0,
@@ -25,7 +35,7 @@
 					1.0
 				],
 				"Translation": [
-					4.099999904632568,
+					0.0,
 					0.0,
 					0.0
 				]
@@ -48,16 +58,16 @@
 			"TransformComponent": {
 				"Rotation": [
 					0.0,
-					0.0,
-					0.0
+					0.04188790172338486,
+					0.717330276966095
 				],
 				"Scale": [
-					3.200000047683716,
-					3.299999952316284,
+					1.0,
+					1.0,
 					1.0
 				],
 				"Translation": [
-					0.0,
+					2.200000047683716,
 					0.0,
 					0.0
 				]
@@ -65,27 +75,17 @@
 			"entityID": 1
 		},
 		{
-			"CameraComponent": {
-				"Camera": {
-					"AspectRatio": 1.42055082321167,
-					"Orthographic": {
-						"FarClip": 1.0,
-						"NearClip": -1.0,
-						"Size": -8.0
-					},
-					"Perspective": {
-						"FarClip": 1000.0,
-						"NearClip": 0.009999999776482582,
-						"POV": 0.7853981852531433
-					},
-					"ProjectionType": 1
-				},
-				"FixedAspectRatio": false,
-				"Primary": true
-			},
 			"ID": 4182336232,
+			"SpriteRenderer": {
+				"Colour": [
+					1.0,
+					0.0,
+					0.0,
+					1.0
+				]
+			},
 			"TagComponent": {
-				"Tag": "Camera"
+				"Tag": "Empty Entity"
 			},
 			"TransformComponent": {
 				"Rotation": [
@@ -94,7 +94,7 @@
 					0.0
 				],
 				"Scale": [
-					1.0,
+					1.600000023841858,
 					1.0,
 					1.0
 				],

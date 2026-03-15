@@ -13,6 +13,7 @@ function exposeBitPounceDeps()
         "../BitPounce/vendor/debugbreak",
         "../BitPounce/vendor/entt/single_include",
 		"../BitPounce/vendor/nlohmannjson/single_include",
+		"../BitPounce/vendor/ImGuizmo"
     }
 
     -- Platform-specific libraries
@@ -86,7 +87,9 @@ project "BitPounce"
 		"../BitPounce/vendor/glad/src/gl.c",
 
 		"vendor/imgui/backends/imgui_impl_opengl3.cpp",
-		"vendor/imgui/backends/imgui_impl_glfw.cpp"
+		"vendor/imgui/backends/imgui_impl_glfw.cpp",
+
+		"../BitPounce/vendor/ImGuizmo/ImGuizmo.cpp"
 	}
 
 	includedirs

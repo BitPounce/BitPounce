@@ -10,10 +10,11 @@
 namespace BitPounce {
 
 
-	Scene::Scene()
+	Scene::Scene(const std::string& name)
 	{
 		m_sysManager = ECSSystemManager();
 		m_sysManager.m_Scene = this;
+		this->name = name;
 		
 	}
 
@@ -92,7 +93,12 @@ namespace BitPounce {
 		m_sysManager.Deserialize(json);
 	}
 
-	std::pair<CameraComponent *, TransformComponent *> Scene::GetActiveCamera() 
+    void Scene::RemoveAll()
+    {
+		m_Registry.clear();
+    }
+
+    std::pair<CameraComponent *, TransformComponent *> Scene::GetActiveCamera() 
 	{
 		auto view = m_Registry.view<TransformComponent, CameraComponent>();
 

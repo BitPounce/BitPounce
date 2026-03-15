@@ -13,9 +13,11 @@ namespace BitPounce
         SetContext(scene);
     }
 
-    void SceneHierarchyPanel::SetContext(const Ref<Scene> &scene)
+    void SceneHierarchyPanel::SetContext(const Ref<Scene> scene)
     {
+		m_Context.reset();
         m_Context = scene;
+		m_SelectionContext = {};
     }
 
     void SceneHierarchyPanel::DrawEntityNode(Entity entity, TagComponent tc)

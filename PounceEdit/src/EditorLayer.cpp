@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "ImGuizmo.h"
+
 namespace BitPounce {
 	
 	static Ref<Audio> s_Audio;
@@ -26,7 +28,7 @@ namespace BitPounce {
 		s_Audio =Audio::Create("assets/file_example_WAV_10MG.wav");
 		s_Audio->Play();
 	
-		m_SceneHierarchyPanel = *m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
+		m_SceneHierarchyPanel = m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
 		m_Panels.Start();
 	
 		FramebufferSpecification fbSpec;
@@ -35,10 +37,8 @@ namespace BitPounce {
 		m_RendorSize = glm::vec2(Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight());
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
-		
-		m_ActiveScene->AddSystem<Renderer2DSystem>();
-		m_ActiveScene->AddSystem<CameraSystem>();
-		m_ActiveScene->AddedAllSys();
+		OnNewScene(m_ActiveScene);
+
 	}
 	
 	void EditorLayer::OnDetach()
@@ -168,20 +168,17 @@ namespace BitPounce {
 			if (ImGui::BeginMenu("File"))
 			{
 
-				if (ImGui::MenuItem("Serialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Serialize("assets/scenes/Example.bitPounce");
-				}
+				if (ImGui::MenuItem("New", "Ctrl+N"))
+					NewScene();
 
-				if (ImGui::MenuItem("Deserialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Deserialize("assets/scenes/Example.bitPounce");
-				}
+				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+					OpenScene();
+
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+					SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close(0);
-				ImGui::EndMenu();
+					ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();
 		}
@@ -217,7 +214,7 @@ namespace BitPounce {
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
 		m_ViewportHovered = ImGui::IsWindowHovered();
-		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused && !m_ViewportHovered);
 	
 		ImVec2 rendorPanelSize = ImGui::GetContentRegionAvail();
 		glm::vec2 panelSize = { rendorPanelSize.x, rendorPanelSize.y };
@@ -233,6 +230,52 @@ namespace BitPounce {
 	
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, rendorPanelSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+		// Gizmos
+		Entity selectedEntity = m_SceneHierarchyPanel->GetSelectedEntity();
+		auto cameraEntity = m_ActiveScene->GetActiveCamera();
+		if (selectedEntity && m_GizmoType != -1 && cameraEntity.first)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			// Camera
+			const auto& camera = cameraEntity.first->Camera;
+			const glm::mat4& cameraProjection = camera.GetProjection();
+			glm::mat4 cameraView = glm::inverse(cameraEntity.second->GetTransform());
+
+			// Entity transform
+			auto& tc = selectedEntity.GetComponent<TransformComponent>();
+			glm::mat4 transform = tc.GetTransform();
+
+			// Snapping
+			bool snap = Input::IsKeyPressed(Key::LeftCtrl);
+			float snapValue = 0.5f; // Snap to 0.5m for translation/scale
+			// Snap to 45 degrees for rotation
+			if (m_GizmoType == ImGuizmo::OPERATION::ROTATE)
+				snapValue = 45.0f;
+
+			float snapValues[3] = { snapValue, snapValue, snapValue };
+
+			ImGuizmo::Manipulate(glm::value_ptr(cameraView), glm::value_ptr(cameraProjection),
+				(ImGuizmo::OPERATION)m_GizmoType, ImGuizmo::LOCAL, glm::value_ptr(transform),
+				nullptr, snap ? snapValues : nullptr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				glm::vec3 translation, rotation, scale;
+				Math::DecomposeTransform(transform, translation, rotation, scale);
+
+				glm::vec3 deltaRotation = rotation - tc.Rotation;
+				tc.Translation = translation;
+				tc.Rotation += deltaRotation;
+				tc.Scale = scale;
+			}
+		}
 	
 		ImGui::End();
 	}
@@ -241,5 +284,108 @@ namespace BitPounce {
 	{
 		m_Panels.OnEvent(e);
 		m_CameraController.OnEvent(e);
+
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(BP_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+	}
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+	{
+		// Shortcuts
+		if (e.GetRepeatCount() > 0)
+			return false;
+
+		bool control = Input::IsKeyPressed(Key::LeftCtrl) || Input::IsKeyPressed(Key::RightCtrl);
+		bool shift = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
+		switch (e.GetKeyCode())
+		{
+			case (int)Key::N:
+			{
+				if (control)
+				{
+					NewScene();
+				}
+					
+
+				return false;
+			}
+			case (int)Key::O:
+			{
+				if (control)
+				{
+					OpenScene();
+				}
+					
+
+				return false;
+			}
+			case (int)Key::S:
+			{
+				if (control && shift)
+				{
+					SaveSceneAs();
+				}
+					
+
+				return false;
+			}
+
+			// Gizmos
+			case (int)Key::Q:
+				m_GizmoType = -1;
+				return false;
+			case (int)Key::W:
+				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+				return false;
+			case (int)Key::E:
+				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+				return false;
+			case (int)Key::R:
+				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+				return false;
+		}
+
+		return false;
+	}
+	void EditorLayer::OnNewScene(Ref<Scene> scene)
+	{
+		scene->AddSystem<Renderer2DSystem>();
+		scene->AddSystem<CameraSystem>();
+		scene->AddedAllSys();
+	}
+	void EditorLayer::NewScene()
+	{
+		// HACK: TODO FIX
+		m_ActiveScene->RemoveAll();
+		m_ActiveScene.reset();
+		m_ActiveScene = CreateRef<Scene>("rttrgyuyuiyujk");
+		OnNewScene(m_ActiveScene);
+		
+		m_ActiveScene->OnViewportResize((uint32_t)m_RendorSize.x, (uint32_t)m_RendorSize.y);
+		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
+	}
+	void EditorLayer::OpenScene()
+	{
+		std::optional<std::string> filepath = FileDialogs::OpenFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
+		if (filepath)
+		{
+			NewScene();
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(*filepath);
+		}
+	}
+	void EditorLayer::SaveSceneAs()
+	{
+		std::filesystem::path filepath = FileDialogs::SaveFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
+		if(!filepath.has_extension())
+		{
+			filepath = filepath.string() + ".bitPounce";
+		}
+
+		if (!filepath.empty())
+		{
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath.string());
+		}
 	}
 }

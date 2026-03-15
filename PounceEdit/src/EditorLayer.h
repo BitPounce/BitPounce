@@ -22,6 +22,13 @@ namespace BitPounce {
 
 
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void OnNewScene(Ref<Scene> scene);
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		PanelManager m_Panels;
 		OrthographicCameraController m_CameraController;
 		float m_time = 0.0f;
@@ -37,8 +44,9 @@ namespace BitPounce {
 		Ref<Framebuffer> m_Framebuffer;
 
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+		int m_GizmoType = 7;
 		glm::vec2 m_RendorSize = {};
-		SceneHierarchyPanel m_SceneHierarchyPanel;
+		SceneHierarchyPanel* m_SceneHierarchyPanel;
 	};
 
 }

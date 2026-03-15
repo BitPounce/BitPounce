@@ -35,3 +35,6 @@
 [submodule "BitPounce/vendor/nlohmannjson"]
 	path = BitPounce/vendor/nlohmannjson
 	url = https://github.com/BitPounce/nlohmann-json
+[submodule "BitPounce/vendor/ImGuizmo"]
+	path = BitPounce/vendor/ImGuizmo
+	url = https://github.com/BitPounce/ImGuizmo

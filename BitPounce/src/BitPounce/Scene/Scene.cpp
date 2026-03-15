@@ -73,6 +73,13 @@ namespace BitPounce {
 		}
 	}
 
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
+	{
+		m_sysManager.OnDrawEditor(ts, camera);
+	}
+
+
+
 	void Scene::AddComponentPopupImguiDraw(Entity &ent)
 	{
 		m_sysManager.AddComponentPopupImguiDraw(ent);

@@ -1,6 +1,7 @@
 #pragma once
 #include "BitPounce/Core/System.h"
 #include "SceneSerializerUtils.h"
+#include <BitPounce/Renderer/EditorCamera.h>
 
 namespace BitPounce
 {
@@ -19,6 +20,7 @@ namespace BitPounce
 		virtual void AddComponentPopupImguiDraw(Entity& ent) {};
 		virtual void Serialize(nlohmann::json& json) {};
 		virtual void Deserialize(nlohmann::json& json) {};
+		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam) {};
 	protected:
 		Scene* m_Scene;
 	private:

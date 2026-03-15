@@ -35,6 +35,14 @@ namespace BitPounce
 		}
 	}
 
+    void ECSSystemManager::OnDrawEditor(Timestep &ts, EditorCamera &cam)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->OnDrawEditor(ts, cam);
+		}
+    }
+
     void ECSSystemManager::AddSys_in(System *sys)
 	{
 

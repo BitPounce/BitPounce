@@ -29,6 +29,8 @@ namespace BitPounce {
 		void OpenScene();
 		void SaveSceneAs();
 	private:
+		EditorCamera m_EditorCamera;
+
 		PanelManager m_Panels;
 		OrthographicCameraController m_CameraController;
 		float m_time = 0.0f;

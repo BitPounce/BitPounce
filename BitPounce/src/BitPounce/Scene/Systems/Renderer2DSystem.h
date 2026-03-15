@@ -23,7 +23,17 @@ namespace BitPounce
 			auto mainCamera = campar.first->Camera;
 			auto cameraTransform = campar.second->GetTransform();
 
-			Renderer2D::BeginScene(mainCamera.GetProjection(), cameraTransform);
+			Draw(mainCamera.GetProjection() * glm::inverse(cameraTransform));
+		};
+
+		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam) override 
+		{
+			Draw(cam.GetViewProjection());
+		}
+
+		void Draw(const glm::mat4& cam)
+		{
+			Renderer2D::BeginScene(cam);
 
 			auto group = m_Scene->GetRegistry(*this).group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
@@ -34,7 +44,7 @@ namespace BitPounce
 			}
 
 			Renderer2D::EndScene();
-		};
+		}
 
 		virtual void AddComponentPopupImguiDraw(Entity& ent) override
 		{

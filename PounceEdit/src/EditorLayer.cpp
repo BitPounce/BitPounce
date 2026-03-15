@@ -20,6 +20,8 @@ namespace BitPounce {
 	{
 		m_ActiveScene = CreateRef<Scene>();
 
+		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
+
 		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 		m_PlayerTexture = Texture2D::Create("assets/textures/Player.png");
 		m_Icon = Texture2D::Create("assets/textures/Icon.png");
@@ -32,6 +34,7 @@ namespace BitPounce {
 		m_Panels.Start();
 	
 		FramebufferSpecification fbSpec;
+		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
 		fbSpec.Width = Application::Get().GetWindow().GetWidth();
 		fbSpec.Height = Application::Get().GetWindow().GetHeight();
 		m_RendorSize = glm::vec2(Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight());
@@ -134,6 +137,7 @@ namespace BitPounce {
 		// Update
 		m_Panels.OnUpdate(ts);
 		m_CameraController.OnUpdate(ts);
+		m_EditorCamera.OnUpdate(ts);
 	
 		m_Framebuffer->Bind();
 		// Render
@@ -146,7 +150,7 @@ namespace BitPounce {
 	
 		
 		// Update scene
-		m_ActiveScene->OnUpdate(ts);
+		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 		
 		
 		Renderer::EndScene();
@@ -222,7 +226,7 @@ namespace BitPounce {
 		{
 			m_Framebuffer->Resize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
 			m_RendorSize = {panelSize.x, panelSize.y};
-		
+			m_EditorCamera.SetViewportSize(panelSize.x, panelSize.y);
 			m_CameraController.OnResize(panelSize.x, panelSize.y);
 			m_ActiveScene->OnViewportResize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
 		}
@@ -244,9 +248,12 @@ namespace BitPounce {
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
 
 			// Camera
-			const auto& camera = cameraEntity.first->Camera;
+			/*const auto& camera = cameraEntity.first->Camera;
 			const glm::mat4& cameraProjection = camera.GetProjection();
-			glm::mat4 cameraView = glm::inverse(cameraEntity.second->GetTransform());
+			glm::mat4 cameraView = glm::inverse(cameraEntity.second->GetTransform());*/
+
+			const glm::mat4& cameraProjection = m_EditorCamera.GetProjection();
+			glm::mat4 cameraView = m_EditorCamera.GetViewMatrix();
 
 			// Entity transform
 			auto& tc = selectedEntity.GetComponent<TransformComponent>();
@@ -284,6 +291,7 @@ namespace BitPounce {
 	{
 		m_Panels.OnEvent(e);
 		m_CameraController.OnEvent(e);
+		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(BP_BIND_EVENT_FN(EditorLayer::OnKeyPressed));

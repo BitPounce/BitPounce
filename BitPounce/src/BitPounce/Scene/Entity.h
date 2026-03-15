@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-
+#include <BitPounce/Core/Logger.h>
 #include <entt/entt.hpp>
 
 namespace BitPounce

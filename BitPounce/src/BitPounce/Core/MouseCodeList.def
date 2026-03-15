@@ -1,0 +1,3 @@
+BP_MOUSE(LEFT, Left)
+BP_MOUSE(RIGHT, Right)
+BP_MOUSE(MIDDLE, Middle)

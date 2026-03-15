@@ -17,13 +17,18 @@ namespace BitPounce {
 		virtual void Bind() override;
 		virtual void Unbind() override;
 
-		virtual uint32_t GetColorAttachmentRendererID() const override { return m_ColorAttachment; }
+		virtual uint32_t GetColorAttachmentRendererID(uint32_t index = 0) const override { BP_CORE_ASSERT(index < m_ColorAttachments.size(), "ERROR"); return m_ColorAttachments[index]; }
 
 		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
 	private:
 		uint32_t m_RendererID;
-		uint32_t m_ColorAttachment, m_DepthAttachment;
 		FramebufferSpecification m_Specification;
+
+		std::vector<FramebufferTextureSpecification> m_ColorAttachmentSpecifications;
+		FramebufferTextureSpecification m_DepthAttachmentSpecification = FramebufferTextureFormat::None;
+
+		std::vector<uint32_t> m_ColorAttachments;
+		uint32_t m_DepthAttachment = 0;
 	};
 
 }

@@ -1,11 +1,11 @@
 #include "bp_pch.h"
-#include "WebInput.h"
+#include <BitPounce/Core/Input.h>
 #include <GLFW/glfw3.h>
 #include "BitPounce/Core/Application.h"
 
 namespace BitPounce
 {
-	Input* Input::s_Instance = new WebInput;
+
 
 	int CustomKeyToGLFW(Key key) {
         switch (key) {
@@ -135,21 +135,20 @@ namespace BitPounce
         }
     }
 
-	bool WebInput::IsKeyPressedImpl(Key key)
+	bool Input::IsKeyPressed(Key key)
 	{
 		int glfwKey = CustomKeyToGLFW(key);
 		return glfwGetKey((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow(), glfwKey);
 	}
 
-
-    bool WebInput::IsMouseButtonPressedImpl(int button)
+    bool Input::IsMouseButtonPressed(int button)
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, button);
 		return state == GLFW_PRESS;
     }
 
-    glm::vec2 WebInput::GetMousePositionImpl()
+    glm::vec2 Input::GetMousePosition()
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
@@ -158,15 +157,15 @@ namespace BitPounce
 		return { (float)xpos, (float)ypos };
     }
 
-    float WebInput::GetMouseXImpl()
+    float Input::GetMouseX()
     {
-        auto pos = GetMousePositionImpl();
+        auto pos = GetMousePosition();
 		return pos.x;
     }
 
-    float WebInput::GetMouseYImpl()
+    float Input::GetMouseY()
     {
-        auto pos = GetMousePositionImpl();
+        auto pos = GetMousePosition();
 		return pos.y;
     }
 

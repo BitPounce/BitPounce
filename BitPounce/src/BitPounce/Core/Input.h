@@ -1,4 +1,6 @@
+#pragma once
 #include "BitPounce/Core/KeyCode.h"
+#include "BitPounce/Core/MouseCode.h"
 #include <glm/glm.hpp>
 
 namespace BitPounce

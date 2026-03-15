@@ -119,6 +119,12 @@ namespace BitPounce
 		s_Data.TextureSlotIndex = 1;
     }
 
+	void Renderer2D::BeginScene(const EditorCamera& camera)
+	{
+		glm::mat4 viewProj = camera.GetViewProjection();
+		BeginScene(viewProj);
+	}
+
     void Renderer2D::BeginScene(const Camera &camera, const glm::mat4 &transform)
     {
 		BeginScene(camera.GetProjection() * glm::inverse(transform));
@@ -298,7 +304,7 @@ namespace BitPounce
 
     void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
     {
-		DrawRotatedQuad(glm::vec3(position, 1), size, rotation, colour);
+		DrawRotatedQuad(glm::vec3(position, 0), size, rotation, colour);
     }
 
     void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)

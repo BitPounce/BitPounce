@@ -2,6 +2,7 @@
 #include "BitPounce/Core/SystemManager.h"
 #include "ECSSystem.h"
 #include "SceneSerializerUtils.h"
+#include <BitPounce/Renderer/EditorCamera.h>
 
 namespace BitPounce
 {
@@ -14,6 +15,7 @@ namespace BitPounce
 		void AddComponentPopupImguiDraw(Entity& ent);
 		void Serialize(nlohmann::json& json);
 		void Deserialize(nlohmann::json& json);
+		void OnDrawEditor(Timestep& ts, EditorCamera& cam);
 	protected:
 		Scene* m_Scene;
 

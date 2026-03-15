@@ -15,6 +15,9 @@ namespace BitPounce
 		glm::vec4 Colour;
 		glm::vec2 TexCoord;
 		float TexID = 0;
+
+		// Editor-only
+		int EntityID;
 	};
 
 	struct Renderer2DData
@@ -60,7 +63,8 @@ namespace BitPounce
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float4, "a_Colour" },
 			{ ShaderDataType::Float2, "a_TexCoord" },
-			{ ShaderDataType::Float,  "a_TexID" }
+			{ ShaderDataType::Float,  "a_TexID" },
+			{ ShaderDataType::Int,    "a_EntityID"     }
 		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
@@ -243,7 +247,7 @@ namespace BitPounce
 		s_Data.QuadIndexCount += 6;
 	}
 
-    void Renderer2D::DrawQuad(const glm::mat4 transform, const glm::vec4 &colour)
+    void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& colour, int entityID)
     {
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
@@ -258,13 +262,14 @@ namespace BitPounce
 			s_Data.QuadVertexBufferPtr->Colour = colour;
 			s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1); // I DO NOT CARE
 			s_Data.QuadVertexBufferPtr->TexID = 0;
+			s_Data.QuadVertexBufferPtr->EntityID = entityID;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
 		s_Data.QuadIndexCount += 6;
     }
 
-    void Renderer2D::DrawQuad(const glm::mat4 transform, const Ref<Texture2D> &texture, const glm::vec4& tintColour, float tilingFactor)
+    void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec4& tintColour, float tilingFactor , int entityID)
     {
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
@@ -296,6 +301,7 @@ namespace BitPounce
 			s_Data.QuadVertexBufferPtr->Colour = tintColour;
 			s_Data.QuadVertexBufferPtr->TexCoord = { i == 1 || i == 2 ? tilingFactor : 0.0f, i >= 2 ? tilingFactor : 0.0f };
 			s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+			s_Data.QuadVertexBufferPtr->EntityID = entityID;
 			s_Data.QuadVertexBufferPtr++;
 		}
 

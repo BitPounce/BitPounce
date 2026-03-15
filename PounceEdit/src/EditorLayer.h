@@ -38,6 +38,7 @@ namespace BitPounce {
 		Ref<Scene> m_ActiveScene;
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
+		Entity m_HoveredEntity;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		Ref<Texture2D> m_PlayerTexture;

@@ -1,9 +1,10 @@
 layout(location = 0) out vec4 color;
 layout(location = 1) out int color2;
+flat in int v_EntityID;
 
 in vec4 v_Colour;
 in vec2 v_TexCoord;
- in float v_TexIndex;
+in float v_TexIndex;
 
 uniform float m_TillingFactor;
 uniform vec4 u_Color;
@@ -49,7 +50,7 @@ else if (v_TexIndex == 31.0) texColor = texture(u_Textures[31], v_TexCoord);
 
     color = texColor * v_Colour;
 
-    color2 = 50;
+    color2 = v_EntityID;
 
     if (color.a <= 0.1)
         discard;

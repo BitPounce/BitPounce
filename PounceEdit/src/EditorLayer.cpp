@@ -165,7 +165,15 @@ namespace BitPounce {
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			BP_CORE_WARN("Pixel data = {0}", pixelData);
+			if(pixelData != -1)
+			{
+				m_HoveredEntity = Entity((entt::entity)pixelData, m_ActiveScene.get());
+			}
+			else
+			{
+				m_HoveredEntity =  Entity();
+			}
+			
 		}
 		
 		
@@ -207,6 +215,11 @@ namespace BitPounce {
 	
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+
+		std::string name = "None";
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
 		ImGui::End();
 	
 		ImGui::Begin("Render Data");

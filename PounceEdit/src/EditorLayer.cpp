@@ -31,6 +31,7 @@ namespace BitPounce {
 		s_Audio->Play();
 	
 		m_SceneHierarchyPanel = m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
+		m_ContentBrowserPanel = m_Panels.AddSystem<ContentBrowserPanel>();
 		m_Panels.Start();
 	
 		FramebufferSpecification fbSpec;
@@ -250,7 +251,7 @@ namespace BitPounce {
 	
 		ImGui::Begin("Render");
 		auto viewportOffset = ImGui::GetCursorPos(); // Includes tab bar
-		if(ImGui::IsMouseDown(0) && m_HoveredEntity)
+		if(ImGui::IsMouseDown(0) && m_HoveredEntity && m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
 		{
 			m_SceneHierarchyPanel->SetSelectedEntity(m_HoveredEntity);
 		}

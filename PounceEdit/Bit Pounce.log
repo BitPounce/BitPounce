@@ -1,46 +1,38 @@
-[2026-03-16 20:00:35.509] [BIT POUNCE] [info] Logger initialized successfully
-[2026-03-16 20:00:35.509] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] OpenGL Info:
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (117 bytes)
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Colour.glsl (2867 bytes)
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Vertex.glsl (516 bytes)
-[2026-03-16 20:00:36.631] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:00:36.676] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:00:36.676] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:00:36.676] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
-[2026-03-16 20:00:36.677] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:00:36.677] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:00:36.677] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:00:36.677] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
-[2026-03-16 20:00:36.677] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:00:36.711] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png (1823 bytes)
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Checkerboard.png
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png (386778 bytes)
-[2026-03-16 20:00:36.712] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
-[2026-03-16 20:00:36.724] [BIT POUNCE] [info] Loading file: assets/textures/Icon.png
-[2026-03-16 20:00:36.724] [BIT POUNCE] [info] Reading file from disk: assets/textures/Icon.png
-[2026-03-16 20:00:36.724] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Icon.png (574956 bytes)
-[2026-03-16 20:00:36.724] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Icon.png
-[2026-03-16 20:00:46.840] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/TestS.bitPounce
-[2026-03-16 20:00:46.840] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/TestS.bitPounce
-[2026-03-16 20:00:46.840] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/TestS.bitPounce (1332 bytes)
-[2026-03-16 20:00:46.840] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/TestS.bitPounce
-[2026-03-16 20:00:59.665] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/Example.bitPounce
-[2026-03-16 20:00:59.665] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/Example.bitPounce
-[2026-03-16 20:00:59.665] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/Example.bitPounce (1541 bytes)
-[2026-03-16 20:00:59.665] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/scenes/Example.bitPounce
+[2026-03-16 20:26:38.518] [BIT POUNCE] [info] Logger initialized successfully
+[2026-03-16 20:26:38.518] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] OpenGL Info:
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (117 bytes)
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Colour.glsl
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Colour.glsl (2867 bytes)
+[2026-03-16 20:26:39.691] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-03-16 20:26:39.692] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-03-16 20:26:39.692] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Vertex.glsl
+[2026-03-16 20:26:39.692] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-03-16 20:26:39.692] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-03-16 20:26:39.741] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-16 20:26:39.780] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
+[2026-03-16 20:26:39.780] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
+[2026-03-16 20:26:39.780] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png (1823 bytes)
+[2026-03-16 20:26:39.780] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Checkerboard.png
+[2026-03-16 20:26:39.781] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
+[2026-03-16 20:26:39.781] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
+[2026-03-16 20:26:39.781] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png (386778 bytes)
+[2026-03-16 20:26:39.781] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
+[2026-03-16 20:26:39.792] [BIT POUNCE] [info] Loading file: assets/textures/Icon.png
+[2026-03-16 20:26:39.792] [BIT POUNCE] [info] Reading file from disk: assets/textures/Icon.png
+[2026-03-16 20:26:39.792] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Icon.png (574956 bytes)
+[2026-03-16 20:26:39.793] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Icon.png

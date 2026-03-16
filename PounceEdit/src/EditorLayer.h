@@ -3,6 +3,7 @@
 #include "BitPounce.h"
 #include "Panels/Panel.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 namespace BitPounce {
 
@@ -50,7 +51,9 @@ namespace BitPounce {
 		int m_GizmoType = 7;
 		glm::vec2 m_RendorSize = {};
 		glm::vec2 m_ViewportBounds[2];
+
 		SceneHierarchyPanel* m_SceneHierarchyPanel;
+		ContentBrowserPanel* m_ContentBrowserPanel;
 	};
 
 }

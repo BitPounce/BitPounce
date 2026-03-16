@@ -24,7 +24,7 @@ namespace BitPounce {
 
 		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
 		m_PlayerTexture = Texture2D::Create("assets/textures/Player.png");
-		m_Icon = Texture2D::Create("assets/textures/Icon.png");
+		m_Icon = Texture2D::Create("Resources/Icons/Icon.png");
 	
 	
 		s_Audio =Audio::Create("assets/file_example_WAV_10MG.wav");

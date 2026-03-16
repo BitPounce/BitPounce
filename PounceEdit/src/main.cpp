@@ -25,7 +25,7 @@ private:
 BitPounce::Application* CreateApp()
 {
 	BitPounce::ApplicationProps props = BitPounce::ApplicationProps();
-	props.IconPath = "assets/textures/Icon.png";
+	props.IconPath = "Resources/Icons/Icon.png";
 	props.Title = "PounceEdit";
 
 	return new Editor(props);

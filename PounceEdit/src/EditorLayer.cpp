@@ -165,7 +165,12 @@ namespace BitPounce {
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
-			if(pixelData != -1)
+			if (pixelData > m_ActiveScene->GetRegistry(*(ECSSystem*)0).view<entt::entity>().size())
+			{
+				// The gpu is a loves lieing to me ):
+				m_HoveredEntity =  Entity();
+			}
+			else if(pixelData != -1)
 			{
 				m_HoveredEntity = Entity((entt::entity)pixelData, m_ActiveScene.get());
 			}
@@ -245,6 +250,10 @@ namespace BitPounce {
 	
 		ImGui::Begin("Render");
 		auto viewportOffset = ImGui::GetCursorPos(); // Includes tab bar
+		if(ImGui::IsMouseDown(0) && m_HoveredEntity)
+		{
+			m_SceneHierarchyPanel->SetSelectedEntity(m_HoveredEntity);
+		}
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
 		m_ViewportHovered = ImGui::IsWindowHovered();

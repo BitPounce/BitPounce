@@ -121,6 +121,11 @@ namespace BitPounce
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 		s_Data.TextureSlotIndex = 1;
+
+		for (int i = 0; i < s_Data.MaxVertices; i++)
+		{
+			s_Data.QuadVertexBufferPtr[i].EntityID = -1;
+		}
     }
 
 	void Renderer2D::BeginScene(const EditorCamera& camera)

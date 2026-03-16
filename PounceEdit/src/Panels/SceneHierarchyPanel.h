@@ -13,6 +13,7 @@ namespace BitPounce
 
         virtual void OnImGuiDraw() override;
         void SetContext(const Ref<Scene> scene);
+        void SetSelectedEntity(Entity& ent) { m_SelectionContext = ent; };
         Entity& GetSelectedEntity() { return m_SelectionContext; }
     private:
         void DrawEntityNode(Entity entity, TagComponent tc);

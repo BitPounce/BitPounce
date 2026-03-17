@@ -10,6 +10,7 @@
 namespace BitPounce {
 	
 	static Ref<Audio> s_Audio;
+	extern const std::filesystem::path g_AssetPath;
 	
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
@@ -275,6 +276,16 @@ namespace BitPounce {
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 		ImGui::Image((void*)textureID, rendorPanelSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+			{
+				const wchar_t* path = (const wchar_t*)payload->Data;
+				OpenScene(std::filesystem::path(g_AssetPath) / path);
+			}
+			ImGui::EndDragDropTarget();
+		}
+
 		auto windowSize = ImGui::GetWindowSize();
 		ImVec2 minBound = ImGui::GetWindowPos();
 		minBound.x += viewportOffset.x;
@@ -420,6 +431,15 @@ namespace BitPounce {
 		m_ActiveScene->OnViewportResize((uint32_t)m_RendorSize.x, (uint32_t)m_RendorSize.y);
 		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
 	}
+
+	void EditorLayer::OpenScene(const std::filesystem::path& path)
+	{
+		NewScene();
+
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Deserialize(path.string());
+	}
+
 	void EditorLayer::OpenScene()
 	{
 		std::optional<std::string> filepath = FileDialogs::OpenFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");

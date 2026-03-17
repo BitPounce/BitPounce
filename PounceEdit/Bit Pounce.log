@@ -1,90 +1,78 @@
-[2026-03-16 20:50:43.835] [BIT POUNCE] [info] Logger initialized successfully
-[2026-03-16 20:50:43.835] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] OpenGL Info:
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (117 bytes)
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Colour.glsl (2867 bytes)
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Vertex.glsl (516 bytes)
-[2026-03-16 20:50:44.895] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
-[2026-03-16 20:50:44.943] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-03-16 20:50:44.980] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
-[2026-03-16 20:50:44.980] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
-[2026-03-16 20:50:44.980] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png (1823 bytes)
-[2026-03-16 20:50:44.980] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Checkerboard.png
-[2026-03-16 20:50:44.981] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
-[2026-03-16 20:50:44.981] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
-[2026-03-16 20:50:44.981] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png (386778 bytes)
-[2026-03-16 20:50:44.981] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
-[2026-03-16 20:50:44.993] [BIT POUNCE] [info] Loading file: Resources/Icons/Icon.png
-[2026-03-16 20:50:44.993] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/Icon.png
-[2026-03-16 20:50:44.993] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/Icon.png (574956 bytes)
-[2026-03-16 20:50:44.994] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Icon.png
-[2026-03-16 20:50:45.103] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:45.103] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:45.103] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
-[2026-03-16 20:50:45.104] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:45.105] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:45.105] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:45.105] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/File.png (15757 bytes)
-[2026-03-16 20:50:45.105] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:47.807] [BIT POUNCE] [info] Loading file: ./Resources/Icons/Icon.png
-[2026-03-16 20:50:47.807] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/Icon.png
-[2026-03-16 20:50:47.807] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/Icon.png (574956 bytes)
-[2026-03-16 20:50:47.807] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/Icon.png
-[2026-03-16 20:50:49.841] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ReloadIcon2x.png
-[2026-03-16 20:50:49.841] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon2x.png
-[2026-03-16 20:50:49.841] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon2x.png (162848 bytes)
-[2026-03-16 20:50:49.841] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ReloadIcon2x.png
-[2026-03-16 20:50:49.867] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ReloadIcon4x.png
-[2026-03-16 20:50:49.867] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon4x.png
-[2026-03-16 20:50:49.867] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon4x.png (369004 bytes)
-[2026-03-16 20:50:49.868] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ReloadIcon4x.png
-[2026-03-16 20:50:49.967] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:49.967] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:49.967] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
-[2026-03-16 20:50:49.967] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/Flor.png
-[2026-03-16 20:50:49.969] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/Play.png
-[2026-03-16 20:50:49.969] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/Play.png
-[2026-03-16 20:50:49.969] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/Play.png (18505 bytes)
-[2026-03-16 20:50:49.969] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/Play.png
-[2026-03-16 20:50:49.970] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/P.png
-[2026-03-16 20:50:49.970] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/P.png
-[2026-03-16 20:50:49.970] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/P.png (17649 bytes)
-[2026-03-16 20:50:49.970] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/P.png
-[2026-03-16 20:50:49.971] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:49.971] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:49.971] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/File.png (15757 bytes)
-[2026-03-16 20:50:49.971] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/File.png
-[2026-03-16 20:50:49.972] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ArrowL.png
-[2026-03-16 20:50:49.972] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ArrowL.png
-[2026-03-16 20:50:49.972] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ArrowL.png (19204 bytes)
-[2026-03-16 20:50:49.973] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ArrowL.png
-[2026-03-16 20:50:49.974] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ReloadIcon05x.png
-[2026-03-16 20:50:49.974] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon05x.png
-[2026-03-16 20:50:49.974] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon05x.png (33281 bytes)
-[2026-03-16 20:50:49.974] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ReloadIcon05x.png
-[2026-03-16 20:50:49.975] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ArrowR.png
-[2026-03-16 20:50:49.975] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ArrowR.png
-[2026-03-16 20:50:49.975] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ArrowR.png (19410 bytes)
-[2026-03-16 20:50:49.975] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ArrowR.png
-[2026-03-16 20:50:49.976] [BIT POUNCE] [info] Loading file: ./Resources/Icons/ContentBrowser/ReloadIcon.png
-[2026-03-16 20:50:49.976] [BIT POUNCE] [info] Reading file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon.png
-[2026-03-16 20:50:49.976] [BIT POUNCE] [info] Successfully read file from disk: ./Resources/Icons/ContentBrowser/ReloadIcon.png (71642 bytes)
-[2026-03-16 20:50:49.976] [BIT POUNCE] [info] Loaded file successfully: ./Resources/Icons/ContentBrowser/ReloadIcon.png
+[2026-03-17 18:58:56.485] [BIT POUNCE] [info] Logger initialized successfully
+[2026-03-17 18:58:56.485] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
+[2026-03-17 18:58:57.523] [BIT POUNCE] [info] OpenGL Info:
+[2026-03-17 18:58:57.523] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-03-17 18:58:57.523] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-03-17 18:58:57.523] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (117 bytes)
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Colour.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Colour.glsl (2867 bytes)
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Vertex.glsl
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-03-17 18:58:57.524] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-03-17 18:58:57.566] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-17 18:58:57.566] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-17 18:58:57.566] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
+[2026-03-17 18:58:57.567] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-03-17 18:58:57.567] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-17 18:58:57.567] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-17 18:58:57.567] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-03-17 18:58:57.567] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Loading file: assets/textures/Checkerboard.png
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Reading file from disk: assets/textures/Checkerboard.png
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Checkerboard.png (1823 bytes)
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Checkerboard.png
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Loading file: assets/textures/Player.png
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Reading file from disk: assets/textures/Player.png
+[2026-03-17 18:58:57.606] [BIT POUNCE] [info] Successfully read file from disk: assets/textures/Player.png (386778 bytes)
+[2026-03-17 18:58:57.607] [BIT POUNCE] [info] Loaded file successfully: assets/textures/Player.png
+[2026-03-17 18:58:57.618] [BIT POUNCE] [info] Loading file: Resources/Icons/Icon.png
+[2026-03-17 18:58:57.618] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/Icon.png
+[2026-03-17 18:58:57.618] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/Icon.png (574956 bytes)
+[2026-03-17 18:58:57.618] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Icon.png
+[2026-03-17 18:58:57.727] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
+[2026-03-17 18:58:57.727] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/Flor.png
+[2026-03-17 18:58:57.727] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
+[2026-03-17 18:58:57.727] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
+[2026-03-17 18:58:57.728] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
+[2026-03-17 18:58:57.728] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/File.png
+[2026-03-17 18:58:57.728] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/File.png (15757 bytes)
+[2026-03-17 18:58:57.728] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png
+[2026-03-17 18:59:02.865] [BIT POUNCE] [info] Loading file: assets/scenes/TestS.bitPounce
+[2026-03-17 18:59:02.866] [BIT POUNCE] [info] Reading file from disk: assets/scenes/TestS.bitPounce
+[2026-03-17 18:59:02.866] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/TestS.bitPounce (1332 bytes)
+[2026-03-17 18:59:02.866] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/TestS.bitPounce
+[2026-03-17 18:59:05.665] [BIT POUNCE] [info] Loading file: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:05.666] [BIT POUNCE] [info] Reading file from disk: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:05.666] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/Test.bitPounce (1099 bytes)
+[2026-03-17 18:59:05.666] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:06.999] [BIT POUNCE] [info] Loading file: assets/scenes/Example.bitPounce
+[2026-03-17 18:59:06.999] [BIT POUNCE] [info] Reading file from disk: assets/scenes/Example.bitPounce
+[2026-03-17 18:59:06.999] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/Example.bitPounce (1541 bytes)
+[2026-03-17 18:59:06.999] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/Example.bitPounce
+[2026-03-17 18:59:11.816] [BIT POUNCE] [info] Loading file: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:11.816] [BIT POUNCE] [info] Reading file from disk: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:11.816] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/Test.bitPounce (1099 bytes)
+[2026-03-17 18:59:11.816] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/Test.bitPounce
+[2026-03-17 18:59:15.332] [BIT POUNCE] [info] Loading file: assets/scenes/TestS.bitPounce
+[2026-03-17 18:59:15.332] [BIT POUNCE] [info] Reading file from disk: assets/scenes/TestS.bitPounce
+[2026-03-17 18:59:15.332] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/TestS.bitPounce (1332 bytes)
+[2026-03-17 18:59:15.332] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/TestS.bitPounce
+[2026-03-17 19:01:01.551] [BIT POUNCE] [info] Loading file: assets/scenes/TestS.bitPounce
+[2026-03-17 19:01:01.551] [BIT POUNCE] [info] Reading file from disk: assets/scenes/TestS.bitPounce
+[2026-03-17 19:01:01.551] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/TestS.bitPounce (1332 bytes)
+[2026-03-17 19:01:01.551] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/TestS.bitPounce
+[2026-03-17 19:01:03.285] [BIT POUNCE] [info] Loading file: assets/scenes/Test.bitPounce
+[2026-03-17 19:01:03.285] [BIT POUNCE] [info] Reading file from disk: assets/scenes/Test.bitPounce
+[2026-03-17 19:01:03.285] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/Test.bitPounce (1099 bytes)
+[2026-03-17 19:01:03.285] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/Test.bitPounce
+[2026-03-17 19:01:08.051] [BIT POUNCE] [info] Loading file: assets/scenes/Example.bitPounce
+[2026-03-17 19:01:08.051] [BIT POUNCE] [info] Reading file from disk: assets/scenes/Example.bitPounce
+[2026-03-17 19:01:08.051] [BIT POUNCE] [info] Successfully read file from disk: assets/scenes/Example.bitPounce (1541 bytes)
+[2026-03-17 19:01:08.051] [BIT POUNCE] [info] Loaded file successfully: assets/scenes/Example.bitPounce

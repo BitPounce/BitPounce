@@ -27,6 +27,7 @@ namespace BitPounce {
 
 		void OnNewScene(Ref<Scene> scene);
 		void NewScene();
+		void OpenScene(const std::filesystem::path& path);
 		void OpenScene();
 		void SaveSceneAs();
 	private:

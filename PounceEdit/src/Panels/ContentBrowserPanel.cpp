@@ -6,10 +6,10 @@
 namespace BitPounce {
 
 	// Once we have projects, change this
-	static const std::filesystem::path s_AssetPath = "assets";
+	extern const std::filesystem::path g_AssetPath = "assets";
 
 	ContentBrowserPanel::ContentBrowserPanel()
-		: m_CurrentDirectory(s_AssetPath)
+		: m_CurrentDirectory(g_AssetPath)
 	{
 		m_name = "Content Browser Panel";
 		m_DirectoryIcon = Texture2D::Create("Resources/Icons/ContentBrowser/Flor.png");
@@ -20,7 +20,7 @@ namespace BitPounce {
 	{
 		ImGui::Begin("Content Browser");
 
-		if (m_CurrentDirectory != std::filesystem::path(s_AssetPath))
+		if (m_CurrentDirectory != std::filesystem::path(g_AssetPath))
 		{
 			if (ImGui::Button("<-"))
 			{
@@ -42,7 +42,7 @@ namespace BitPounce {
 		for (auto& directoryEntry : std::filesystem::directory_iterator(m_CurrentDirectory))
 		{
 			const auto& path = directoryEntry.path();
-			auto relativePath = std::filesystem::relative(path, s_AssetPath);
+			auto relativePath = std::filesystem::relative(path, g_AssetPath);
 			std::string filenameString = relativePath.filename().string();
 
 			std::string id = "##icon_" + path.string();
@@ -69,17 +69,29 @@ namespace BitPounce {
 					icon = m_FileIcon;
 				}
 			}
-			
+			ImGui::PushID(filenameString.c_str());
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::ImageButton(id.c_str(), (ImTextureID)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+
+			if (ImGui::BeginDragDropSource())
+			{
+				const std::wstring itemPath = relativePath.generic_wstring();
+				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath.c_str(), ((itemPath.size()) + 1) * sizeof(wchar_t));
+				ImGui::EndDragDropSource();
+			}
+
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 			{
+				
 				if (directoryEntry.is_directory())
 					m_CurrentDirectory /= path.filename();
 
 			}
+			ImGui::PopStyleColor();
 			ImGui::TextWrapped(filenameString.c_str());
 
 			ImGui::NextColumn();
+			ImGui::PopID();
 
 		}
 

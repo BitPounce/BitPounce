@@ -40,7 +40,15 @@ namespace BitPounce
 			{
 				auto&& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
+				if(sprite.Texture)
+				{
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Texture, sprite.Colour, sprite.TilingFactor, (int)entity);
+				}
+				else
+				{
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
+				}
+				
 			}
 
 			Renderer2D::EndScene();

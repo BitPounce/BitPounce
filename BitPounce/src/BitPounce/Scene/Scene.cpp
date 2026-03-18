@@ -73,8 +73,13 @@ namespace BitPounce {
 		}
 	}
 
-	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
-	{
+    void Scene::OnUpdateRuntime(Timestep ts)
+    {
+		OnUpdate(ts);
+    }
+
+    void Scene::OnUpdateEditor(Timestep ts, EditorCamera &camera)
+    {
 		m_sysManager.OnDrawEditor(ts, camera);
 	}
 

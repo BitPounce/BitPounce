@@ -21,6 +21,8 @@ namespace BitPounce
 		virtual void Serialize(nlohmann::json& json) {};
 		virtual void Deserialize(nlohmann::json& json) {};
 		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam) {};
+		virtual void OnRuntimeStart() {};
+		virtual void OnRuntimeStop() {};
 	protected:
 		Scene* m_Scene;
 	private:

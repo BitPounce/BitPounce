@@ -21,6 +21,7 @@ group ""
 
 include "Sandbox"
 group "Dependencies"
+	include "box2d.lua"
 	include "BitPounce/vendor/GLFW"
 	include "BitPounce/vendor/imgui"
 group ""

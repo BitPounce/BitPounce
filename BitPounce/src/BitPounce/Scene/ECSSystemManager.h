@@ -11,6 +11,8 @@ namespace BitPounce
 	class ECSSystemManager : public SystemManager
 	{
 	public:
+		void OnRuntimeStart();
+		void OnRuntimeStop();
 		void OnEditorPropImguiDraw(Entity& entity);
 		void AddComponentPopupImguiDraw(Entity& ent);
 		void Serialize(nlohmann::json& json);

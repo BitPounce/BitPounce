@@ -69,9 +69,22 @@ namespace BitPounce {
 		{
 			auto& cameraComponent = view.get<CameraComponent>(entity);
 			if (!cameraComponent.FixedAspectRatio)
+			{
 				cameraComponent.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+			}
+				
 		}
 	}
+
+    void Scene::OnRuntimeStart()
+    {
+		m_sysManager.OnRuntimeStart();
+    }
+
+    void Scene::OnRuntimeStop()
+    {
+		m_sysManager.OnRuntimeStop();
+    }
 
     void Scene::OnUpdateRuntime(Timestep ts)
     {
@@ -138,7 +151,7 @@ namespace BitPounce {
 	template<>
 	void ECSSystem::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
 	{
-		component.Camera.SetViewportSize(m_Scene->m_ViewportWidth, m_Scene->m_ViewportWidth);
+		component.Camera.SetViewportSize(m_Scene->m_ViewportWidth, m_Scene->m_ViewportHeight);
 	}
 
 	template<>
@@ -153,6 +166,16 @@ namespace BitPounce {
 
 	template<>
 	void ECSSystem::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<Rigidbody2DComponent>(Entity entity, Rigidbody2DComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component)
 	{
 	}
 }

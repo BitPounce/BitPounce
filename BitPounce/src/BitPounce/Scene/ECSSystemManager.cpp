@@ -3,6 +3,22 @@
 
 namespace BitPounce
 {
+    void ECSSystemManager::OnRuntimeStart()
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->OnRuntimeStart();
+		}
+    }
+
+    void ECSSystemManager::OnRuntimeStop()
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->OnRuntimeStop();
+		}
+    }
+
     void ECSSystemManager::OnEditorPropImguiDraw(Entity &entity)
     {
 		for(auto& sys : m_systems)

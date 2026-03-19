@@ -25,6 +25,8 @@ namespace BitPounce {
 		Entity CreateEntity(const std::string& name = std::string("Entity"));
 		void DestroyEntity(Entity entity);
 
+		void OnRuntimeStart();
+		void OnRuntimeStop();
 		void OnUpdateRuntime(Timestep ts);
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
 		void OnUpdate(Timestep ts);

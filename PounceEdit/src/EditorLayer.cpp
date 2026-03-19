@@ -439,6 +439,7 @@ namespace BitPounce {
 	{
 		scene->AddSystem<Renderer2DSystem>();
 		scene->AddSystem<CameraSystem>();
+		scene->AddSystem<Physics2DSystem>();
 		scene->AddedAllSys();
 	}
 	void EditorLayer::NewScene()
@@ -518,11 +519,13 @@ namespace BitPounce {
 	void EditorLayer::OnScenePlay()
 	{
 		m_SceneState = SceneState::Play;
+		m_ActiveScene->OnRuntimeStart();
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
 		m_SceneState = SceneState::Edit;
+		m_ActiveScene->OnRuntimeStop();
 
 	}
 }

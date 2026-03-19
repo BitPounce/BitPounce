@@ -1,6 +1,6 @@
 function exposeBitPounceDeps()
 
-    links { "GLFW", "ImGui" }
+    links { "GLFW", "ImGui", "Box2D" }
 
     -- Include BitPounce headers
     includedirs
@@ -13,7 +13,8 @@ function exposeBitPounceDeps()
         "../BitPounce/vendor/debugbreak",
         "../BitPounce/vendor/entt/single_include",
 		"../BitPounce/vendor/nlohmannjson/single_include",
-		"../BitPounce/vendor/ImGuizmo"
+		"../BitPounce/vendor/ImGuizmo",
+		"../BitPounce/vendor/box2d/include",
     }
 
     -- Platform-specific libraries

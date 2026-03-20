@@ -8,10 +8,20 @@
 
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
+#include "BitPounce/Core/UUID.h"
 #include "Entity.h"
 #include <BitPounce/Renderer/Texture.h>
 
 namespace BitPounce {
+
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(UUID UUID) : ID(UUID) {}
+		IDComponent(const IDComponent&) = default;
+	};
 
 	struct TagComponent
 	{

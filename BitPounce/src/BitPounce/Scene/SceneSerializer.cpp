@@ -12,7 +12,7 @@ namespace BitPounce
 	{
 		nlohmann::json entityJson;
 
-		entityJson["ID"] = BAD_HACK_FOR_RANDOWM_32BIT_UNSIGNED_INTEGERS();
+		entityJson["ID"] = entity.GetUUID().operator uint64_t();
 		entityJson["entityID"] = entity.operator unsigned int();
 
 		if(entity.HasComponent<TransformComponent>())
@@ -116,7 +116,8 @@ namespace BitPounce
 				auto& tagJson = entityJson["TagComponent"];
 				name = tagJson["Tag"];
 			}
-            Entity entity = m_Scene->CreateEntity(name);
+			uint64_t uuid = entityJson["ID"].get<uint64_t>();
+            Entity entity = m_Scene->CreateEntityWithUUID(uuid, name);
 			entityJson["entityOldID"] = entityJson["entityID"].get<unsigned int>();
 			entityJson["entityID"] = entity.operator unsigned int();
 

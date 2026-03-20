@@ -4,6 +4,7 @@
 
 #include "ECSSystemManager.h"
 #include "BitPounce/Core/Timestep.h"
+#include "BitPounce/Core/UUID.h"
 #include <utility>
 #include <optional>
 #include <BitPounce/Events/Event.h>
@@ -23,6 +24,7 @@ namespace BitPounce {
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string("Entity"));
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnRuntimeStart();

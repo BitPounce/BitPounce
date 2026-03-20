@@ -80,6 +80,7 @@ namespace BitPounce
 		std::vector<Entity>& GetChildren();
 		Entity& GetParent();
 		void SetParent(Entity& ent);
+		UUID GetUUID();
 
 		void Destroy() { m_Scene->DestroyEntity(*this); }
 

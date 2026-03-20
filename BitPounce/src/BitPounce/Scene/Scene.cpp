@@ -24,14 +24,19 @@ namespace BitPounce {
 
 	Entity Scene::CreateEntity(const std::string& name)
 	{
-		auto e = Entity{ m_Registry.create(), this };
-		e.AddComponent<TransformComponent>();
-		e.AddComponent<ChildrenComponent>();
-		e.AddComponent<TagComponent>(name);
-		return e;
+		return CreateEntityWithUUID(UUID(), name);
 	}
 
-	void Scene::DestroyEntity(Entity entity)
+    Entity Scene::CreateEntityWithUUID(UUID uuid, const std::string &name)
+    {
+        Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<IDComponent>(uuid);
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.Tag = name.empty() ? "Entity" : name;
+    }
+
+    void Scene::DestroyEntity(Entity entity)
 	{
 		entity.OnDestroy();
 

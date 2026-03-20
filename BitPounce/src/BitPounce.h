@@ -8,6 +8,7 @@
 #include "BitPounce/Core/Logger.h"
 #include "BitPounce/Core/Window.h"
 #include "BitPounce/Core/Input.h"
+#include "BitPounce/Core/UUID.h"
 #include "BitPounce/Core/Timestep.h"
 #include "BitPounce/Core/MouseButtonCodes.h"
 #include "BitPounce/Core/KeyCode.h"

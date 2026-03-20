@@ -21,9 +21,16 @@ namespace BitPounce
 			nlohmann::json transformComponent = nlohmann::json();
 			transformComponent["Translation"] = comp.Translation;
 			transformComponent["Scale"] = comp.Scale;
+			if(entity.GetParent())
+			{
+				auto&& parent = entity.GetParent();
+				entityJson["parent"] = parent.operator unsigned int();
+			}
 			transformComponent["Rotation"] = comp.Rotation;
 			entityJson["TransformComponent"] = transformComponent;
 		}
+
+		
 
 		if(entity.HasComponent<TagComponent>())
 		{
@@ -110,6 +117,7 @@ namespace BitPounce
 				name = tagJson["Tag"];
 			}
             Entity entity = m_Scene->CreateEntity(name);
+			entityJson["entityOldID"] = entityJson["entityID"].get<unsigned int>();
 			entityJson["entityID"] = entity.operator unsigned int();
 
             // TransformComponent
@@ -124,7 +132,35 @@ namespace BitPounce
                 if (transformJson.contains("Rotation"))
                     comp.Rotation = transformJson["Rotation"].get<glm::vec3>();
             }
+			
+			
         }
+
+		for (auto& entityJson : json["Entities"])
+		{
+			Entity entity = Entity{(entt::entity)entityJson["entityID"].get<unsigned int>(), m_Scene.get()};
+			
+
+			if (entityJson.contains("TransformComponent"))
+			{
+				auto& transformJson = entityJson["TransformComponent"];
+                TransformComponent& comp = entity.GetComponent<TransformComponent>();
+
+				if(entityJson.contains("parent"))
+				{
+					for (auto& entityJson2 : json["Entities"])
+					{
+						if(entityJson["parent"].get<unsigned int>() == entityJson2["entityOldID"].get<unsigned int>())
+						{
+							Entity e = Entity((entt::entity)entityJson2["entityID"].get<unsigned int>(), m_Scene.get());
+							entity.SetParent(e);
+						}
+					}
+				}
+			}
+
+			
+		}
 
 		m_Scene->Deserialize(json);
 

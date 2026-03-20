@@ -355,8 +355,15 @@ namespace BitPounce {
 
 			if (ImGuizmo::IsUsing())
 			{
+				glm::mat4 parentTransform = glm::mat4(1.0f);
+
+				if (tc.Parent)
+        			parentTransform = tc.Parent.GetComponent<TransformComponent>().GetTransform();
+
+				glm::mat4 localTransform = glm::inverse(parentTransform) * transform;
+
 				glm::vec3 translation, rotation, scale;
-				Math::DecomposeTransform(transform, translation, rotation, scale);
+				Math::DecomposeTransform(localTransform, translation, rotation, scale);
 
 				glm::vec3 deltaRotation = rotation - tc.Rotation;
 				tc.Translation = translation;

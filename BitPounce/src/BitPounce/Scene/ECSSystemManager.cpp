@@ -35,6 +35,14 @@ namespace BitPounce
 		}
     }
 
+    void ECSSystemManager::OnRemoveEntity(Entity &ent)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->OnRemoveEntity(ent);
+		}
+    }
+
     void ECSSystemManager::Serialize(nlohmann::json& json) 
 	{
 		for(auto& sys : m_systems)

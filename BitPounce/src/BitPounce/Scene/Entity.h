@@ -6,6 +6,8 @@
 
 namespace BitPounce
 {
+	struct TransformComponent;
+	struct ChildrenComponent;
 	class Entity
 	{
 	public:
@@ -32,7 +34,21 @@ namespace BitPounce
 		}
 
 		template<typename T>
+		const T& GetComponent() const
+		{
+			BP_CORE_ASSERT(HasComponent<T>(), "Entity does not has component");
+			return m_Scene->m_Registry.get<T>(m_EntityHandle);
+		}
+
+		template<typename T>
 		bool HasComponent()
+		{
+			BP_CORE_ASSERT(m_EntityHandle != entt::null, "Entity is null");
+			return m_Scene->m_Registry.all_of<T>(m_EntityHandle);
+		}
+
+		template<typename T>
+		bool HasComponent() const
 		{
 			BP_CORE_ASSERT(m_EntityHandle != entt::null, "Entity is null");
 			return m_Scene->m_Registry.all_of<T>(m_EntityHandle);
@@ -45,7 +61,7 @@ namespace BitPounce
 			m_Scene->m_Registry.remove<T>(m_EntityHandle);
 		}
 
-		operator bool() const { return m_EntityHandle != entt::null; }
+		operator bool() const { return m_EntityHandle != entt::null && m_Scene; }
 		operator entt::entity() const { return m_EntityHandle; }
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
 
@@ -58,9 +74,21 @@ namespace BitPounce
 		{
 			return !(*this == other);
 		}
-	
+
+		// Transform and Children Components
+		TransformComponent& GetTransform();
+		std::vector<Entity>& GetChildren();
+		Entity& GetParent();
+		void SetParent(Entity& ent);
+
+		void Destroy() { m_Scene->DestroyEntity(*this); }
+
 	private:
+		void OnDestroy();
+
 		entt::entity m_EntityHandle;
 		Scene* m_Scene;
+
+		friend class Scene;
 	};
 }

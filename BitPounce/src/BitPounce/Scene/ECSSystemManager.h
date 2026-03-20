@@ -15,6 +15,7 @@ namespace BitPounce
 		void OnRuntimeStop();
 		void OnEditorPropImguiDraw(Entity& entity);
 		void AddComponentPopupImguiDraw(Entity& ent);
+		void OnRemoveEntity(Entity& ent);
 		void Serialize(nlohmann::json& json);
 		void Deserialize(nlohmann::json& json);
 		void OnDrawEditor(Timestep& ts, EditorCamera& cam);

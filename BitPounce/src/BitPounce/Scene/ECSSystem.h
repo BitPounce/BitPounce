@@ -17,11 +17,15 @@ namespace BitPounce
 		template<typename T>
 		void OnComponentAdded(Entity entity, T& component);
 
+		template<typename T>
+		void OnComponentRemoved(Entity entity, T& component);
+
 		virtual void AddComponentPopupImguiDraw(Entity& ent) {};
 		virtual void Serialize(nlohmann::json& json) {};
 		virtual void Deserialize(nlohmann::json& json) {};
 		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam) {};
 		virtual void OnRuntimeStart() {};
+		virtual void OnRemoveEntity(Entity& ent) {}
 		virtual void OnRuntimeStop() {};
 	protected:
 		Scene* m_Scene;

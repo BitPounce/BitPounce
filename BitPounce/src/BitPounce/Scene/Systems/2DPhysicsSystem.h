@@ -188,6 +188,38 @@ namespace BitPounce
 			});
 		}
 
+		virtual void OnRemoveEntity(Entity& ent) override
+        {
+            if (!b2World_IsValid(m_PhysicsWorld))
+                return;
+
+            if (ent.HasComponent<Rigidbody2DComponent>())
+            {
+                auto& rb2d = ent.GetComponent<Rigidbody2DComponent>();
+                if (rb2d.RuntimeBody)
+                {
+                    b2BodyId* bodyId = static_cast<b2BodyId*>(rb2d.RuntimeBody);
+                    if (b2Body_IsValid(*bodyId))
+                        b2DestroyBody(*bodyId);
+
+                    delete bodyId;
+                    rb2d.RuntimeBody = nullptr;
+                }
+            }
+
+            if (ent.HasComponent<BoxCollider2DComponent>())
+            {
+                auto& bc2d = ent.GetComponent<BoxCollider2DComponent>();
+                if (bc2d.RuntimeFixture)
+                {
+                    // Shape is destroyed automatically when the body is destroyed,
+                    // but we still need to free the heap memory.
+                    delete static_cast<b2ShapeId*>(bc2d.RuntimeFixture);
+                    bc2d.RuntimeFixture = nullptr;
+                }
+            }
+        }
+
 	private:
 		b2WorldId m_PhysicsWorld;
 		float m_Accumulator;

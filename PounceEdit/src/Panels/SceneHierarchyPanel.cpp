@@ -33,10 +33,12 @@ namespace BitPounce
 
 		if (opened)
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
-			bool opened = ImGui::TreeNodeEx((void*)9817239, flags, tag.c_str());
-			if (opened)
-				ImGui::TreePop();
+			for(auto&& c : entity.GetChildren())
+			{
+				auto& tagc = entity.GetComponent<TagComponent>();
+				DrawEntityNode(c, tagc);
+			}
+
 			ImGui::TreePop();
 		}
     }
@@ -72,11 +74,14 @@ namespace BitPounce
     {
         ImGui::Begin("Scene Hierarchy");
 
-        auto view = m_Context->GetRegistry((*(ECSSystem*)(0))).view<TagComponent>();
+        auto view = m_Context->GetRegistry((*(ECSSystem*)(0))).view<TagComponent, TransformComponent>();
         for (auto entity : view)
         {
-            auto& tc = view.get<TagComponent>(entity);
-            DrawEntityNode(Entity{entity, m_Context.get()}, tc);
+            auto& tagc = view.get<TagComponent>(entity);
+			auto& transformComponent = view.get<TransformComponent>(entity);
+
+			if(!transformComponent.Parent)
+				DrawEntityNode(Entity{entity, m_Context.get()}, tagc);
         }
 
         if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
@@ -86,7 +91,14 @@ namespace BitPounce
 		if (ImGui::BeginPopupContextWindow())
 		{
 			if (ImGui::MenuItem("Create Empty Entity"))
-				m_Context->CreateEntity("Empty Entity");
+			{
+				auto&& e = m_Context->CreateEntity("Empty Entity");
+				if(m_SelectionContext)
+				{
+					e.SetParent(m_SelectionContext);
+				}
+			}
+			
 
 			ImGui::EndPopup();
 		}

@@ -8,6 +8,7 @@
 
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
+#include "Entity.h"
 #include <BitPounce/Renderer/Texture.h>
 
 namespace BitPounce {
@@ -22,11 +23,19 @@ namespace BitPounce {
 			: Tag(tag) {}
 	};
 
+	struct ChildrenComponent
+	{
+		std::vector<Entity> children;
+		ChildrenComponent() = default;
+		ChildrenComponent(const ChildrenComponent&) = default;
+	};
+
 	struct TransformComponent
 	{
 		glm::vec3 Translation = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
+		Entity Parent = Entity();
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
@@ -35,13 +44,24 @@ namespace BitPounce {
 
 		glm::mat4 GetTransform() const
 		{
-			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
+			glm::mat4 local = GetLocalTransform();
+			if(!Parent)
+			{
+				return local;
+			}
 
+			return Parent.GetComponent<TransformComponent>().GetTransform() * local;
+		}
+
+		glm::mat4 GetLocalTransform() const
+		{
+			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
 			return glm::translate(glm::mat4(1.0f), Translation)
 				* rotation
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
-		operator const glm::mat4& () const { return GetTransform(); }
+
+		operator const glm::mat4 () const { return GetTransform(); }
 	};
 
 	struct SpriteRendererComponent

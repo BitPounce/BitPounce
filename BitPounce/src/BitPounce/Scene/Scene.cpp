@@ -26,12 +26,15 @@ namespace BitPounce {
 	{
 		auto e = Entity{ m_Registry.create(), this };
 		e.AddComponent<TransformComponent>();
+		e.AddComponent<ChildrenComponent>();
 		e.AddComponent<TagComponent>(name);
 		return e;
 	}
 
 	void Scene::DestroyEntity(Entity entity)
 	{
+		entity.OnDestroy();
+
 		m_Registry.destroy(entity);
 	}
 
@@ -141,6 +144,11 @@ namespace BitPounce {
 	bool Scene::OnResize(WindowResizeEvent &e)
 	{
 		
+	}
+
+	template<typename T>
+	void ECSSystem::OnComponentAdded(Entity entity, T& component)
+	{
 	}
 
 	template<>

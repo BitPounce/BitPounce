@@ -44,6 +44,7 @@ namespace BitPounce {
 		float m_time = 0.0f;
 
 		Ref<Scene> m_ActiveScene;
+		Ref<Scene> m_EditorScene;
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
 		Entity m_HoveredEntity;

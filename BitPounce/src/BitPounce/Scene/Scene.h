@@ -34,6 +34,7 @@ namespace BitPounce {
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 		void OnEditorPropImguiDraw(Entity& entity);
+		static Ref<Scene> Copy(Ref<Scene> other);
 		void OnViewportResize(uint32_t width, uint32_t height);
 		void AddComponentPopupImguiDraw(Entity& ent);
 
@@ -47,6 +48,7 @@ namespace BitPounce {
 		void AddedAllSys();
 		void Serialize(nlohmann::json& json);
 		void Deserialize(nlohmann::json& json);
+		ECSSystemManager& GetSysManager() { return m_sysManager; }
 		void RemoveAll();
 
 		std::string name;

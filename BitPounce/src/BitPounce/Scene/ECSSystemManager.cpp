@@ -67,6 +67,14 @@ namespace BitPounce
 		}
     }
 
+    void ECSSystemManager::CopyComponent(entt::registry &dst, entt::registry &src, const std::unordered_map<UUID, entt::entity> &enttMap)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->CopyComponent(dst, src, enttMap);
+		}
+    }
+
     void ECSSystemManager::AddSys_in(System *sys)
 	{
 

@@ -13,6 +13,9 @@ namespace BitPounce
 	{
 	public:
 		CameraSystem() {};
+		CameraSystem* clone() const override {
+        	return new CameraSystem(*this);
+    	}
 
 		virtual void AddComponentPopupImguiDraw(Entity& ent) override
 		{

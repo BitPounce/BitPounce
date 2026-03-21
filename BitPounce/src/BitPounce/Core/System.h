@@ -8,7 +8,7 @@ namespace BitPounce
     class System
     {
     public:
-
+        System() {};
         virtual void Start() {};
         virtual void Stop() {};
 
@@ -16,6 +16,7 @@ namespace BitPounce
         virtual void OnDraw(Timestep& ts) {};
         virtual void OnEvent(Event& event) {};
         virtual void OnImGuiDraw() {};
+        virtual System* clone() const { return nullptr; };
 
         std::string GetName() { return m_name; }
 

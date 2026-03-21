@@ -14,7 +14,10 @@ namespace BitPounce
 	class Renderer2DSystem : public ECSSystem
 	{
 	public:
-		Renderer2DSystem() {};
+		Renderer2DSystem() { m_name = "Renderer 2D System"; };
+		virtual System* clone() const override {
+        	return new Renderer2DSystem(*this);
+    	}
 
 		virtual void OnDraw(Timestep& ts) override 
 		{

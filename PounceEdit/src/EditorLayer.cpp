@@ -264,7 +264,7 @@ namespace BitPounce {
 	
 		ImGui::Begin("Systems");
 	
-		for(auto sys : m_Panels.Get())
+		for(auto sys : m_ActiveScene->GetSysManager().Get())
 		{
 			ImGui::Text(sys->GetName().c_str());
 		}
@@ -459,6 +459,7 @@ namespace BitPounce {
 		
 		m_ActiveScene->OnViewportResize((uint32_t)m_RendorSize.x, (uint32_t)m_RendorSize.y);
 		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
+		m_EditorScene = m_ActiveScene;
 	}
 
 	void EditorLayer::OpenScene(const std::filesystem::path& path)
@@ -471,6 +472,8 @@ namespace BitPounce {
 
 	void EditorLayer::OpenScene()
 	{
+		if (m_SceneState != SceneState::Edit)
+			OnSceneStop();
 		std::optional<std::string> filepath = FileDialogs::OpenFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
 		if (filepath)
 		{
@@ -526,13 +529,18 @@ namespace BitPounce {
 	void EditorLayer::OnScenePlay()
 	{
 		m_SceneState = SceneState::Play;
+		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
+		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
 		m_SceneState = SceneState::Edit;
 		m_ActiveScene->OnRuntimeStop();
+		m_ActiveScene = m_EditorScene;
+
+		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
 
 	}
 }

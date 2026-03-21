@@ -3,6 +3,7 @@
 #include "ECSSystem.h"
 #include "SceneSerializerUtils.h"
 #include <BitPounce/Renderer/EditorCamera.h>
+#include <entt/entt.hpp>
 
 namespace BitPounce
 {
@@ -19,6 +20,7 @@ namespace BitPounce
 		void Serialize(nlohmann::json& json);
 		void Deserialize(nlohmann::json& json);
 		void OnDrawEditor(Timestep& ts, EditorCamera& cam);
+		void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap);
 	protected:
 		Scene* m_Scene;
 

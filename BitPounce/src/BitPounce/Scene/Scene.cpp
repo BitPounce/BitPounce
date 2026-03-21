@@ -7,6 +7,28 @@
 
 #include <glm/glm.hpp>
 
+#include <rttr/type.h>
+#include <rttr/method.h>
+
+namespace BitPounce
+{
+    inline System* rttr_clone_system(const System* original)
+    {
+        if (!original) return nullptr;
+
+        rttr::type t = rttr::type::get(*original);
+        if (!t.is_valid()) return nullptr;
+
+        rttr::method clone_method = t.get_method("clone");
+        if (!clone_method.is_valid()) return nullptr;
+
+        rttr::variant result = clone_method.invoke(original);
+        if (!result.is_valid()) return nullptr;
+
+        return result.get_value<System*>();
+    }
+}
+
 namespace BitPounce {
 
 
@@ -67,7 +89,60 @@ namespace BitPounce {
 		m_sysManager.OnEditorPropImguiDraw(entity);
 	}
 
-	void Scene::OnViewportResize(uint32_t width, uint32_t height)
+	template<typename Component>
+	static void CopyComponentIfExists(Entity dst, Entity src)
+	{
+		if (src.HasComponent<Component>())
+			dst.AddOrReplaceComponent<Component>(src.GetComponent<Component>());
+	}
+
+    Ref<Scene> Scene::Copy(Ref<Scene> other)
+    {
+		Ref<Scene> newScene = CreateRef<Scene>();
+
+		newScene->m_ViewportWidth = other->m_ViewportWidth;
+		newScene->m_ViewportHeight = other->m_ViewportHeight;
+
+		auto& srcSceneRegistry = other->m_Registry;
+		auto& dstSceneRegistry = newScene->m_Registry;
+		std::unordered_map<UUID, entt::entity> enttMap;
+
+		for(auto&& sys : other->m_sysManager.m_systems)
+		{
+			System* cloned = sys->clone();
+        	if (cloned)
+        	{
+        	    newScene->m_sysManager.AddSys_in(cloned);
+        	}
+        	else
+        	{
+        	    BP_CORE_ERROR("Failed to clone system of type {}", rttr::type::get(*sys).get_name().data());
+        	}
+		}
+
+		// Create entities in new scene
+		auto idView = srcSceneRegistry.view<IDComponent>();
+		for (auto e : idView)
+		{
+			UUID uuid = srcSceneRegistry.get<IDComponent>(e).ID;
+			const auto& name = srcSceneRegistry.get<TagComponent>(e).Tag;
+			Entity newEntity = newScene->CreateEntityWithUUID(uuid, name);
+			enttMap[uuid] = (entt::entity)newEntity;
+		}
+
+		other->m_sysManager.CopyComponent(newScene->m_Registry, other->m_Registry, enttMap);
+		ECSSystem::CopyComponentBASE<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		
+
+		return newScene;
+    }
+
+    void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
@@ -112,7 +187,7 @@ namespace BitPounce {
 		m_sysManager.AddComponentPopupImguiDraw(ent);
 	}
 
-	void Scene::AddedAllSys()
+    void Scene::AddedAllSys()
 	{
 		m_sysManager.Start();
 	}

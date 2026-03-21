@@ -11,6 +11,9 @@ namespace BitPounce
 	{
 	public:
 		ScriptableEntitySystem() {};
+		ScriptableEntitySystem* clone() const override {
+        	return new ScriptableEntitySystem(*this);
+    	}
 
 		virtual void OnUpdate(Timestep& ts)
         {

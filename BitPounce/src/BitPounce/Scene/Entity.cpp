@@ -25,7 +25,12 @@ namespace BitPounce
 		return GetComponent<TransformComponent>().Parent;
 	}
 
-	void Entity::SetParent(Entity &ent)
+    std::string &Entity::GetName()
+    {
+        return GetComponent<TagComponent>().Tag;
+    }
+
+    void Entity::SetParent(Entity &ent)
 	{
 		GetTransform().Parent = ent;
 		ent.GetChildren().emplace_back(*this);

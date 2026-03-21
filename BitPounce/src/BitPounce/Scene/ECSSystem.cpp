@@ -14,4 +14,5 @@ namespace BitPounce
 	void ECSSystem::OnComponentRemoved(Entity entity, T& component)
 	{
 	}
+
 }

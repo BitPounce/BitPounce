@@ -37,6 +37,10 @@ namespace BitPounce
 				b2DestroyWorld(m_PhysicsWorld);
 		}
 
+		Physics2DSystem* clone() const override {
+        	return new Physics2DSystem(*this);
+    	}
+
 		virtual void OnEditorPropImguiDraw(Entity& entity) override
 		{
 		    // Rigidbody2D

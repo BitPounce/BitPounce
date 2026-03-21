@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "BitPounce/ImGui/ImGuiUtils.h"
 #include "box2d/box2d.h"
+#include <unordered_map>
 
 namespace BitPounce
 {
@@ -27,76 +28,195 @@ namespace BitPounce
 	class Physics2DSystem : public ECSSystem
 	{
 	public:
-		Physics2DSystem() : m_PhysicsWorld(b2_nullWorldId), m_Accumulator(0.0f) {}
+		Physics2DSystem()
+			: m_PhysicsWorld(b2_nullWorldId), m_Accumulator(0.0f), m_Gravity(0.0f, -10.0f) {}
 
 		~Physics2DSystem()
 		{
-			// Ensure world is destroyed and allocated memory freed
 			if (b2World_IsValid(m_PhysicsWorld))
 				b2DestroyWorld(m_PhysicsWorld);
 		}
 
-		virtual void AddComponentPopupImguiDraw(Entity& entity) override
+		virtual void Serialize(nlohmann::json& json) override
 		{
-			if (ImGui::MenuItem("Rigidbody2D"))
+			auto& registry = m_Scene->GetRegistry(*this);
+
+			// Rigidbody2D
+			auto rbView = registry.view<Rigidbody2DComponent>();
+			for (auto entity : rbView)
 			{
-				entity.AddComponent<Rigidbody2DComponent>();
-				ImGui::CloseCurrentPopup();
+				auto& rb = rbView.get<Rigidbody2DComponent>(entity);
+
+				nlohmann::json rbJson;
+				rbJson["Type"] = (int)rb.Type;
+				rbJson["FixedRotation"] = rb.FixedRotation;
+
+				for (auto& ent : json["Entities"])
+				{
+					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+					{
+						ent["Rigidbody2D"] = rbJson;
+						break;
+					}
+				}
 			}
 
-			if (ImGui::MenuItem("BoxCollider2D"))
+			// BoxCollider2D
+			auto bcView = registry.view<BoxCollider2DComponent>();
+			for (auto entity : bcView)
 			{
-				entity.AddComponent<BoxCollider2DComponent>();
-				ImGui::CloseCurrentPopup();
+				auto& bc = bcView.get<BoxCollider2DComponent>(entity);
+
+				nlohmann::json bcJson;
+				bcJson["Offset"] = { bc.Offset.x, bc.Offset.y };
+				bcJson["Size"] = { bc.Size.x, bc.Size.y };
+				bcJson["Density"] = bc.Density;
+				bcJson["Friction"] = bc.Friction;
+				bcJson["Restitution"] = bc.Restitution;
+				bcJson["RestitutionThreshold"] = bc.RestitutionThreshold;
+
+				for (auto& ent : json["Entities"])
+				{
+					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+					{
+						ent["BoxCollider2D"] = bcJson;
+						break;
+					}
+				}
+			}
+
+			// System settings
+			json["Physics2D"]["Gravity"] = { m_Gravity.x, m_Gravity.y };
+		}
+
+		virtual void Deserialize(nlohmann::json& json) override
+		{
+			auto& registry = m_Scene->GetRegistry(*this);
+
+			// Gravity
+			if (json.contains("Physics2D"))
+			{
+				auto& phys = json["Physics2D"];
+				if (phys.contains("Gravity"))
+				{
+					auto g = phys["Gravity"];
+					m_Gravity = { g[0], g[1] };
+				}
+			}
+
+			// Build entity map
+			std::unordered_map<uint32_t, entt::entity> entityMap;
+
+			auto view = registry.view<TagComponent>();
+			for (auto entity : view)
+			{
+				Entity e{ entity, m_Scene };
+				entityMap[(uint32_t)e] = entity;
+			}
+
+			// Deserialize components
+			for (auto& entJson : json["Entities"])
+			{
+				if (!entJson.contains("entityID"))
+					continue;
+
+				uint32_t id = entJson["entityID"].get<uint32_t>();
+
+				if (!entityMap.contains(id))
+					continue;
+
+				Entity entity{ entityMap[id], m_Scene };
+
+				// Rigidbody2D
+				if (entJson.contains("Rigidbody2D"))
+				{
+					auto& rbJson = entJson["Rigidbody2D"];
+
+					Rigidbody2DComponent rb;
+
+					if (rbJson.contains("Type"))
+						rb.Type = (Rigidbody2DComponent::BodyType)rbJson["Type"].get<int>();
+
+					if (rbJson.contains("FixedRotation"))
+						rb.FixedRotation = rbJson["FixedRotation"].get<bool>();
+
+					if (!entity.HasComponent<Rigidbody2DComponent>())
+						entity.AddComponent<Rigidbody2DComponent>(rb);
+				}
+
+				// BoxCollider2D
+				if (entJson.contains("BoxCollider2D"))
+				{
+					auto& bcJson = entJson["BoxCollider2D"];
+
+					BoxCollider2DComponent bc;
+
+					if (bcJson.contains("Offset"))
+					{
+						auto o = bcJson["Offset"];
+						bc.Offset = { o[0], o[1] };
+					}
+
+					if (bcJson.contains("Size"))
+					{
+						auto s = bcJson["Size"];
+						bc.Size = { s[0], s[1] };
+					}
+
+					if (bcJson.contains("Density"))
+						bc.Density = bcJson["Density"].get<float>();
+
+					if (bcJson.contains("Friction"))
+						bc.Friction = bcJson["Friction"].get<float>();
+
+					if (bcJson.contains("Restitution"))
+						bc.Restitution = bcJson["Restitution"].get<float>();
+
+					if (bcJson.contains("RestitutionThreshold"))
+						bc.RestitutionThreshold = bcJson["RestitutionThreshold"].get<float>();
+
+					if (!entity.HasComponent<BoxCollider2DComponent>())
+						entity.AddComponent<BoxCollider2DComponent>(bc);
+				}
 			}
 		}
 
 		virtual void OnRuntimeStart() override
 		{
 			b2WorldDef worldDef = b2DefaultWorldDef();
-			worldDef.gravity = {0.0f, -10.0f};
+			worldDef.gravity = { m_Gravity.x, m_Gravity.y };
 			m_PhysicsWorld = b2CreateWorld(&worldDef);
 
 			auto& registry = m_Scene->GetRegistry(*this);
 
-			registry.view<Rigidbody2DComponent, TransformComponent>().each(
-				[&](entt::entity e, Rigidbody2DComponent& rb2d, TransformComponent& transform)
+			registry.view<Rigidbody2DComponent, TransformComponent>().each([&](entt::entity e, Rigidbody2DComponent& rb2d, TransformComponent& transform)
+			{
+				Entity entity{ e, m_Scene };
+
+				b2BodyDef bodyDef = b2DefaultBodyDef();
+				bodyDef.type = Rigidbody2DTypeToBox2DBody(rb2d.Type);
+				bodyDef.position = { transform.Translation.x, transform.Translation.y };
+				bodyDef.motionLocks.angularZ = rb2d.FixedRotation;
+
+				b2BodyId bodyId = b2CreateBody(m_PhysicsWorld, &bodyDef);
+				rb2d.RuntimeBody = new b2BodyId(bodyId);
+
+				if (entity.HasComponent<BoxCollider2DComponent>())
 				{
-					Entity entity{ e, m_Scene };
+					auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+					b2Polygon polygon = b2MakeBox(
+						bc2d.Size.x * transform.Scale.x,
+						bc2d.Size.y * transform.Scale.y
+					);
+					b2ShapeDef shapeDef = b2DefaultShapeDef();
+					shapeDef.density = bc2d.Density;
+					shapeDef.material.friction = bc2d.Friction;
+					shapeDef.material.restitution = bc2d.Restitution;
 
-					// Create Box2D body
-					b2BodyDef bodyDef = b2DefaultBodyDef();
-					bodyDef.type = Rigidbody2DTypeToBox2DBody(rb2d.Type);
-					bodyDef.position = { transform.Translation.x, transform.Translation.y };
-					bodyDef.motionLocks.angularZ = rb2d.FixedRotation;
-
-					b2BodyId bodyId = b2CreateBody(m_PhysicsWorld, &bodyDef);
-
-					// Store body ID on heap
-					rb2d.RuntimeBody = new b2BodyId(bodyId);
-
-					// Create BoxCollider2D if present
-					if (entity.HasComponent<BoxCollider2DComponent>())
-					{
-						auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-
-						b2Polygon polygon = b2MakeBox(
-							bc2d.Size.x * transform.Scale.x,
-							bc2d.Size.y * transform.Scale.y
-						);
-
-						b2ShapeDef shapeDef = b2DefaultShapeDef();
-						shapeDef.density = bc2d.Density;                       // Direct member
-						shapeDef.material.friction = bc2d.Friction;
-						shapeDef.material.restitution = bc2d.Restitution;
-						// restitutionThreshold not available in this Box2D version
-
-						b2ShapeId shapeId = b2CreatePolygonShape(bodyId, &shapeDef, &polygon);
-
-						// Store shape ID on heap
-						bc2d.RuntimeFixture = new b2ShapeId(shapeId);
-					}
-				});
+					b2ShapeId shapeId = b2CreatePolygonShape(bodyId, &shapeDef, &polygon);
+					bc2d.RuntimeFixture = new b2ShapeId(shapeId);
+				}
+			});
 		}
 
 		virtual void OnRuntimeStop() override
@@ -104,23 +224,18 @@ namespace BitPounce
 			if (!b2World_IsValid(m_PhysicsWorld))
 				return;
 
-			// Free all allocated runtime IDs before destroying the world
 			auto& registry = m_Scene->GetRegistry(*this);
+
 			registry.view<Rigidbody2DComponent>().each([&](Rigidbody2DComponent& rb2d)
 			{
-				if (rb2d.RuntimeBody)
-				{
-					delete static_cast<b2BodyId*>(rb2d.RuntimeBody);
-					rb2d.RuntimeBody = nullptr;
-				}
+				delete static_cast<b2BodyId*>(rb2d.RuntimeBody);
+				rb2d.RuntimeBody = nullptr;
 			});
+
 			registry.view<BoxCollider2DComponent>().each([&](BoxCollider2DComponent& bc2d)
 			{
-				if (bc2d.RuntimeFixture)
-				{
-					delete static_cast<b2ShapeId*>(bc2d.RuntimeFixture);
-					bc2d.RuntimeFixture = nullptr;
-				}
+				delete static_cast<b2ShapeId*>(bc2d.RuntimeFixture);
+				bc2d.RuntimeFixture = nullptr;
 			});
 
 			b2DestroyWorld(m_PhysicsWorld);
@@ -133,7 +248,6 @@ namespace BitPounce
 			if (!b2World_IsValid(m_PhysicsWorld))
 				return;
 
-			// Fixed timestep physics (60 Hz)
 			const float fixedTimeStep = 1.0f / 60.0f;
 			const int maxSubSteps = 5;
 			m_Accumulator += ts;
@@ -141,87 +255,31 @@ namespace BitPounce
 			int subSteps = 0;
 			while (m_Accumulator >= fixedTimeStep && subSteps < maxSubSteps)
 			{
-				b2World_Step(m_PhysicsWorld, fixedTimeStep, 1); // 1 velocity, 1 position iteration
+				b2World_Step(m_PhysicsWorld, fixedTimeStep, 1);
 				m_Accumulator -= fixedTimeStep;
 				++subSteps;
 			}
 
-			// Update entity transforms from Box2D bodies
 			auto& registry = m_Scene->GetRegistry(*this);
 			registry.view<Rigidbody2DComponent, TransformComponent>().each(
-				[&](entt::entity e, Rigidbody2DComponent& rb2d, TransformComponent& transform)
+			[&](auto e, auto& rb2d, auto& transform)
+			{
+				if (rb2d.RuntimeBody)
 				{
-					if (rb2d.RuntimeBody)
-					{
-						b2BodyId* bodyId = static_cast<b2BodyId*>(rb2d.RuntimeBody);
-						b2Vec2 position = b2Body_GetPosition(*bodyId);
-						b2Rot rotation = b2Body_GetRotation(*bodyId); 
-						float angle = atan2(rotation.s, rotation.c);
+					auto bodyId = static_cast<b2BodyId*>(rb2d.RuntimeBody);
+					auto pos = b2Body_GetPosition(*bodyId);
+					auto rot = b2Body_GetRotation(*bodyId);
 
-						transform.Translation.x = position.x;
-						transform.Translation.y = position.y;
-						transform.Rotation.z = angle; // Assuming 2D rotation around Z
-					}
-				});
-		}
-
-		virtual void OnEditorPropImguiDraw(Entity& entity) override
-		{
-			ImGuiUtils::DrawComponent<Rigidbody2DComponent>("Rigidbody2D", entity, [](Rigidbody2DComponent& rb)
-			{
-				const char* items[] = { "Static", "Dynamic", "Kinematic" };
-				int current = static_cast<int>(rb.Type);
-				if (ImGui::Combo("Body Type", &current, items, IM_ARRAYSIZE(items)))
-					rb.Type = static_cast<Rigidbody2DComponent::BodyType>(current);
-
-				ImGui::Checkbox("Fixed Rotation", &rb.FixedRotation);
-			});
-
-			ImGuiUtils::DrawComponent<BoxCollider2DComponent>("BoxCollider2D", entity, [](BoxCollider2DComponent& bc)
-			{
-				ImGui::DragFloat2("Offset", glm::value_ptr(bc.Offset), 0.01f);
-				ImGui::DragFloat2("Size", glm::value_ptr(bc.Size), 0.01f);
-				ImGui::DragFloat("Density", &bc.Density, 0.01f);
-				ImGui::DragFloat("Friction", &bc.Friction, 0.01f);
-				ImGui::DragFloat("Restitution", &bc.Restitution, 0.01f);
-				ImGui::DragFloat("Restitution Threshold", &bc.RestitutionThreshold, 0.01f);
+					transform.Translation.x = pos.x;
+					transform.Translation.y = pos.y;
+					transform.Rotation.z = atan2(rot.s, rot.c);
+				}
 			});
 		}
-
-		virtual void OnRemoveEntity(Entity& ent) override
-        {
-            if (!b2World_IsValid(m_PhysicsWorld))
-                return;
-
-            if (ent.HasComponent<Rigidbody2DComponent>())
-            {
-                auto& rb2d = ent.GetComponent<Rigidbody2DComponent>();
-                if (rb2d.RuntimeBody)
-                {
-                    b2BodyId* bodyId = static_cast<b2BodyId*>(rb2d.RuntimeBody);
-                    if (b2Body_IsValid(*bodyId))
-                        b2DestroyBody(*bodyId);
-
-                    delete bodyId;
-                    rb2d.RuntimeBody = nullptr;
-                }
-            }
-
-            if (ent.HasComponent<BoxCollider2DComponent>())
-            {
-                auto& bc2d = ent.GetComponent<BoxCollider2DComponent>();
-                if (bc2d.RuntimeFixture)
-                {
-                    // Shape is destroyed automatically when the body is destroyed,
-                    // but we still need to free the heap memory.
-                    delete static_cast<b2ShapeId*>(bc2d.RuntimeFixture);
-                    bc2d.RuntimeFixture = nullptr;
-                }
-            }
-        }
 
 	private:
 		b2WorldId m_PhysicsWorld;
 		float m_Accumulator;
+		glm::vec2 m_Gravity;
 	};
 }

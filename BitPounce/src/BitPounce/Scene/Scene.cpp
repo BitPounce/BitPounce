@@ -31,9 +31,10 @@ namespace BitPounce {
     {
         Entity entity = { m_Registry.create(), this };
 		entity.AddComponent<IDComponent>(uuid);
+		entity.AddComponent<ChildrenComponent>();
 		entity.AddComponent<TransformComponent>();
-		auto& tag = entity.AddComponent<TagComponent>();
-		tag.Tag = name.empty() ? "Entity" : name;
+		entity.AddComponent<TagComponent>(name);
+		return entity;
     }
 
     void Scene::DestroyEntity(Entity entity)

@@ -70,6 +70,7 @@ namespace BitPounce
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.Colour));
 			});
 		}
+		
 
 		virtual void Serialize(nlohmann::json& json)
 		{

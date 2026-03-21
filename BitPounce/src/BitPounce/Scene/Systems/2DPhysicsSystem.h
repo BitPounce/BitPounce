@@ -37,6 +37,43 @@ namespace BitPounce
 				b2DestroyWorld(m_PhysicsWorld);
 		}
 
+		virtual void OnEditorPropImguiDraw(Entity& entity) override
+		{
+		    // Rigidbody2D
+		    if (entity.HasComponent<Rigidbody2DComponent>())
+		    {
+		        ImGuiUtils::DrawComponent<Rigidbody2DComponent>("Rigidbody2D", entity, [](Rigidbody2DComponent& rb)
+		        {
+		            const char* items[] = { "Static", "Dynamic", "Kinematic" };
+		            int current = static_cast<int>(rb.Type);
+		            if (ImGui::Combo("Body Type", &current, items, IM_ARRAYSIZE(items)))
+		                rb.Type = static_cast<Rigidbody2DComponent::BodyType>(current);
+				
+		            ImGui::Checkbox("Fixed Rotation", &rb.FixedRotation);
+		        });
+		    }
+		
+		    // BoxCollider2D
+		    if (entity.HasComponent<BoxCollider2DComponent>())
+		    {
+		        ImGuiUtils::DrawComponent<BoxCollider2DComponent>("BoxCollider2D", entity, [](BoxCollider2DComponent& bc)
+		        {
+		            ImGui::DragFloat2("Offset", glm::value_ptr(bc.Offset), 0.01f);
+		            ImGui::DragFloat2("Size", glm::value_ptr(bc.Size), 0.01f);
+		            ImGui::DragFloat("Density", &bc.Density, 0.01f);
+		            ImGui::DragFloat("Friction", &bc.Friction, 0.01f);
+		            ImGui::DragFloat("Restitution", &bc.Restitution, 0.01f);
+		            ImGui::DragFloat("Restitution Threshold", &bc.RestitutionThreshold, 0.01f);
+		        });
+		    }
+		
+		    // Optional: System-wide settings (Gravity)
+		    if (ImGui::CollapsingHeader("Physics2D System Settings"))
+		    {
+		        ImGui::DragFloat2("Gravity", glm::value_ptr(m_Gravity), 0.1f);
+		    }
+		}
+
 		virtual void Serialize(nlohmann::json& json) override
 		{
 			auto& registry = m_Scene->GetRegistry(*this);
@@ -87,6 +124,23 @@ namespace BitPounce
 
 			// System settings
 			json["Physics2D"]["Gravity"] = { m_Gravity.x, m_Gravity.y };
+		}
+
+		virtual void AddComponentPopupImguiDraw(Entity& entity) override
+		{
+		    if (ImGui::MenuItem("Rigidbody2D"))
+		    {
+				entity.AddComponent<Rigidbody2DComponent>();
+				
+		        ImGui::CloseCurrentPopup();
+		    }
+		
+		    if (ImGui::MenuItem("BoxCollider2D"))
+		    {
+				entity.AddComponent<BoxCollider2DComponent>();
+				
+		        ImGui::CloseCurrentPopup();
+		    }
 		}
 
 		virtual void Deserialize(nlohmann::json& json) override
@@ -196,6 +250,7 @@ namespace BitPounce
 				b2BodyDef bodyDef = b2DefaultBodyDef();
 				bodyDef.type = Rigidbody2DTypeToBox2DBody(rb2d.Type);
 				bodyDef.position = { transform.Translation.x, transform.Translation.y };
+				bodyDef.rotation  = b2MakeRot(transform.Rotation.z);
 				bodyDef.motionLocks.angularZ = rb2d.FixedRotation;
 
 				b2BodyId bodyId = b2CreateBody(m_PhysicsWorld, &bodyDef);

@@ -1,32 +1,50 @@
 {
 	"Entities": [
 		{
-			"ID": 4182336232,
+			"BoxCollider2D": {
+				"Density": 1.0,
+				"Friction": 0.5,
+				"Offset": [
+					0.0,
+					0.0
+				],
+				"Restitution": 0.8999999761581421,
+				"RestitutionThreshold": 0.5,
+				"Size": [
+					0.5,
+					0.5
+				]
+			},
+			"ID": 362623186,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 1
+			},
 			"SpriteRenderer": {
 				"Colour": [
-					0.2163652926683426,
-					0.45559847354888916,
-					0.3142753541469574,
+					0.030888080596923828,
+					0.0,
+					1.0,
 					1.0
 				]
 			},
 			"TagComponent": {
-				"Tag": "Floor"
+				"Tag": "Empty Entity"
 			},
 			"TransformComponent": {
 				"Rotation": [
 					0.0,
 					0.0,
-					0.0
+					-0.883834719657898
 				],
 				"Scale": [
-					9697.2998046875,
-					6.699999809265137,
+					1.0,
+					1.0,
 					1.0
 				],
 				"Translation": [
 					0.0,
-					-7.199999809265137,
+					0.0,
 					0.0
 				]
 			},
@@ -35,7 +53,7 @@
 		{
 			"CameraComponent": {
 				"Camera": {
-					"AspectRatio": 1.4694589376449585,
+					"AspectRatio": 1.4677138328552246,
 					"Orthographic": {
 						"FarClip": 1.0,
 						"NearClip": -1.0,
@@ -75,37 +93,61 @@
 			"entityID": 1
 		},
 		{
-			"ID": 362623186,
+			"BoxCollider2D": {
+				"Density": 1.0,
+				"Friction": 0.5,
+				"Offset": [
+					0.0,
+					0.0
+				],
+				"Restitution": 0.8999999761581421,
+				"RestitutionThreshold": 0.5,
+				"Size": [
+					0.5,
+					0.5
+				]
+			},
+			"ID": 4182336232,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 0
+			},
 			"SpriteRenderer": {
 				"Colour": [
-					0.030888080596923828,
-					0.0,
-					1.0,
+					0.2163652926683426,
+					0.45559847354888916,
+					0.3142753541469574,
 					1.0
 				]
 			},
 			"TagComponent": {
-				"Tag": "Empty Entity"
+				"Tag": "Floor"
 			},
 			"TransformComponent": {
 				"Rotation": [
 					0.0,
 					0.0,
-					-0.883834719657898
+					0.0
 				],
 				"Scale": [
-					1.0,
-					1.0,
+					9697.2998046875,
+					6.699999809265137,
 					1.0
 				],
 				"Translation": [
 					0.0,
-					0.0,
+					-7.199999809265137,
 					0.0
 				]
 			},
 			"entityID": 0
 		}
 	],
+	"Physics2D": {
+		"Gravity": [
+			1.0,
+			-10.0
+		]
+	},
 	"Scene": "Untitled"
 }

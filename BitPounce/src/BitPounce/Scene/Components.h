@@ -74,6 +74,16 @@ namespace BitPounce {
 		operator const glm::mat4 () const { return GetTransform(); }
 	};
 
+	struct CircleRendererComponent
+	{
+		glm::vec4 Colour{ 1.0f, 1.0f, 1.0f, 1.0f };
+		float Thickness = 1.0f;
+		float Fade = 0.005f;
+
+		CircleRendererComponent() = default;
+		CircleRendererComponent(const CircleRendererComponent&) = default;
+	};
+
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Colour{ 1.0f, 1.0f, 1.0f, 1.0f };

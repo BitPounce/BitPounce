@@ -133,6 +133,7 @@ namespace BitPounce {
 		other->m_sysManager.CopyComponent(newScene->m_Registry, other->m_Registry, enttMap);
 		ECSSystem::CopyComponentBASE<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<CircleRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
@@ -245,6 +246,11 @@ namespace BitPounce {
 
 	template<>
 	void ECSSystem::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<CircleRendererComponent>(Entity entity, CircleRendererComponent& component)
 	{
 	}
 

@@ -332,9 +332,17 @@ namespace BitPounce {
 			/*const auto& camera = cameraEntity.first->Camera;
 			const glm::mat4& cameraProjection = camera.GetProjection();
 			glm::mat4 cameraView = glm::inverse(cameraEntity.second->GetTransform());*/
-
-			const glm::mat4& cameraProjection = m_EditorCamera.GetProjection();
+			glm::mat4 cameraProjection = m_EditorCamera.GetProjection();
 			glm::mat4 cameraView = m_EditorCamera.GetViewMatrix();
+
+			if(m_SceneState == SceneState::Play)
+			{
+				const auto& camera = cameraEntity.first->Camera;
+				cameraProjection = camera.GetProjection();
+				cameraView = glm::inverse(cameraEntity.second->GetTransform());
+			}
+
+			
 
 			// Entity transform
 			auto& tc = selectedEntity.GetComponent<TransformComponent>();

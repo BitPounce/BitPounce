@@ -36,38 +36,36 @@ namespace BitPounce
 
 		void Draw(const glm::mat4& cam)
 		{
-			Renderer2D::BeginScene(cam);
-
-			{
-				auto group = m_Scene->GetRegistry(*this).group<TransformComponent>(entt::get<SpriteRendererComponent>);
-				for (auto entity : group)
-				{
-					auto&& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
-
-					if(sprite.Texture)
-					{
-						Renderer2D::DrawQuad(transform.GetTransform(), sprite.Texture, sprite.Colour, sprite.TilingFactor, (int)entity);
-					}
-					else
-					{
-						Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
-					}
-
-				}
-			}
-
-			{
-				auto group = m_Scene->GetRegistry(*this).group<CircleRendererComponent>(entt::get<TransformComponent>);
-				for (auto entity : group)
-				{
-					auto&& [transform, circle] = group.get<TransformComponent, CircleRendererComponent>(entity);
-
-					Renderer2D::DrawCircle(transform.GetTransform(), circle.Colour, circle.Thickness, circle.Fade, (int)entity);
-
-				}
-			}
-
-			Renderer2D::EndScene();
+		    Renderer2D::BeginScene(cam);
+		
+		    // Draw Sprites
+		    auto spriteView = m_Scene->GetRegistry(*this).view<TransformComponent, SpriteRendererComponent>();
+		    for (auto entity : spriteView)
+		    {
+		        auto& transform = spriteView.get<TransformComponent>(entity);
+		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
+			
+		        if(sprite.Texture)
+		        {
+		            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Texture, sprite.Colour, sprite.TilingFactor, (int)entity);
+		        }
+		        else
+		        {
+		            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
+		        }
+		    }
+		
+		    // Draw Circles
+		    auto circleView = m_Scene->GetRegistry(*this).view<TransformComponent, CircleRendererComponent>();
+		    for (auto entity : circleView)
+		    {
+		        auto& transform = circleView.get<TransformComponent>(entity);
+		        auto& circle = circleView.get<CircleRendererComponent>(entity);
+			
+		        Renderer2D::DrawCircle(transform.GetTransform(), circle.Colour, circle.Thickness, circle.Fade, (int)entity);
+		    }
+		
+		    Renderer2D::EndScene();
 		}
 
 		virtual void AddComponentPopupImguiDraw(Entity& ent) override
@@ -101,111 +99,98 @@ namespace BitPounce
 		}
 		
 
-		virtual void Serialize(nlohmann::json& json)
+		virtual void Serialize(nlohmann::json& json) override
 		{
-			{
-				auto group = m_Scene->GetRegistry(*this).group<SpriteRendererComponent>();
-				for (auto entity : group)
-				{
-
-
-					auto&& sprite = group.get<SpriteRendererComponent>(entity);
-
-					nlohmann::json spriteRendererComponent = nlohmann::json();
-					spriteRendererComponent["Colour"] = sprite.Colour;
-
-					nlohmann::json* entjson = nullptr;
-					for(auto& ent : json["Entities"])
-					{
-						auto entityID = ent["entityID"];
-						if(entityID.get<uint32_t>() == (uint32_t)entity)
-						{
-							ent["SpriteRenderer"] = spriteRendererComponent;
-							break;
-						}
-					}
-				}
-			}
-
-			{
-				auto group = m_Scene->GetRegistry(*this).group<CircleRendererComponent>();
-				for (auto entity : group)
-				{
-					
-				
-					auto&& circle = group.get<CircleRendererComponent>(entity);
-				
-					nlohmann::json circleRendererComponent = nlohmann::json();
-					circleRendererComponent["Colour"] = circle.Colour;
-					circleRendererComponent["Fade"] = circle.Fade;
-					circleRendererComponent["Thickness"] = circle.Thickness;
-				
-					nlohmann::json* entjson = nullptr;
-					for(auto& ent : json["Entities"])
-					{
-						auto entityID = ent["entityID"];
-						if(entityID.get<uint32_t>() == (uint32_t)entity)
-						{
-							ent["CircleRenderer"] = circleRendererComponent;
-							break;
-						}
-					}
-				}
-			}
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    // Serialize SpriteRendererComponent
+		    auto spriteView = registry.view<SpriteRendererComponent>();
+		    for (auto entity : spriteView)
+		    {
+		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
+			
+		        nlohmann::json spriteJson;
+		        spriteJson["Colour"] = sprite.Colour;
+			
+		        for (auto& ent : json["Entities"])
+		        {
+		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+		            {
+		                ent["SpriteRenderer"] = spriteJson;
+		                break;
+		            }
+		        }
+		    }
+		
+		    // Serialize CircleRendererComponent
+		    auto circleView = registry.view<CircleRendererComponent>();
+		    for (auto entity : circleView)
+		    {
+		        auto& circle = circleView.get<CircleRendererComponent>(entity);
+			
+		        nlohmann::json circleJson;
+		        circleJson["Colour"] = circle.Colour;
+		        circleJson["Fade"] = circle.Fade;
+		        circleJson["Thickness"] = circle.Thickness;
+			
+		        for (auto& ent : json["Entities"])
+		        {
+		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+		            {
+		                ent["CircleRenderer"] = circleJson;
+		                break;
+		            }
+		        }
+		    }
 		}
 
 		virtual void Deserialize(nlohmann::json& json) override
 		{
-			auto& registry = m_Scene->GetRegistry(*this);
-
-			for (auto& entJson : json["Entities"])
-			{
-				if (!entJson.contains("entityID"))
-					continue;
-
-				uint32_t id = entJson["entityID"].get<uint32_t>();
-
-				entt::entity targetEntity = entt::null;
-				auto view = registry.view<TagComponent>(); 
-				for (auto entity : view)
-				{
-					Entity e{ entity, m_Scene };
-					if ((uint32_t)e == id)
-					{
-						targetEntity = entity;
-						break;
-					}
-				}
-
-				if (targetEntity == entt::null)
-					continue;
-
-				if(entJson.contains("SpriteRenderer"))
-				{
-					// Add the SpriteRendererComponent
-					SpriteRendererComponent comp;
-					auto& spriteJson = entJson["SpriteRenderer"];
-					if (spriteJson.contains("Colour"))
-						comp.Colour = spriteJson["Colour"].get<glm::vec4>();
-
-					Entity entity{ targetEntity, m_Scene };
-					entity.AddComponent<SpriteRendererComponent>(comp);
-				}
-
-				if(entJson.contains("CircleRenderer"))
-				{
-					// Add the SpriteRendererComponent
-					CircleRendererComponent comp;
-					auto& spriteJson = entJson["CircleRenderer"];
-					comp.Colour = spriteJson["Colour"].get<glm::vec4>();
-					comp.Fade = spriteJson["Fade"].get<float>();
-					comp.Thickness = spriteJson["Thickness"].get<float>();
-
-					Entity entity{ targetEntity, m_Scene };
-					entity.AddComponent<CircleRendererComponent>(comp);
-				}
-				
-			}
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    for (auto& entJson : json["Entities"])
+		    {
+		        if (!entJson.contains("entityID"))
+		            continue;
+			
+		        uint32_t id = entJson["entityID"].get<uint32_t>();
+		        entt::entity targetEntity = entt::null;
+			
+		        auto view = registry.view<TagComponent>();
+		        for (auto entity : view)
+		        {
+		            Entity e{ entity, m_Scene };
+		            if ((uint32_t)e == id)
+		            {
+		                targetEntity = entity;
+		                break;
+		            }
+		        }
+			
+		        if (targetEntity == entt::null)
+		            continue;
+			
+		        Entity entity{ targetEntity, m_Scene };
+			
+		        if (entJson.contains("SpriteRenderer"))
+		        {
+		            SpriteRendererComponent comp;
+		            auto& spriteJson = entJson["SpriteRenderer"];
+		            if (spriteJson.contains("Colour"))
+		                comp.Colour = spriteJson["Colour"].get<glm::vec4>();
+		            entity.AddComponent<SpriteRendererComponent>(comp);
+		        }
+			
+		        if (entJson.contains("CircleRenderer"))
+		        {
+		            CircleRendererComponent comp;
+		            auto& circleJson = entJson["CircleRenderer"];
+		            comp.Colour = circleJson["Colour"].get<glm::vec4>();
+		            comp.Fade = circleJson["Fade"].get<float>();
+		            comp.Thickness = circleJson["Thickness"].get<float>();
+		            entity.AddComponent<CircleRendererComponent>(comp);
+		        }
+		    }
 		}
 	};
 }

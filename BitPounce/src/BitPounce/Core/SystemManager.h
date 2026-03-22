@@ -17,9 +17,7 @@ namespace BitPounce
         {
             
             SystemType* sys = new SystemType(std::forward<Args>(args)...);
-            std::cout << "[AddSystem] Created: " << sys << std::endl;
             AddSys_in(sys);
-            std::cout << "[AddSystem] Returning: " << sys << std::endl;
             return sys;
         }
 

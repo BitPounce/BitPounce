@@ -138,7 +138,7 @@ namespace BitPounce {
 		ECSSystem::CopyComponentBASE<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
-		
+		ECSSystem::CopyComponentBASE<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		return newScene;
     }
@@ -271,6 +271,11 @@ namespace BitPounce {
 
 	template<>
 	void ECSSystem::OnComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
 	{
 	}
 }

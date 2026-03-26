@@ -46,6 +46,9 @@ namespace BitPounce {
 
 		OnNewScene(m_ActiveScene);
 
+		ScriptEngine::BuildScriptsFiles({"assets/scripts/main.as"});
+		ScriptEngine::Build();
+
 	}
 	
 	void EditorLayer::OnDetach()

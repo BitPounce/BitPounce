@@ -6,9 +6,7 @@
 #include "BitPounce/Scene/Entity.h"
 
 #include <glm/glm.hpp>
-
-#include <rttr/type.h>
-#include <rttr/method.h>
+/*
 
 namespace BitPounce
 {
@@ -27,7 +25,7 @@ namespace BitPounce
 
         return result.get_value<System*>();
     }
-}
+}*/
 
 namespace BitPounce {
 
@@ -116,7 +114,7 @@ namespace BitPounce {
         	}
         	else
         	{
-        	    BP_CORE_ERROR("Failed to clone system of type {}", rttr::type::get(*sys).get_name().data());
+        	    //BP_CORE_ERROR("Failed to clone system of type {}", /*rttr::type::get(*sys).get_name().data()*/);
         	}
 		}
 

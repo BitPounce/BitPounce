@@ -1,6 +1,6 @@
 function exposeBitPounceDeps()
 
-    links { "GLFW", "ImGui", "Box2D", "rttr_core_lib" }
+    links { "GLFW", "ImGui", "Box2D" }
 
     -- Include BitPounce headers
     includedirs
@@ -15,8 +15,8 @@ function exposeBitPounceDeps()
 		"../BitPounce/vendor/nlohmannjson/single_include",
 		"../BitPounce/vendor/ImGuizmo",
 		"../BitPounce/vendor/box2d/include",
-		"../BitPounce/vendor/rttr/src",
-		"../BitPounce/vendor/rttr/src/rttr",
+		"../BitPounce/vendor/angelscript/sdk/angelscript/include",
+		"../BitPounce/vendor/angelscript/sdk/add_on"
     }
 
     -- Platform-specific libraries
@@ -36,12 +36,14 @@ function exposeBitPounceDeps()
             "GL",
             "pthread",
             "dl",
-            "m"
+            "m",
+			"angelscript"
         }
 
 		libdirs
     	{
-    	     "../BitPounce/vendor/bgfx/.build/linux64_gcc/bin"
+    	    "../BitPounce/vendor/bgfx/.build/linux64_gcc/bin",
+			"../BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/bin"
     	}
 
 	
@@ -92,7 +94,9 @@ project "BitPounce"
 		"vendor/imgui/backends/imgui_impl_opengl3.cpp",
 		"vendor/imgui/backends/imgui_impl_glfw.cpp",
 
-		"../BitPounce/vendor/ImGuizmo/ImGuizmo.cpp"
+		"../BitPounce/vendor/ImGuizmo/ImGuizmo.cpp",
+
+		"../BitPounce/vendor/angelscript/sdk/add_on/**.cpp"
 	}
 
 	includedirs

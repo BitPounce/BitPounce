@@ -1,0 +1,79 @@
+{
+	"Entities": [
+		{
+			"ID": 362623186,
+			"SpriteRenderer": {
+				"Colour": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				]
+			},
+			"TagComponent": {
+				"Tag": "Floor"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					-1.2999999523162842,
+					0.0
+				]
+			},
+			"entityID": 1
+		},
+		{
+			"CameraComponent": {
+				"Camera": {
+					"AspectRatio": 1.0,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": 10.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
+			},
+			"ID": 1900357780,
+			"TagComponent": {
+				"Tag": "Camera"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 0
+		}
+	],
+	"Scene": "Untitled"
+}

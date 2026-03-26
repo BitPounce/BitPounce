@@ -1,4 +1,5 @@
 #include <bp_pch.h>
+/*
 #include <rttr/registration.h>
 #include "BitPounce/Core/System.h"
 #include "ECSSystem.h"
@@ -27,4 +28,4 @@ RTTR_REGISTRATION {
     registration::class_<ScriptableEntitySystem>("BitPounce::ScriptableEntitySystem")
         .method("clone", &ScriptableEntitySystem::clone)
         ;
-}
+}*/

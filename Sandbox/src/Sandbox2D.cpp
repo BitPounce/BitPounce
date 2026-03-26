@@ -45,6 +45,7 @@ void Sandbox2D::OnAttach()
     BitPounce::FramebufferSpecification fbSpec;
 	fbSpec.Width = 1600;
 	fbSpec.Height = 900;
+    fbSpec.Attachments = { BitPounce::FramebufferTextureFormat::RGBA8, BitPounce::FramebufferTextureFormat::RED_INTEGER, BitPounce::FramebufferTextureFormat::Depth };
 	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
 }
 

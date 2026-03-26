@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/glm.hpp>
+
 #include "BitPounce/Core/PlatformDetection.hpp"
 #include "BitPounce/Core/Logger.h"
 #include "BitPounce/Events/Event.h"

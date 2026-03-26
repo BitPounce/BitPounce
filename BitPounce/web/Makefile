@@ -16,10 +16,13 @@ BUILD_DIR  := $(BASE_DIR)/bin-int/Debug-WebGL/BitPounce
 VENDOR_DIR := $(ENGINE_DIR)/vendor
 IMGUI_DIR  := $(VENDOR_DIR)/imgui
 
+## "../BitPounce/vendor/rttr/src",
+##		"../BitPounce/vendor/rttr/src/rttr",
+
 # Source files
 IMGUI_SRC := $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp ${VENDOR_DIR}/ImGuizmo/ImGuizmo.cpp
 SRC_CPP	  := $(shell find $(ENGINE_DIR)/src -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/Web -name "*.cpp") $(shell find $(ENGINE_DIR)/Platform/OpenGL -name "*.cpp") $(IMGUI_SRC)
-SRC_C	  := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/gles2.c
+SRC_C	  := $(shell find $(ENGINE_DIR)/src -name "*.c") $(ENGINE_DIR)/vendor/glad/src/gles2.c $(shell find $(VENDOR_DIR)/box2d/src -name "*.c")
 
 # Object files
 OBJ_CPP := $(patsubst $(ENGINE_DIR)/%, $(BUILD_DIR)/%, $(SRC_CPP:.cpp=.o))
@@ -29,9 +32,9 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 # Include directories
 INCLUDES := -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/GLFW/include" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/glad/include"
 INCLUDES += -I"$(IMGUI_DIR)" -I"${VENDOR_DIR}/glm" -I"$(ENGINE_DIR)/vendor/debugbreak" -I"${VENDOR_DIR}/stb" -I"${VENDOR_DIR}/miniaudio" -I"${VENDOR_DIR}/nlohmannjson/single_include"
-INCLUDES += -I"${VENDOR_DIR}/ImGuizmo" -I"${VENDOR_DIR}/entt/single_include"
+INCLUDES += -I"${VENDOR_DIR}/ImGuizmo" -I"${VENDOR_DIR}/entt/single_include" -I"${VENDOR_DIR}/box2d/include"
 
-CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE
+CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE -msimd128 -msse2
 # Compiler options (empty default)
 OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128 --use-port=emdawnwebgpu
 

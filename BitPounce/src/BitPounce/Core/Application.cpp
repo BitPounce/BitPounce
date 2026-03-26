@@ -7,6 +7,7 @@
 #include "BitPounce/Renderer/Renderer.h"
 #include "BitPounce/Audio/AudioDevice.h"
 #include "BitPounce/Core/SystemManager.h"
+#include <BitPounce/Scripting/ScriptEngine.h>
 #include <functional>
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -26,6 +27,7 @@ namespace BitPounce
 
 		Renderer::Init();
 		AudioDevice::Init();
+		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -46,6 +48,7 @@ namespace BitPounce
 	Application::~Application()
 	{
 		AudioDevice::UnInit();
+		ScriptEngine::Shutdown();
 	}
 
 	void Application::Close(int errorCode)

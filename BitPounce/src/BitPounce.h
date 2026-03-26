@@ -44,6 +44,8 @@
 #include "BitPounce/Scene/Systems/CameraSystem.h"
 #include "BitPounce/Scene/SceneSerializer.h"
 
+#include "BitPounce/Scripting/ScriptEngine.h"
+
 #include "BitPounce/Utils/PlatformUtils.h"
 
 #include "BitPounce/Math/Math.h"

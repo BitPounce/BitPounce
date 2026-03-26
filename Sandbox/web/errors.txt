@@ -1,0 +1,7 @@
+In file included from ../src/stb_lib.cpp:1:
+../src/bp_pch.h:3:10: fatal error: 'rttr/registration' file not found
+    3 | #include <rttr/registration>
+      |          ^~~~~~~~~~~~~~~~~~~
+1 error generated.
+make[1]: *** [Makefile:56: ../../bin-int/Debug-WebGL/BitPounce/src/stb_lib.o] Error 1
+make: *** [Makefile:67: buildEngine] Error 2

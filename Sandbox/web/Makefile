@@ -29,23 +29,23 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 
 # Include directoriesgf
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
-INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/entt/single_include" -I"$(ENGINE_DIR)/vendor/nlohmannjson/single_include"
+INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/entt/single_include" -I"$(ENGINE_DIR)/vendor/nlohmannjson/single_include" -I"${ENGINE_DIR}/vendor/box2d/include"
 INCLUDES += -I"${VENDOR_DIR}/ImGuizmo" 
 CXXFLAGS += -DFMT_HEADER_ONLY
 CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1 
 LINKDIRS := -L"$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin"
 LINKS := \
-  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bxDebug.a" \
-  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimgDebug.a" \
-  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimg_decodeDebug.a" \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bxDebug.a" 		\
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimgDebug.a" 		 \
+  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimg_decodeDebug.a"  \
   "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bgfxDebug.a"
 # Compiler options
 OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
-           -sNO_DISABLE_EXCEPTION_CATCHING -sFULL_ES3=1 -O2 \
-           -msimd128 -msse -gsource-map \
-           --source-map-base http://localhost:$(PORT)/$(DIST_DIR)/ \
-           -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
-           $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED $(LINKDIRS) $(LINKS)
+		   -sNO_DISABLE_EXCEPTION_CATCHING -sFULL_ES3=1 -O2 \
+		   -msimd128 -msse -gsource-map \
+		   --source-map-base http://localhost:$(PORT)/$(DIST_DIR)/ \
+		   -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
+		   $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED $(LINKDIRS) $(LINKS)
 
 # Default target
 all: buildEngine $(DIST_DIR)/index.html
@@ -77,14 +77,14 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB) ./assets
 	@mkdir -p $(DIST_DIR)
 	@echo "Linking index.html with WebAssembly..."
 	$(SILENT) $(CXX) $(OBJ) -o $@ \
-	    -L"$(BASE_DIR)/bin/Debug-WebGL/BitPounce" \
-	    -Wl,--whole-archive -lBitPounce -Wl,--no-whole-archive \
-	    -sEXPORTED_FUNCTIONS='["_main", "_malloc", "_free"]' \
-	    -sEXPORTED_RUNTIME_METHODS='["ccall","cwrap","requestFullscreen"]' \
-	    $(OPTIONS) \
-	    --preload-file "assets"
+		-L"$(BASE_DIR)/bin/Debug-WebGL/BitPounce" \
+		-Wl,--whole-archive -lBitPounce -Wl,--no-whole-archive \
+		-sEXPORTED_FUNCTIONS='["_main", "_malloc", "_free"]' \
+		-sEXPORTED_RUNTIME_METHODS='["ccall","cwrap","requestFullscreen"]' \
+		$(OPTIONS) \
+		--preload-file "assets"
 	
-	@rm -rf ./assets
+	rm -rf ./assets
 
 # Clean build directories
 clean:

@@ -1,0 +1,7 @@
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/angelscript.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/edit_cache.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/rebuild_cache.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/list_install_components.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/install.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/install/local.dir
+/home/jimmy/Downloads/angelscript/sdk/angelscript/projects/cmake/emcc/CMakeFiles/install/strip.dir

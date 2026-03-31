@@ -26,6 +26,7 @@ namespace BitPounce {
 		Entity CreateEntity(const std::string& name = std::string("Entity"));
 		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
+		Entity FindEntityByUUID(UUID uuid) const;
 
 		void OnRuntimeStart();
 		void OnRuntimeStop();

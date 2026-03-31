@@ -10,6 +10,7 @@
 #include "BitPounce/Core/Buffer.h"
 #include "BitPounce/Core/UUID.h"
 #include "BitPounce/Core/FileSystem.h"
+#include "BitPounce/Core/Input.h"
 
 #include <iostream>
 #include <memory>

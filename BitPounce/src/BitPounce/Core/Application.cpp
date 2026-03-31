@@ -27,7 +27,6 @@ namespace BitPounce
 
 		Renderer::Init();
 		AudioDevice::Init();
-		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -48,7 +47,6 @@ namespace BitPounce
 	Application::~Application()
 	{
 		AudioDevice::UnInit();
-		ScriptEngine::Shutdown();
 	}
 
 	void Application::Close(int errorCode)
@@ -98,7 +96,7 @@ namespace BitPounce
 
 		m_ImGuiLayer->End();
 		
-		//m_Window->SetVSync(false);
+		m_Window->SetVSync(false);
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
 

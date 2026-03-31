@@ -23,7 +23,7 @@ using namespace std;
 
 void PrintTemplate(const char *base, const char *typeNameList, const char *retType, const char *objType, const char *isConst, const char *newExpr, const char *objExpr, const char *argList1, const char *argList2, const char *wrapName);
 void PrintConstructor(const char *comma, const char *typeNameList, const char *typeList, const char *argList);
-
+/*
 int main()
 {
 	printf("#ifndef AS_GEN_WRAPPER_H\n"
@@ -183,4 +183,4 @@ void PrintConstructor(const char *comma, const char *typeNameList, const char *t
 	printf("		new (gen->GetObject()) T(%s);\n", argList);
 	printf("	}\n");
 	printf("};\n");
-}
+}*/

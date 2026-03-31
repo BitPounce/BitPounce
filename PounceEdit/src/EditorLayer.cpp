@@ -19,7 +19,12 @@ namespace BitPounce {
 	
 	void EditorLayer::OnAttach()
 	{
-		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene = CreateRef<Scene>("rttrgyuyuiyujk");
+		m_SceneHierarchyPanel = m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
+		m_ContentBrowserPanel = m_Panels.AddSystem<ContentBrowserPanel>();
+		m_Panels.Start();
+		NewScene();
+		
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
@@ -33,9 +38,7 @@ namespace BitPounce {
 		s_Audio =Audio::Create("assets/file_example_WAV_10MG.wav");
 		s_Audio->Play();
 	
-		m_SceneHierarchyPanel = m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
-		m_ContentBrowserPanel = m_Panels.AddSystem<ContentBrowserPanel>();
-		m_Panels.Start();
+		
 	
 		FramebufferSpecification fbSpec;
 		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
@@ -44,10 +47,10 @@ namespace BitPounce {
 		m_RendorSize = glm::vec2(Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight());
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
-		OnNewScene(m_ActiveScene);
+		ScriptEngine::Init();
 
-		ScriptEngine::BuildScriptsFiles({"assets/scripts/main.as"});
-		ScriptEngine::Build();
+
+		ScriptEngine::BuildScripts({"assets/scripts"});
 
 	}
 	
@@ -247,10 +250,7 @@ namespace BitPounce {
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-		std::string name = "None";
-		if (m_HoveredEntity)
-			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
-		ImGui::Text("Hovered Entity: %s", name.c_str());
+
 		ImGui::End();
 	
 		ImGui::Begin("Render Data");
@@ -458,6 +458,7 @@ namespace BitPounce {
 		scene->AddSystem<Renderer2DSystem>();
 		scene->AddSystem<CameraSystem>();
 		scene->AddSystem<Physics2DSystem>();
+		scene->AddSystem<AngelScriptSystem>();
 		scene->AddedAllSys();
 	}
 	void EditorLayer::NewScene()

@@ -64,7 +64,18 @@ namespace BitPounce {
 		m_Registry.destroy(entity);
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+    Entity Scene::FindEntityByUUID(UUID uuid) const
+    {
+        auto view = m_Registry.view<IDComponent>();
+    	for (auto entity : view)
+    	{
+    	    if (view.get<IDComponent>(entity).ID == uuid)
+    	        return Entity{ entity, const_cast<Scene*>(this) };
+    	}
+    	return Entity{};
+    }
+
+    void Scene::OnUpdate(Timestep ts)
 	{
 		m_sysManager.OnUpdate(ts);
 		m_sysManager.OnDraw(ts);
@@ -137,6 +148,7 @@ namespace BitPounce {
 		ECSSystem::CopyComponentBASE<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<AngelScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		return newScene;
     }
@@ -274,6 +286,11 @@ namespace BitPounce {
 
 	template<>
 	void ECSSystem::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<AngelScriptComponent>(Entity entity, AngelScriptComponent& component)
 	{
 	}
 }

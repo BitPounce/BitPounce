@@ -42,6 +42,7 @@
 #include "BitPounce/Scene/Systems/ScriptableEntitySystem.h"
 #include "BitPounce/Scene/Systems/2DPhysicsSystem.h"
 #include "BitPounce/Scene/Systems/CameraSystem.h"
+#include "BitPounce/Scene/Systems/AngelScriptSystem.h"
 #include "BitPounce/Scene/SceneSerializer.h"
 
 #include "BitPounce/Scripting/ScriptEngine.h"

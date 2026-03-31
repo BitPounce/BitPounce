@@ -170,5 +170,14 @@ namespace BitPounce {
 		CircleCollider2DComponent() = default;
 		CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
 	};
+
+
+
+	struct AngelScriptComponent
+    {
+        std::string ScriptClassName;
+        void* ScriptObject = nullptr;
+		//entt::entity EntityHandle = entt::null;
+    };
 	
 }

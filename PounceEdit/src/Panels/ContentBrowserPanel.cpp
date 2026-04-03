@@ -5,22 +5,26 @@
 
 namespace BitPounce {
 
-	// Once we have projects, change this
-	extern const std::filesystem::path g_AssetPath = "assets";
 
 	ContentBrowserPanel::ContentBrowserPanel()
-		: m_CurrentDirectory(g_AssetPath)
+		: m_BaseDirectory("./"), m_CurrentDirectory("./")
 	{
 		m_name = "Content Browser Panel";
 		m_DirectoryIcon = Texture2D::Create("Resources/Icons/ContentBrowser/Flor.png");
 		m_FileIcon = Texture2D::Create("Resources/Icons/ContentBrowser/File.png");
 	}
 
+	void ContentBrowserPanel::SetBaseDir(std::filesystem::path path)
+	{
+		m_BaseDirectory = path;
+		m_CurrentDirectory = m_BaseDirectory;
+	}
+
 	void ContentBrowserPanel::OnImGuiDraw()
 	{
 		ImGui::Begin("Content Browser");
 
-		if (m_CurrentDirectory != std::filesystem::path(g_AssetPath))
+		if (m_CurrentDirectory != std::filesystem::path(m_BaseDirectory))
 		{
 			if (ImGui::Button("<-"))
 			{
@@ -42,7 +46,7 @@ namespace BitPounce {
 		for (auto& directoryEntry : std::filesystem::directory_iterator(m_CurrentDirectory))
 		{
 			const auto& path = directoryEntry.path();
-			auto relativePath = std::filesystem::relative(path, g_AssetPath);
+			auto relativePath = std::filesystem::relative(path, m_BaseDirectory);
 			std::string filenameString = relativePath.filename().string();
 
 			std::string id = "##icon_" + path.string();
@@ -75,7 +79,7 @@ namespace BitPounce {
 
 			if (ImGui::BeginDragDropSource())
 			{
-				const std::wstring itemPath = relativePath.generic_wstring();
+				const std::wstring itemPath = (m_BaseDirectory / relativePath).generic_wstring();
 				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath.c_str(), ((itemPath.size()) + 1) * sizeof(wchar_t));
 				ImGui::EndDragDropSource();
 			}

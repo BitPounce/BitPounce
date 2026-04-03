@@ -244,7 +244,7 @@ namespace BitPounce
 	static std::string ExecCommand(const std::string& cmd)
 	{
 		std::string result;
-		std::array<char, 128> buffer;
+		std::array<char, 1024> buffer;
 
 		FILE* pipe = popen(cmd.c_str(), "r");
 		if (!pipe) return "";
@@ -263,21 +263,27 @@ namespace BitPounce
 		return result;
 	}
 
-	std::string FileDialogs::OpenFile(const char* winFilter)
+	std::optional<std::string> FileDialogs::OpenFile(const char* winFilter)
 	{
 		std::string filter = WindowsFilterToZenity(winFilter);
 
 		// Zenity command
 		std::string cmd = "zenity --file-selection --title=\"Open File\" --file-filter=" + filter;
-		return ExecCommand(cmd);
+		std::string res = ExecCommand(cmd);
+		if (res.empty())
+        	return std::nullopt;
+    	return res;
 	}
 
-	std::string FileDialogs::SaveFile(const char* winFilter)
+	std::optional<std::string> FileDialogs::SaveFile(const char* winFilter)
 	{
 		std::string filter = WindowsFilterToZenity(winFilter);
 
 		// Zenity command
 		std::string cmd = "zenity --file-selection --save --confirm-overwrite --title=\"Save File\" --file-filter=" + filter;
-		return ExecCommand(cmd);
+		std::string res = ExecCommand(cmd);
+		if (res.empty())
+        	return std::nullopt;
+    	return res;
 	}
 }

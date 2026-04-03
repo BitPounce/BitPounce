@@ -17,7 +17,9 @@
                 "${workspaceFolder}/BitPounce/vendor/spdlog/include",
                 "${workspaceFolder}/BitPounce/vendor/stb",
                 "${workspaceFolder}/BitPounce/vendor/nlohmannjson/single_include",
-                "${workspaceFolder}/BitPounce/vendor/box2d/include"
+                "${workspaceFolder}/BitPounce/vendor/box2d/include",
+                "${workspaceFolder}/BitPounce/vendor/angelscript/sdk/angelscript/include",
+                "${workspaceFolder}/BitPounce/vendor/angelscript/sdk/add_on"
             ],
             "defines": [],
             "cStandard": "c17",

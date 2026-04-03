@@ -19,17 +19,28 @@ namespace BitPounce {
 	
 	void EditorLayer::OnAttach()
 	{
+		// HACK
 		m_ActiveScene = CreateRef<Scene>("rttrgyuyuiyujk");
+
 		m_SceneHierarchyPanel = m_Panels.AddSystem<SceneHierarchyPanel>(m_ActiveScene);
 		m_ContentBrowserPanel = m_Panels.AddSystem<ContentBrowserPanel>();
 		m_Panels.Start();
 		NewScene();
+
+		if (!OpenProject() && !NewProject())
+		{
+			Application::Get().Close(0);
+			return;
+		}
+
+		m_ContentBrowserPanel->SetBaseDir(Project::GetAssetFileSystemPath(""));	
+		
 		
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
 
-		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
-		m_PlayerTexture = Texture2D::Create("assets/textures/Player.png");
+		//m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
+		//m_PlayerTexture = Texture2D::Create("assets/textures/Player.png");
 		m_Icon = Texture2D::Create("Resources/Icons/Icon.png");
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/P.png");
@@ -49,8 +60,7 @@ namespace BitPounce {
 
 		ScriptEngine::Init();
 
-
-		ScriptEngine::BuildScripts({"assets/scripts"});
+		ScriptEngine::BuildScripts({Project::GetAssetFileSystemPath("scripts")});
 
 	}
 	
@@ -305,7 +315,7 @@ namespace BitPounce {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(std::filesystem::path(g_AssetPath) / path);
+				OpenScene(path);
 			}
 			ImGui::EndDragDropTarget();
 		}
@@ -453,15 +463,69 @@ namespace BitPounce {
 
 		return false;
 	}
-	void EditorLayer::OnNewScene(Ref<Scene> scene)
+    bool EditorLayer::NewProject() 
 	{
-		scene->AddSystem<Renderer2DSystem>();
-		scene->AddSystem<CameraSystem>();
-		scene->AddSystem<Physics2DSystem>();
-		scene->AddSystem<AngelScriptSystem>();
-		scene->AddedAllSys();
+		std::optional<std::string> filepath = FileDialogs::SaveFile("BitPounce Project (*.bpproj)\0*.bpproj\0");
+		if(!filepath)
+		{
+			return false;
+		}
+		std::filesystem::path path = filepath.value();
+		if(!path.has_extension())
+		{
+			path = path.string() + ".bpproj";
+		}
+		NewProject(path);
+
+		return true;
 	}
-	void EditorLayer::NewScene()
+
+    void EditorLayer::NewProject(const std::filesystem::path &path) 
+	{
+		Project::New();
+		Project::SaveActive(path);
+	}
+
+    bool EditorLayer::OpenProject() 
+	{
+		std::optional<std::string> filepath = FileDialogs::OpenFile("BitPounce Project (*.bpproj)\0*.bpproj\0");
+		if(!filepath)
+		{
+			return false;
+		}
+		std::filesystem::path path = filepath.value();
+		if(!path.has_extension())
+		{
+			path = path.string() + ".bpproj";
+		}
+		
+		
+		OpenProject(path);
+		return true;
+	}
+
+    void EditorLayer::OpenProject(const std::filesystem::path &path) 
+	{
+		if (Project::Load(path))
+		{
+			auto startScenePath = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().StartScene);
+			OpenScene(startScenePath);
+		}
+	}
+
+    void EditorLayer::SaveProject() 
+	{
+		Project::SaveActive("pro.bpproj");
+	}
+
+    void EditorLayer::OnNewScene(Ref<Scene> scene) {
+    	scene->AddSystem<Renderer2DSystem>();
+    	scene->AddSystem<CameraSystem>();
+    	scene->AddSystem<Physics2DSystem>();
+    	scene->AddSystem<AngelScriptSystem>();
+    	scene->AddedAllSys();
+    }
+    void EditorLayer::NewScene()
 	{
 		// HACK: TODO FIX
 		m_ActiveScene->RemoveAll();
@@ -497,7 +561,7 @@ namespace BitPounce {
 	}
 	void EditorLayer::SaveSceneAs()
 	{
-		std::filesystem::path filepath = FileDialogs::SaveFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
+		std::filesystem::path filepath = FileDialogs::SaveFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0").value();
 		if(!filepath.has_extension())
 		{
 			filepath = filepath.string() + ".bitPounce";

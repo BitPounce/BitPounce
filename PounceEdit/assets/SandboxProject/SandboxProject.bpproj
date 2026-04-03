@@ -1,0 +1,7 @@
+{
+	"Project": {
+		"AssetDirectory": "Assets",
+		"Name": "SandboxProject",
+		"StartScene": "scenes/Physics2D.bitPounce"
+	}
+}

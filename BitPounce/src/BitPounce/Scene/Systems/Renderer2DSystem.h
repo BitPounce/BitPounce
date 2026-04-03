@@ -8,6 +8,7 @@
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "BitPounce/ImGui/ImGuiUtils.h"
+#include "BitPounce/Project/Project.h"
 
 namespace BitPounce
 {
@@ -85,9 +86,33 @@ namespace BitPounce
 
 		virtual void OnEditorPropImguiDraw(Entity& entity) override
 		{
-			ImGuiUtils::DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](SpriteRendererComponent& component)
+			ImGuiUtils::DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [entity](SpriteRendererComponent& component)
 			{
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.Colour));
+
+				if(component.Texture)
+				{
+					ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)component.Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+				}
+				else
+				{
+					ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
+				}
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						// Making sure that the data is good is for chickens, we are not chickens!!! 🐔🐔🐔
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path texturePath(path);
+
+						// HACK: if you do not like this you can make your own Renderer2DSystem idc.
+						texturePath = std::filesystem::relative(texturePath, Project::GetAssetDirectory());
+						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
+						component.Texture = texture;
+					}
+					ImGui::EndDragDropTarget();
+				}
 			});
 
 			ImGuiUtils::DrawComponent<CircleRendererComponent>("Circle Renderer", entity, [](CircleRendererComponent& component)
@@ -95,6 +120,8 @@ namespace BitPounce
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.Colour));
 				ImGui::DragFloat("Thickness", &component.Thickness, 0.025f, 0.0f, 1.0f);
 				ImGui::DragFloat("Fade", &component.Fade, 0.00025f, 0.0f, 1.0f);
+
+				
 			});
 		}
 		
@@ -111,6 +138,12 @@ namespace BitPounce
 			
 		        nlohmann::json spriteJson;
 		        spriteJson["Colour"] = sprite.Colour;
+				if (sprite.Texture)
+				{
+					std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
+					spriteJson["TexturePath"] =  dgdgfdgf;
+				}
+					
 			
 		        for (auto& ent : json["Entities"])
 		        {
@@ -178,6 +211,12 @@ namespace BitPounce
 		            auto& spriteJson = entJson["SpriteRenderer"];
 		            if (spriteJson.contains("Colour"))
 		                comp.Colour = spriteJson["Colour"].get<glm::vec4>();
+					if (spriteJson.contains("TexturePath"))
+					{
+						std::string texturePath = spriteJson["TexturePath"].get<std::string>();
+						auto path = Project::GetAssetFileSystemPath(texturePath);
+						comp.Texture = Texture2D::Create(path.string());
+					}
 		            entity.AddComponent<SpriteRendererComponent>(comp);
 		        }
 			

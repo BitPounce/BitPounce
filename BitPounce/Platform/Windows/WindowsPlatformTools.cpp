@@ -153,10 +153,10 @@ namespace BitPounce
 		{
 			return ofn.lpstrFile;
 		}
-		return std::string();
+		return std::optional<std::string>();
 	}
 
-	std::string FileDialogs::SaveFile(const char* filter)
+	std::optional<std::string> FileDialogs::SaveFile(const char* filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
@@ -172,6 +172,6 @@ namespace BitPounce
 		{
 			return ofn.lpstrFile;
 		}
-		return std::string();
+		return std::optional<std::string>();
     }
 }

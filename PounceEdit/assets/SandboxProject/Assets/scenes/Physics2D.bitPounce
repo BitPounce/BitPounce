@@ -127,7 +127,7 @@
 		{
 			"CameraComponent": {
 				"Camera": {
-					"AspectRatio": 1.4677138328552246,
+					"AspectRatio": 1.452504277229309,
 					"Orthographic": {
 						"FarClip": 1.0,
 						"NearClip": -1.0,
@@ -188,11 +188,12 @@
 			},
 			"SpriteRenderer": {
 				"Colour": [
-					0.030888080596923828,
-					0.0,
+					1.0,
+					1.0,
 					1.0,
 					1.0
-				]
+				],
+				"TexturePath": "textures/Player.png"
 			},
 			"TagComponent": {
 				"Tag": "Empty Entity"
@@ -209,8 +210,8 @@
 					1.0
 				],
 				"Translation": [
-					0.0,
-					0.0,
+					1.4613315002520721e-08,
+					-1.781588565563652e-08,
 					0.0
 				]
 			},

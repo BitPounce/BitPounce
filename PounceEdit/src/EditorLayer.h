@@ -25,6 +25,12 @@ namespace BitPounce {
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 
+		bool NewProject();
+		void NewProject(const std::filesystem::path& path);
+		bool OpenProject();
+		void OpenProject(const std::filesystem::path& path);
+		void SaveProject();
+
 		void OnNewScene(Ref<Scene> scene);
 		void NewScene();
 		void OpenScene(const std::filesystem::path& path);

@@ -41,6 +41,3 @@
 [submodule "BitPounce/vendor/box2d"]
 	path = BitPounce/vendor/box2d
 	url = https://github.com/BitPounce/box2d
-[submodule "BitPounce/vendor/rttr"]
-	path = BitPounce/vendor/rttr
-	url = https://github.com/BitPounce/rttr

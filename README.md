@@ -25,7 +25,7 @@ The plan for BitPounce is to make a powerful easy to use 3D engine.
 
 ## Short term goals:
 **Note: this is subject to change at any time! Follow the roadmap over at [milanote roadmap](https://app.milanote.com/1VBm1A1Gl7fl2D/bp?p=1TgyLVuL7vU).**
-By May, I want to make a game using the BitPounce game engine. This means I need to add a full 2D (Or 3D) workflow:
+In May, I want to make a game using the BitPounce game engine. This means I need to add a full 2D (Or 3D) workflow:
 
 - Design the game scene by using **PounceEdit**, the **BitPounce** editor,
 - Test the game inside **PounceEdit**, including the ability to save/load the created game,

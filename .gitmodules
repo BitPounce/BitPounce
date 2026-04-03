@@ -41,3 +41,6 @@
 [submodule "BitPounce/vendor/box2d"]
 	path = BitPounce/vendor/box2d
 	url = https://github.com/BitPounce/box2d
+[submodule "BitPounce/vendor/msdf-atlas-gen"]
+	path = BitPounce/vendor/msdf-atlas-gen
+	url = https://github.com/BitPounce/msdf-atlas-gen

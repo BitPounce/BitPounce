@@ -24,10 +24,12 @@ project "PounceEdit"
 	exposeBitPounceDeps();
 
 	links
-	{
-		"GLFW",
-		"BitPounce"
-	}
+{
+    "BitPounce",        -- must come first
+    "msdf-atlas-gen",
+    "msdfgen",          -- 🔥 after BitPounce
+    "freetype"          -- 🔥 last
+}
 
 	filter "system:linux"
 		cppdialect "C++23"

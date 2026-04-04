@@ -1,6 +1,6 @@
 function exposeBitPounceDeps()
 
-    links { "GLFW", "ImGui", "Box2D" }
+    links { "GLFW", "ImGui", "Box2D", "msdf-atlas-gen", "freetype", "msdfgen" }
 
     -- Include BitPounce headers
     includedirs
@@ -16,7 +16,14 @@ function exposeBitPounceDeps()
 		"../BitPounce/vendor/ImGuizmo",
 		"../BitPounce/vendor/box2d/include",
 		"../BitPounce/vendor/angelscript/sdk/angelscript/include",
-		"../BitPounce/vendor/angelscript/sdk/add_on"
+		"../BitPounce/vendor/angelscript/sdk/add_on",
+		"../BitPounce/vendor/msdf-atlas-gen",
+		"../BitPounce/vendor/msdf-atlas-gen/artery-font-format/",
+		"../BitPounce/vendor/msdf-atlas-gen/msdfgen",
+		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/core",
+		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/include",
+		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/freetype/include",
+		"../BitPounce/vendor/msdf-atlas-gen/msdf-atlas-gen"
     }
 
     -- Platform-specific libraries

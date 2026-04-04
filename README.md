@@ -30,3 +30,7 @@ In May, I want to make a game using the BitPounce game engine. This means I need
 - Design the game scene by using **PounceEdit**, the **BitPounce** editor,
 - Test the game inside **PounceEdit**, including the ability to save/load the created game,
 - Load and play the game inside **Sandbox**.
+
+This software uses the FreeType library.
+Copyright (C) The FreeType Project (www.freetype.org).
+All rights reserved.

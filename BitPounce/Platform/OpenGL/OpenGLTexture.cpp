@@ -6,7 +6,51 @@
 #include "BitPounce/Core/Buffer.h"
 #include "BitPounce/Core/FileSystem.h"
 
-namespace BitPounce {
+namespace BitPounce 
+{
+	namespace Utils { 
+
+		static GLenum BitPounceImageFormatToGLDataFormat(ImageFormat format)
+		{
+			switch (format)
+			{
+				case ImageFormat::RGB8:  return GL_RGB;
+				case ImageFormat::RGBA8: return GL_RGBA;
+			}
+
+			BP_CORE_ASSERT(false, "Formart haz no rizz");
+			return 0;
+		}
+		
+		static GLenum BitPounceImageFormatToGLInternalFormat(ImageFormat format)
+		{
+			switch (format)
+			{
+				case ImageFormat::RGB8:  return GL_RGB8;
+				case ImageFormat::RGBA8: return GL_RGBA8;
+			}
+
+			BP_CORE_ASSERT(false, "Formart haz no rizz");
+			return 0;
+		}
+
+	}
+	
+	OpenGLTexture2D::OpenGLTexture2D(const TextureSpecification& specification)
+		: m_Specification(specification), m_Width(m_Specification.Width), m_Height(m_Specification.Height)
+	{
+		m_DataFormat = Utils::BitPounceImageFormatToGLDataFormat(m_Specification.Format);
+
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+
 
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 		: m_Width(width), m_Height(height)

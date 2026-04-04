@@ -1,6 +1,7 @@
 #include "EditorLayer.h"
 #include "imgui.h"
 #include "BitPounce.h"
+#include "BitPounce/Renderer/Font.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -10,11 +11,12 @@
 namespace BitPounce {
 	
 	static Ref<Audio> s_Audio;
-	extern const std::filesystem::path g_AssetPath;
+	static Font* s_Font;
 	
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
 	{
+		s_Font = new Font("assets/fonts/OpenSans/static/OpenSans-Regular.ttf");
 	}
 	
 	void EditorLayer::OnAttach()
@@ -259,7 +261,7 @@ namespace BitPounce {
 	
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-
+		ImGui::Image((ImTextureID)s_Font->GetAtlasTexture()->GetRendererID(), { 512,512 }, {0, 1}, {1, 0});
 
 		ImGui::End();
 	

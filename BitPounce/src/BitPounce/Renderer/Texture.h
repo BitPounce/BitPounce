@@ -15,11 +15,18 @@ namespace BitPounce
 		RGBA32F
 	};
 
+	enum class ImageFilter
+	{
+		NEAREST = 0,
+		LINEAR
+	};
+
 	struct TextureSpecification
 	{
 		uint32_t Width = 1;
 		uint32_t Height = 1;
 		ImageFormat Format = ImageFormat::RGBA8;
+		ImageFilter Filter = ImageFilter::NEAREST;
 		bool GenerateMips = true;
 	};
 
@@ -49,6 +56,8 @@ namespace BitPounce
 		// DO NOT USE
 		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
 		static Ref<Texture2D> Create(const std::string& path);
+
+		virtual void ToPNG(std::filesystem::path filepath) = 0;
 
 		virtual bool operator==(const Texture2D& other) const = 0;
 	};

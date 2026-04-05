@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "BitPounce/ImGui/ImGuiUtils.h"
 #include "BitPounce/Project/Project.h"
+#include <misc/cpp/imgui_stdlib.h>
 
 namespace BitPounce
 {
@@ -38,6 +39,7 @@ namespace BitPounce
 		void Draw(const glm::mat4& cam)
 		{
 		    Renderer2D::BeginScene(cam);
+			
 		
 		    // Draw Sprites
 		    auto spriteView = m_Scene->GetRegistry(*this).view<TransformComponent, SpriteRendererComponent>();
@@ -65,6 +67,15 @@ namespace BitPounce
 			
 		        Renderer2D::DrawCircle(transform.GetTransform(), circle.Colour, circle.Thickness, circle.Fade, (int)entity);
 		    }
+
+			auto textView = m_Scene->GetRegistry(*this).view<TransformComponent, TextComponent>();
+		    for (auto entity : textView)
+		    {
+		        auto& transform = textView.get<TransformComponent>(entity);
+		        auto& text = textView.get<TextComponent>(entity);
+			
+		        Renderer2D::DrawString(text.TextString, text.FontAsset, transform.GetTransform(), text.textParams, (int)entity);
+		    }
 		
 		    Renderer2D::EndScene();
 		}
@@ -80,6 +91,13 @@ namespace BitPounce
 			if (ImGui::MenuItem("Circle Renderer"))
 			{
 				ent.AddComponent<CircleRendererComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+
+			if (ImGui::MenuItem("Text Component"))
+			{
+				auto&& text = ent.AddComponent<TextComponent>();
+				text.TextString = "Hello World!";
 				ImGui::CloseCurrentPopup();
 			}
 		};
@@ -123,6 +141,15 @@ namespace BitPounce
 
 				
 			});
+
+			ImGuiUtils::DrawComponent<TextComponent>("Text Component", entity, [entity](TextComponent& component)
+			{
+				ImGui::InputTextMultiline("Text String", &component.TextString);
+				ImGui::ColorEdit4("Colour", glm::value_ptr(component.textParams.Colour));
+				ImGui::DragFloat("Kerning", &component.textParams.Kerning, 0.025f);
+				ImGui::DragFloat("Line Spacing", &component.textParams.LineSpacing, 0.025f);
+			});
+			
 		}
 		
 
@@ -171,6 +198,28 @@ namespace BitPounce
 		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
 		            {
 		                ent["CircleRenderer"] = circleJson;
+		                break;
+		            }
+		        }
+		    }
+
+			auto textView = registry.view<TextComponent>();
+		    for (auto entity : textView)
+		    {
+		        auto& text = textView.get<TextComponent>(entity);
+			
+		        nlohmann::json textJson;
+		        textJson["TextString"] = text.TextString;
+		        textJson["Colour"] = text.textParams.Colour;
+				textJson["Kerning"] = text.textParams.Kerning;
+				textJson["LineSpacing"] = text.textParams.LineSpacing;
+		        
+			
+		        for (auto& ent : json["Entities"])
+		        {
+		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+		            {
+		                ent["TextComponent"] = textJson;
 		                break;
 		            }
 		        }
@@ -229,6 +278,17 @@ namespace BitPounce
 		            comp.Thickness = circleJson["Thickness"].get<float>();
 		            entity.AddComponent<CircleRendererComponent>(comp);
 		        }
+
+				if(entJson.contains("TextComponent"))
+				{
+					TextComponent comp;
+					auto& textJson = entJson["TextComponent"];
+					comp.TextString = textJson["TextString"].get<std::string>();
+					comp.textParams.Colour = textJson["Colour"].get<glm::vec4>();
+					comp.textParams.Kerning = textJson["Kerning"].get<float>();
+					comp.textParams.LineSpacing = textJson["LineSpacing"].get<float>();
+					entity.AddComponent<TextComponent>(comp);
+				}
 		    }
 		}
 	};

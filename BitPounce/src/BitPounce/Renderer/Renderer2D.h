@@ -5,6 +5,7 @@
 
 #include "BitPounce/Renderer/Camera.h"
 #include "BitPounce/Renderer/EditorCamera.h"
+#include "BitPounce/Renderer/Font.h"
 
 #define BP_RENDERER2D_USE_BATCH_RENDERING 1
 
@@ -25,6 +26,13 @@ namespace BitPounce {
 
 		// Primitives
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
+		struct TextParams
+		{
+			glm::vec4 Colour{ 1.0f };
+			float Kerning = 0.0f;
+			float LineSpacing = 0.0f;
+		};
+		static void DrawString(const std::string& string, Ref<Font> font, const glm::mat4& transform, const TextParams& textParams, int entityID = -1);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColour = glm::vec4(1.0f));
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor = 1.0f, const glm::vec4& tintColour = glm::vec4(1.0f));

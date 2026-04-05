@@ -50,5 +50,10 @@ else if (v_TexIndex == 31.0) texColor = texture(u_Textures[31], v_TexCoord);
 
     color = texColor * v_Colour;
 
+    if(color.a <= 0.01)
+    {
+        discard;
+    }
+
     color2 = v_EntityID;
 }

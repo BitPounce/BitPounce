@@ -47,9 +47,13 @@ function exposeBitPounceDeps()
 			"angelscript"
         }
 
+		linkoptions
+		{
+			"-Wl,--whole-archive,--allow-multiple-definition"
+		}
+
 		libdirs
     	{
-    	    "../BitPounce/vendor/bgfx/.build/linux64_gcc/bin",
 			"../BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/bin"
     	}
 
@@ -63,9 +67,6 @@ filter "system:Windows"
 filter { "configurations:Debug", "system:linux or system:Windows" }
     links
     {
-        "bxDebug",
-        "bimg_decodeDebug",
-        "bgfxDebug"
     }
 
 filter {}
@@ -100,6 +101,7 @@ project "BitPounce"
 
 		"vendor/imgui/backends/imgui_impl_opengl3.cpp",
 		"vendor/imgui/backends/imgui_impl_glfw.cpp",
+		"vendor/imgui/misc/cpp/imgui_stdlib.cpp",
 
 		"../BitPounce/vendor/ImGuizmo/ImGuizmo.cpp",
 
@@ -143,12 +145,15 @@ project "BitPounce"
 		defines
 		{
 			"BP_PLATFORM_WINDOWS",
+        "_GLIBCXX_USE_CXX11_ABI=1" 
 		}
 
 		links
 		{
 			"Opengl32.lib"
 		}
+
+
 
 		files
 		{
@@ -180,6 +185,8 @@ project "BitPounce"
 		"m",
 		"ImGui"
 	}
+
+		
 
 		files
 		{

@@ -1,31 +1,33 @@
 {
 	"Entities": [
 		{
-			"CircleCollider2D": {
+			"BoxCollider2D": {
 				"Density": 1.0,
 				"Friction": 0.5,
 				"Offset": [
 					0.0,
 					0.0
 				],
-				"Radius": 0.5,
-				"Restitution": 0.0,
-				"RestitutionThreshold": 0.5
+				"Restitution": 0.8999999761581421,
+				"RestitutionThreshold": 0.5,
+				"Size": [
+					0.5,
+					0.5
+				]
 			},
-			"CircleRenderer": {
+			"ID": 362623186,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 1
+			},
+			"SpriteRenderer": {
 				"Colour": [
 					1.0,
 					1.0,
 					1.0,
 					1.0
 				],
-				"Fade": 0.004999999888241291,
-				"Thickness": 1.0
-			},
-			"ID": 14297522347046311233,
-			"Rigidbody2D": {
-				"FixedRotation": false,
-				"Type": 1
+				"TexturePath": "textures/Player.png"
 			},
 			"TagComponent": {
 				"Tag": "Empty Entity"
@@ -34,26 +36,43 @@
 				"Rotation": [
 					0.0,
 					0.0,
-					0.0
+					-0.883834719657898
 				],
 				"Scale": [
-					0.9999998807907104,
-					0.9999998807907104,
+					1.0,
+					1.0,
 					1.0
 				],
 				"Translation": [
-					1.5366215705871582,
-					0.5913830995559692,
+					1.4613315002520721e-08,
+					-1.781588565563652e-08,
 					0.0
 				]
 			},
-			"entityID": 4,
-			"parent": 0
+			"entityID": 4
 		},
 		{
-			"ID": 8788735381621654649,
+			"CameraComponent": {
+				"Camera": {
+					"AspectRatio": 1.6899563074111938,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": 10.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
+			},
+			"ID": 1900357780,
 			"TagComponent": {
-				"Tag": "Empty Entity"
+				"Tag": "Camera"
 			},
 			"TransformComponent": {
 				"Rotation": [
@@ -67,8 +86,8 @@
 					1.0
 				],
 				"Translation": [
-					0.9361438751220703,
-					-1.4949283599853516,
+					0.0,
+					0.0,
 					0.0
 				]
 			},
@@ -125,33 +144,26 @@
 			"entityID": 2
 		},
 		{
-			"CameraComponent": {
-				"Camera": {
-					"AspectRatio": 1.452504277229309,
-					"Orthographic": {
-						"FarClip": 1.0,
-						"NearClip": -1.0,
-						"Size": 10.0
-					},
-					"Perspective": {
-						"FarClip": 1000.0,
-						"NearClip": 0.009999999776482582,
-						"POV": 0.7853981852531433
-					},
-					"ProjectionType": 1
-				},
-				"FixedAspectRatio": false,
-				"Primary": true
-			},
-			"ID": 1900357780,
+			"ID": 8788735381621654649,
 			"TagComponent": {
-				"Tag": "Camera"
+				"Tag": "Empty Entity"
+			},
+			"TextComponent": {
+				"Colour": [
+					0.0,
+					0.15444016456604004,
+					1.0,
+					1.0
+				],
+				"Kerning": 0.0,
+				"LineSpacing": 0.0,
+				"TextString": "Hello Physics2D!"
 			},
 			"TransformComponent": {
 				"Rotation": [
 					0.0,
 					0.0,
-					0.0
+					0.4625122547149658
 				],
 				"Scale": [
 					1.0,
@@ -159,41 +171,39 @@
 					1.0
 				],
 				"Translation": [
-					0.0,
-					0.0,
-					0.0
+					-2.6501903533935547,
+					-2.874082565307617,
+					0.20000000298023224
 				]
 			},
 			"entityID": 1
 		},
 		{
-			"BoxCollider2D": {
+			"CircleCollider2D": {
 				"Density": 1.0,
 				"Friction": 0.5,
 				"Offset": [
 					0.0,
 					0.0
 				],
-				"Restitution": 0.8999999761581421,
-				"RestitutionThreshold": 0.5,
-				"Size": [
-					0.5,
-					0.5
-				]
+				"Radius": 0.5,
+				"Restitution": 0.0,
+				"RestitutionThreshold": 0.5
 			},
-			"ID": 362623186,
-			"Rigidbody2D": {
-				"FixedRotation": false,
-				"Type": 1
-			},
-			"SpriteRenderer": {
+			"CircleRenderer": {
 				"Colour": [
 					1.0,
 					1.0,
 					1.0,
 					1.0
 				],
-				"TexturePath": "textures/Player.png"
+				"Fade": 0.004999999888241291,
+				"Thickness": 1.0
+			},
+			"ID": 14297522347046311233,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 1
 			},
 			"TagComponent": {
 				"Tag": "Empty Entity"
@@ -202,20 +212,21 @@
 				"Rotation": [
 					0.0,
 					0.0,
-					-0.883834719657898
+					0.0
 				],
 				"Scale": [
-					1.0,
-					1.0,
+					0.9999998807907104,
+					0.9999998807907104,
 					1.0
 				],
 				"Translation": [
-					1.4613315002520721e-08,
-					-1.781588565563652e-08,
+					1.5366215705871582,
+					0.5913830995559692,
 					0.0
 				]
 			},
-			"entityID": 0
+			"entityID": 0,
+			"parent": 4
 		}
 	],
 	"Physics2D": {

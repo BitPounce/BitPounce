@@ -1,0 +1,26 @@
+src/BitPounce/Scene/Scene.cpp: In member function ‘bool BitPounce::Scene::OnResize(BitPounce::WindowResizeEvent&)’:
+src/BitPounce/Scene/Scene.cpp:239:9: warning: no return statement in function returning non-void [-Wreturn-type]
+  239 |         }
+      |         ^
+In file included from src/BitPounce/Scene/Systems/Renderer2DSystem.cpp:2:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h: In member function ‘void BitPounce::Renderer2DSystem::Draw(const glm::mat4&)’:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:41:56: error: ‘m_Font’ was not declared in this scope; did you mean ‘Font’?
+   41 |                         Renderer2D::DrawString("Test", m_Font, glm::mat4(1), glm::vec4(1));
+      |                                                        ^~~~~~
+      |                                                        Font
+src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:96:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+   96 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)component.Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:90:54:   required from here
+src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:119:54:   required from here
+src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+make[1]: *** [Makefile:461: ../bin-int/Debug-linux-x86_64/BitPounce/Renderer2DSystem.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:63: BitPounce] Error 2

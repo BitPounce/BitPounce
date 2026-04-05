@@ -11,6 +11,8 @@
 #include "BitPounce/Core/UUID.h"
 #include "Entity.h"
 #include <BitPounce/Renderer/Texture.h>
+#include "BitPounce/Renderer/Font.h"
+#include "BitPounce/Renderer/Renderer2D.h"
 
 namespace BitPounce {
 
@@ -72,6 +74,14 @@ namespace BitPounce {
 		}
 
 		operator const glm::mat4 () const { return GetTransform(); }
+	};
+
+	struct TextComponent
+	{
+		std::string TextString;
+		Ref<Font> FontAsset = Font::GetDefault();
+		// I can't be bothered, use Renderer2D::TextParams
+		Renderer2D::TextParams textParams;
 	};
 
 	struct CircleRendererComponent

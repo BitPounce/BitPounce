@@ -5,6 +5,7 @@
 #include "gl.h"
 #include "BitPounce/Core/Buffer.h"
 #include "BitPounce/Core/FileSystem.h"
+#include "stb_image_write.h"
 
 namespace BitPounce 
 {
@@ -45,7 +46,14 @@ namespace BitPounce
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		if(specification.Filter == ImageFilter::LINEAR)
+		{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
+		else if(specification.Filter == ImageFilter::NEAREST)
+		{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -107,6 +115,37 @@ namespace BitPounce
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture2D::ToPNG(std::filesystem::path filepath)
+	{
+		int channels = -1;
+		if (m_DataFormat == GL_RED) channels = 1;
+		else if (m_DataFormat == GL_RGB) channels = 3;
+		else if (m_DataFormat == GL_RGBA) channels = 4;
+
+		Bind();
+		int data_size = m_Width * m_Height * channels;
+		GLubyte* pixels = new GLubyte[data_size];
+
+		stbi_flip_vertically_on_write(1);
+
+		{
+			// HACK: ES does not support glGetTexImage, whyyyyyyyy!!!
+			GLuint fbo;
+			glGenFramebuffers(1, &fbo); 
+			glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RendererID, 0);
+
+			glReadPixels(0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glDeleteFramebuffers(1, &fbo);
+		}
+
+		stbi_write_png(filepath.generic_string().c_str(), m_Width, m_Height, channels, pixels, m_Width * channels);
+
+		delete[] pixels;
 	}
 
 	void OpenGLTexture2D::SetData(void* data, uint32_t size)

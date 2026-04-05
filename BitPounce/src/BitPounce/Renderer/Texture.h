@@ -3,6 +3,7 @@
 #include <string>
 
 #include "BitPounce/Core/Base.h"
+#include "BitPounce/Asset/Asset.h"
 
 namespace BitPounce 
 {
@@ -30,7 +31,7 @@ namespace BitPounce
 		bool GenerateMips = true;
 	};
 
-	class Texture
+	class Texture : public Asset
 	{
 	public:
 		virtual ~Texture() = default;
@@ -46,7 +47,6 @@ namespace BitPounce
 
 		virtual void Bind(uint32_t slot = 0) const = 0;
 
-		
 	};
 
 	class Texture2D : public Texture
@@ -58,7 +58,7 @@ namespace BitPounce
 		static Ref<Texture2D> Create(const std::string& path);
 
 		virtual void ToPNG(std::filesystem::path filepath) = 0;
-
+		virtual AssetType GetType() const override { return AssetType::Texture2D; }
 		virtual bool operator==(const Texture2D& other) const = 0;
 	};
 

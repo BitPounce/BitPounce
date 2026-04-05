@@ -6,6 +6,9 @@
 #include "BitPounce/Core/Base.h"
 #include "BitPounce/Core/Logger.h"
 
+#include "BitPounce/Asset/RuntimeAssetManager.h"
+#include "BitPounce/Asset/EditorAssetManager.h"
+
 namespace BitPounce 
 {
 
@@ -43,6 +46,9 @@ namespace BitPounce
 		ProjectConfig& GetConfig() { return m_Config; }
 
 		static Ref<Project> GetActive() { return s_ActiveProject; }
+		std::shared_ptr<AssetManagerBase> GetAssetManager() { return m_AssetManager; }
+		std::shared_ptr<RuntimeAssetManager> GetRuntimeAssetManager() { return std::static_pointer_cast<RuntimeAssetManager>(m_AssetManager); }
+		std::shared_ptr<EditorAssetManager> GetEditorAssetManager() { return std::static_pointer_cast<EditorAssetManager>(m_AssetManager); }
 
 		static Ref<Project> New(const ProjectConfig& projectConfig = ProjectConfig());
 		static Ref<Project> Load(const std::filesystem::path& path);
@@ -50,6 +56,7 @@ namespace BitPounce
 	private:
 		ProjectConfig m_Config;
 		std::filesystem::path m_ProjectDirectory;
+		std::shared_ptr<AssetManagerBase> m_AssetManager;
 
 		inline static Ref<Project> s_ActiveProject;
 	};

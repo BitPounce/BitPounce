@@ -10,6 +10,7 @@
 #define BP_EXPAND_MACRO(x) x
 #define BP_STRINGIFY_MACRO(x) #x
 
+#include "Logger.h"
 #include "Assert.h"
 
 #define BP_BIND_EVENT_FN(fn) [this](auto&& e) { return this->fn(std::forward<decltype(e)>(e)); }

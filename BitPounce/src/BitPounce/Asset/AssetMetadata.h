@@ -4,8 +4,15 @@
 
 #include <filesystem>
 #include <optional>
+#include <BitPounce/Scene/ECSSystem.h>
 
-namespace BitPounce {
+
+namespace BitPounce 
+{
+	struct SceneAssetMetadata
+	{
+		std::vector<Ref<ECSSystem>> Systems;
+	};
 
 	struct AssetMetadata
 	{

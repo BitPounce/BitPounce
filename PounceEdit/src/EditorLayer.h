@@ -24,6 +24,8 @@ namespace BitPounce {
 
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnAssetPreloaded(AssetPreLoadedEvent& e);
+		bool OnScenePreloaded(AssetPreLoadedEvent& e);
 
 		bool NewProject();
 		void NewProject(const std::filesystem::path& path);

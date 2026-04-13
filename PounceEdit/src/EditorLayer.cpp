@@ -16,7 +16,7 @@ namespace BitPounce {
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
 	{
-		s_Font = Font::GetDefault();
+		
 	}
 	
 	void EditorLayer::OnAttach()
@@ -36,6 +36,7 @@ namespace BitPounce {
 		}
 
 		m_ContentBrowserPanel->SetBaseDir(Project::GetAssetFileSystemPath(""));	
+		s_Font = Font::GetDefault();
 		
 		
 
@@ -163,7 +164,17 @@ namespace BitPounce {
 	
 		m_Framebuffer->Bind();
 		// Render
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		if(m_SceneState != SceneState::Play)
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		else
+		{
+			auto&& camera = m_ActiveScene->GetActiveCamera();
+			if(camera.first)
+			{
+				RenderCommand::SetClearColor(camera.first->BgColour);
+			}
+		}	
+		
 		RenderCommand::Clear();
 
 		m_Framebuffer->ClearAttachment(1, -1);
@@ -406,6 +417,7 @@ namespace BitPounce {
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(BP_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+		dispatcher.Dispatch<AssetPreLoadedEvent>(BP_BIND_EVENT_FN(EditorLayer::OnAssetPreloaded));
 	}
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
 	{
@@ -465,8 +477,28 @@ namespace BitPounce {
 
 		return false;
 	}
-    bool EditorLayer::NewProject() 
-	{
+    bool EditorLayer::OnAssetPreloaded(AssetPreLoadedEvent &e)
+    {
+		if(e.GetMetadata().Type == AssetType::Scene)
+		{
+			return OnScenePreloaded(e);
+		}
+        return false;
+    }
+
+    bool EditorLayer::OnScenePreloaded(AssetPreLoadedEvent &e)
+    {
+		SceneAssetMetadata* sceneAssetMetadata = new SceneAssetMetadata();
+		sceneAssetMetadata->Systems.push_back(CreateRef<Renderer2DSystem>());
+		sceneAssetMetadata->Systems.push_back(CreateRef<CameraSystem>());
+		sceneAssetMetadata->Systems.push_back(CreateRef<Physics2DSystem>());
+		sceneAssetMetadata->Systems.push_back(CreateRef<AngelScriptSystem>());
+
+		e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
+        return false;
+    }
+    bool EditorLayer::NewProject()
+    {
 		std::optional<std::string> filepath = FileDialogs::SaveFile("BitPounce Project (*.bpproj)\0*.bpproj\0");
 		if(!filepath)
 		{
@@ -544,8 +576,10 @@ namespace BitPounce {
 	{
 		NewScene();
 
-		SceneSerializer serializer(m_ActiveScene);
-		serializer.Deserialize(path.string());
+		Ref<Scene> scene = AssetManager::GetAsset<Scene>(Project::GetActive()->GetEditorAssetManager()->ImportAsset(path));
+		m_ActiveScene = Scene::Copy(scene);
+		m_SceneHierarchyPanel->SetContext(m_ActiveScene);
+		m_EditorScene = m_ActiveScene;
 	}
 
 	void EditorLayer::OpenScene()
@@ -555,15 +589,16 @@ namespace BitPounce {
 		std::optional<std::string> filepath = FileDialogs::OpenFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
 		if (filepath)
 		{
-			NewScene();
-
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Deserialize(*filepath);
+			OpenScene(filepath.value());
 		}
 	}
 	void EditorLayer::SaveSceneAs()
 	{
-		std::filesystem::path filepath = FileDialogs::SaveFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0").value();
+		std::optional<std::string> file = FileDialogs::SaveFile("BitPounce Scene (*.bitPounce)\0*.bitPounce\0");
+		if(!file) { return; }
+		
+		std::filesystem::path filepath = file.value();
+
 		if(!filepath.has_extension())
 		{
 			filepath = filepath.string() + ".bitPounce";
@@ -571,8 +606,15 @@ namespace BitPounce {
 
 		if (!filepath.empty())
 		{
+			AssetHandle handle = m_ActiveScene->Handle;
 			SceneSerializer serializer(m_ActiveScene);
 			serializer.Serialize(filepath.string());
+
+
+			handle = Project::GetActive()->GetEditorAssetManager()->ImportAsset(filepath);
+			Project::GetActive()->GetEditorAssetManager()->ReimportAsset(handle);
+			m_ActiveScene = Scene::Copy(AssetManager::GetAsset<Scene>(handle));
+			m_EditorScene = m_ActiveScene;
 		}
 	}
 

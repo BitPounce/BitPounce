@@ -15,6 +15,9 @@ namespace BitPounce {
         Audio,
         Scene
 	};
+
+    std::string_view AssetTypeToString(AssetType type);
+	AssetType AssetTypeFromString(std::string_view assetType);
 	
 	class Asset
 	{
@@ -22,5 +25,6 @@ namespace BitPounce {
 		AssetHandle Handle; // Generate handle
 
 		virtual AssetType GetType() const = 0;
+		static AssetType GetTypeFromFileExtension(const std::string& ext);
 	};
 }

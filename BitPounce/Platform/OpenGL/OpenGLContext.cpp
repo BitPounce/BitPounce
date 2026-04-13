@@ -9,7 +9,7 @@ namespace BitPounce
 	OpenGLContext::OpenGLContext(GLFWwindow* window)
 		: m_WindowHandle(window)
 	{
-		BP_CORE_ASSERT(window, "Window handle is null!")
+		BP_CORE_ASSERT(window, "Window handle is null!");
 	}
 
 	void OpenGLContext::Init()

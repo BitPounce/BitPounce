@@ -149,8 +149,18 @@ namespace BitPounce
 			BP_CORE_INFO("Found real file in cache: {}", filepath.string());
 			return realIt->second;
 		}
-
-		DiskBuffer fileBuffer = ReadFileBinaryDisk(filepath);
+		uint64_t mib = 1024;
+		uint64_t gib = mib * 1024;
+		BufferBase fileBuffer;
+		if(std::filesystem::file_size(filepath) >= gib)
+		{
+			fileBuffer = ReadFileBinaryDisk(filepath);
+		}
+		else
+		{
+			fileBuffer = ReadFileBinary(filepath);
+		}
+		
 		if (!fileBuffer) {
 			BP_CORE_ERROR("Failed to load file: {}", filepath.string());
 			return {};

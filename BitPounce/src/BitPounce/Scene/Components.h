@@ -79,7 +79,8 @@ namespace BitPounce {
 	struct TextComponent
 	{
 		std::string TextString;
-		Ref<Font> FontAsset = Font::GetDefault();
+		AssetHandle FontHandle = AssetHandle(0);
+		//Ref<Font> FontAsset = Font::GetDefault();
 		// I can't be bothered, use Renderer2D::TextParams
 		Renderer2D::TextParams textParams;
 	};
@@ -98,8 +99,16 @@ namespace BitPounce {
 	{
 		glm::vec4 Colour{ 1.0f, 1.0f, 1.0f, 1.0f };
 		// TODO
-		Ref<Texture2D> Texture;
+		AssetHandle Texture = 0;
+
+		// This does not gets used if UseSpriteSheet is true
 		float TilingFactor = 1.0f;
+
+		// This only gets used if UseSpriteSheet is true
+		glm::i32vec2 SpriteIndex = glm::i32vec2(0);
+		glm::i32vec2 SpriteSize = glm::i32vec2(64);
+
+		bool UseSpriteSheet = false;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -112,6 +121,7 @@ namespace BitPounce {
 		BitPounce::SceneCamera Camera;
 		bool Primary = true;
 		bool FixedAspectRatio = false;
+		glm::vec4 BgColour = glm::vec4(.1f, .1f ,.1f, 1.0f);
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;

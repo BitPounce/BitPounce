@@ -32,6 +32,7 @@ namespace BitPounce
 			{
 		    	auto& camera = cameraComponent.Camera;
 		    	ImGui::Checkbox("Primary", &cameraComponent.Primary);
+				ImGui::ColorEdit4("Bg Colour", glm::value_ptr(cameraComponent.BgColour));
 		    	const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
 		    	const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.GetProjectionType()];
 		    	if (ImGui::BeginCombo("Projection", currentProjectionTypeString))
@@ -82,13 +83,12 @@ namespace BitPounce
 			auto group = m_Scene->GetRegistry(*this).group<CameraComponent>();
 			for (auto entity : group)
 			{
-				
-
 				auto&& camComponent = group.get<CameraComponent>(entity);
 
 				nlohmann::json cameraComponent = nlohmann::json();
 				cameraComponent["FixedAspectRatio"] = camComponent.FixedAspectRatio;
 				cameraComponent["Primary"] = camComponent.Primary;
+				cameraComponent["BgColour"] = camComponent.BgColour;
 				nlohmann::json camera = nlohmann::json();
 
 				auto cam = camComponent.Camera;
@@ -155,6 +155,7 @@ namespace BitPounce
 
 				if (camJson.contains("Primary")) comp.Primary = camJson["Primary"].get<bool>();
 				if (camJson.contains("FixedAspectRatio")) comp.FixedAspectRatio = camJson["FixedAspectRatio"].get<bool>();
+				if (camJson.contains("BgColour")) comp.BgColour = camJson["BgColour"].get<glm::vec4>();
 
 				if (camJson.contains("Camera"))
 				{

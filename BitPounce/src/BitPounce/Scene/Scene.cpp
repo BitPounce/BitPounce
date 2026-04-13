@@ -111,6 +111,7 @@ namespace BitPounce {
 
 		newScene->m_ViewportWidth = other->m_ViewportWidth;
 		newScene->m_ViewportHeight = other->m_ViewportHeight;
+		newScene->Handle = other->Handle;
 
 		auto& srcSceneRegistry = other->m_Registry;
 		auto& dstSceneRegistry = newScene->m_Registry;
@@ -141,6 +142,8 @@ namespace BitPounce {
 
 		other->m_sysManager.CopyComponent(newScene->m_Registry, other->m_Registry, enttMap);
 		ECSSystem::CopyComponentBASE<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		
+
 		ECSSystem::CopyComponentBASE<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<CircleRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
@@ -151,8 +154,42 @@ namespace BitPounce {
 		ECSSystem::CopyComponentBASE<AngelScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<TextComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
+		// O(N² × M²) btw 
+		// let this be the last hack in this engine pls!
+		for (auto&& ent : enttMap)
+		{
+			for (auto e : idView)
+			{
+				UUID uuid = srcSceneRegistry.get<IDComponent>(e).ID;
+				if(ent.first == uuid)
+				{
+					Entity newEntity = Entity(ent.second, newScene.get());
+					Entity oldEntity = Entity(e, other.get());
+
+					if(oldEntity.GetParent())
+					{
+						Entity oldEntityParent = oldEntity.GetParent();
+						for (auto&& ent2 : enttMap)
+						{
+							for (auto e2 : idView)
+							{
+								UUID uuid = srcSceneRegistry.get<IDComponent>(e2).ID;
+								if(oldEntityParent.GetUUID() == ent2.first)
+								{
+									Entity newEntityParent = Entity(ent2.second, newScene.get());
+									newEntity.SetParent(newEntityParent);
+									break;
+
+								} // Look at these braces!
+							}
+						} 
+					} // OMG its still going!
+				} 
+			} // Almost.. there.
+		} 
+
 		return newScene;
-    }
+    } // Lets never do that again..
 
     void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
@@ -252,6 +289,10 @@ namespace BitPounce {
 	template<>
 	void ECSSystem::OnComponentAdded<TextComponent>(Entity entity, TextComponent& component)
 	{
+		if(!component.FontHandle)
+		{
+			
+		}
 	}
 
 	template<>

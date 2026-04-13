@@ -1,21 +1,18 @@
 {
 	"Entities": [
 		{
-			"BoxCollider2D": {
+			"CircleCollider2D": {
 				"Density": 1.0,
 				"Friction": 0.5,
 				"Offset": [
 					0.0,
 					0.0
 				],
-				"Restitution": 0.8999999761581421,
-				"RestitutionThreshold": 0.5,
-				"Size": [
-					0.5,
-					0.5
-				]
+				"Radius": 0.5,
+				"Restitution": 0.0,
+				"RestitutionThreshold": 0.5
 			},
-			"ID": 362623186,
+			"ID": 15434125970886516259,
 			"Rigidbody2D": {
 				"FixedRotation": false,
 				"Type": 1
@@ -27,52 +24,19 @@
 					1.0,
 					1.0
 				],
-				"TexturePath": "textures/Player.png"
+				"SpriteIndex": [
+					1,
+					1
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"TextureID": 7816482924039285401,
+				"UseSpriteSheet": true
 			},
 			"TagComponent": {
-				"Tag": "Empty Entity"
-			},
-			"TransformComponent": {
-				"Rotation": [
-					0.0,
-					0.0,
-					-0.883834719657898
-				],
-				"Scale": [
-					1.0,
-					1.0,
-					1.0
-				],
-				"Translation": [
-					1.4613315002520721e-08,
-					-1.781588565563652e-08,
-					0.0
-				]
-			},
-			"entityID": 4
-		},
-		{
-			"CameraComponent": {
-				"Camera": {
-					"AspectRatio": 1.6899563074111938,
-					"Orthographic": {
-						"FarClip": 1.0,
-						"NearClip": -1.0,
-						"Size": 10.0
-					},
-					"Perspective": {
-						"FarClip": 1000.0,
-						"NearClip": 0.009999999776482582,
-						"POV": 0.7853981852531433
-					},
-					"ProjectionType": 1
-				},
-				"FixedAspectRatio": false,
-				"Primary": true
-			},
-			"ID": 1900357780,
-			"TagComponent": {
-				"Tag": "Camera"
+				"Tag": "Sprite Sheet Player"
 			},
 			"TransformComponent": {
 				"Rotation": [
@@ -86,97 +50,12 @@
 					1.0
 				],
 				"Translation": [
-					0.0,
-					0.0,
+					-0.015089273452758789,
+					0.04839612543582916,
 					0.0
 				]
 			},
-			"entityID": 3
-		},
-		{
-			"BoxCollider2D": {
-				"Density": 1.0,
-				"Friction": 0.5,
-				"Offset": [
-					0.0,
-					0.0
-				],
-				"Restitution": 0.8999999761581421,
-				"RestitutionThreshold": 0.5,
-				"Size": [
-					0.5,
-					0.5
-				]
-			},
-			"ID": 4182336232,
-			"Rigidbody2D": {
-				"FixedRotation": false,
-				"Type": 0
-			},
-			"SpriteRenderer": {
-				"Colour": [
-					0.2163652926683426,
-					0.45559847354888916,
-					0.3142753541469574,
-					1.0
-				]
-			},
-			"TagComponent": {
-				"Tag": "Floor"
-			},
-			"TransformComponent": {
-				"Rotation": [
-					0.0,
-					0.0,
-					0.0
-				],
-				"Scale": [
-					9697.2998046875,
-					6.699999809265137,
-					1.0
-				],
-				"Translation": [
-					0.0,
-					-7.199999809265137,
-					0.0
-				]
-			},
-			"entityID": 2
-		},
-		{
-			"ID": 8788735381621654649,
-			"TagComponent": {
-				"Tag": "Empty Entity"
-			},
-			"TextComponent": {
-				"Colour": [
-					0.0,
-					0.15444016456604004,
-					1.0,
-					1.0
-				],
-				"Kerning": 0.0,
-				"LineSpacing": 0.0,
-				"TextString": "Hello Physics2D!"
-			},
-			"TransformComponent": {
-				"Rotation": [
-					0.0,
-					0.0,
-					0.4625122547149658
-				],
-				"Scale": [
-					1.0,
-					1.0,
-					1.0
-				],
-				"Translation": [
-					-2.6501903533935547,
-					-2.874082565307617,
-					0.20000000298023224
-				]
-			},
-			"entityID": 1
+			"entityID": 5
 		},
 		{
 			"CircleCollider2D": {
@@ -220,13 +99,210 @@
 					1.0
 				],
 				"Translation": [
-					1.5366215705871582,
-					0.5913830995559692,
+					-1.0083434581756592,
+					2.730109214782715,
 					0.0
 				]
 			},
-			"entityID": 0,
-			"parent": 4
+			"entityID": 4,
+			"parent": 0
+		},
+		{
+			"ID": 8788735381621654649,
+			"TagComponent": {
+				"Tag": "Text"
+			},
+			"TextComponent": {
+				"Colour": [
+					0.0,
+					0.15444016456604004,
+					1.0,
+					1.0
+				],
+				"FontID": 12142096467144375851,
+				"Kerning": 0.0,
+				"LineSpacing": 0.0,
+				"TextString": "Hello Physics2D!"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.4625122547149658
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					-2.6501903533935547,
+					-2.874082565307617,
+					0.20000000298023224
+				]
+			},
+			"entityID": 3
+		},
+		{
+			"BoxCollider2D": {
+				"Density": 1.0,
+				"Friction": 0.5,
+				"Offset": [
+					0.0,
+					0.0
+				],
+				"Restitution": 0.8999999761581421,
+				"RestitutionThreshold": 0.5,
+				"Size": [
+					0.5,
+					0.5
+				]
+			},
+			"ID": 4182336232,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 0
+			},
+			"SpriteRenderer": {
+				"Colour": [
+					0.2163652926683426,
+					0.45559847354888916,
+					0.3142753541469574,
+					1.0
+				],
+				"SpriteIndex": [
+					0,
+					0
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"UseSpriteSheet": false
+			},
+			"TagComponent": {
+				"Tag": "Floor"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					100.0,
+					6.699999809265137,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					-7.199999809265137,
+					0.0
+				]
+			},
+			"entityID": 2
+		},
+		{
+			"CameraComponent": {
+				"Camera": {
+					"AspectRatio": 1.452504277229309,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": 10.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
+			},
+			"ID": 1900357780,
+			"TagComponent": {
+				"Tag": "Camera"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 1
+		},
+		{
+			"BoxCollider2D": {
+				"Density": 1.0,
+				"Friction": 0.5,
+				"Offset": [
+					0.0,
+					0.0
+				],
+				"Restitution": 0.8999999761581421,
+				"RestitutionThreshold": 0.5,
+				"Size": [
+					0.5,
+					0.5
+				]
+			},
+			"ID": 362623186,
+			"Rigidbody2D": {
+				"FixedRotation": false,
+				"Type": 1
+			},
+			"SpriteRenderer": {
+				"Colour": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				],
+				"SpriteIndex": [
+					0,
+					0
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"TextureID": 547497271197996637,
+				"UseSpriteSheet": false
+			},
+			"TagComponent": {
+				"Tag": "Player"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					-1.148931622505188,
+					0.3756558895111084,
+					5.960464477539063e-08
+				]
+			},
+			"entityID": 0
 		}
 	],
 	"Physics2D": {

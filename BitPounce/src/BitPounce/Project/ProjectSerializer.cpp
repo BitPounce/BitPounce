@@ -24,6 +24,7 @@ namespace BitPounce
 			project["Name"] = config.Name;
 			project["StartScene"] = config.StartScene;
 			project["AssetDirectory"] = std::string(config.AssetDirectory.string());
+			project["AssetRegistryPath"] = std::string(config.AssetRegistryPath.string());
 
 			out["Project"] = project;
 		}
@@ -45,6 +46,7 @@ namespace BitPounce
 		config.Name = projectNode["Name"].get<std::string>();
 		config.StartScene = projectNode["StartScene"].get<std::string>();
 		config.AssetDirectory = projectNode["AssetDirectory"].get<std::string>();
+		config.AssetRegistryPath = projectNode["AssetRegistryPath"].get<std::string>();
 		return true;
 	}
 

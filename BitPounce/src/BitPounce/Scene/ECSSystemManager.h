@@ -27,5 +27,6 @@ namespace BitPounce
         virtual void AddSys_in(System* sys) override;
 	private:
         friend class Scene;
+		friend class SceneImporter;
 	};
 }

@@ -1,0 +1,110 @@
+[2026-04-06 20:57:13.167] [BIT POUNCE] [info] Logger initialized successfully
+[2026-04-06 20:57:13.167] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info] OpenGL Info:
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.126.09
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-04-06 20:57:13.851] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture.glsl (117 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Colour.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Colour.glsl (2921 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Texture_Vertex.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Circle.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Circle.glsl (1347 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Line.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Line.glsl (627 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Reading file from disk: assets/shaders/Text.glsl
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Successfully read file from disk: assets/shaders/Text.glsl (3030 bytes)
+[2026-04-06 20:57:13.852] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
+[2026-04-06 20:57:13.861] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-04-06 20:57:13.861] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-04-06 20:57:13.861] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
+[2026-04-06 20:57:13.862] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-04-06 20:57:13.862] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.862] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.862] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-04-06 20:57:13.862] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.864] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.864] [BIT POUNCE] [info] Reading file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.864] [BIT POUNCE] [info] Successfully read file from disk: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-04-06 20:57:13.864] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-04-06 20:57:13.874] [BIT POUNCE] [info] Loaded 340 glyphs from font (out of 527)
+[2026-04-06 20:57:21.281] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
+[2026-04-06 20:57:21.281] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/Flor.png
+[2026-04-06 20:57:21.281] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
+[2026-04-06 20:57:21.281] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
+[2026-04-06 20:57:21.283] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
+[2026-04-06 20:57:21.283] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/ContentBrowser/File.png
+[2026-04-06 20:57:21.283] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/ContentBrowser/File.png (15757 bytes)
+[2026-04-06 20:57:21.283] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png
+[2026-04-06 20:57:24.499] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-04-06 20:57:24.499] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-04-06 20:57:24.499] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj (169 bytes)
+[2026-04-06 20:57:24.499] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce (3629 bytes)
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Loading file: Resources/Icons/Icon.png
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/Icon.png
+[2026-04-06 20:57:24.500] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/Icon.png (574956 bytes)
+[2026-04-06 20:57:24.501] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Icon.png
+[2026-04-06 20:57:24.621] [BIT POUNCE] [info] Loading file: Resources/Icons/Play.png
+[2026-04-06 20:57:24.621] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/Play.png
+[2026-04-06 20:57:24.621] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/Play.png (18505 bytes)
+[2026-04-06 20:57:24.621] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Play.png
+[2026-04-06 20:57:24.622] [BIT POUNCE] [info] Loading file: Resources/Icons/P.png
+[2026-04-06 20:57:24.622] [BIT POUNCE] [info] Reading file from disk: Resources/Icons/P.png
+[2026-04-06 20:57:24.622] [BIT POUNCE] [info] Successfully read file from disk: Resources/Icons/P.png (17649 bytes)
+[2026-04-06 20:57:24.623] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/P.png
+[2026-04-06 20:57:24.627] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-04-06 20:57:24.627] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-04-06 20:57:24.627] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as (876 bytes)
+[2026-04-06 20:57:24.627] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-04-06 20:57:24.628] [BIT POUNCE] [info] Built module 'scripts' with 1 files
+[2026-04-06 20:57:24.628] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-04-06 20:57:24.628] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-04-06 20:57:24.628] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png (386778 bytes)
+[2026-04-06 20:57:24.628] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-04-06 20:57:30.180] [BIT POUNCE] [error] No type available for asset ext: 
+[2026-04-06 20:57:30.560] [BIT POUNCE] [error] No type available for asset ext: 
+[2026-04-06 20:57:30.624] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:30.624] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:30.624] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png (1823 bytes)
+[2026-04-06 20:57:30.624] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:30.625] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:30.625] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:30.625] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png (1684577 bytes)
+[2026-04-06 20:57:30.626] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:30.664] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:30.664] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:30.664] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png (1684577 bytes)
+[2026-04-06 20:57:30.665] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png (1823 bytes)
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Checkerboard.png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:34.972] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png (1684577 bytes)
+[2026-04-06 20:57:34.973] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up (219th copy).png
+[2026-04-06 20:57:35.008] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:35.008] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:35.008] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png (1684577 bytes)
+[2026-04-06 20:57:35.009] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player Up.png
+[2026-04-06 20:57:35.044] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-04-06 20:57:35.044] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-04-06 20:57:35.045] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png (386778 bytes)
+[2026-04-06 20:57:35.045] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png

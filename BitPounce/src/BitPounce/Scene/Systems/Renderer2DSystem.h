@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "BitPounce/ImGui/ImGuiUtils.h"
 #include "BitPounce/Project/Project.h"
+#include "BitPounce/Asset/AssetManager.h"
 #include <misc/cpp/imgui_stdlib.h>
 
 namespace BitPounce
@@ -20,6 +21,7 @@ namespace BitPounce
 		virtual System* clone() const override {
         	return new Renderer2DSystem(*this);
     	}
+		float timer = 0;
 
 		virtual void OnDraw(Timestep& ts) override 
 		{
@@ -27,6 +29,7 @@ namespace BitPounce
 			if(!campar.first) { return; }
 			auto mainCamera = campar.first->Camera;
 			auto cameraTransform = campar.second->GetTransform();
+			timer += ts;
 
 			Draw(mainCamera.GetProjection() * glm::inverse(cameraTransform));
 		};
@@ -48,10 +51,14 @@ namespace BitPounce
 		        auto& transform = spriteView.get<TransformComponent>(entity);
 		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
 			
-		        if(sprite.Texture)
+		        if(sprite.Texture && sprite.UseSpriteSheet)
 		        {
-		            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Texture, sprite.Colour, sprite.TilingFactor, (int)entity);
+					Renderer2D::DrawQuad(transform.GetTransform(), AssetManager::GetAsset<Texture2D>(sprite.Texture), sprite.SpriteSize, sprite.SpriteIndex, sprite.Colour, (int)entity);
 		        }
+				else if(sprite.Texture)
+				{
+					Renderer2D::DrawQuad(transform.GetTransform(), AssetManager::GetAsset<Texture2D>(sprite.Texture), sprite.Colour, sprite.TilingFactor, (int)entity);
+				}
 		        else
 		        {
 		            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
@@ -73,8 +80,13 @@ namespace BitPounce
 		    {
 		        auto& transform = textView.get<TransformComponent>(entity);
 		        auto& text = textView.get<TextComponent>(entity);
+
+				if(!text.FontHandle)
+				{
+					continue;
+				}
 			
-		        Renderer2D::DrawString(text.TextString, text.FontAsset, transform.GetTransform(), text.textParams, (int)entity);
+		        Renderer2D::DrawString(text.TextString, AssetManager::GetAsset<Font>(text.FontHandle), transform.GetTransform(), text.textParams, (int)entity);
 		    }
 		
 		    Renderer2D::EndScene();
@@ -107,10 +119,19 @@ namespace BitPounce
 			ImGuiUtils::DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [entity](SpriteRendererComponent& component)
 			{
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.Colour));
+				ImGui::Checkbox("Use Sprite Sheet", &component.UseSpriteSheet);
 
-				if(component.Texture)
+				if(component.Texture && component.UseSpriteSheet)
 				{
-					ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)component.Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+					ImGui::DragInt2("Sprite Size", glm::value_ptr(component.SpriteSize), 1, 1);
+					ImGui::DragInt2("Sprite Index", glm::value_ptr(component.SpriteIndex), 1, 0);
+					Ref<Texture2D> Texture = AssetManager::GetAsset<Texture2D>(component.Texture);
+					ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+				}
+				else if(component.Texture)
+				{
+					Ref<Texture2D> Texture = AssetManager::GetAsset<Texture2D>(component.Texture);
+					ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
 				}
 				else
 				{
@@ -125,9 +146,7 @@ namespace BitPounce
 						std::filesystem::path texturePath(path);
 
 						// HACK: if you do not like this you can make your own Renderer2DSystem idc.
-						texturePath = std::filesystem::relative(texturePath, Project::GetAssetDirectory());
-						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
-						component.Texture = texture;
+						component.Texture = Project::GetActive()->GetEditorAssetManager()->ImportAsset(texturePath);
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -148,6 +167,29 @@ namespace BitPounce
 				ImGui::ColorEdit4("Colour", glm::value_ptr(component.textParams.Colour));
 				ImGui::DragFloat("Kerning", &component.textParams.Kerning, 0.025f);
 				ImGui::DragFloat("Line Spacing", &component.textParams.LineSpacing, 0.025f);
+
+				if(component.FontHandle)
+				{
+					Ref<Texture2D> Texture = AssetManager::GetAsset<Font>(component.FontHandle)->GetAtlasTexture();
+					ImGui::ImageButton((std::string("TEX_IMG_TextComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+				}
+				else
+				{
+					ImGui::Button("Font", ImVec2(100.0f, 0.0f));
+				}
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						// Making sure that the data is good is for chickens, we are not chickens!!! 🐔🐔🐔
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path texturePath(path);
+
+						// HACK: if you do not like this you can make your own Renderer2DSystem idc.
+						component.FontHandle = Project::GetActive()->GetEditorAssetManager()->ImportAsset(texturePath);
+					}
+					ImGui::EndDragDropTarget();
+				}
 			});
 			
 		}
@@ -165,10 +207,14 @@ namespace BitPounce
 			
 		        nlohmann::json spriteJson;
 		        spriteJson["Colour"] = sprite.Colour;
+				spriteJson["SpriteSize"] = sprite.SpriteSize;
+				spriteJson["SpriteIndex"] = sprite.SpriteIndex;
+				spriteJson["UseSpriteSheet"] = sprite.UseSpriteSheet;
+
 				if (sprite.Texture)
 				{
-					std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
-					spriteJson["TexturePath"] =  dgdgfdgf;
+					//std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
+					spriteJson["TextureID"] = sprite.Texture.operator std::size_t();
 				}
 					
 			
@@ -213,6 +259,12 @@ namespace BitPounce
 		        textJson["Colour"] = text.textParams.Colour;
 				textJson["Kerning"] = text.textParams.Kerning;
 				textJson["LineSpacing"] = text.textParams.LineSpacing;
+
+				if (text.FontHandle)
+				{
+					//std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
+					textJson["FontID"] = text.FontHandle.operator std::size_t();
+				}
 		        
 			
 		        for (auto& ent : json["Entities"])
@@ -260,12 +312,22 @@ namespace BitPounce
 		            auto& spriteJson = entJson["SpriteRenderer"];
 		            if (spriteJson.contains("Colour"))
 		                comp.Colour = spriteJson["Colour"].get<glm::vec4>();
-					if (spriteJson.contains("TexturePath"))
+					if (spriteJson.contains("TextureID"))
 					{
-						std::string texturePath = spriteJson["TexturePath"].get<std::string>();
-						auto path = Project::GetAssetFileSystemPath(texturePath);
-						comp.Texture = Texture2D::Create(path.string());
+						//std::string texturePath = spriteJson["TexturePath"].get<std::string>();
+						//auto path = Project::GetAssetFileSystemPath(texturePath);
+						//comp.Texture = Texture2D::Create(path.string());
+						comp.Texture = spriteJson["TextureID"].get<size_t>();
 					}
+					if (spriteJson.contains("SpriteSize"))
+						comp.SpriteSize = spriteJson["SpriteSize"].get<glm::u32vec2>();
+
+					if (spriteJson.contains("SpriteIndex"))
+						comp.SpriteIndex = spriteJson["SpriteIndex"].get<glm::u32vec2>();
+
+					if (spriteJson.contains("UseSpriteSheet"))
+						comp.UseSpriteSheet = spriteJson["UseSpriteSheet"].get<bool>();
+
 		            entity.AddComponent<SpriteRendererComponent>(comp);
 		        }
 			
@@ -287,6 +349,12 @@ namespace BitPounce
 					comp.textParams.Colour = textJson["Colour"].get<glm::vec4>();
 					comp.textParams.Kerning = textJson["Kerning"].get<float>();
 					comp.textParams.LineSpacing = textJson["LineSpacing"].get<float>();
+
+					if (textJson.contains("FontID"))
+					{
+						comp.FontHandle = textJson["FontID"].get<size_t>();
+					}
+
 					entity.AddComponent<TextComponent>(comp);
 				}
 		    }

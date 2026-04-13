@@ -1,6 +1,7 @@
 #include "bp_pch.h"
 #include "OpenGLShader.h"
 
+#include "BitPounce/Core/Base.h"
 #include "gl.h"
 #include "BitPounce/Core/Base.h"
 #include "BitPounce/Core/Logger.h"
@@ -10,7 +11,6 @@
 #include <stb_include.h>
 
 // I am soooooooo lazy 🦥
-#define ShaderTypeHasNoBeenImplementedYet(type) BP_CORE_ASSERT(false, "Shader Type: {} Not Yet Implemented!", type)
 
 namespace BitPounce {
 
@@ -21,14 +21,14 @@ namespace BitPounce {
 		if (type == "fragment" || type == "pixel")
 			return GL_FRAGMENT_SHADER;
 		if (type == "geometry")
-			ShaderTypeHasNoBeenImplementedYet("Geometry");
+			BP_CORE_ASSERT(false,"Shader Type: {} Not Yet Implemented!","Geometry");
 		if (type == "tessellation")
-			ShaderTypeHasNoBeenImplementedYet("Tessellation");
+			BP_CORE_ASSERT(false,"Shader Type: {} Not Yet Implemented!","Tessellation");
 		if (type == "compute")
-			ShaderTypeHasNoBeenImplementedYet("Compute");
+			BP_CORE_ASSERT(false,"Shader Type: {} Not Yet Implemented!","Compute");
 
 		BP_CORE_ASSERT(false, "Unknown shader type!");
-		return 0;
+		return 0xffffffff;
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)

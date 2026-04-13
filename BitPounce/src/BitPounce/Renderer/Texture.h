@@ -56,6 +56,7 @@ namespace BitPounce
 		// DO NOT USE
 		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
 		static Ref<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(const TextureSpecification& specification, const std::string& path);
 
 		virtual void ToPNG(std::filesystem::path filepath) = 0;
 		virtual AssetType GetType() const override { return AssetType::Texture2D; }

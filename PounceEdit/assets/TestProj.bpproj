@@ -1,7 +1,0 @@
-{
-	"Project": {
-		"AssetDirectory": "./",
-		"Name": "Untitled",
-		"StartScene": "scenes/Physics2D.bitPounce"
-	}
-}

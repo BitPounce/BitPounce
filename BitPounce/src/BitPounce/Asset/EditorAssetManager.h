@@ -17,10 +17,19 @@ namespace BitPounce {
 		virtual bool IsAssetHandleValid(AssetHandle handle) const override;
 		virtual bool IsAssetLoaded(AssetHandle handle) const override;
 
+        AssetHandle ImportAsset(const std::filesystem::path& filepath);
+		AssetHandle ImportAsset(const std::filesystem::path& filepath, AssetHandle handle);
+        void SerializeAssetRegistry();
+        bool DeserializeAssetRegistry();
+        const AssetRegistry& GetAssetRegistry() const { return m_AssetRegistry; }
+		void ReimportAsset(AssetHandle handle);
+
 		const AssetMetadata& GetMetadata(AssetHandle handle) const;
 	private:
+		Ref<Asset> LoadAsset(AssetHandle handle) const;
+
 		AssetRegistry m_AssetRegistry;
-		AssetMap m_LoadedAssets;
+		mutable AssetMap m_LoadedAssets;
 
 		// TODO: memory-only assets
 	};

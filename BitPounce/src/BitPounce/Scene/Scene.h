@@ -10,6 +10,7 @@
 #include <BitPounce/Events/Event.h>
 #include <BitPounce/Events/ApplicationEvent.h>
 #include "SceneSerializerUtils.h"
+#include "BitPounce/Asset/Asset.h"
 
 namespace BitPounce {
 
@@ -17,7 +18,7 @@ namespace BitPounce {
 	struct CameraComponent;
 	struct TransformComponent;
 
-	class Scene
+	class Scene: public Asset
 	{
 	public:
 		Scene(const std::string& name = std::string("Scene"));
@@ -57,6 +58,10 @@ namespace BitPounce {
 
 		// USE ENITY, ONLY USE IN SYSTEMS
 		entt::registry& GetRegistry(ECSSystem& sys) { (void)sys; return m_Registry; }
+		virtual AssetType GetType() const override
+		{
+			return AssetType::Scene;
+		}
 
 		std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
 	private:

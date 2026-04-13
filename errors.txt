@@ -1,26 +1,437 @@
+src/bp_pch.h:1:9: warning: #pragma once in main file
+    1 | #pragma once
+      |         ^~~~
+In file included from src/bp_pch.h:5:
+src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from src/BitPounce/Scene/Systems/AngelScriptSystem.cpp:5:
+src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::AngelScriptComponent; UIFunction = BitPounce::AngelScriptSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::AngelScriptComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+src/BitPounce/Scene/Systems/AngelScriptSystem.cpp:173:50:   required from here
+src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/BitPounce/ImGui/ImGuiUtils.cpp: In static member function ‘static void BitPounce::ImGuiUtils::DrawVec3Control(const std::string&, glm::vec3&, float, float)’:
+src/BitPounce/ImGui/ImGuiUtils.cpp:15:28: warning: format not a string literal and no format arguments [-Wformat-security]
+   15 |                 ImGui::Text(label.c_str());
+      |                 ~~~~~~~~~~~^~~~~~~~~~~~~~~
+Platform/OpenGL/OpenGLVertexArray.cpp: In member function ‘virtual void BitPounce::OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<BitPounce::VertexBuffer>&)’:
+Platform/OpenGL/OpenGLVertexArray.cpp:72:49: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+   72 |                                                 (const void*)element.Offset);
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+Platform/OpenGL/OpenGLVertexArray.cpp:87:49: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+   87 |                                                 (const void*)element.Offset);
+      |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/BitPounce/Renderer/Renderer2D.cpp: In function ‘bool BitPounce::FrustumCulling(const glm::mat4&)’:
+src/BitPounce/Renderer/Renderer2D.cpp:320:9: warning: no return statement in function returning non-void [-Wreturn-type]
+  320 |         }
+      |         ^
 src/BitPounce/Scene/Scene.cpp: In member function ‘bool BitPounce::Scene::OnResize(BitPounce::WindowResizeEvent&)’:
-src/BitPounce/Scene/Scene.cpp:239:9: warning: no return statement in function returning non-void [-Wreturn-type]
-  239 |         }
+src/BitPounce/Scene/Scene.cpp:240:9: warning: no return statement in function returning non-void [-Wreturn-type]
+  240 |         }
       |         ^
 In file included from src/BitPounce/Scene/Systems/Renderer2DSystem.cpp:2:
-src/BitPounce/Scene/Systems/Renderer2DSystem.h: In member function ‘void BitPounce::Renderer2DSystem::Draw(const glm::mat4&)’:
-src/BitPounce/Scene/Systems/Renderer2DSystem.h:41:56: error: ‘m_Font’ was not declared in this scope; did you mean ‘Font’?
-   41 |                         Renderer2D::DrawString("Test", m_Font, glm::mat4(1), glm::vec4(1));
-      |                                                        ^~~~~~
-      |                                                        Font
 src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
-src/BitPounce/Scene/Systems/Renderer2DSystem.h:96:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-   96 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)component.Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
-      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:23,
+                 from /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:38,
+                 from /usr/include/x86_64-linux-gnu/bits/fcntl.h:61,
+                 from /usr/include/fcntl.h:35,
+                 from vendor/spdlog/include/spdlog/details/os-inl.h:42,
+                 from vendor/spdlog/include/spdlog/details/os.h:126,
+                 from vendor/spdlog/include/spdlog/details/log_msg-inl.h:10,
+                 from vendor/spdlog/include/spdlog/details/log_msg.h:39,
+                 from vendor/spdlog/include/spdlog/details/log_msg_buffer.h:6,
+                 from vendor/spdlog/include/spdlog/details/backtracer.h:7,
+                 from vendor/spdlog/include/spdlog/logger.h:18,
+                 from vendor/spdlog/include/spdlog/details/registry-inl.h:12,
+                 from vendor/spdlog/include/spdlog/details/registry.h:130,
+                 from vendor/spdlog/include/spdlog/spdlog.h:13,
+                 from src/BitPounce/Core/Logger.h:5,
+                 from src/bp_pch.h:2:
+src/BitPounce/Scripting/ScriptEngine.cpp: In static member function ‘static void BitPounce::ScriptEngine::RegisterComponents(asIScriptEngine*)’:
+src/BitPounce/Scripting/ScriptEngine.cpp:251:92: warning: ‘offsetof’ within non-standard-layout type ‘BitPounce::CameraComponent’ is conditionally-supported [-Winvalid-offsetof]
+  251 |                 engine->RegisterObjectProperty("CameraComponent", "bool Primary", offsetof(CameraComponent, Primary));
+      |                                                                                            ^
+src/BitPounce/Scripting/ScriptEngine.cpp:252:101: warning: ‘offsetof’ within non-standard-layout type ‘BitPounce::CameraComponent’ is conditionally-supported [-Winvalid-offsetof]
+  252 |                 engine->RegisterObjectProperty("CameraComponent", "bool FixedAspectRatio", offsetof(CameraComponent, FixedAspectRatio));
+      |                                                                                                     ^
 In file included from src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
 src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
-src/BitPounce/Scene/Systems/Renderer2DSystem.h:90:54:   required from here
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
 src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
    27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
       |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
-src/BitPounce/Scene/Systems/Renderer2DSystem.h:119:54:   required from here
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
 src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
-make[1]: *** [Makefile:461: ../bin-int/Debug-linux-x86_64/BitPounce/Renderer2DSystem.o] Error 1
-make[1]: *** Waiting for unfinished jobs....
-make: *** [Makefile:63: BitPounce] Error 2
+src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Core/System.h:2,
+                 from src/Panels/Panel.h:3,
+                 from src/Panels/SceneHierarchyPanel.h:3,
+                 from src/Panels/SceneHierarchyPanel.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Audio/Audio.h:2,
+                 from ../BitPounce/src/BitPounce.h:4,
+                 from src/EditorLayer.h:3,
+                 from src/EditorLayer.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Audio/Audio.h:2,
+                 from ../BitPounce/src/BitPounce.h:4,
+                 from src/main.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Audio/Audio.h:2,
+                 from ../BitPounce/src/BitPounce.h:4,
+                 from src/main.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Audio/Audio.h:2,
+                 from ../BitPounce/src/BitPounce.h:4,
+                 from src/ECSTest.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/BitPounce/Core/Base.h:4,
+                 from ../BitPounce/src/BitPounce/Audio/Audio.h:2,
+                 from ../BitPounce/src/BitPounce.h:4,
+                 from src/Sandbox2D.h:3,
+                 from src/Sandbox2D.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/bp_pch.h:5,
+                 from src/Panels/ContentBrowserPanel.cpp:1:
+../BitPounce/src/BitPounce/Core/PlatformDetection.hpp:37: warning: "BP_PLATFORM_LINUX" redefined
+   37 |         #define BP_PLATFORM_LINUX
+      | 
+<command-line>: note: this is the location of the previous definition
+In file included from ../BitPounce/src/BitPounce.h:41:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:41:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:41,
+                 from src/Panels/SceneHierarchyPanel.h:4:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce.h:41,
+                 from src/Panels/ContentBrowserPanel.h:5,
+                 from src/Panels/ContentBrowserPanel.cpp:2:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:41:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+src/Panels/SceneHierarchyPanel.cpp: In member function ‘void BitPounce::SceneHierarchyPanel::DrawEntityNode(BitPounce::Entity, BitPounce::TagComponent)’:
+src/Panels/SceneHierarchyPanel.cpp:28: warning: format not a string literal and no format arguments [-Wformat-security]
+   28 |                 bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
+      | 
+src/Panels/ContentBrowserPanel.cpp: In member function ‘virtual void BitPounce::ContentBrowserPanel::OnImGuiDraw()’:
+src/Panels/ContentBrowserPanel.cpp:131: warning: format not a string literal and no format arguments [-Wformat-security]
+  131 |                                 ImGui::TextWrapped(childPath.string().c_str());
+      | 
+src/Panels/ContentBrowserPanel.cpp:200: warning: format not a string literal and no format arguments [-Wformat-security]
+  200 |                                 ImGui::TextWrapped(relativePath.filename().string().c_str());
+      | 
+src/EditorLayer.cpp: In member function ‘void BitPounce::EditorLayer::OnDockSpace()’:
+src/EditorLayer.cpp:272: warning: format not a string literal and no format arguments [-Wformat-security]
+  272 |                 ImGui::Text((std::string("Render Calls: ") + std::to_string(renderer2d.RenderCalls)).c_str());
+      | 
+src/EditorLayer.cpp:273: warning: format not a string literal and no format arguments [-Wformat-security]
+  273 |                 ImGui::Text((std::string("Tries: ") + std::to_string(renderer2d.Tries)).c_str());
+      | 
+src/EditorLayer.cpp:274: warning: format not a string literal and no format arguments [-Wformat-security]
+  274 |                 ImGui::Text((std::string("Quads: ") + std::to_string(renderer2d.Quads)).c_str());
+      | 
+src/EditorLayer.cpp:275: warning: format not a string literal and no format arguments [-Wformat-security]
+  275 |                 ImGui::Text((std::string("Indices: ") + std::to_string(renderer2d.Indices)).c_str());
+      | 
+src/EditorLayer.cpp:276: warning: format not a string literal and no format arguments [-Wformat-security]
+  276 |                 ImGui::Text((std::string("Vertices: ") + std::to_string(renderer2d.Vertices)).c_str());
+      | 
+src/EditorLayer.cpp:285: warning: format not a string literal and no format arguments [-Wformat-security]
+  285 |                         ImGui::Text(sys->GetName().c_str());
+      | 
+src/EditorLayer.cpp:314: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  314 |                 ImGui::Image((void*)textureID, rendorPanelSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+      | 
+In file included from ../BitPounce/src/BitPounce.h:41:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TransformComponent; UIFunction = BitPounce::SceneHierarchyPanel::DrawComponents(BitPounce::Entity)::<lambda(auto:131&)>; std::string = std::__cxx11::basic_string<char>]’:
+src/Panels/SceneHierarchyPanel.cpp:61:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+src/Sandbox2D.cpp: In member function ‘virtual void Sandbox2D::OnImGuiRender()’:
+src/Sandbox2D.cpp:196: warning: format not a string literal and no format arguments [-Wformat-security]
+  196 |         ImGui::Text((std::string("Render Calls: ") + std::to_string(renderer2d.RenderCalls)).c_str());
+      | 
+src/Sandbox2D.cpp:197: warning: format not a string literal and no format arguments [-Wformat-security]
+  197 |         ImGui::Text((std::string("Tries: ") + std::to_string(renderer2d.Tries)).c_str());
+      | 
+src/Sandbox2D.cpp:198: warning: format not a string literal and no format arguments [-Wformat-security]
+  198 |         ImGui::Text((std::string("Quads: ") + std::to_string(renderer2d.Quads)).c_str());
+      | 
+src/Sandbox2D.cpp:199: warning: format not a string literal and no format arguments [-Wformat-security]
+  199 |         ImGui::Text((std::string("Indices: ") + std::to_string(renderer2d.Indices)).c_str());
+      | 
+src/Sandbox2D.cpp:200: warning: format not a string literal and no format arguments [-Wformat-security]
+  200 |         ImGui::Text((std::string("Vertices: ") + std::to_string(renderer2d.Vertices)).c_str());
+      | 
+src/Sandbox2D.cpp:209: warning: format not a string literal and no format arguments [-Wformat-security]
+  209 |         ImGui::Text(sys->GetName().c_str());
+      | 
+src/Sandbox2D.cpp: In member function ‘void Sandbox2D::OnDockSpace()’:
+src/Sandbox2D.cpp:223: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  223 |         ImGui::Image((void*)textureID, ImVec2{ 1600, 900 });
+      | 
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce.h:41:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:115:180: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+  115 |                                         ImGui::ImageButton((std::string("TEX_IMG_SpriteRendererComponent") + std::to_string(entity.operator unsigned int())).c_str(), (ImTextureID)(void*)Texture->GetRendererID(), ImVec2(100.0f, 100.0f));
+      |                                                                                                                                                                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../BitPounce/src/BitPounce.h:42:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h: In lambda function:
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: warning: implicit capture of ‘this’ via ‘[=]’ is deprecated in C++20 [-Wdeprecated]
+   22 |             m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+      | 
+../BitPounce/src/BitPounce/Scene/Systems/ScriptableEntitySystem.h:22: note: add explicit ‘this’ or ‘*this’ capture
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+In file included from ../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:10:
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::SpriteRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::SpriteRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:108:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+   27 |                                 bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, name.c_str());
+      |                                             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleRendererComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleRendererComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:136:54:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::TextComponent; UIFunction = BitPounce::Renderer2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::TextComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/Renderer2DSystem.h:145:44:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::Rigidbody2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::Rigidbody2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:53:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::BoxCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::BoxCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:66:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CircleCollider2DComponent; UIFunction = BitPounce::Physics2DSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CircleCollider2DComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/2DPhysicsSystem.h:80:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h: In instantiation of ‘static void BitPounce::ImGuiUtils::DrawComponent(const std::string&, BitPounce::Entity, UIFunction) [with T = BitPounce::CameraComponent; UIFunction = BitPounce::CameraSystem::OnEditorPropImguiDraw(BitPounce::Entity&)::<lambda(BitPounce::CameraComponent&)>; std::string = std::__cxx11::basic_string<char>]’:
+../BitPounce/src/BitPounce/Scene/Systems/CameraSystem.h:31:0:   required from here
+../BitPounce/src/BitPounce/ImGui/ImGuiUtils.h:27:62: warning: format not a string literal and no format arguments [-Wformat-security]

@@ -32,6 +32,7 @@ namespace BitPounce
 
     void Entity::SetParent(Entity &ent)
 	{
+		if(GetTransform().Parent == ent) { return; }
 		GetTransform().Parent = ent;
 		ent.GetChildren().emplace_back(*this);
 

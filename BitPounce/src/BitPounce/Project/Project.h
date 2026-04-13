@@ -17,7 +17,9 @@ namespace BitPounce
 		std::string Name = "Untitled";
 
 		std::filesystem::path StartScene;
+		// Relative to AssetDirectory
 		std::filesystem::path AssetDirectory;
+		std::filesystem::path AssetRegistryPath = "AssetRegistry.bpreg";
 	};
 
 	class Project
@@ -30,6 +32,12 @@ namespace BitPounce
 		static const std::filesystem::path& GetProjectDirectory()
 		{
 			return s_ActiveProject->m_ProjectDirectory;
+		}
+
+		static std::filesystem::path GetAssetRegistryPath()
+		{
+			BP_CORE_ASSERT(s_ActiveProject);
+			return GetAssetDirectory() / s_ActiveProject->m_Config.AssetRegistryPath;
 		}
 
 		static std::filesystem::path GetAssetDirectory()

@@ -17,5 +17,6 @@ namespace BitPounce
         static void SetVolume(AudioID id, float volume);
         static void SetLooping(AudioID id, bool loop);
         static bool UnLoad(AudioID id);
+        static void SetWorldVolume(float volume);
     };
 }

@@ -1,0 +1,269 @@
+{
+	"AssetRegistry": [
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-SemiBoldItalic.ttf",
+			"Handle": 34225964547166130,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-Italic.ttf",
+			"Handle": 539996046713283942,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/Player.png",
+			"Handle": 547497271197996637,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-Regular.ttf",
+			"Handle": 798209348449484109,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "file_example_WAV_10MG.wav",
+			"Handle": 1227631349085125902,
+			"Type": "AssetType::Audio"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-LightItalic.ttf",
+			"Handle": 1253568378311232062,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-LightItalic.ttf",
+			"Handle": 1382134348268291353,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf",
+			"Handle": 1441554370544208483,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-Medium.ttf",
+			"Handle": 1693058822238616161,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-BoldItalic.ttf",
+			"Handle": 2049126523106597147,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "Cache/font_cache_3689559604807646692.png",
+			"Handle": 2197671079290527132,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-ExtraBold.ttf",
+			"Handle": 2567435054503899765,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/Player Up (219th copy).png",
+			"Handle": 3231077236826106527,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/OpenSans-VariableFont_wdth,wght.ttf",
+			"Handle": 4775122794242992869,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-MediumItalic.ttf",
+			"Handle": 5087057902407951813,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-ExtraBoldItalic.ttf",
+			"Handle": 5135472839582381132,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-SemiBold.ttf",
+			"Handle": 5182237220206559036,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-SemiBold.ttf",
+			"Handle": 5468604366493025844,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "Cache/font_cache_8144434656584836110.png",
+			"Handle": 5539259032877446283,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-Italic.ttf",
+			"Handle": 6023129887242734343,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "scenes/Example.bitPounce",
+			"Handle": 6701898145733331557,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-SemiBold.ttf",
+			"Handle": 7421350930941008809,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/SubTexTest.png",
+			"Handle": 7816482924039285401,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-SemiBoldItalic.ttf",
+			"Handle": 7951198012521560460,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-Light.ttf",
+			"Handle": 8674621886753844765,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-Light.ttf",
+			"Handle": 8844446076219624293,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "Cache/font_cache_14462421104056971038.png",
+			"Handle": 9285550296540572581,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-Medium.ttf",
+			"Handle": 9333820471286271381,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "Cache/font_cache_15620298717411641307.png",
+			"Handle": 9400242566675809975,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "Cache/font_cache_3857213476144460221.png",
+			"Handle": 9448996507777631565,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "Cache/font_cache_1453277777376575490.png",
+			"Handle": 9856587614806854873,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-ExtraBoldItalic.ttf",
+			"Handle": 10001953623793153930,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-LightItalic.ttf",
+			"Handle": 10079677000667322603,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-Regular.ttf",
+			"Handle": 11200094283578909849,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-SemiBoldItalic.ttf",
+			"Handle": 12014591007661004333,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "scenes/Physics2D.bitPounce",
+			"Handle": 12112684405258325721,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-Bold.ttf",
+			"Handle": 12142096467144375851,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "scenes/Test.bitPounce",
+			"Handle": 12678243516906091914,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-Medium.ttf",
+			"Handle": 12792161547954770368,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-Regular.ttf",
+			"Handle": 12880032266396538728,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-ExtraBold.ttf",
+			"Handle": 13225526136892902007,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-Bold.ttf",
+			"Handle": 14153800796824089731,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-Light.ttf",
+			"Handle": 14460883379277252317,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/Player Up.png",
+			"Handle": 14461913338250001889,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-MediumItalic.ttf",
+			"Handle": 14509611662903558310,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-BoldItalic.ttf",
+			"Handle": 14814642942812151735,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-ExtraBold.ttf",
+			"Handle": 15948084003053045181,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-Italic.ttf",
+			"Handle": 16870334385444175613,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-BoldItalic.ttf",
+			"Handle": 17510314999715870455,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans-MediumItalic.ttf",
+			"Handle": 17548908202073720929,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_Condensed-Bold.ttf",
+			"Handle": 17869233490479560622,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/Checkerboard.png",
+			"Handle": 17924858911134459790,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "fonts/OpenSans/static/OpenSans_SemiCondensed-ExtraBoldItalic.ttf",
+			"Handle": 18299314351804304776,
+			"Type": "AssetType::Font"
+		}
+	]
+}

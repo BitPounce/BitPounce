@@ -8,6 +8,7 @@
 #include "MSDFData.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_access.hpp>
 
 namespace BitPounce 
 {
@@ -48,6 +49,7 @@ namespace BitPounce
 		glm::vec3 Position;
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
+		int TexID = 0;
 
 		// TODO: bg color for outline/bg
 
@@ -56,6 +58,10 @@ namespace BitPounce
 		int EntityID;
 	};
 
+	struct Frustum
+	{
+		glm::vec4 planes[6]; // left, right, bottom, top, near, far
+	};
 	struct Renderer2DData
 	{
 		static const uint32_t MaxQuads = 10000;
@@ -99,16 +105,65 @@ namespace BitPounce
 		float LineWidth = 2.0f;
 
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		std::array<Ref<Texture2D>, MaxTextureSlots> FontTextureSlots;
 		uint32_t TextureSlotIndex = 1;
+		uint32_t FontTextureSlotIndex = 0;
 
 		Ref<Texture2D> FontAtlasTexture;
 
 		Renderer2D::Renderer2DData RenderData;
 
 		glm::vec4 QuadVertexPositions[4];
+
+		Frustum frustum;
+
 	};
 
 	static Renderer2DData s_Data;
+
+	Frustum ExtractFrustum(const glm::mat4& m)
+	{
+		Frustum f;
+		glm::vec4 row0 = glm::row(m, 0);
+		glm::vec4 row1 = glm::row(m, 1);
+		glm::vec4 row2 = glm::row(m, 2);
+		glm::vec4 row3 = glm::row(m, 3);
+
+		f.planes[0] = row3 + row0;   // left
+		f.planes[1] = row3 - row0;   // right
+		f.planes[2] = row3 + row1;   // bottom
+		f.planes[3] = row3 - row1;   // top
+		f.planes[4] = row3 + row2;   // near
+		f.planes[5] = row3 - row2;   // far
+
+		// Normalize
+		for (int i = 0; i < 6; ++i)
+		{
+			float len = glm::length(glm::vec3(f.planes[i]));
+			f.planes[i] /= len;
+		}
+		return f;
+	}
+
+	static bool ObstructionCulling(const glm::mat4& model, const glm::vec3& localMin = {-0.5f, -0.5f, -0.5f}, const glm::vec3& localMax = { 0.5f,  0.5f,  0.5f})
+	{
+		glm::vec3 center = (localMin + localMax) * 0.5f;
+		glm::vec3 extents = (localMax - localMin) * 0.5f;
+
+		glm::vec3 worldCenter = glm::vec3(model * glm::vec4(center, 1.0f));
+		glm::mat3 absM = glm::mat3(glm::abs(model[0]), glm::abs(model[1]), glm::abs(model[2]));
+		glm::vec3 worldExtents = absM * extents;
+
+		for (int i = 0; i < 6; ++i)
+		{
+			glm::vec3 normal = glm::vec3(s_Data.frustum.planes[i]);
+			float distance = glm::dot(normal, worldCenter) + s_Data.frustum.planes[i].w;
+			float radius = glm::dot(worldExtents, glm::abs(normal));
+			if (distance < -radius)
+				return false;   // completely outside
+		}
+		return true;
+	}
 
 	void Renderer2D::FlushAndReset()
 	{
@@ -189,6 +244,7 @@ namespace BitPounce
 			{ ShaderDataType::Float3, "a_Position"     },
 			{ ShaderDataType::Float4, "a_Color"        },
 			{ ShaderDataType::Float2, "a_TexCoord"     },
+			{ ShaderDataType::Int,  "a_TexID" },
 			{ ShaderDataType::Int,    "a_EntityID"     }
 		});
 		s_Data.TextVertexArray->AddVertexBuffer(s_Data.TextVertexBuffer);
@@ -223,8 +279,8 @@ namespace BitPounce
 		delete[] s_Data.QuadVertexBufferBase;
 	}
 
-    void Renderer2D::BeginScene(const glm::mat4 &matrix)
-    {
+	void Renderer2D::BeginScene(const glm::mat4 &matrix)
+	{
 		s_Data.RenderData = Renderer2D::Renderer2DData();
 		s_Data.QuadShader->Bind();
 		s_Data.QuadShader->SetMat4("u_ViewProjection", matrix);
@@ -252,7 +308,16 @@ namespace BitPounce
 		s_Data.TextVertexBufferPtr = s_Data.TextVertexBufferBase;
 		s_Data.TextShader->Bind();
 		s_Data.TextShader->SetMat4("u_ViewProjection", matrix);
-    }
+		s_Data.FontTextureSlotIndex = 0;
+
+		s_Data.frustum = ExtractFrustum(matrix);
+		
+	}
+
+	static bool FrustumCulling(const glm::mat4& mat)
+	{
+
+	}
 
 	void Renderer2D::BeginScene(const EditorCamera& camera)
 	{
@@ -260,12 +325,12 @@ namespace BitPounce
 		BeginScene(viewProj);
 	}
 
-    void Renderer2D::BeginScene(const Camera &camera, const glm::mat4 &transform)
-    {
+	void Renderer2D::BeginScene(const Camera &camera, const glm::mat4 &transform)
+	{
 		BeginScene(camera.GetProjection() * glm::inverse(transform));
-    }
+	}
 
-    void Renderer2D::BeginScene(const OrthographicCamera& camera)
+	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
 		BeginScene(camera.GetViewProjectionMatrix());
 	}
@@ -313,15 +378,22 @@ namespace BitPounce
 
 		if (s_Data.TextIndexCount)
 		{
-			uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.TextVertexBufferPtr - (uint8_t*)s_Data.TextVertexBufferBase);
-			s_Data.TextVertexBuffer->SetData(s_Data.TextVertexBufferBase, dataSize);
-
-			auto buf = s_Data.TextVertexBufferBase;
-			s_Data.FontAtlasTexture->Bind(0);
-
-			s_Data.TextShader->Bind();
-			RenderCommand::DrawIndexed(s_Data.TextVertexArray, s_Data.TextIndexCount);
-			s_Data.RenderData.RenderCalls++;
+		    uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.TextVertexBufferPtr - (uint8_t*)s_Data.TextVertexBufferBase);
+		    s_Data.TextVertexBuffer->SetData(s_Data.TextVertexBufferBase, dataSize);
+		
+		    // Bind all used font textures
+		    for (uint32_t i = 0; i < s_Data.FontTextureSlotIndex; i++)
+		        s_Data.FontTextureSlots[i]->Bind(i);
+		
+		    s_Data.TextShader->Bind();
+		    // Set the texture array uniform (once, could be done in Init)
+		    int samplers[s_Data.MaxTextureSlots];
+		    for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
+		        samplers[i] = i;
+		    s_Data.TextShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+		
+		    RenderCommand::DrawIndexed(s_Data.TextVertexArray, s_Data.TextIndexCount);
+		    s_Data.RenderData.RenderCalls++;
 		}
 	}
 
@@ -405,9 +477,43 @@ namespace BitPounce
 			texCoordMin *= glm::vec2(texelWidth, texelHeight);
 			texCoordMax *= glm::vec2(texelWidth, texelHeight);
 
+			glm::mat4 glyphTransform = transform *
+				glm::translate(glm::mat4(1.0f), glm::vec3(quadMin, 0.0f)) *
+				glm::scale(glm::mat4(1.0f), glm::vec3(quadMax - quadMin, 1.0f));
+
+			if(!ObstructionCulling(glyphTransform))
+			{
+				if (i < string.size() - 1)
+				{
+					double advance = glyph->getAdvance();
+					char nextCharacter = string[i + 1];
+					fontGeometry.getAdvance(advance, character, nextCharacter);
+				
+					x += fsScale * advance + textParams.Kerning;
+				}
+				continue;
+			}
+
+			float textureIndex = -1.0f;
+			for (uint32_t i = 0; i < s_Data.FontTextureSlotIndex; i++)
+			{
+			    if (*s_Data.FontTextureSlots[i] == *fontAtlas)
+			    {
+			        textureIndex = (float)i;
+			        break;
+			    }
+			}
+			if (textureIndex < 0.0f)
+			{
+			    textureIndex = (float)s_Data.FontTextureSlotIndex;
+			    s_Data.FontTextureSlots[s_Data.FontTextureSlotIndex] = fontAtlas;
+			    s_Data.FontTextureSlotIndex++;
+			}
+
 			// render here
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = textParams.Colour;
+			s_Data.TextVertexBufferPtr->TexID = (int)textureIndex;
 			s_Data.TextVertexBufferPtr->TexCoord = texCoordMin;
 			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
@@ -415,17 +521,20 @@ namespace BitPounce
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin.x, quadMax.y, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = textParams.Colour;
 			s_Data.TextVertexBufferPtr->TexCoord = { texCoordMin.x, texCoordMax.y };
+			s_Data.TextVertexBufferPtr->TexID = (int)textureIndex;
 			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = textParams.Colour;
+			s_Data.TextVertexBufferPtr->TexID = (int)textureIndex;
 			s_Data.TextVertexBufferPtr->TexCoord = texCoordMax;
 			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax.x, quadMin.y, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = textParams.Colour;
+			s_Data.TextVertexBufferPtr->TexID = (int)textureIndex;
 			s_Data.TextVertexBufferPtr->TexCoord = { texCoordMax.x, texCoordMin.y };
 			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
@@ -451,6 +560,10 @@ namespace BitPounce
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 
 		s_Data.RenderData.Quads += 1;
 		s_Data.RenderData.Vertices += 4;
@@ -498,6 +611,10 @@ namespace BitPounce
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 
 		s_Data.RenderData.Quads += 1;
 		s_Data.RenderData.Vertices += 4;
@@ -530,8 +647,13 @@ namespace BitPounce
 		s_Data.QuadIndexCount += 6;
 	}
 
-    void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& colour, int entityID)
-    {
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& colour, int entityID)
+	{
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
+
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -550,10 +672,14 @@ namespace BitPounce
 		}
 
 		s_Data.QuadIndexCount += 6;
-    }
+	}
 
-    void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec4& tintColour, float tilingFactor , int entityID)
-    {
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec4& tintColour, float tilingFactor , int entityID)
+	{
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -589,15 +715,78 @@ namespace BitPounce
 		}
 
 		s_Data.QuadIndexCount += 6;
+	}
+
+    void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const glm::u32vec2 subTexSize, const glm::u32vec2 subTexIndex, const glm::vec4 &tintColour, int entityID)
+    {
+		glm::u32vec2 texSize = glm::u32vec2(texture->GetWidth(), texture->GetHeight());
+
+    	// Compute pixel coordinates of the four corners of the sub‑texture
+    	glm::u32vec2 a = subTexIndex * subTexSize;                               // top‑left
+    	glm::u32vec2 b = glm::u32vec2((subTexIndex.x + 1) * subTexSize.x, subTexIndex.y * subTexSize.y);            // top‑right
+    	glm::u32vec2 c = (subTexIndex + glm::u32vec2(1, 1)) * subTexSize;        // bottom‑right
+    	glm::u32vec2 e = glm::u32vec2(subTexIndex.x * subTexSize.x, (subTexIndex.y + 1) * subTexSize.y);      // bottom‑left
+
+		std::array<glm::vec2, 4> uvs = {a,b,c,e};
+
+		for (int i = 0; i < 4; i++)
+		{
+			uvs[i] /= texSize;
+		}
+
+		DrawQuad(transform, texture, uvs, tintColour, entityID);
+    }
+
+    void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const std::array<glm::vec2, 4> uvs, const glm::vec4 &tintColour, int entityID)
+    {
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
+		s_Data.RenderData.Quads += 1;
+		s_Data.RenderData.Vertices += 4;
+		s_Data.RenderData.Indices += 6;
+
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*s_Data.TextureSlots[i] == *texture)
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
+			s_Data.TextureSlotIndex++;
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Colour = tintColour;
+			s_Data.QuadVertexBufferPtr->TexCoord = uvs[i];
+			s_Data.QuadVertexBufferPtr->TexID = textureIndex;
+			s_Data.QuadVertexBufferPtr->EntityID = entityID;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
     }
 
     void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
-    {
+	{
 		DrawRotatedQuad(glm::vec3(position, 0), size, rotation, colour);
-    }
+	}
 
-    void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
-    {
+	void Renderer2D::DrawRotatedQuad(const glm::vec3 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
+	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -605,9 +794,9 @@ namespace BitPounce
 		DrawQuad(transform, colour);
 
 
-    }
+	}
 
-    // Rotated textured quads (radians)
+	// Rotated textured quads (radians)
 	void Renderer2D::DrawRotatedQuad( const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColour)
 	{
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tilingFactor, tintColour);
@@ -615,6 +804,7 @@ namespace BitPounce
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColour)
 	{
+		
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -638,7 +828,11 @@ namespace BitPounce
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), rotation, {0.0f, 0.0f, 1.0f})
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-
+			
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 		for (int i = 0; i < 4; i++)
 		{
 			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
@@ -651,7 +845,7 @@ namespace BitPounce
 		s_Data.QuadIndexCount += 6;
 	}
 
-    void Renderer2D::DrawLine(const glm::vec3& p0, glm::vec3& p1, const glm::vec4& color, int entityID)
+	void Renderer2D::DrawLine(const glm::vec3& p0, glm::vec3& p1, const glm::vec4& color, int entityID)
 	{
 		s_Data.LineVertexBufferPtr->Position = p0;
 		s_Data.LineVertexBufferPtr->Color = color;
@@ -681,6 +875,10 @@ namespace BitPounce
 
 	void Renderer2D::DrawRect(const glm::mat4& transform, const glm::vec4& color, int entityID)
 	{
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 		glm::vec3 lineVertices[4];
 		for (size_t i = 0; i < 4; i++)
 			lineVertices[i] = transform * s_Data.QuadVertexPositions[i];
@@ -691,9 +889,12 @@ namespace BitPounce
 		DrawLine(lineVertices[3], lineVertices[0], color);
 	}
 
-    void Renderer2D::DrawCircle(const glm::mat4 &transform, const glm::vec4 &color, float thickness, float fade, int entityID)
-    {
-
+	void Renderer2D::DrawCircle(const glm::mat4 &transform, const glm::vec4 &color, float thickness, float fade, int entityID)
+	{
+		if(!ObstructionCulling(transform))
+		{
+			return;
+		}
 
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -709,9 +910,9 @@ namespace BitPounce
 		s_Data.CircleIndexCount += 6;
 
 		s_Data.RenderData.Quads++;
-    }
+	}
 
-    float Renderer2D::GetLineWidth()
+	float Renderer2D::GetLineWidth()
 	{
 		return s_Data.LineWidth;
 	}
@@ -721,7 +922,7 @@ namespace BitPounce
 		s_Data.LineWidth = width;
 	}
 
-    Renderer2D::Renderer2DData Renderer2D::Get()
+	Renderer2D::Renderer2DData Renderer2D::Get()
 	{
 		return s_Data.RenderData;
 	}

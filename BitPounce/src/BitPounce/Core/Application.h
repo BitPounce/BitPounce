@@ -49,6 +49,7 @@ namespace BitPounce
 		}
 
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+		void OnEvent(Event& event);
 
 	private:
 		float m_LastFrameTime = 0.0f;
@@ -60,7 +61,7 @@ namespace BitPounce
 		int m_ErrorCode = -1;
 		bool m_IsRunning = true;
 		bool m_IsPoolingEvents = false;
-		void OnEvent(Event& event);
+		
 		bool OnWindowResize(WindowResizeEvent& e);
 		
 	};

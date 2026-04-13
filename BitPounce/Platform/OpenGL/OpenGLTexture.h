@@ -15,6 +15,7 @@ namespace BitPounce {
 		OpenGLTexture2D(const TextureSpecification& specification);
 		OpenGLTexture2D(uint32_t width, uint32_t height);
 		OpenGLTexture2D(const std::string& path);
+		OpenGLTexture2D(const TextureSpecification& specification, const std::string& path);
 		virtual ~OpenGLTexture2D();
 
 		virtual const TextureSpecification& GetSpecification() const override { return m_Specification; }

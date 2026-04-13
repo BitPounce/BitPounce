@@ -115,6 +115,7 @@ namespace BitPounce
 
     struct AudioDeviceData
     {
+        float worldVolume = 0.5f;
         ma_device device;
         bool initialized = false;
         ma_uint32 maxFramesPerCallback = PERIOD_SIZE_FRAMES;
@@ -125,7 +126,7 @@ namespace BitPounce
         CommandQueue cmdQueue;
     };
 
-    static AudioDeviceData* g_Data = nullptr;
+    static AudioDeviceData* s_Data = nullptr;
 
     static inline float SoftClip(float x)
     {
@@ -252,14 +253,17 @@ namespace BitPounce
         for (ma_uint32 i = 0; i < totalSamples; ++i)
         {
             out[i] = SoftClip(out[i]);
+            out[i] *= data->worldVolume;
         }
+
+        
 
         data->sourceMutex.unlock();
     }
 
     void AudioDevice::Init()
     {
-        if (g_Data != nullptr)
+        if (s_Data != nullptr)
             return;
 
         auto* data = new AudioDeviceData();
@@ -289,31 +293,31 @@ namespace BitPounce
             return;
         }
 
-        g_Data = data;
+        s_Data = data;
     }
 
     void AudioDevice::UnInit()
     {
-        if (!g_Data)
+        if (!s_Data)
             return;
 
-        ma_device_uninit(&g_Data->device);
+        ma_device_uninit(&s_Data->device);
 
         // Manually delete all sources
         {
-            std::lock_guard<std::mutex> lock(g_Data->sourceMutex);
-            for (auto* src : g_Data->sources)
+            std::lock_guard<std::mutex> lock(s_Data->sourceMutex);
+            for (auto* src : s_Data->sources)
                 delete src;
-            g_Data->sources.clear();
+            s_Data->sources.clear();
         }
 
-        delete g_Data;
-        g_Data = nullptr;
+        delete s_Data;
+        s_Data = nullptr;
     }
 
     AudioID AudioDevice::Load(const std::filesystem::path& filepath, bool loop)
     {
-        if (!g_Data || !g_Data->initialized)
+        if (!s_Data || !s_Data->initialized)
             return 0;
 
         auto* source = new AudioSource();   // raw allocation
@@ -329,9 +333,9 @@ namespace BitPounce
                 source->decoder.outputFormat,
                 ma_format_f32,
                 source->decoder.outputChannels,
-                g_Data->device.playback.channels,
+                s_Data->device.playback.channels,
                 source->decoder.outputSampleRate,
-                g_Data->device.sampleRate
+                s_Data->device.sampleRate
             );
         if (ma_data_converter_init(&converterConfig, nullptr, &source->converter) != MA_SUCCESS)
         {
@@ -341,8 +345,8 @@ namespace BitPounce
         }
 
         if (!source->allocateBuffers(
-                g_Data->maxFramesPerCallback,
-                g_Data->device.playback.channels,
+                s_Data->maxFramesPerCallback,
+                s_Data->device.playback.channels,
                 source->decoder.outputChannels))
         {
             ma_data_converter_uninit(&source->converter, nullptr);
@@ -357,9 +361,9 @@ namespace BitPounce
 
         size_t index;
         {
-            std::lock_guard<std::mutex> lock(g_Data->sourceMutex);
-            index = g_Data->sources.size();
-            g_Data->sources.push_back(source);
+            std::lock_guard<std::mutex> lock(s_Data->sourceMutex);
+            index = s_Data->sources.size();
+            s_Data->sources.push_back(source);
         }
 
         return static_cast<AudioID>(index + 1);
@@ -367,68 +371,72 @@ namespace BitPounce
 
     void AudioDevice::Play(AudioID id)
     {
-        if (!g_Data || !g_Data->initialized || id == 0)
+        if (!s_Data || !s_Data->initialized || id == 0)
             return;
 
         CommandQueue::Command cmd;
         cmd.type = CommandQueue::Type::Play;
         cmd.handle = id;
-        g_Data->cmdQueue.push(cmd);
+        s_Data->cmdQueue.push(cmd);
     }
 
     void AudioDevice::Stop(AudioID id)
     {
-        if (!g_Data || !g_Data->initialized || id == 0)
+        if (!s_Data || !s_Data->initialized || id == 0)
             return;
 
         CommandQueue::Command cmd;
         cmd.type = CommandQueue::Type::Stop;
         cmd.handle = id;
-        g_Data->cmdQueue.push(cmd);
+        s_Data->cmdQueue.push(cmd);
     }
 
     void AudioDevice::SetVolume(AudioID id, float volume)
     {
-        if (!g_Data || !g_Data->initialized || id == 0)
+        if (!s_Data || !s_Data->initialized || id == 0)
             return;
 
         CommandQueue::Command cmd;
         cmd.type = CommandQueue::Type::SetVolume;
         cmd.handle = id;
         cmd.value = volume;
-        g_Data->cmdQueue.push(cmd);
+        s_Data->cmdQueue.push(cmd);
     }
 
     void AudioDevice::SetLooping(AudioID id, bool loop)
     {
-        if (!g_Data || !g_Data->initialized || id == 0)
+        if (!s_Data || !s_Data->initialized || id == 0)
             return;
 
         CommandQueue::Command cmd;
         cmd.type = CommandQueue::Type::SetLooping;
         cmd.handle = id;
         cmd.flag = loop;
-        g_Data->cmdQueue.push(cmd);
+        s_Data->cmdQueue.push(cmd);
     }
     bool AudioDevice::UnLoad(AudioID id)
     {
 
-        if (!g_Data || !g_Data->initialized || id == 0)
+        if (!s_Data || !s_Data->initialized || id == 0)
             return false;
 
         size_t idx = static_cast<size_t>(id - 1);
 
-        std::lock_guard<std::mutex> lock(g_Data->sourceMutex);
+        std::lock_guard<std::mutex> lock(s_Data->sourceMutex);
 
-        if (idx >= g_Data->sources.size())
+        if (idx >= s_Data->sources.size())
             return false;
 
-        AudioSource* src = g_Data->sources[idx];
+        AudioSource* src = s_Data->sources[idx];
         if (!src)
             return false;   // already unloaded
 
         delete src;
-        g_Data->sources[idx] = nullptr;   // leave a hole
+        s_Data->sources[idx] = nullptr;   // leave a hole
         return true;
+    }
+    void AudioDevice::SetWorldVolume(float volume)
+    {
+        s_Data->worldVolume = volume;
     }
 }

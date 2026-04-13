@@ -11,6 +11,8 @@ namespace BitPounce {
 	{
 	public:
 		static Ref<Texture2D> ImportTexture2D(AssetHandle handle, const AssetMetadata& metadata);
+		static Ref<Texture2D> ImportTexture2D(const std::filesystem::path& filepath);
+		static Buffer LoadTextureData(const std::filesystem::path& filepath, int* width, int* height, int* channels);
 	};
 
 

@@ -44,3 +44,6 @@
 [submodule "BitPounce/vendor/msdf-atlas-gen"]
 	path = BitPounce/vendor/msdf-atlas-gen
 	url = https://github.com/BitPounce/msdf-atlas-gen
+[submodule "BitPounce/vendor/BitPouncePack"]
+	path = BitPounce/vendor/BitPouncePack
+	url = https://github.com/BitPounce/BitPouncePack

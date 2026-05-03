@@ -107,6 +107,7 @@ namespace BitPounce
 
         Buffer(uint64_t size)
         {
+            Size = size;
             Allocate(size);
         }
 
@@ -116,6 +117,7 @@ namespace BitPounce
             {
                 Allocate(other.Size);
                 memcpy(Data, other.Data, other.Size);
+                Size = other.Size;
             }
         }
 

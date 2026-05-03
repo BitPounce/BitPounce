@@ -12,7 +12,7 @@ public:
 	virtual void OnDetach() override;
 
 	void OnUpdate(BitPounce::Timestep& ts) override;
-	virtual void OnImGuiRender() override;
+	virtual void OnImGuiRender(BitPounce::Timestep& ts) override;
 	void OnDockSpace();
 	void OnEvent(BitPounce::Event& e) override;
 

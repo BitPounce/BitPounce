@@ -8,6 +8,7 @@
 #include "BitPounce/Audio/AudioDevice.h"
 #include "BitPounce/Core/SystemManager.h"
 #include <BitPounce/Scripting/ScriptEngine.h>
+#include <BitPouncePack/BitPouncePack.h>
 #include <functional>
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -30,8 +31,6 @@ namespace BitPounce
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
-		
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -90,13 +89,12 @@ namespace BitPounce
 
 		for (Layer* layer : m_LayerStack)
 		{
-			layer->OnImGuiRender();
+			layer->OnImGuiRender(timestep);
 		}
 		
 
 		m_ImGuiLayer->End();
 		
-		m_Window->SetVSync(false);
 		m_Window->OnUpdate(m_IsPoolingEvents);
 	}
 

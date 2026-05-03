@@ -11,6 +11,7 @@ namespace BitPounce {
 	{
 		std::vector<msdf_atlas::GlyphGeometry> Glyphs;
 		msdf_atlas::FontGeometry FontGeometry;
+		double Scale = 160.0;
 	};
 
 

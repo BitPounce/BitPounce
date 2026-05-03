@@ -5,6 +5,7 @@
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 
+
 namespace BitPounce {
 
 	class EditorLayer : public Layer
@@ -17,15 +18,16 @@ namespace BitPounce {
 		virtual void OnDetach() override;
 
 		void OnUpdate(Timestep& ts) override;
-		virtual void OnImGuiRender() override;
-		void OnDockSpace();
+		virtual void OnImGuiRender(BitPounce::Timestep& ts) override;
+		void OnDockSpace(BitPounce::Timestep& ts);
 		void OnEvent(Event& e) override;
-
+		
 
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnAssetPreloaded(AssetPreLoadedEvent& e);
 		bool OnScenePreloaded(AssetPreLoadedEvent& e);
+		void BuildAssetPack();
 
 		bool NewProject();
 		void NewProject(const std::filesystem::path& path);
@@ -48,6 +50,7 @@ namespace BitPounce {
 		EditorCamera m_EditorCamera;
 
 		PanelManager m_Panels;
+		ImGuiConsoleWindow m_ConsoleWindow;
 		OrthographicCameraController m_CameraController;
 		float m_time = 0.0f;
 

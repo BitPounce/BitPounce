@@ -7,6 +7,7 @@
 #include <BitPounce/Scene/ECSSystem.h>
 
 
+
 namespace BitPounce 
 {
 	struct SceneAssetMetadata
@@ -23,5 +24,7 @@ namespace BitPounce
 
 		operator bool() const { return Type != AssetType::None; }
 	};
+
+	using AssetRegistry = std::map<AssetHandle, AssetMetadata>;
 
 }

@@ -24,7 +24,7 @@ namespace BitPounce
         virtual void OnUpdate(Timestep& ts);
         virtual void OnDraw(Timestep& ts);
         virtual void OnEvent(Event& event);
-        virtual void OnImGuiDraw();
+        virtual void OnImGuiDraw(Timestep& ts);
         virtual void Start();
         virtual void Stop();
 

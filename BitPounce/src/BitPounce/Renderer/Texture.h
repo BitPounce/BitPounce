@@ -11,6 +11,7 @@ namespace BitPounce
 	{
 		None = 0,
 		R8,
+		RG8,
 		RGB8,
 		RGBA8,
 		RGBA32F
@@ -31,6 +32,7 @@ namespace BitPounce
 		bool GenerateMips = true;
 	};
 
+	
 	class Texture : public Asset
 	{
 	public:
@@ -38,14 +40,15 @@ namespace BitPounce
 
 		virtual const TextureSpecification& GetSpecification() const = 0;
 
-		virtual uint32_t GetWidth() const = 0;
-		virtual uint32_t GetHeight() const = 0;
-		virtual uint32_t GetRendererID() const = 0;
-		virtual const std::string& GetPath() const = 0;
+		virtual uint32_t GetWidth() const = NULL0;
+		virtual uint32_t GetHeight() const = NULL0;
+		virtual uint32_t GetRendererID() const = NULL0;
+		virtual const std::string& GetPath() const = NULL0;
 
-		virtual void SetData(void* data, uint32_t size) = 0;
+		virtual void SetData(void* data, uint32_t size) = NULL0;
+		virtual Buffer GetData() = NULL0;
 
-		virtual void Bind(uint32_t slot = 0) const = 0;
+		virtual void Bind(uint32_t slot = 0) const = NULL0;
 
 	};
 

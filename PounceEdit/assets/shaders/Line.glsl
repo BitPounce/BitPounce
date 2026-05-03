@@ -6,8 +6,8 @@ layout(location = 2) in int a_EntityID;
 
 uniform mat4 u_ViewProjection;
 
-layout (location = 0) out vec4 v_Colour;
-layout (location = 1) flat out int v_EntityID;
+out vec4 v_Colour;
+flat out int v_EntityID;
 
 void main()
 {
@@ -21,8 +21,8 @@ void main()
 layout(location = 0) out vec4 o_Colour;
 layout(location = 1) out int o_EntityID;
 
-layout (location = 0) in vec4 v_Colour;
-layout (location = 1) flat in int v_EntityID;
+in vec4 v_Colour;
+flat in int v_EntityID;
 
 
 void main()

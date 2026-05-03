@@ -17,6 +17,7 @@ namespace BitPounce
 			{
 				case ImageFormat::RGB8:  return GL_RGB;
 				case ImageFormat::RGBA8: return GL_RGBA;
+				case ImageFormat::RG8: return GL_RG;
 			}
 
 			BP_CORE_ASSERT(false, "Formart haz no rizz");
@@ -29,6 +30,7 @@ namespace BitPounce
 			{
 				case ImageFormat::RGB8:  return GL_RGB8;
 				case ImageFormat::RGBA8: return GL_RGBA8;
+				case ImageFormat::RG8: return GL_RG8;
 			}
 
 			BP_CORE_ASSERT(false, "Formart haz no rizz");
@@ -165,6 +167,7 @@ namespace BitPounce
 	{
 		int channels = -1;
 		if (m_DataFormat == GL_RED) channels = 1;
+		else if (m_DataFormat == GL_RG) channels = 2;
 		else if (m_DataFormat == GL_RGB) channels = 3;
 		else if (m_DataFormat == GL_RGBA) channels = 4;
 
@@ -192,9 +195,47 @@ namespace BitPounce
 		delete[] pixels;
 	}
 
-	void OpenGLTexture2D::SetData(void* data, uint32_t size)
+    Buffer OpenGLTexture2D::GetData()
+    {
+        int channels = -1;
+		if (m_DataFormat == GL_RED) channels = 1;
+		else if (m_DataFormat == GL_RG) channels = 2;
+		else if (m_DataFormat == GL_RGB) channels = 3;
+		else if (m_DataFormat == GL_RGBA) channels = 4;
+
+		Bind();
+		int data_size = m_Width * m_Height * channels;
+		GLubyte* pixels = new GLubyte[data_size];
+
+		stbi_flip_vertically_on_write(1);
+
+		{
+			// HACK: ES does not support glGetTexImage, whyyyyyyyy!!!
+			GLuint fbo;
+			glGenFramebuffers(1, &fbo); 
+			glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RendererID, 0);
+
+			glReadPixels(0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, pixels);
+
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glDeleteFramebuffers(1, &fbo);
+		}
+
+		Buffer buffer = Buffer(data_size);
+		memcpy(buffer.As<void>(), pixels, data_size);
+		delete[] pixels;
+		return buffer;
+    }
+
+    void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		if(m_DataFormat == GL_RG)
+		{
+			bpp = 2;
+		}
 		BP_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glTexImage2D(GL_TEXTURE_2D, 0, m_DataFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}

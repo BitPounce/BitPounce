@@ -2,6 +2,7 @@
 #include "BitPounce/Core/SystemManager.h"
 #include "ECSSystem.h"
 #include "SceneSerializerUtils.h"
+#include "BitPouncePack/BitPouncePack.h"
 #include <BitPounce/Renderer/EditorCamera.h>
 #include <entt/entt.hpp>
 
@@ -12,15 +13,18 @@ namespace BitPounce
 	class ECSSystemManager : public SystemManager
 	{
 	public:
-		void OnRuntimeStart();
-		void OnRuntimeStop();
-		void OnEditorPropImguiDraw(Entity& entity);
-		void AddComponentPopupImguiDraw(Entity& ent);
-		void OnRemoveEntity(Entity& ent);
-		void Serialize(nlohmann::json& json);
-		void Deserialize(nlohmann::json& json);
-		void OnDrawEditor(Timestep& ts, EditorCamera& cam);
-		void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap);
+		virtual void OnRuntimeStart();
+		virtual void OnRuntimeStop();
+		virtual void SerializeRuntime(BitPouncePack::PackScene* packScene);
+		virtual void OnEditorPropImguiDraw(Entity& entity);
+		//virtual void OnImguiDraw(Timestep ts);
+		virtual void AddComponentPopupImguiDraw(Entity& ent);
+		virtual void OnRemoveEntity(Entity& ent);
+		virtual void Serialize(nlohmann::json& json);
+		virtual void Deserialize(nlohmann::json& json);
+		virtual void DeserializeRuntime(BitPouncePack::PackScene* packScene);
+		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam);
+		virtual void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap);
 	protected:
 		Scene* m_Scene;
 

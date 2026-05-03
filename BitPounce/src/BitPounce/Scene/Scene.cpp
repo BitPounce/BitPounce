@@ -83,7 +83,12 @@ namespace BitPounce {
 
 	}
 
-	void Scene::OnEvent(Event &e)
+    void Scene::OnImguiDraw(Timestep ts)
+    {
+		m_sysManager.OnImGuiDraw(ts);
+    }
+
+    void Scene::OnEvent(Event &e)
 	{
 		m_sysManager.OnEvent(e);
 
@@ -112,6 +117,7 @@ namespace BitPounce {
 		newScene->m_ViewportWidth = other->m_ViewportWidth;
 		newScene->m_ViewportHeight = other->m_ViewportHeight;
 		newScene->Handle = other->Handle;
+		newScene->name = other->GetName();
 
 		auto& srcSceneRegistry = other->m_Registry;
 		auto& dstSceneRegistry = newScene->m_Registry;
@@ -246,10 +252,20 @@ namespace BitPounce {
 		m_sysManager.Serialize(json);
 	}
 
-	void Scene::Deserialize(nlohmann::json& json)
+    void Scene::SerializeRuntime(BitPouncePack::PackScene* packScene)
+    {
+		m_sysManager.SerializeRuntime(packScene);
+    }
+
+    void Scene::Deserialize(nlohmann::json& json)
 	{
 		m_sysManager.Deserialize(json);
 	}
+
+    void Scene::DeserializeRuntime(BitPouncePack::PackScene *packScene)
+    {
+		m_sysManager.DeserializeRuntime(packScene);
+    }
 
     void Scene::RemoveAll()
     {

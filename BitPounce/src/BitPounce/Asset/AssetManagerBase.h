@@ -6,7 +6,7 @@
 
 namespace BitPounce {
 
-	using AssetMap = std::map<AssetHandle, Ref<Asset>>;
+	
 
 	class AssetManagerBase
 	{

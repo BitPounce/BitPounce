@@ -25,7 +25,7 @@ namespace BitPounce {
 		m_Mode = Mode::FileSystem;
 	}
 
-	void ContentBrowserPanel::OnImGuiDraw()
+	void ContentBrowserPanel::OnImGuiDraw(BitPounce::Timestep& ts)
 	{
 		ImGui::Begin("Content Browser");
 

@@ -2,7 +2,7 @@
 
 #include "Scene.h"
 #include "SceneSerializerUtils.h"
-
+#include <BitPouncePack/BitPouncePack.h>
 
 namespace BitPounce 
 {
@@ -12,12 +12,14 @@ namespace BitPounce
 	public:
 		SceneSerializer(const Ref<Scene>& scene);
 
-		void Serialize(const std::string& filepath);
-		void SerializeRuntime(const std::string& filepath);
+		virtual void Serialize(const std::string& filepath);
+		virtual BitPouncePack::PackScene SerializeRuntime();
 
-		bool Deserialize(const std::string& filepath);
-		bool DeserializeRuntime(const std::string& filepath);
-	private:
+		virtual bool Deserialize(const std::string& filepath);
+		virtual bool DeserializeRuntime(const BitPouncePack::PackScene& packScene);
+	protected:
+		virtual nlohmann::json SceneToJson();
+		virtual bool Deserialize_IN(nlohmann::json json);
 		Ref<Scene> m_Scene;
 	};
 

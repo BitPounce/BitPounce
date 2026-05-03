@@ -185,7 +185,7 @@ public:
 		m_CameraController.OnEvent(event);
 	}
 
-	void OnImGuiRender() override
+	void OnImGuiRender(BitPounce::Timestep& ts) override
 	{
 		ImGui::Begin("Debug");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",

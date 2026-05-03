@@ -17,6 +17,138 @@ namespace BitPounce
         	return new CameraSystem(*this);
     	}
 
+		virtual void SerializeRuntime(BitPouncePack::PackScene* packScene) override
+		{
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    // Helper: find entity object
+		    auto FindEntityObj = [&](entt::entity e) -> BitPouncePack::SerializationObject*
+		    {
+		        for (auto& obj : packScene->Entities.GetAll())
+		        {
+		            if (obj.Get<uint32_t>("entityId", BitPouncePack::SerializationType::Uint32) == (uint32_t)e)
+		                return &obj;
+		        }
+		        return nullptr;
+		    };
+		
+		    auto view = registry.view<CameraComponent>();
+		    for (auto entity : view)
+		    {
+		        auto* ent = FindEntityObj(entity);
+		        if (!ent) continue;
+			
+		        auto& camComponent = view.get<CameraComponent>(entity);
+			
+		        BitPouncePack::SerializationObject camObj;
+		        camObj.Set("Type", BitPouncePack::SerializationType::String, std::string("CameraComponent"));
+		        camObj.Set("Primary", BitPouncePack::SerializationType::Bool, camComponent.Primary);
+		        camObj.Set("FixedAspectRatio", BitPouncePack::SerializationType::Bool, camComponent.FixedAspectRatio);
+		        camObj.Set("BgColour", BitPouncePack::SerializationType::Colour, camComponent.BgColour);
+			
+		        auto& cam = camComponent.Camera;
+			
+		        camObj.Set("ProjectionType", BitPouncePack::SerializationType::Int32, (int)cam.GetProjectionType());
+			
+		        // Perspective
+		        camObj.Set("PerspectiveFOV", BitPouncePack::SerializationType::Float, cam.GetPerspectiveVerticalFOV());
+		        camObj.Set("PerspectiveNear", BitPouncePack::SerializationType::Float, cam.GetPerspectiveNearClip());
+		        camObj.Set("PerspectiveFar", BitPouncePack::SerializationType::Float, cam.GetPerspectiveFarClip());
+			
+		        // Orthographic
+		        camObj.Set("OrthoSize", BitPouncePack::SerializationType::Float, cam.GetOrthographicSize());
+		        camObj.Set("OrthoNear", BitPouncePack::SerializationType::Float, cam.GetOrthographicNearClip());
+		        camObj.Set("OrthoFar", BitPouncePack::SerializationType::Float, cam.GetOrthographicFarClip());
+			
+		        auto components = ent->Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        components.Add(camObj);
+				
+		        ent->Set("Components", BitPouncePack::SerializationType::SerializationObjectArray, components);
+		    }
+		}
+
+		virtual void DeserializeRuntime(BitPouncePack::PackScene* packScene) override
+		{
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    // Build lookup (faster than O(n²))
+		    std::unordered_map<uint32_t, Entity> entityMap;
+		    auto idView = registry.view<IDComponent>();
+		    for (auto e : idView)
+		    {
+		        Entity ent{ e, m_Scene };
+		        entityMap[(uint32_t)ent] = ent;
+		    }
+		
+		    for (auto& entityObj : packScene->Entities.GetAll())
+		    {
+		        if (!entityObj.Contains("entityId") || !entityObj.Contains("Components"))
+		            continue;
+			
+		        uint32_t id = entityObj.Get<uint32_t>("entityId", BitPouncePack::SerializationType::Uint32);
+			
+		        if (!entityMap.count(id))
+		            continue;
+			
+		        Entity entity = entityMap[id];
+			
+		        auto components = entityObj.Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        for (auto& comp : components.GetAll())
+		        {
+		            if (!comp.Contains("Type"))
+		                continue;
+				
+		            std::string type = comp.Get<std::string>("Type", BitPouncePack::SerializationType::String);
+				
+		            if (type != "CameraComponent")
+		                continue;
+				
+		            auto& camComponent = entity.HasComponent<CameraComponent>() ?
+		                entity.GetComponent<CameraComponent>() :
+		                entity.AddComponent<CameraComponent>();
+				
+		            if (comp.Contains("Primary"))
+		                camComponent.Primary = comp.Get<bool>("Primary", BitPouncePack::SerializationType::Bool);
+				
+		            if (comp.Contains("FixedAspectRatio"))
+		                camComponent.FixedAspectRatio = comp.Get<bool>("FixedAspectRatio", BitPouncePack::SerializationType::Bool);
+				
+		            if (comp.Contains("BgColour"))
+		                camComponent.BgColour = comp.Get<glm::vec4>("BgColour", BitPouncePack::SerializationType::Colour);
+				
+		            auto& cam = camComponent.Camera;
+				
+		            if (comp.Contains("ProjectionType"))
+		                cam.SetProjectionType((SceneCamera::ProjectionType)
+		                    comp.Get<int>("ProjectionType", BitPouncePack::SerializationType::Int32));
+				
+		            // Perspective
+		            if (comp.Contains("PerspectiveFOV"))
+		                cam.SetPerspectiveVerticalFOV(comp.Get<float>("PerspectiveFOV", BitPouncePack::SerializationType::Float));
+				
+		            if (comp.Contains("PerspectiveNear"))
+		                cam.SetPerspectiveNearClip(comp.Get<float>("PerspectiveNear", BitPouncePack::SerializationType::Float));
+				
+		            if (comp.Contains("PerspectiveFar"))
+		                cam.SetPerspectiveFarClip(comp.Get<float>("PerspectiveFar", BitPouncePack::SerializationType::Float));
+				
+		            // Orthographic
+		            if (comp.Contains("OrthoSize"))
+		                cam.SetOrthographicSize(comp.Get<float>("OrthoSize", BitPouncePack::SerializationType::Float));
+				
+		            if (comp.Contains("OrthoNear"))
+		                cam.SetOrthographicNearClip(comp.Get<float>("OrthoNear", BitPouncePack::SerializationType::Float));
+				
+		            if (comp.Contains("OrthoFar"))
+		                cam.SetOrthographicFarClip(comp.Get<float>("OrthoFar", BitPouncePack::SerializationType::Float));
+		        }
+		    }
+		}
+
 		virtual void AddComponentPopupImguiDraw(Entity& ent) override
 		{
 			if (ImGui::MenuItem("Camera"))

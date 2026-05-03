@@ -10,6 +10,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_access.hpp>
 
+#include <xmmintrin.h>
+#include <emmintrin.h>
 namespace BitPounce 
 {
 	struct QuadVertex
@@ -119,6 +121,11 @@ namespace BitPounce
 
 	};
 
+	struct alignas(16) Plane
+	{
+	    glm::vec4 p; // xyz = normal, w = distance
+	};
+
 	static Renderer2DData s_Data;
 
 	Frustum ExtractFrustum(const glm::mat4& m)
@@ -147,22 +154,69 @@ namespace BitPounce
 
 	static bool ObstructionCulling(const glm::mat4& model, const glm::vec3& localMin = {-0.5f, -0.5f, -0.5f}, const glm::vec3& localMax = { 0.5f,  0.5f,  0.5f})
 	{
-		glm::vec3 center = (localMin + localMax) * 0.5f;
-		glm::vec3 extents = (localMax - localMin) * 0.5f;
+	    glm::vec3 center  = (localMin + localMax) * 0.5f;
+	    glm::vec3 extents = (localMax - localMin) * 0.5f;
 
-		glm::vec3 worldCenter = glm::vec3(model * glm::vec4(center, 1.0f));
-		glm::mat3 absM = glm::mat3(glm::abs(model[0]), glm::abs(model[1]), glm::abs(model[2]));
-		glm::vec3 worldExtents = absM * extents;
+	    glm::vec3 worldCenter = glm::vec3(model * glm::vec4(center, 1.0f));
 
-		for (int i = 0; i < 6; ++i)
-		{
-			glm::vec3 normal = glm::vec3(s_Data.frustum.planes[i]);
-			float distance = glm::dot(normal, worldCenter) + s_Data.frustum.planes[i].w;
-			float radius = glm::dot(worldExtents, glm::abs(normal));
-			if (distance < -radius)
-				return false;   // completely outside
-		}
-		return true;
+	    glm::mat3 m(model);
+	    glm::mat3 absM(
+	        glm::abs(m[0]),
+	        glm::abs(m[1]),
+	        glm::abs(m[2])
+	    );
+
+	    glm::vec3 worldExtents = absM * extents;
+
+	    // Pre-broadcast center/extents
+	    const __m128 cx = _mm_set1_ps(worldCenter.x);
+	    const __m128 cy = _mm_set1_ps(worldCenter.y);
+	    const __m128 cz = _mm_set1_ps(worldCenter.z);
+
+	    const __m128 ex = _mm_set1_ps(worldExtents.x);
+	    const __m128 ey = _mm_set1_ps(worldExtents.y);
+	    const __m128 ez = _mm_set1_ps(worldExtents.z);
+
+	    // Precompute sign mask once (avoid per-plane cost)
+	    const __m128 signMask = _mm_set1_ps(-0.0f);
+
+	    for (int i = 0; i < 6; i++)
+	    {
+	        const glm::vec4& p = s_Data.frustum.planes[i];
+
+	        const __m128 nx = _mm_set1_ps(p.x);
+	        const __m128 ny = _mm_set1_ps(p.y);
+	        const __m128 nz = _mm_set1_ps(p.z);
+	        const __m128 d  = _mm_set1_ps(p.w);
+
+	        // dot(normal, center) + d
+	        const __m128 dist =
+	            _mm_add_ps(
+	                _mm_add_ps(_mm_mul_ps(nx, cx), _mm_mul_ps(ny, cy)),
+	                _mm_add_ps(_mm_mul_ps(nz, cz), d)
+	            );
+
+	        // abs(normal)
+	        const __m128 ax = _mm_andnot_ps(signMask, nx);
+	        const __m128 ay = _mm_andnot_ps(signMask, ny);
+	        const __m128 az = _mm_andnot_ps(signMask, nz);
+
+	        // radius = abs(normal) dot extents
+	        const __m128 radius =
+	            _mm_add_ps(
+	                _mm_add_ps(_mm_mul_ps(ax, ex), _mm_mul_ps(ay, ey)),
+	                _mm_mul_ps(az, ez)
+	            );
+
+	        // dist < -radius
+	        const __m128 negRadius = _mm_sub_ps(_mm_setzero_ps(), radius);
+	        const __m128 cmp = _mm_cmplt_ps(dist, negRadius);
+
+	        if (_mm_movemask_ps(cmp))
+	            return false;
+	    }
+
+	    return true;
 	}
 
 	void Renderer2D::FlushAndReset()

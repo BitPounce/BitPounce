@@ -18,8 +18,21 @@ namespace BitPounce
 		return m_LoadedAssets.find(handle) != m_LoadedAssets.end() && m_LoadedAssets[handle] && m_LoadedAssets[handle].get();
 	}
 
-	AssetHandle EditorAssetManager::ImportAsset(const std::filesystem::path &filepath)
-	{
+    BitPouncePack::Pack EditorAssetManager::ExportAssetPack()
+    {
+		BitPouncePack::Pack pack = BitPouncePack::Pack();
+
+		for (const auto&[handle, metadata] : m_AssetRegistry)
+		{
+			AssetImporter::ExportAsset(handle, metadata, pack);
+		}
+		
+
+		return pack;
+    }
+
+    AssetHandle EditorAssetManager::ImportAsset(const std::filesystem::path &filepath)
+    {
 		for (const auto&[handle, metadata] : m_AssetRegistry)
 		{
 			if(metadata.FilePath == filepath)
@@ -75,7 +88,7 @@ namespace BitPounce
 			{
 				nlohmann::json asset = nlohmann::json();
 
-				asset["Handle"] = handle.operator std::size_t();
+				asset["Handle"] = handle.operator uint64_t();
 				std::string filepathStr = std::filesystem::relative(metadata.FilePath, assetDir).generic_string();
 				asset["FilePath"] =  filepathStr;
 				asset["Type"] = AssetTypeToString(metadata.Type);
@@ -114,7 +127,7 @@ namespace BitPounce
 
 		for (auto& asset : assets)
 		{
-			AssetHandle handle = asset["Handle"].get<std::size_t>();
+			AssetHandle handle = asset["Handle"].get<uint64_t>();
 
 			AssetMetadata metadata;
 			metadata.FilePath = assetDir / asset["FilePath"].get<std::string>();

@@ -70,7 +70,7 @@ namespace BitPounce
         m_Context->OnEditorPropImguiDraw(entity);
     }
 
-    void SceneHierarchyPanel::OnImGuiDraw()
+    void SceneHierarchyPanel::OnImGuiDraw(BitPounce::Timestep& ts)
     {
         ImGui::Begin("Scene Hierarchy");
 
@@ -98,7 +98,12 @@ namespace BitPounce
 					e.SetParent(m_SelectionContext);
 				}
 			}
-			
+
+			if (m_SelectionContext && ImGui::MenuItem("Remove Entity"))
+			{
+				m_SelectionContext.Destroy();
+				m_SelectionContext = {}; 
+			}
 
 			ImGui::EndPopup();
 		}

@@ -13,7 +13,7 @@ namespace BitPounce
 			virtual void OnAttach() override;
 			virtual void OnDetach() override;
 			virtual void OnEvent(Event& e) override;
-			virtual void OnImGuiRender() override;
+			virtual void OnImGuiRender(BitPounce::Timestep& ts) override;
 
 			void BlockEvents(bool block) { m_BlockEvents = block; }
 

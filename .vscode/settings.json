@@ -3,5 +3,5 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "makefile.makefilePath": "${workspaceFolder}/BitPounce/Makefile",
     "makefile.configureOnOpen": true,
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
 }

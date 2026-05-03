@@ -7,6 +7,8 @@
 #include "BitPounce/Events/ApplicationEvent.h"
 #include "BitPounce/Events/KeyEvent.h"
 #include "BitPounce/Events/MouseEvent.h"
+#include "BitPounce/Core/ConsoleRegistrars.h"
+#include "BitPounce/Core/Timer.h"
 #include "BitPounce/Core/FileSystem.h"
 #include "BitPounce/Core/Buffer.h"
 #include "BitPounce/Core/UUID.h"

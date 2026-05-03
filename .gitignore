@@ -26,6 +26,7 @@
 # Build
 bin-int
 bin
+*.bpp
 .vs
 *.vcxproj*
 *.sln

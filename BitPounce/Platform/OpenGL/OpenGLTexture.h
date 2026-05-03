@@ -25,6 +25,7 @@ namespace BitPounce {
 		virtual uint32_t GetRendererID() const override { return m_RendererID; }
 		virtual const std::string& GetPath() const override { return m_Path; }
 		virtual void ToPNG(std::filesystem::path filepath) override; 
+		virtual Buffer GetData() override;
 
 		virtual void SetData(void* data, uint32_t size) override;
 

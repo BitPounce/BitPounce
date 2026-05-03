@@ -4,6 +4,7 @@
 #include <entt/entt.hpp>
 #include <BitPounce/Renderer/EditorCamera.h>
 #include <BitPounce/Core/Logger.h>
+#include "BitPouncePack/BitPouncePack.h"
 
 namespace BitPounce
 {
@@ -31,10 +32,13 @@ namespace BitPounce
 		virtual void AddComponentPopupImguiDraw(Entity& ent) {};
 		virtual void Serialize(nlohmann::json& json) {};
 		virtual void Deserialize(nlohmann::json& json) {};
+		virtual void SerializeRuntime(BitPouncePack::PackScene* packScene) {};
+		virtual void DeserializeRuntime(BitPouncePack::PackScene* packScene) {};
 		virtual void OnDrawEditor(Timestep& ts, EditorCamera& cam) {};
 		virtual void OnRuntimeStart() {};
 		virtual void OnRemoveEntity(Entity& ent) {}
 		virtual void OnRuntimeStop() {};
+		virtual void OnImguiDraw(Timestep& ts) {};
 
 	protected:
 		Scene* m_Scene;

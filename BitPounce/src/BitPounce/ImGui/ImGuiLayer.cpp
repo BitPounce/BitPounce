@@ -156,7 +156,7 @@ namespace BitPounce {
         }
     }
 
-    void ImGuiLayer::OnImGuiRender()
+    void ImGuiLayer::OnImGuiRender(BitPounce::Timestep& ts)
     {
     }
 

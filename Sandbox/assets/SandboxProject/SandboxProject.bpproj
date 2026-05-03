@@ -1,0 +1,9 @@
+{
+	"Project": {
+		"AssetDirectory": "Assets",
+		"Name": "SandboxProject",
+		"StartScene": "scenes/Physics2D.bitPounce",
+		"AssetRegistryPath": "AssetRegistry.bpreg",
+        "AssetPacks": ["pack.bpp"]
+	}
+}

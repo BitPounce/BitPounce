@@ -1,0 +1,141 @@
+{
+	"Entities": [
+		{
+			"CameraComponent": {
+				"BgColour": [
+					0.10000000149011612,
+					0.10000000149011612,
+					0.10000000149011612,
+					1.0
+				],
+				"Camera": {
+					"AspectRatio": 1.452504277229309,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": 100.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
+			},
+			"ID": 2350307034241887597,
+			"TagComponent": {
+				"Tag": "Camea"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 2
+		},
+		{
+			"ID": 16639006444081955942,
+			"SpriteRenderer": {
+				"Colour": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				],
+				"SpriteIndex": [
+					0,
+					0
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"UseSpriteSheet": false
+			},
+			"TagComponent": {
+				"Tag": "Empty Entity"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					10.0,
+					10.0,
+					1.0
+				],
+				"Translation": [
+					10.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 1
+		},
+		{
+			"ID": 11460192128761662675,
+			"SpriteRenderer": {
+				"Colour": [
+					0.0,
+					0.0,
+					0.0,
+					1.0
+				],
+				"SpriteIndex": [
+					0,
+					0
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"UseSpriteSheet": false
+			},
+			"TagComponent": {
+				"Tag": "Empty Entity"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					10.0,
+					10.0,
+					1.0
+				],
+				"Translation": [
+					20.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 0
+		}
+	],
+	"Physics2D": {
+		"Gravity": [
+			0.0,
+			-10.0
+		]
+	},
+	"Scene": "Untitled"
+}

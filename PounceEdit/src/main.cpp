@@ -1,6 +1,6 @@
 #include <BitPounce.h>
 #include "BitPounce/Core/EntryPoint.h"
-#include "Example.h"
+//#include "Example.h"
 #include "EditorLayer.h"
 
 class Editor : public BitPounce::Application

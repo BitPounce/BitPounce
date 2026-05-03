@@ -15,6 +15,10 @@
 #include "BitPounce/Core/PlatformTools.h"
 #include <BitPounce/Core/FileSystem.h>
 #include <BitPounce/Core/SystemManager.h>
+#include "BitPounce/Core/Console.h"
+#include "BitPounce/Core/ConsoleRegistrars.h"
+
+#include "BitPounce/ImGui/ConsoleWindow.h"
 
 #include "BitPounce/Events/Event.h"
 #include "BitPounce/Events/ApplicationEvent.h"
@@ -22,6 +26,8 @@
 #include "BitPounce/Events/MouseEvent.h"
 #include "BitPounce/Events/AssetManagerEvent.h"
 #include "BitPounce/Events/SceneEvent.h"
+
+#include "BitPounce/Asset/AssetImporter.h"
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"

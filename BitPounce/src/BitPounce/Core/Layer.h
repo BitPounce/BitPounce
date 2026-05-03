@@ -17,7 +17,7 @@ namespace BitPounce
 		virtual void OnUpdate(Timestep& ts) {}
 		virtual void OnEvent(Event& event) {}
 
-		virtual void OnImGuiRender() {}
+		virtual void OnImGuiRender(BitPounce::Timestep& ts) {}
 
 		inline const std::string& GetName() const { return m_DebugName; }
 	protected:

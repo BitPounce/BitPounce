@@ -2,12 +2,13 @@
 
 #include "AssetManagerBase.h"
 #include "AssetMetadata.h"
+#include <BitPouncePack/BitPouncePack.h>
 
 #include <map>
 
 namespace BitPounce {
 
-	using AssetRegistry = std::map<AssetHandle, AssetMetadata>;
+
 
 	class EditorAssetManager : public AssetManagerBase
 	{
@@ -17,6 +18,7 @@ namespace BitPounce {
 		virtual bool IsAssetHandleValid(AssetHandle handle) const override;
 		virtual bool IsAssetLoaded(AssetHandle handle) const override;
 
+		BitPouncePack::Pack ExportAssetPack();
         AssetHandle ImportAsset(const std::filesystem::path& filepath);
 		AssetHandle ImportAsset(const std::filesystem::path& filepath, AssetHandle handle);
         void SerializeAssetRegistry();

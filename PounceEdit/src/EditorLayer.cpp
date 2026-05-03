@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "BitPounce.h"
 #include "BitPounce/Renderer/Font.h"
+#include "BitPouncePack/BitPouncePack.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -10,11 +11,14 @@
 
 namespace BitPounce {
 	
+	
+	static glm::vec2 m_CmdTest = glm::vec2(0,1);
+	BP_REGISTER_VAR("Test", m_CmdTest);
 	static Ref<Audio> s_Audio;
 	static Ref<Font> s_Font;
 	
 	EditorLayer::EditorLayer()
-		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
+		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f), m_ConsoleWindow()
 	{
 		
 	}
@@ -37,7 +41,11 @@ namespace BitPounce {
 
 		m_ContentBrowserPanel->SetBaseDir(Project::GetAssetFileSystemPath(""));	
 		s_Font = Font::GetDefault();
-		
+		//BitPouncePack::Pack pack = BitPouncePack::Load("pack.bpp");
+		//for(auto&& asset : pack.assets)
+		//{
+		//	AssetImporter::LoadAsset(asset);
+		//}
 		
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
@@ -236,15 +244,15 @@ namespace BitPounce {
 		m_Framebuffer->Unbind();
 	}
 	
-	void EditorLayer::OnImGuiRender()
+	void EditorLayer::OnImGuiRender(BitPounce::Timestep& ts)
 	{
-		Dockspace([this]() { this->OnDockSpace(); });
+		Dockspace([this, &ts]() { this->OnDockSpace(ts); });
 	
 	
 	
 	}
 	
-	void EditorLayer::OnDockSpace()
+	void EditorLayer::OnDockSpace(BitPounce::Timestep& ts)
 	{
 		if (ImGui::BeginMenuBar())
 		{
@@ -263,12 +271,23 @@ namespace BitPounce {
 				if (ImGui::MenuItem("Exit")) Application::Get().Close(0);
 					ImGui::EndMenu();
 			}
+
+			if (ImGui::BeginMenu("Build"))
+			{
+				if (ImGui::MenuItem("Build Asset Pack"))
+				{
+					BuildAssetPack();
+				}
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMenuBar();
 		}
 
 		UI_Toolbar();
 
-		m_Panels.OnImGuiDraw();
+		m_Panels.OnImGuiDraw(ts);
+		m_ConsoleWindow.OnImGuiDraw();
 	
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
@@ -488,6 +507,7 @@ namespace BitPounce {
 
     bool EditorLayer::OnScenePreloaded(AssetPreLoadedEvent &e)
     {
+		// Yes, this causes a memory leak. Too bad!
 		SceneAssetMetadata* sceneAssetMetadata = new SceneAssetMetadata();
 		sceneAssetMetadata->Systems.push_back(CreateRef<Renderer2DSystem>());
 		sceneAssetMetadata->Systems.push_back(CreateRef<CameraSystem>());
@@ -497,6 +517,23 @@ namespace BitPounce {
 		e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
         return false;
     }
+    void EditorLayer::BuildAssetPack()
+    {
+		std::optional<std::string> filepath = FileDialogs::SaveFile("BitPounce Pack (*.bpp)\0*.bpp\0");
+		if(!filepath)
+		{
+			return;
+		}
+		std::filesystem::path path = filepath.value();
+		if(!path.has_extension())
+		{
+			path = path.string() + ".bpp";
+		}
+		BitPouncePack::Pack assetPack = Project::GetActive()->GetEditorAssetManager()->ExportAssetPack();
+		
+		BitPouncePack::Save(path, assetPack);
+    }
+
     bool EditorLayer::NewProject()
     {
 		std::optional<std::string> filepath = FileDialogs::SaveFile("BitPounce Project (*.bpproj)\0*.bpproj\0");

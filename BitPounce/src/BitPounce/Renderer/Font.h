@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "BitPounce/Renderer/Texture.h"
 #include "BitPounce/Asset/Asset.h"
+#include <BitPouncePack/BitPouncePack.h>
 #include <thread>
 
 namespace msdf_atlas
@@ -18,6 +19,7 @@ namespace BitPounce
 	{
 	public:
 		Font(const std::filesystem::path& font);
+		Font(const BitPouncePack::PackFont& font);
         ~Font();
 
         const MSDFData* GetMSDFData() const { return m_Data; }
@@ -27,12 +29,14 @@ namespace BitPounce
 		{
 			return AssetType::Font;
 		}
+		BitPouncePack::PackFont Export();
     private:
 		MSDFData* m_Data;
+		std::filesystem::path m_Filepath;
 		mutable Ref<Texture2D> m_AtlasTexture;
-		mutable bool m_IsTextureMaked = false;
-		mutable bool m_IsTextureLoaded = false;
-		mutable std::thread m_LoadingThread;
+		//mutable bool m_IsTextureMaked = false;
+		//mutable bool m_IsTextureLoaded = false;
+		//mutable std::thread m_LoadingThread;
 		Buffer* m_FileBuffer = 0;
 	};
 

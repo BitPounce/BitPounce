@@ -1,6 +1,7 @@
 function exposeBitPounceDeps()
 
-    links { "GLFW", "ImGui", "Box2D", "msdf-atlas-gen", "freetype", "msdfgen" }
+    links { "GLFW", "ImGui", "Box2D", "msdf-atlas-gen", "freetype", "msdfgen",  "BitPouncePack"}
+		links { "zlib-lib" }
 
     -- Include BitPounce headers
     includedirs
@@ -23,7 +24,9 @@ function exposeBitPounceDeps()
 		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/core",
 		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/include",
 		"../BitPounce/vendor/msdf-atlas-gen/msdfgen/freetype/include",
-		"../BitPounce/vendor/msdf-atlas-gen/msdf-atlas-gen"
+		"../BitPounce/vendor/msdf-atlas-gen/msdf-atlas-gen",
+		"../BitPounce/vendor/BitPouncePack/src",
+		"../BitPounce/vendor/BitPouncePack/zlib",
     }
 
     -- Platform-specific libraries

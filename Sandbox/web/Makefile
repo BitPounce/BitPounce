@@ -30,12 +30,12 @@ OBJ     := $(OBJ_CPP) $(OBJ_C)
 # Include directoriesgf
 INCLUDES := -I"$(APP_DIR)/src" -I"$(ENGINE_DIR)/src" -I"$(ENGINE_DIR)/vendor/spdlog/include" -I"$(ENGINE_DIR)/vendor/glad/include" -I"$(ENGINE_DIR)/vendor/glm"
 INCLUDES += -I"$(ENGINE_DIR)/vendor/imgui" -I"$(ENGINE_DIR)" -I"$(ENGINE_DIR)/vendor/entt/single_include" -I"$(ENGINE_DIR)/vendor/nlohmannjson/single_include" -I"${ENGINE_DIR}/vendor/box2d/include"
-INCLUDES += -I"${VENDOR_DIR}/ImGuizmo" -I"$(ENGINE_DIR)/vendor/angelscript/sdk/angelscript/include"
+INCLUDES += -I"${VENDOR_DIR}/ImGuizmo" -I"$(ENGINE_DIR)/vendor/angelscript/sdk/angelscript/include" -I"$(ENGINE_DIR)/vendor/BitPouncePack/src"
 CXXFLAGS += -DFMT_HEADER_ONLY
-CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1 
+CPPFLAGS += -DIMGUI_IMPL_OPENGL_ES3 -s USE_WEBGL2=1 -s USE_ZLIB=1
 LINKDIRS := -L"$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin"
 LINKS := \
-  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bxDebug.a" 						  		 \
+#  "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bxDebug.a" 						  		 \
   "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimgDebug.a" 		 						  \
   "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bimg_decodeDebug.a"  					  	   \
   "$(ENGINE_DIR)/vendor/bgfx/.build/wasm/bin/bgfxDebug.a"		   							\
@@ -46,10 +46,13 @@ OPTIONS := -std=c++20 -sUSE_GLFW=3 -sWASM=1 -sALLOW_MEMORY_GROWTH=1 \
 		   -msimd128 -msse -gsource-map \
 		   --source-map-base http://localhost:$(PORT)/$(DIST_DIR)/ \
 		   -fmacro-prefix-map=$(ENGINE_DIR)/src/= \
-		   $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED $(LINKDIRS) $(LINKS)
+		   $(INCLUDES) $(CXXFLAGS) -s LLD_REPORT_UNDEFINED $(LINKDIRS) $(LINKS) -sASSERTIONS -sUSE_ZLIB=1
 
 # Default target
 all: buildEngine $(DIST_DIR)/index.html
+
+print-info:
+	$(SILENT) $(MAKE) -C $(ENGINE_DIR)/web print-info
 
 # Compile rules
 $(BUILD_DIR)/%.o: $(APP_DIR)/src/%.cpp

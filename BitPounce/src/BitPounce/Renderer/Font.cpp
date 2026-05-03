@@ -15,7 +15,14 @@
 
 #include "MSDFData.h"
 #include "BitPounce/Project/Project.h"
+#include "BitPounce/Core/FileSystem.h"
+
 #include <nlohmann/json.hpp>
+
+// BitPouncePack headers
+#include "BitPouncePack/PackFont.h"
+#include "BitPouncePack/Hash.h"
+#include "BitPouncePack/Buffer.h"
 
 using json = nlohmann::json;
 
@@ -74,7 +81,7 @@ namespace BitPounce {
 		json glyphsArray = json::array();
 		for (const auto& glyph : glyphs) {
 			double l, b, r, t;
-			glyph.getQuadAtlasBounds(l, b, r, t);   // public getter
+			glyph.getQuadAtlasBounds(l, b, r, t);
 			glyphsArray.push_back({ l, b, r, t });
 		}
 		j["atlas_bounds"] = glyphsArray;
@@ -112,10 +119,10 @@ namespace BitPounce {
 		if (!std::filesystem::exists(pngFullPath)) return false;
 
 		Timer timer = Timer();
-		// Load texture from PNG (requires Texture2D::Create(const std::string&))
+		// Load texture from PNG
 		outTexture = Texture2D::Create(pngFullPath.string());
 		if (!outTexture) return false;
-		BP_CORE_INFO("{0}", timer.Elapsed());
+		BP_CORE_INFO("Loaded PNG in {:.3f}s", timer.Elapsed());
 
 		// ------------------------------------------------------------
 		// Reload the font (fast) to get glyphs with correct advances & shape
@@ -125,10 +132,7 @@ namespace BitPounce {
 		if (!ft) return false;
 
 		BufferBase buffer = FileSystem::ReadFileBinary(fontPath);
-		timer.Reset();
-		BP_CORE_INFO("{0}", timer.Elapsed());
 		msdfgen::FontHandle* font = msdfgen::loadFontData(ft, buffer.As<msdfgen::byte>(), buffer.Size);
-		BP_CORE_INFO("{0}", timer.Elapsed());
 		if (!font) {
 			msdfgen::deinitializeFreetype(ft);
 			return false;
@@ -140,11 +144,9 @@ namespace BitPounce {
 			{ 0x0100, 0x017F }, { 0x0180, 0x024F }
 		};
 		msdf_atlas::Charset charset;
-		BP_CORE_INFO("{0}", timer.Elapsed());
 		for (auto& range : charsetRanges)
 			for (uint32_t c = range.Begin; c <= range.End; ++c)
 				charset.add(c);
-		BP_CORE_INFO("{0}", timer.Elapsed());
 
 		double fontScale = 2.0;
 		outData->Glyphs.clear();
@@ -155,29 +157,22 @@ namespace BitPounce {
 			msdfgen::deinitializeFreetype(ft);
 			return false;
 		}
-		BP_CORE_INFO("{0}", timer.Elapsed());
 
-		// ------------------------------------------------------------
 		// Compute plane bounds (same as TightAtlasPacker would do)
-		// ------------------------------------------------------------
 		double pixelRange = j.value("pixel_range", 4.0);
 		double miterLimit = j.value("miter_limit", 1.0);
 		double scale = j.value("em_size", emSize);
-		
 		for (auto& glyph : outData->Glyphs) {
-			glyph.wrapBox(scale, pixelRange, miterLimit, false, false); // px align false
+			glyph.wrapBox(scale, pixelRange, miterLimit, false, false);
 		}
 
-		// ------------------------------------------------------------
 		// Override atlas bounds with cached values
-		// ------------------------------------------------------------
 		const auto& cachedBounds = j["atlas_bounds"];
 		if (outData->Glyphs.size() != cachedBounds.size()) {
 			msdfgen::destroyFont(font);
 			msdfgen::deinitializeFreetype(ft);
 			return false;
 		}
-
 		for (size_t i = 0; i < outData->Glyphs.size(); ++i) {
 			auto bounds = cachedBounds[i];
 			double l = bounds[0], b = bounds[1], r = bounds[2], t = bounds[3];
@@ -187,7 +182,7 @@ namespace BitPounce {
 			outData->Glyphs[i].setBoxRect(rect);
 		}
 
-		// Sanity check: ensure plane bounds are valid
+		// Sanity check
 		for (size_t i = 0; i < outData->Glyphs.size(); ++i) {
 			double l, b, r, t;
 			outData->Glyphs[i].getQuadPlaneBounds(l, b, r, t);
@@ -207,7 +202,7 @@ namespace BitPounce {
 	}
 
 	// ------------------------------------------------------------------------
-	// Atlas generation template (unchanged)
+	// Atlas generation template
 	// ------------------------------------------------------------------------
 	template<typename T, typename S, int N, msdf_atlas::GeneratorFunction<S, N> GenFunc>
 	static Ref<Texture2D> CreateAndCacheAtlas(const std::string& fontName, float fontSize,
@@ -241,10 +236,10 @@ namespace BitPounce {
 	}
 
 	// ------------------------------------------------------------------------
-	// Font constructor
+	// Font constructor (original, with cache)
 	// ------------------------------------------------------------------------
 	Font::Font(const std::filesystem::path& filepath)
-		: m_Data(new MSDFData())
+		: m_Filepath(filepath), m_Data(new MSDFData())
 	{
 		const double emSize = 160.0;
 
@@ -254,13 +249,11 @@ namespace BitPounce {
 
 		BP_CORE_INFO("Cache miss for font {}. Generating new atlas...", filepath.string());
 
-		// ------------------------------------------------------------
-		// Full generation (original code)
-		// ------------------------------------------------------------
+		// Full generation
 		msdfgen::FreetypeHandle* ft = msdfgen::initializeFreetype();
 		BP_CORE_ASSERT(ft, "Freetype is not working!");
 
-		BufferBase buffer = FileSystem::LoadFile(filepath);
+		BufferBase buffer = FileSystem::ReadFileBinary(filepath);
 		msdfgen::FontHandle* font = msdfgen::loadFontData(ft, buffer.As<msdfgen::byte>(), buffer.Size);
 		if (!font) {
 			BP_CORE_ERROR("Failed to load font: {}", filepath.string());
@@ -288,10 +281,14 @@ namespace BitPounce {
 		atlasPacker.setMiterLimit(1.0);
 		atlasPacker.setScale(emSize);
 		int remaining = atlasPacker.pack(m_Data->Glyphs.data(), (int)m_Data->Glyphs.size());
+		if (remaining > 0) {
+			BP_CORE_WARN("Atlas packing failed to place {} glyphs", remaining);
+		}
 
 		int width, height;
 		atlasPacker.getDimensions(width, height);
 		double actualEmSize = atlasPacker.getScale();
+		m_Data->Scale = actualEmSize;   // store for export
 
 		auto processors = std::thread::hardware_concurrency();
 		if (processors == 0) processors = 1;
@@ -325,6 +322,7 @@ namespace BitPounce {
 
 		msdfgen::destroyFont(font);
 		msdfgen::deinitializeFreetype(ft);
+
 	}
 
 	Font::~Font()
@@ -342,10 +340,178 @@ namespace BitPounce {
 		static Ref<Font> DefaultFont;
 		if (!DefaultFont)
 			DefaultFont = CreateRef<Font>("assets/fonts/OpenSans/static/OpenSans-Regular.ttf");
-		
 		return DefaultFont;
 	}
 
+	// ------------------------------------------------------------------------
+	// Export: convert runtime Font to PackFont
+	// ------------------------------------------------------------------------
+	BitPouncePack::PackFont Font::Export()
+	{
+		BitPouncePack::PackFont packFont;
 
+		// 1. Read raw font file into a buffer
+		std::ifstream file(m_Filepath, std::ios::binary | std::ios::ate);
+		if (!file) {
+			BP_CORE_ERROR("Failed to open font file for export: {}", m_Filepath.string());
+			return packFont;
+		}
+		std::streamsize size = file.tellg();
+		file.seekg(0, std::ios::beg);
+		BitPouncePack::Buffer fontBuffer;
+		fontBuffer.Allocate(static_cast<uint64_t>(size));
+		file.read(reinterpret_cast<char*>(fontBuffer.Data), size);
+		if (!file) {
+			BP_CORE_ERROR("Failed to read font file: {}", m_Filepath.string());
+			fontBuffer.Release();
+			return packFont;
+		}
 
-}
+		// 2. Compute SHA‑256 hash of the raw font data
+		packFont.hash = BitPouncePack::sha256(fontBuffer);
+		packFont.HashType = 0;          // 0 = SHA‑256
+		packFont.Size = static_cast<uint64_t>(size);
+
+		// Transfer ownership of the raw font data
+		packFont.FontData = std::make_unique<std::byte[]>(size);
+		std::memcpy(packFont.FontData.get(), fontBuffer.Data, size);
+		fontBuffer.Release();
+
+		// 3. Atlas dimensions and bitmap data
+		packFont.Width = m_AtlasTexture->GetWidth();
+		packFont.Height = m_AtlasTexture->GetHeight();
+		packFont.Channels = 4;   // RGBA
+
+		// Retrieve atlas pixel data from the texture
+		Buffer atlasBuffer = m_AtlasTexture->GetData();
+		uint64_t atlasSize = packFont.Width * packFont.Height * packFont.Channels;
+		packFont.AtlasData = std::make_unique<std::byte[]>(atlasSize);
+		std::memcpy(packFont.AtlasData.get(), atlasBuffer.Data, atlasSize);
+
+		// 4. Glyph metrics
+		for (const auto& glyph : m_Data->Glyphs) {
+			BitPouncePack::GlyphMetrics gm;
+			glyph.getQuadPlaneBounds(gm.plane_l, gm.plane_b, gm.plane_r, gm.plane_t);
+			glyph.getQuadAtlasBounds(gm.atlas_l, gm.atlas_b, gm.atlas_r, gm.atlas_t);
+			gm.advance = glyph.getAdvance();
+			gm.codepoint = static_cast<uint32_t>(glyph.getCodepoint());
+			packFont.Glyphs.push_back(gm);
+		}
+
+		// 5. Generation parameters
+		packFont.EmSize = 160.0;
+		packFont.PixelRange = 4.0;
+		packFont.MiterLimit = 1.0;
+		packFont.FontScale = m_Data->Scale;   // actual scale after packing
+
+		// 6. AssetHandle – simple hash of the file path
+		std::hash<std::string> hasher;
+		packFont.AssetHandle = hasher(m_Filepath.string());
+
+		BP_CORE_INFO("Exported font '{}' to PackFont (size = {} bytes, atlas = {}x{})",
+					 m_Filepath.string(), packFont.Size, packFont.Width, packFont.Height);
+		return packFont;
+	}
+
+	// ------------------------------------------------------------------------
+	// Import: construct Font from PackFont
+	// ------------------------------------------------------------------------
+	Font::Font(const BitPouncePack::PackFont& packFont)
+		: m_Data(new MSDFData())
+	{
+		BP_CORE_INFO("{}", packFont.AssetHandle);
+		Handle = packFont.AssetHandle;
+
+		// 1. Verify hash of the raw font data
+		BitPouncePack::Buffer fontBuffer;
+		fontBuffer.Allocate(packFont.Size);
+		std::memcpy(fontBuffer.Data, packFont.FontData.get(), packFont.Size);
+		BitPouncePack::Hash computedHash = BitPouncePack::sha256(fontBuffer);
+		if (!(computedHash.d1 == packFont.hash.d1 &&
+			  computedHash.d2 == packFont.hash.d2 &&
+			  computedHash.d3 == packFont.hash.d3 &&
+			  computedHash.d4 == packFont.hash.d4))
+		{
+			BP_CORE_ERROR("Hash mismatch for packed font - data may be corrupted");
+			fontBuffer.Release();
+			return;
+		}
+
+		// 2. Load font from memory using FreeType
+		msdfgen::FreetypeHandle* ft = msdfgen::initializeFreetype();
+		if (!ft) {
+			fontBuffer.Release();
+			BP_CORE_ERROR("Failed to initialize FreeType for packed font");
+			return;
+		}
+		msdfgen::FontHandle* font = msdfgen::loadFontData(ft, fontBuffer.As<msdfgen::byte>(), packFont.Size);
+		if (!font) {
+			BP_CORE_ERROR("Failed to load font from packed data");
+			msdfgen::deinitializeFreetype(ft);
+			fontBuffer.Release();
+			return;
+		}
+
+		// 3. Load the same character set as during export
+		struct CharsetRange { uint32_t Begin, End; };
+		static const CharsetRange charsetRanges[] = {
+			{ 0x0020, 0x007E }, { 0x00A0, 0x00FF },
+			{ 0x0100, 0x017F }, { 0x0180, 0x024F }
+		};
+		msdf_atlas::Charset charset;
+		for (auto& range : charsetRanges)
+			for (uint32_t c = range.Begin; c <= range.End; ++c)
+				charset.add(c);
+
+		double fontScale = 2.0;   // must match original
+		m_Data->Glyphs.clear();
+		m_Data->FontGeometry = msdf_atlas::FontGeometry(&m_Data->Glyphs);
+		int glyphsLoaded = m_Data->FontGeometry.loadCharset(font, fontScale, charset);
+		if (glyphsLoaded == 0) {
+			BP_CORE_ERROR("Failed to load glyphs from packed font");
+			msdfgen::destroyFont(font);
+			msdfgen::deinitializeFreetype(ft);
+			fontBuffer.Release();
+			return;
+		}
+
+		// 4. Apply stored metrics (plane bounds, atlas bounds)
+		for (auto& glyph : m_Data->Glyphs) {
+			glyph.wrapBox(packFont.EmSize, packFont.PixelRange, packFont.MiterLimit, false, false);
+		}
+		if (packFont.Glyphs.size() != m_Data->Glyphs.size()) {
+			BP_CORE_ERROR("Glyph count mismatch in packed font");
+			msdfgen::destroyFont(font);
+			msdfgen::deinitializeFreetype(ft);
+			fontBuffer.Release();
+			return;
+		}
+		for (size_t i = 0; i < packFont.Glyphs.size(); ++i) {
+			const auto& src = packFont.Glyphs[i];
+			auto& dst = m_Data->Glyphs[i];
+			double w = src.atlas_r - src.atlas_l;
+			double h = src.atlas_t - src.atlas_b;
+			msdf_atlas::Rectangle rect(src.atlas_l, src.atlas_b, w, h);
+			dst.setBoxRect(rect);
+		}
+
+		// 5. Create texture directly from the stored atlas bitmap (no generation!)
+		TextureSpecification spec;
+		spec.Width = packFont.Width;
+		spec.Height = packFont.Height;
+		spec.Format = ImageFormat::RGBA8;
+		spec.Filter = ImageFilter::LINEAR;
+		spec.GenerateMips = false;
+		m_AtlasTexture = Texture2D::Create(spec);
+		uint64_t atlasSize = packFont.Width * packFont.Height * packFont.Channels;
+		m_AtlasTexture->SetData(packFont.AtlasData.get(), static_cast<uint32_t>(atlasSize));
+
+		// 6. Cleanup
+		msdfgen::destroyFont(font);
+		msdfgen::deinitializeFreetype(ft);
+		fontBuffer.Release();
+
+		BP_CORE_INFO("Reconstructed font from PackFont (atlas {}x{})", packFont.Width, packFont.Height);
+	}
+
+} // namespace BitPounce

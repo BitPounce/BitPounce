@@ -3,43 +3,53 @@
 
 namespace BitPounce
 {
-    Ref<Audio> Audio::Create(std::filesystem::path filepath)
-    {
-        return CreateRef<Audio>(filepath);
-    }
+	Ref<Audio> Audio::Create(std::filesystem::path filepath)
+	{
+		return CreateRef<Audio>(filepath);
+	}
 
-    void Audio::Play()
-    {
-        AudioDevice::Play(id);
-    }
+	Ref<Audio> Audio::Create(const BitPouncePack::PackAudio &packAudio, bool loop)
+	{
+		return CreateRef<Audio>(packAudio, loop);
+	}
 
-    void Audio::Stop()
-    {
-        AudioDevice::Stop(id);
-    }
+	void Audio::Play()
+	{
+		AudioDevice::Play(id);
+	}
 
-    void Audio::SetVolume(float volume)
-    {
-        AudioDevice::SetVolume(id, volume);
-    }
+	void Audio::Stop()
+	{
+		AudioDevice::Stop(id);
+	}
 
-    void Audio::SetLooping(bool loop)
-    {
-        AudioDevice::SetLooping(id, loop);
-    }
+	void Audio::SetVolume(float volume)
+	{
+		AudioDevice::SetVolume(id, volume);
+	}
 
-    AudioID Audio::GetID()
-    {
-        return id;
-    }
+	void Audio::SetLooping(bool loop)
+	{
+		AudioDevice::SetLooping(id, loop);
+	}
 
-    Audio::Audio(std::filesystem::path filepath)
-    {
-        id = AudioDevice::Load(filepath);
-    }
-    
-    Audio::~Audio()
-    {
-        AudioDevice::UnLoad(id);
-    }
+	AudioID Audio::GetID()
+	{
+		return id;
+	}
+
+	Audio::Audio(std::filesystem::path filepath)
+	{
+		id = AudioDevice::Load(filepath);
+	}
+
+	Audio::Audio(const BitPouncePack::PackAudio &packAudio, bool loop)
+	{
+		id = AudioDevice::Load(packAudio, loop);
+	}
+
+	Audio::~Audio()
+	{
+		AudioDevice::UnLoad(id);
+	}
 }

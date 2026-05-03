@@ -10,6 +10,7 @@
 #include <BitPounce/Events/Event.h>
 #include <BitPounce/Events/ApplicationEvent.h>
 #include "SceneSerializerUtils.h"
+#include "BitPouncePack/BitPouncePack.h"
 #include "BitPounce/Asset/Asset.h"
 
 namespace BitPounce {
@@ -22,23 +23,25 @@ namespace BitPounce {
 	{
 	public:
 		Scene(const std::string& name = std::string("Scene"));
-		~Scene();
+		virtual ~Scene();
 
-		Entity CreateEntity(const std::string& name = std::string("Entity"));
-		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
-		void DestroyEntity(Entity entity);
-		Entity FindEntityByUUID(UUID uuid) const;
+		virtual Entity CreateEntity(const std::string& name = std::string("Entity"));
+		virtual Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
+		virtual void DestroyEntity(Entity entity);
+		virtual Entity FindEntityByUUID(UUID uuid) const;
 
-		void OnRuntimeStart();
-		void OnRuntimeStop();
-		void OnUpdateRuntime(Timestep ts);
-		void OnUpdateEditor(Timestep ts, EditorCamera& camera);
-		void OnUpdate(Timestep ts);
-		void OnEvent(Event& e);
-		void OnEditorPropImguiDraw(Entity& entity);
+		virtual void OnRuntimeStart();
+		virtual void OnRuntimeStop();
+		virtual void OnUpdateRuntime(Timestep ts);
+		virtual void OnUpdateEditor(Timestep ts, EditorCamera& camera);
+		virtual void OnUpdate(Timestep ts);
+		virtual void OnImguiDraw(Timestep ts);
+		virtual void OnEvent(Event& e);
+		virtual void OnEditorPropImguiDraw(Entity& entity);
 		static Ref<Scene> Copy(Ref<Scene> other);
-		void OnViewportResize(uint32_t width, uint32_t height);
-		void AddComponentPopupImguiDraw(Entity& ent);
+		virtual void OnViewportResize(uint32_t width, uint32_t height);
+		virtual std::string GetName() const { return name; }
+		virtual void AddComponentPopupImguiDraw(Entity& ent);
 
 		template<typename SystemType, typename... Args>
         SystemType* AddSystem(Args&&... args)
@@ -47,11 +50,13 @@ namespace BitPounce {
             return m_sysManager.AddSystem<SystemType>(std::forward<Args>(args)...);
         }
 
-		void AddedAllSys();
-		void Serialize(nlohmann::json& json);
-		void Deserialize(nlohmann::json& json);
-		ECSSystemManager& GetSysManager() { return m_sysManager; }
-		void RemoveAll();
+		virtual void AddedAllSys();
+		virtual void Serialize(nlohmann::json& json);
+		virtual void SerializeRuntime(BitPouncePack::PackScene* packScene);
+		virtual void Deserialize(nlohmann::json& json);
+		virtual void DeserializeRuntime(BitPouncePack::PackScene* packScene);
+		virtual ECSSystemManager& GetSysManager() { return m_sysManager; }
+		virtual void RemoveAll();
 
 		std::string name;
 
@@ -63,7 +68,7 @@ namespace BitPounce {
 			return AssetType::Scene;
 		}
 
-		std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
+		virtual std::pair<CameraComponent*, TransformComponent*> GetActiveCamera();
 	private:
 		template<typename T>
 		void OnComponentAdded(Entity& entity, T& component)
@@ -77,7 +82,8 @@ namespace BitPounce {
 	
 		bool OnResize(WindowResizeEvent& e);
 
-		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
+		// This has to be set by the user!
+		uint32_t m_ViewportWidth = 1, m_ViewportHeight = 1;
 		entt::registry m_Registry;
 		ECSSystemManager m_sysManager;
 

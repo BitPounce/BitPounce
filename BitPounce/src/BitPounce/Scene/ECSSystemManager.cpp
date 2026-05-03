@@ -19,6 +19,14 @@ namespace BitPounce
 		}
     }
 
+    void ECSSystemManager::SerializeRuntime(BitPouncePack::PackScene* packScene)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->SerializeRuntime(packScene);
+		}
+    }
+
     void ECSSystemManager::OnEditorPropImguiDraw(Entity &entity)
     {
 		for(auto& sys : m_systems)
@@ -58,6 +66,14 @@ namespace BitPounce
 			((ECSSystem*)sys)->Deserialize(json);
 		}
 	}
+
+    void ECSSystemManager::DeserializeRuntime(BitPouncePack::PackScene *packScene)
+    {
+		for(auto& sys : m_systems)
+		{
+			((ECSSystem*)sys)->DeserializeRuntime(packScene);
+		}
+    }
 
     void ECSSystemManager::OnDrawEditor(Timestep &ts, EditorCamera &cam)
     {

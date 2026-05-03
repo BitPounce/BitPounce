@@ -29,7 +29,7 @@ void main()
 
 #type fragment
 layout(location = 0) out vec4 colour;
-layout(location = 1) out int colour2; // integer output
+layout(location = 1) out int colour2;
 
 in float v_Fade;
 in vec3 v_LocalPosition;

@@ -197,15 +197,15 @@ namespace BitPounce
 			auto& registry = m_Scene->GetRegistry(*this);
 
 			// Gravity
-			if (json.contains("Physics2D"))
-			{
-				auto& phys = json["Physics2D"];
-				if (phys.contains("Gravity"))
-				{
-					auto g = phys["Gravity"];
-					m_Gravity = { g[0], g[1] };
-				}
-			}
+			//if (json.contains("Physics2D"))
+			//{
+			//	auto& phys = json["Physics2D"];
+			//	if (phys.contains("Gravity"))
+			//	{
+			//		auto g = phys["Gravity"];
+			//		m_Gravity = { g[0], g[1] };
+			//	}
+			//}
 
 			// Build entity map
 			std::unordered_map<uint32_t, entt::entity> entityMap;
@@ -447,7 +447,7 @@ namespace BitPounce
 			
 			registry.view<Rigidbody2DComponent, TransformComponent>().each([&](entt::entity e, Rigidbody2DComponent& rb2d, TransformComponent& transform)
 			{
-			    if (!rb2d.RuntimeBody) return;
+			    if (!rb2d.RuntimeBody || rb2d.Type == BitPounce::Rigidbody2DComponent::BodyType::Static) return;
 			    b2BodyId bodyId = *static_cast<b2BodyId*>(rb2d.RuntimeBody);
 			    if (!b2Body_IsValid(bodyId)) return;
 			

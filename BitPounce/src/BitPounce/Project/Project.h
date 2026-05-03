@@ -8,6 +8,7 @@
 
 #include "BitPounce/Asset/RuntimeAssetManager.h"
 #include "BitPounce/Asset/EditorAssetManager.h"
+#include "BitPounce/Scene/SceneManager.h"
 
 namespace BitPounce 
 {
@@ -20,6 +21,7 @@ namespace BitPounce
 		// Relative to AssetDirectory
 		std::filesystem::path AssetDirectory;
 		std::filesystem::path AssetRegistryPath = "AssetRegistry.bpreg";
+		std::vector<std::filesystem::path> AssetPacks = {};
 	};
 
 	class Project
@@ -57,13 +59,15 @@ namespace BitPounce
 		std::shared_ptr<AssetManagerBase> GetAssetManager() { return m_AssetManager; }
 		std::shared_ptr<RuntimeAssetManager> GetRuntimeAssetManager() { return std::static_pointer_cast<RuntimeAssetManager>(m_AssetManager); }
 		std::shared_ptr<EditorAssetManager> GetEditorAssetManager() { return std::static_pointer_cast<EditorAssetManager>(m_AssetManager); }
+		SceneManager& GetSceneManager() { return m_SceneManager; }
 
 		static Ref<Project> New(const ProjectConfig& projectConfig = ProjectConfig());
-		static Ref<Project> Load(const std::filesystem::path& path);
+		static Ref<Project> Load(const std::filesystem::path& path, bool isEditor = true);
 		static bool SaveActive(const std::filesystem::path& path);
 	private:
 		ProjectConfig m_Config;
 		std::filesystem::path m_ProjectDirectory;
+		SceneManager m_SceneManager = {};
 		std::shared_ptr<AssetManagerBase> m_AssetManager;
 
 		inline static Ref<Project> s_ActiveProject;

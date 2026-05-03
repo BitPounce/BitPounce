@@ -37,11 +37,11 @@ namespace BitPounce
 		}
 	}
 
-	void SystemManager::OnImGuiDraw()
+	void SystemManager::OnImGuiDraw(Timestep& ts)
 	{
 		for (auto& sys : m_systems)
 		{
-			sys->OnImGuiDraw();
+			sys->OnImGuiDraw(ts);
 		}
 	}
 

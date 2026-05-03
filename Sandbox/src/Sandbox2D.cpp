@@ -48,7 +48,6 @@ void Sandbox2D::OnAttach()
     fbSpec.Attachments = { BitPounce::FramebufferTextureFormat::RGBA8, BitPounce::FramebufferTextureFormat::RED_INTEGER, BitPounce::FramebufferTextureFormat::Depth };
 	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
 
-    BitPounce::ScriptEngine::BuildScripts({"assets/scripts/main.as"});
 }
 
 void Sandbox2D::OnDetach()
@@ -181,10 +180,10 @@ void Sandbox2D::OnUpdate(BitPounce::Timestep& ts)
     //m_Framebuffer->Unbind();
 }
 
-void Sandbox2D::OnImGuiRender()
+void Sandbox2D::OnImGuiRender(BitPounce::Timestep& ts)
 {
 	
-    m_SysManager.OnImGuiDraw();
+    m_SysManager.OnImGuiDraw(ts);
 
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));

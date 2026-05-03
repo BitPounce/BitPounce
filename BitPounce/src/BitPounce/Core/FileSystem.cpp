@@ -152,7 +152,7 @@ namespace BitPounce
 		uint64_t mib = 1024;
 		uint64_t gib = mib * 1024;
 		BufferBase fileBuffer;
-		if(std::filesystem::file_size(filepath) >= gib)
+		if(std::filesystem::file_size(filepath) >= 5 * gib)
 		{
 			fileBuffer = ReadFileBinaryDisk(filepath);
 		}

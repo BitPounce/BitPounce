@@ -13,7 +13,7 @@ namespace BitPounce {
 
 		void SetBaseDir(const std::filesystem::path& path);
 
-		virtual void OnImGuiDraw() override;
+		virtual void OnImGuiDraw(BitPounce::Timestep& ts) override;
 	private:
 		void RefreshAssetTree();
 	private:

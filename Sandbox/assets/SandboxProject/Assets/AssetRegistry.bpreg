@@ -1,0 +1,64 @@
+{
+	"AssetRegistry": [
+		{
+			"FilePath": "textures/Player.png",
+			"Handle": 547497271197996637,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "file_example_WAV_10MG.wav",
+			"Handle": 1227631349085125902,
+			"Type": "AssetType::Audio"
+		},
+		{
+			"FilePath": "fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf",
+			"Handle": 1441554370544208483,
+			"Type": "AssetType::Font"
+		},
+		{
+			"FilePath": "textures/Player Up (219th copy).png",
+			"Handle": 3231077236826106527,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "scenes/Example.bitPounce",
+			"Handle": 6701898145733331557,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "textures/SubTexTest.png",
+			"Handle": 7816482924039285401,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "scenes/TestS.bitPounce",
+			"Handle": 8217511961463226670,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "scenes/TestFS.bitPounce",
+			"Handle": 8866904119218306389,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "scenes/fhghgtfgfhfhgfhghgf.bitPounce",
+			"Handle": 9264739820967115457,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "scenes/Physics2D.bitPounce",
+			"Handle": 12112684405258325721,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "scenes/Test.bitPounce",
+			"Handle": 12678243516906091914,
+			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "textures/Checkerboard.png",
+			"Handle": 17924858911134459790,
+			"Type": "AssetType::Texture2D"
+		}
+	]
+}

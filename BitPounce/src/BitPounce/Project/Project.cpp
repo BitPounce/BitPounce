@@ -11,7 +11,7 @@ namespace BitPounce
 		return s_ActiveProject;
 	}
 
-	Ref<Project> Project::Load(const std::filesystem::path& path)
+	Ref<Project> Project::Load(const std::filesystem::path& path, bool isEditor)
 	{
 		Ref<Project> project = CreateRef<Project>();
 
@@ -20,9 +20,25 @@ namespace BitPounce
 		{
 			project->m_ProjectDirectory = path.parent_path();
 			s_ActiveProject = project;
-			std::shared_ptr<EditorAssetManager> editorAssetManager = std::make_shared<EditorAssetManager>();
-			s_ActiveProject->m_AssetManager = editorAssetManager;
-			editorAssetManager->DeserializeAssetRegistry();
+			if(isEditor)
+			{
+				std::shared_ptr<EditorAssetManager> editorAssetManager = std::make_shared<EditorAssetManager>();
+				s_ActiveProject->m_AssetManager = editorAssetManager;
+				editorAssetManager->DeserializeAssetRegistry();
+			}
+			else
+			{
+				std::shared_ptr<RuntimeAssetManager> runtimeAssetManager = std::make_shared<RuntimeAssetManager>();
+				for(auto&& assetPack : s_ActiveProject->m_Config.AssetPacks)
+				{
+					BP_CORE_INFO("{}" ,assetPack.string());
+					runtimeAssetManager->LoadAssetPack(assetPack);
+				}
+				s_ActiveProject->m_AssetManager = runtimeAssetManager;
+				s_ActiveProject->m_SceneManager.AddAssetMap(s_ActiveProject->GetRuntimeAssetManager()->GetAssetMap());
+				s_ActiveProject->m_SceneManager.LoadScene(s_ActiveProject->GetConfig().StartScene.filename());
+			}
+			
 			return s_ActiveProject;
 		}
 

@@ -1,0 +1,101 @@
+{
+	"Entities": [
+		{
+			"ID": 8865628975330034088,
+			"SpriteRenderer": {
+				"Colour": [
+					1.0,
+					1.0,
+					1.0,
+					1.0
+				],
+				"SpriteIndex": [
+					0,
+					0
+				],
+				"SpriteSize": [
+					64,
+					64
+				],
+				"TextureID": 7816482924039285401,
+				"UseSpriteSheet": true
+			},
+			"TagComponent": {
+				"Tag": "Texture"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 1
+		},
+		{
+			"CameraComponent": {
+				"BgColour": [
+					0.10000000149011612,
+					0.10000000149011612,
+					0.10000000149011612,
+					1.0
+				],
+				"Camera": {
+					"AspectRatio": 1.452504277229309,
+					"Orthographic": {
+						"FarClip": 1.0,
+						"NearClip": -1.0,
+						"Size": 10.0
+					},
+					"Perspective": {
+						"FarClip": 1000.0,
+						"NearClip": 0.009999999776482582,
+						"POV": 0.7853981852531433
+					},
+					"ProjectionType": 1
+				},
+				"FixedAspectRatio": false,
+				"Primary": true
+			},
+			"ID": 13418509291039835207,
+			"TagComponent": {
+				"Tag": "Camera"
+			},
+			"TransformComponent": {
+				"Rotation": [
+					0.0,
+					0.0,
+					0.0
+				],
+				"Scale": [
+					1.0,
+					1.0,
+					1.0
+				],
+				"Translation": [
+					0.0,
+					0.0,
+					0.0
+				]
+			},
+			"entityID": 0
+		}
+	],
+	"Physics2D": {
+		"Gravity": [
+			0.0,
+			-10.0
+		]
+	},
+	"Scene": "Untitled"
+}

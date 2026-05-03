@@ -25,15 +25,15 @@ void DiskFree(size_t size, void* address)
 
 namespace BitPounce
 {
-    std::string FileDialogs::OpenFile(const char* filter)
+    std::optional<std::string> FileDialogs::OpenFile(const char* filter)
 	{
 		BP_CORE_ASSERT(0,"OpenFile is not supported on web");
-		return std::string();
+		return std::optional<std::string>();
 	}
 
-	std::string FileDialogs::SaveFile(const char* filter)
+	std::optional<std::string> FileDialogs::SaveFile(const char* filter)
 	{
 		BP_CORE_ASSERT(0,"SaveFile is not supported on web");
-		return std::string();
+		return std::optional<std::string>();
     }
 }

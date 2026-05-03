@@ -2,8 +2,10 @@
 
 #include "BitPounce/Core/UUID.h"
 
-namespace BitPounce {
+namespace BitPounce 
+{
 
+	
 	using AssetHandle = UUID;
 
 	enum class AssetType : uint16_t
@@ -27,4 +29,6 @@ namespace BitPounce {
 		virtual AssetType GetType() const = 0;
 		static AssetType GetTypeFromFileExtension(const std::string& ext);
 	};
+
+	using AssetMap = std::map<AssetHandle, Ref<Asset>>;
 }

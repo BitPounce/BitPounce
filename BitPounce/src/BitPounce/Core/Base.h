@@ -10,10 +10,14 @@
 #define BP_EXPAND_MACRO(x) x
 #define BP_STRINGIFY_MACRO(x) #x
 
+#define BP_CONCAT_IMPL(x, y) x##y
+#define BP_CONCAT(x, y) BP_CONCAT_IMPL(x, y)
+
 #include "Logger.h"
 #include "Assert.h"
 
 #define BP_BIND_EVENT_FN(fn) [this](auto&& e) { return this->fn(std::forward<decltype(e)>(e)); }
+#define NULL0 0
 
 
 namespace BitPounce

@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
+#include "Console.h"
 
 namespace BitPounce
 {
@@ -13,6 +14,7 @@ namespace BitPounce
 		std::vector<spdlog::sink_ptr> logSinks;
 		logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
 		logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("Bit Pounce.log", true));
+		logSinks.emplace_back(std::make_shared<ConsoleSink<std::mutex>>());
 
 		spdlog::set_pattern("%^[%T] %n: %v%$");
 		s_CoreLogger = std::make_shared<spdlog::logger>("BIT POUNCE", begin(logSinks), end(logSinks));

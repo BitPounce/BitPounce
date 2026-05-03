@@ -4,6 +4,7 @@
 
 namespace BitPounce
 {
+
 	class Audio : public Asset
 	{
 	public:
@@ -14,12 +15,15 @@ namespace BitPounce
 		Audio& operator=(Audio&&) = default;
 
 		static Ref<Audio> Create(std::filesystem::path filepath);
+		static Ref<Audio> Create(const BitPouncePack::PackAudio& packAudio, bool loop = false);
 		~Audio();
 		Audio(std::filesystem::path filepath);
+		Audio(const BitPouncePack::PackAudio& packAudio, bool loop = false);
 		void Play();
 		void Stop();
 		void SetVolume(float volume);
 		void SetLooping(bool loop);
+		
 
 		AudioID GetID();
 

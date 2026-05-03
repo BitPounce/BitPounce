@@ -19,9 +19,238 @@ namespace BitPounce
 	public:
 		Renderer2DSystem() { m_name = "Renderer 2D System"; };
 		virtual System* clone() const override {
-        	return new Renderer2DSystem(*this);
-    	}
+			return new Renderer2DSystem(*this);
+		}
 		float timer = 0;
+
+		virtual void DeserializeRuntime(BitPouncePack::PackScene* packScene) override
+		{
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    // -------------------------
+		    // Helper: find entity by ID
+		    // -------------------------
+		    auto FindEntity = [&](uint32_t id) -> Entity
+		    {
+		        auto view = registry.view<IDComponent>();
+		        for (auto e : view)
+		        {
+		            Entity ent{ e, m_Scene };
+		            if ((uint32_t)ent == id)
+		                return ent;
+		        }
+		        return {};
+		    };
+		
+		    // -------------------------
+		    // Iterate all entities
+		    // -------------------------
+		    for (auto& entityObj : packScene->Entities.GetAll())
+		    {
+		        if (!entityObj.Contains("entityId"))
+		            continue;
+			
+		        uint32_t id = entityObj.Get<uint32_t>("entityId", BitPouncePack::SerializationType::Uint32);
+		        Entity entity = FindEntity(id);
+			
+		        if (!entity)
+		            continue;
+			
+		        if (!entityObj.Contains("Components"))
+		            continue;
+			
+		        auto components = entityObj.Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        // -------------------------
+		        // Loop components
+		        // -------------------------
+		        for (auto& comp : components.GetAll())
+		        {
+		            if (!comp.Contains("Type"))
+		                continue;
+				
+		            std::string type = comp.Get<std::string>("Type", BitPouncePack::SerializationType::String);
+				
+		            // -------------------------
+		            // SpriteRendererComponent
+		            // -------------------------
+		            if (type == "SpriteRendererComponent")
+		            {
+		                auto& sprite = entity.HasComponent<SpriteRendererComponent>() ?
+		                    entity.GetComponent<SpriteRendererComponent>() :
+		                    entity.AddComponent<SpriteRendererComponent>();
+					
+		                if (comp.Contains("Colour"))
+		                    sprite.Colour = comp.Get<glm::vec4>("Colour", BitPouncePack::SerializationType::Colour);
+					
+		                if (comp.Contains("SpriteIndex"))
+		                    sprite.SpriteIndex = comp.Get<glm::ivec2>("SpriteIndex", BitPouncePack::SerializationType::Vector2Int);
+					
+		                if (comp.Contains("SpriteSize"))
+		                    sprite.SpriteSize = comp.Get<glm::ivec2>("SpriteSize", BitPouncePack::SerializationType::Vector2Int);
+					
+		                if (comp.Contains("UseSpriteSheet"))
+		                    sprite.UseSpriteSheet = comp.Get<bool>("UseSpriteSheet", BitPouncePack::SerializationType::Bool);
+					
+		                if (comp.Contains("TextureID"))
+		                {
+		                    uint64_t handle = comp.Get<uint64_t>("TextureID", BitPouncePack::SerializationType::Uint64);
+		                    sprite.Texture = handle;
+		                }
+		            }
+				
+		            // -------------------------
+		            // CircleRendererComponent
+		            // -------------------------
+		            else if (type == "CircleRendererComponent")
+		            {
+		                auto& circle = entity.HasComponent<CircleRendererComponent>() ?
+		                    entity.GetComponent<CircleRendererComponent>() :
+		                    entity.AddComponent<CircleRendererComponent>();
+					
+		                if (comp.Contains("Colour"))
+		                    circle.Colour = comp.Get<glm::vec4>("Colour", BitPouncePack::SerializationType::Colour);
+					
+		                if (comp.Contains("Fade"))
+		                    circle.Fade = comp.Get<float>("Fade", BitPouncePack::SerializationType::Float);
+					
+		                if (comp.Contains("Thickness"))
+		                    circle.Thickness = comp.Get<float>("Thickness", BitPouncePack::SerializationType::Float);
+		            }
+				
+		            // -------------------------
+		            // TextComponent
+		            // -------------------------
+		            else if (type == "TextComponent")
+		            {
+		                auto& text = entity.HasComponent<TextComponent>() ?
+		                    entity.GetComponent<TextComponent>() :
+		                    entity.AddComponent<TextComponent>();
+					
+		                if (comp.Contains("TextString"))
+		                    text.TextString = comp.Get<std::string>("TextString", BitPouncePack::SerializationType::String);
+					
+		                if (comp.Contains("Colour"))
+		                    text.textParams.Colour = comp.Get<glm::vec4>("Colour", BitPouncePack::SerializationType::Colour);
+					
+		                if (comp.Contains("Kerning"))
+		                    text.textParams.Kerning = comp.Get<float>("Kerning", BitPouncePack::SerializationType::Float);
+					
+		                if (comp.Contains("LineSpacing"))
+		                    text.textParams.LineSpacing = comp.Get<float>("LineSpacing", BitPouncePack::SerializationType::Float);
+					
+		                if (comp.Contains("FontID"))
+		                {
+		                    uint64_t handle = comp.Get<uint64_t>("FontID", BitPouncePack::SerializationType::Uint64);
+		                    text.FontHandle = handle;
+		                }
+		            }
+		        }
+		    }
+		}
+		
+
+		virtual void SerializeRuntime(BitPouncePack::PackScene* packScene) override
+		{
+		    auto& registry = m_Scene->GetRegistry(*this);
+		
+		    // -------------------------
+		    // Helper: find entity object
+		    // -------------------------
+		    auto FindEntityObj = [&](entt::entity e) -> BitPouncePack::SerializationObject*
+		    {
+		        for (auto& obj : packScene->Entities.GetAll())
+		        {
+		            if (obj.Get<uint32_t>("entityId", BitPouncePack::SerializationType::Uint32) == (uint32_t)e)
+		                return &obj;
+		        }
+		        return nullptr;
+		    };
+		
+		    // -------------------------
+		    // SpriteRendererComponent
+		    // -------------------------
+		    auto spriteView = registry.view<SpriteRendererComponent>();
+		    for (auto entity : spriteView)
+		    {
+		        auto* ent = FindEntityObj(entity);
+		        if (!ent) continue;
+			
+		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
+			
+		        BitPouncePack::SerializationObject spriteObj;
+		        spriteObj.Set("Type", BitPouncePack::SerializationType::String, std::string("SpriteRendererComponent"));
+		        spriteObj.Set("Colour", BitPouncePack::SerializationType::Colour, sprite.Colour);
+		        spriteObj.Set("SpriteIndex", BitPouncePack::SerializationType::Vector2Int, sprite.SpriteIndex);
+		        spriteObj.Set("SpriteSize", BitPouncePack::SerializationType::Vector2Int, sprite.SpriteSize);
+		        spriteObj.Set("UseSpriteSheet", BitPouncePack::SerializationType::Bool, sprite.UseSpriteSheet);
+			
+		        if (sprite.Texture)
+		            spriteObj.Set("TextureID", BitPouncePack::SerializationType::Uint64, sprite.Texture.operator uint64_t());
+			
+		        auto components = ent->Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        components.Add(spriteObj);
+				
+		        ent->Set("Components", BitPouncePack::SerializationType::SerializationObjectArray, components);
+		    }
+		
+		    // -------------------------
+		    // CircleRendererComponent
+		    // -------------------------
+		    auto circleView = registry.view<CircleRendererComponent>();
+		    for (auto entity : circleView)
+		    {
+		        auto* ent = FindEntityObj(entity);
+		        if (!ent) continue;
+			
+		        auto& circle = circleView.get<CircleRendererComponent>(entity);
+			
+		        BitPouncePack::SerializationObject circleObj;
+		        circleObj.Set("Type", BitPouncePack::SerializationType::String, std::string("CircleRendererComponent"));
+		        circleObj.Set("Colour", BitPouncePack::SerializationType::Colour, circle.Colour);
+		        circleObj.Set("Fade", BitPouncePack::SerializationType::Float, circle.Fade);
+		        circleObj.Set("Thickness", BitPouncePack::SerializationType::Float, circle.Thickness);
+			
+		        auto components = ent->Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        components.Add(circleObj);
+				
+		        ent->Set("Components", BitPouncePack::SerializationType::SerializationObjectArray, components);
+		    }
+		
+		    // -------------------------
+		    // TextComponent
+		    // -------------------------
+		    auto textView = registry.view<TextComponent>();
+		    for (auto entity : textView)
+		    {
+		        auto* ent = FindEntityObj(entity);
+		        if (!ent) continue;
+			
+		        auto& text = textView.get<TextComponent>(entity);
+			
+		        BitPouncePack::SerializationObject textObj;
+		        textObj.Set("Type", BitPouncePack::SerializationType::String, std::string("TextComponent"));
+		        textObj.Set("TextString", BitPouncePack::SerializationType::String, text.TextString);
+		        textObj.Set("Colour", BitPouncePack::SerializationType::Colour, text.textParams.Colour);
+		        textObj.Set("Kerning", BitPouncePack::SerializationType::Float, text.textParams.Kerning);
+		        textObj.Set("LineSpacing", BitPouncePack::SerializationType::Float, text.textParams.LineSpacing);
+			
+		        if (text.FontHandle)
+		            textObj.Set("FontID", BitPouncePack::SerializationType::Uint64, text.FontHandle.operator uint64_t());
+			
+		        auto components = ent->Get<BitPouncePack::SerializationObjectArray>(
+		            "Components", BitPouncePack::SerializationType::SerializationObjectArray);
+				
+		        components.Add(textObj);
+				
+		        ent->Set("Components", BitPouncePack::SerializationType::SerializationObjectArray, components);
+		    }
+		}
 
 		virtual void OnDraw(Timestep& ts) override 
 		{
@@ -41,55 +270,55 @@ namespace BitPounce
 
 		void Draw(const glm::mat4& cam)
 		{
-		    Renderer2D::BeginScene(cam);
+			Renderer2D::BeginScene(cam);
 			
 		
-		    // Draw Sprites
-		    auto spriteView = m_Scene->GetRegistry(*this).view<TransformComponent, SpriteRendererComponent>();
-		    for (auto entity : spriteView)
-		    {
-		        auto& transform = spriteView.get<TransformComponent>(entity);
-		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
+			// Draw Sprites
+			auto spriteView = m_Scene->GetRegistry(*this).view<TransformComponent, SpriteRendererComponent>();
+			for (auto entity : spriteView)
+			{
+				auto& transform = spriteView.get<TransformComponent>(entity);
+				auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
 			
-		        if(sprite.Texture && sprite.UseSpriteSheet)
-		        {
+				if(sprite.Texture && sprite.UseSpriteSheet)
+				{
 					Renderer2D::DrawQuad(transform.GetTransform(), AssetManager::GetAsset<Texture2D>(sprite.Texture), sprite.SpriteSize, sprite.SpriteIndex, sprite.Colour, (int)entity);
-		        }
+				}
 				else if(sprite.Texture)
 				{
 					Renderer2D::DrawQuad(transform.GetTransform(), AssetManager::GetAsset<Texture2D>(sprite.Texture), sprite.Colour, sprite.TilingFactor, (int)entity);
 				}
-		        else
-		        {
-		            Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
-		        }
-		    }
+				else
+				{
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Colour, (int)entity);
+				}
+			}
 		
-		    // Draw Circles
-		    auto circleView = m_Scene->GetRegistry(*this).view<TransformComponent, CircleRendererComponent>();
-		    for (auto entity : circleView)
-		    {
-		        auto& transform = circleView.get<TransformComponent>(entity);
-		        auto& circle = circleView.get<CircleRendererComponent>(entity);
+			// Draw Circles
+			auto circleView = m_Scene->GetRegistry(*this).view<TransformComponent, CircleRendererComponent>();
+			for (auto entity : circleView)
+			{
+				auto& transform = circleView.get<TransformComponent>(entity);
+				auto& circle = circleView.get<CircleRendererComponent>(entity);
 			
-		        Renderer2D::DrawCircle(transform.GetTransform(), circle.Colour, circle.Thickness, circle.Fade, (int)entity);
-		    }
+				Renderer2D::DrawCircle(transform.GetTransform(), circle.Colour, circle.Thickness, circle.Fade, (int)entity);
+			}
 
 			auto textView = m_Scene->GetRegistry(*this).view<TransformComponent, TextComponent>();
-		    for (auto entity : textView)
-		    {
-		        auto& transform = textView.get<TransformComponent>(entity);
-		        auto& text = textView.get<TextComponent>(entity);
+			for (auto entity : textView)
+			{
+				auto& transform = textView.get<TransformComponent>(entity);
+				auto& text = textView.get<TextComponent>(entity);
 
 				if(!text.FontHandle)
 				{
 					continue;
 				}
 			
-		        Renderer2D::DrawString(text.TextString, AssetManager::GetAsset<Font>(text.FontHandle), transform.GetTransform(), text.textParams, (int)entity);
-		    }
+				Renderer2D::DrawString(text.TextString, AssetManager::GetAsset<Font>(text.FontHandle), transform.GetTransform(), text.textParams, (int)entity);
+			}
 		
-		    Renderer2D::EndScene();
+			Renderer2D::EndScene();
 		}
 
 		virtual void AddComponentPopupImguiDraw(Entity& ent) override
@@ -197,16 +426,16 @@ namespace BitPounce
 
 		virtual void Serialize(nlohmann::json& json) override
 		{
-		    auto& registry = m_Scene->GetRegistry(*this);
+			auto& registry = m_Scene->GetRegistry(*this);
 		
-		    // Serialize SpriteRendererComponent
-		    auto spriteView = registry.view<SpriteRendererComponent>();
-		    for (auto entity : spriteView)
-		    {
-		        auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
+			// Serialize SpriteRendererComponent
+			auto spriteView = registry.view<SpriteRendererComponent>();
+			for (auto entity : spriteView)
+			{
+				auto& sprite = spriteView.get<SpriteRendererComponent>(entity);
 			
-		        nlohmann::json spriteJson;
-		        spriteJson["Colour"] = sprite.Colour;
+				nlohmann::json spriteJson;
+				spriteJson["Colour"] = sprite.Colour;
 				spriteJson["SpriteSize"] = sprite.SpriteSize;
 				spriteJson["SpriteIndex"] = sprite.SpriteIndex;
 				spriteJson["UseSpriteSheet"] = sprite.UseSpriteSheet;
@@ -214,110 +443,110 @@ namespace BitPounce
 				if (sprite.Texture)
 				{
 					//std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
-					spriteJson["TextureID"] = sprite.Texture.operator std::size_t();
+					spriteJson["TextureID"] = sprite.Texture.operator uint64_t();
 				}
 					
 			
-		        for (auto& ent : json["Entities"])
-		        {
-		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
-		            {
-		                ent["SpriteRenderer"] = spriteJson;
-		                break;
-		            }
-		        }
-		    }
+				for (auto& ent : json["Entities"])
+				{
+					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+					{
+						ent["SpriteRenderer"] = spriteJson;
+						break;
+					}
+				}
+			}
 		
-		    // Serialize CircleRendererComponent
-		    auto circleView = registry.view<CircleRendererComponent>();
-		    for (auto entity : circleView)
-		    {
-		        auto& circle = circleView.get<CircleRendererComponent>(entity);
+			// Serialize CircleRendererComponent
+			auto circleView = registry.view<CircleRendererComponent>();
+			for (auto entity : circleView)
+			{
+				auto& circle = circleView.get<CircleRendererComponent>(entity);
 			
-		        nlohmann::json circleJson;
-		        circleJson["Colour"] = circle.Colour;
-		        circleJson["Fade"] = circle.Fade;
-		        circleJson["Thickness"] = circle.Thickness;
+				nlohmann::json circleJson;
+				circleJson["Colour"] = circle.Colour;
+				circleJson["Fade"] = circle.Fade;
+				circleJson["Thickness"] = circle.Thickness;
 			
-		        for (auto& ent : json["Entities"])
-		        {
-		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
-		            {
-		                ent["CircleRenderer"] = circleJson;
-		                break;
-		            }
-		        }
-		    }
+				for (auto& ent : json["Entities"])
+				{
+					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+					{
+						ent["CircleRenderer"] = circleJson;
+						break;
+					}
+				}
+			}
 
 			auto textView = registry.view<TextComponent>();
-		    for (auto entity : textView)
-		    {
-		        auto& text = textView.get<TextComponent>(entity);
+			for (auto entity : textView)
+			{
+				auto& text = textView.get<TextComponent>(entity);
 			
-		        nlohmann::json textJson;
-		        textJson["TextString"] = text.TextString;
-		        textJson["Colour"] = text.textParams.Colour;
+				nlohmann::json textJson;
+				textJson["TextString"] = text.TextString;
+				textJson["Colour"] = text.textParams.Colour;
 				textJson["Kerning"] = text.textParams.Kerning;
 				textJson["LineSpacing"] = text.textParams.LineSpacing;
 
 				if (text.FontHandle)
 				{
 					//std::string dgdgfdgf = std::filesystem::relative(sprite.Texture->GetPath(), Project::GetAssetDirectory()).generic_string();
-					textJson["FontID"] = text.FontHandle.operator std::size_t();
+					textJson["FontID"] = text.FontHandle.operator uint64_t();
 				}
-		        
+				
 			
-		        for (auto& ent : json["Entities"])
-		        {
-		            if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
-		            {
-		                ent["TextComponent"] = textJson;
-		                break;
-		            }
-		        }
-		    }
+				for (auto& ent : json["Entities"])
+				{
+					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
+					{
+						ent["TextComponent"] = textJson;
+						break;
+					}
+				}
+			}
 		}
 
 		virtual void Deserialize(nlohmann::json& json) override
 		{
-		    auto& registry = m_Scene->GetRegistry(*this);
+			auto& registry = m_Scene->GetRegistry(*this);
 		
-		    for (auto& entJson : json["Entities"])
-		    {
-		        if (!entJson.contains("entityID"))
-		            continue;
+			for (auto& entJson : json["Entities"])
+			{
+				if (!entJson.contains("entityID"))
+					continue;
 			
-		        uint32_t id = entJson["entityID"].get<uint32_t>();
-		        entt::entity targetEntity = entt::null;
+				uint32_t id = entJson["entityID"].get<uint32_t>();
+				entt::entity targetEntity = entt::null;
 			
-		        auto view = registry.view<TagComponent>();
-		        for (auto entity : view)
-		        {
-		            Entity e{ entity, m_Scene };
-		            if ((uint32_t)e == id)
-		            {
-		                targetEntity = entity;
-		                break;
-		            }
-		        }
+				auto view = registry.view<TagComponent>();
+				for (auto entity : view)
+				{
+					Entity e{ entity, m_Scene };
+					if ((uint32_t)e == id)
+					{
+						targetEntity = entity;
+						break;
+					}
+				}
 			
-		        if (targetEntity == entt::null)
-		            continue;
+				if (targetEntity == entt::null)
+					continue;
 			
-		        Entity entity{ targetEntity, m_Scene };
+				Entity entity{ targetEntity, m_Scene };
 			
-		        if (entJson.contains("SpriteRenderer"))
-		        {
-		            SpriteRendererComponent comp;
-		            auto& spriteJson = entJson["SpriteRenderer"];
-		            if (spriteJson.contains("Colour"))
-		                comp.Colour = spriteJson["Colour"].get<glm::vec4>();
+				if (entJson.contains("SpriteRenderer"))
+				{
+					SpriteRendererComponent comp;
+					auto& spriteJson = entJson["SpriteRenderer"];
+					if (spriteJson.contains("Colour"))
+						comp.Colour = spriteJson["Colour"].get<glm::vec4>();
 					if (spriteJson.contains("TextureID"))
 					{
 						//std::string texturePath = spriteJson["TexturePath"].get<std::string>();
 						//auto path = Project::GetAssetFileSystemPath(texturePath);
 						//comp.Texture = Texture2D::Create(path.string());
-						comp.Texture = spriteJson["TextureID"].get<size_t>();
+						comp.Texture = spriteJson["TextureID"].get<uint64_t>();
 					}
 					if (spriteJson.contains("SpriteSize"))
 						comp.SpriteSize = spriteJson["SpriteSize"].get<glm::u32vec2>();
@@ -328,18 +557,18 @@ namespace BitPounce
 					if (spriteJson.contains("UseSpriteSheet"))
 						comp.UseSpriteSheet = spriteJson["UseSpriteSheet"].get<bool>();
 
-		            entity.AddComponent<SpriteRendererComponent>(comp);
-		        }
+					entity.AddComponent<SpriteRendererComponent>(comp);
+				}
 			
-		        if (entJson.contains("CircleRenderer"))
-		        {
-		            CircleRendererComponent comp;
-		            auto& circleJson = entJson["CircleRenderer"];
-		            comp.Colour = circleJson["Colour"].get<glm::vec4>();
-		            comp.Fade = circleJson["Fade"].get<float>();
-		            comp.Thickness = circleJson["Thickness"].get<float>();
-		            entity.AddComponent<CircleRendererComponent>(comp);
-		        }
+				if (entJson.contains("CircleRenderer"))
+				{
+					CircleRendererComponent comp;
+					auto& circleJson = entJson["CircleRenderer"];
+					comp.Colour = circleJson["Colour"].get<glm::vec4>();
+					comp.Fade = circleJson["Fade"].get<float>();
+					comp.Thickness = circleJson["Thickness"].get<float>();
+					entity.AddComponent<CircleRendererComponent>(comp);
+				}
 
 				if(entJson.contains("TextComponent"))
 				{
@@ -352,12 +581,12 @@ namespace BitPounce
 
 					if (textJson.contains("FontID"))
 					{
-						comp.FontHandle = textJson["FontID"].get<size_t>();
+						comp.FontHandle = textJson["FontID"].get<uint64_t>();
 					}
 
 					entity.AddComponent<TextComponent>(comp);
 				}
-		    }
+			}
 		}
 	};
 }

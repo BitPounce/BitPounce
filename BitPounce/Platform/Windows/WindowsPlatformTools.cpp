@@ -137,7 +137,7 @@ void DiskFree(size_t size, void* address)
 
 namespace BitPounce
 {
-    std::string FileDialogs::OpenFile(const char* filter)
+    std::optional<std::string> FileDialogs::OpenFile(const char* filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };

@@ -8,6 +8,7 @@
 #include "BitPounce/ImGui/ImGuiLayer.h"
 #include "BitPounce/Core/Timestep.h"
 #include "BitPounce/Events/ApplicationEvent.h"
+#include "BitPounce/Core//Timer.h"
 namespace BitPounce
 {
 	struct ApplicationProps
@@ -52,6 +53,7 @@ namespace BitPounce
 		void OnEvent(Event& event);
 
 	private:
+		Timer m_APPTimerLOLsdrtfthfgghghghkghghkgvj;
 		float m_LastFrameTime = 0.0f;
 		void Update();
 		ImGuiLayer* m_ImGuiLayer;

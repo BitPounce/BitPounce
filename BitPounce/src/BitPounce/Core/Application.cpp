@@ -123,7 +123,9 @@ namespace BitPounce
 
 		// HACK
 		#ifdef BP_PLATFORM_WINDOWS
-		Update();
+		// HACK
+		if(m_APPTimerLOLsdrtfthfgghghghkghghkgvj.Elapsed() >= 10)
+			Update();
 		#endif
 
 		m_IsPoolingEvents = false;

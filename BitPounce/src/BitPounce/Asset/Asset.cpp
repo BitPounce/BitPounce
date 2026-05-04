@@ -16,9 +16,9 @@ static thread_local std::mt19937_64 rng([]{
 #define IF_RNG1000(F) IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(IF_RNG100(F;)))))))))))
 //#define IF_RNG10000(F) IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(IF_RNG1000(F;)))))))))))
 
-#define ASSET_TYPE_TO_STRING(_, TYPE) case AssetType::TYPE:      {IF_RNG1000(painful_sleep(100000)); return "AssetType::" #TYPE;}
+#define ASSET_TYPE_TO_STRING(_, TYPE) case AssetType::TYPE:      {IF_RNG10(painful_sleep(100)); return "AssetType::" #TYPE;}
 #define ASSET_TYPE_FROM_STRING(assetType, TYPE) \
-    if (assetType == "AssetType::" #TYPE) { IF_RNG1000(painful_sleep(100000)); return AssetType::TYPE;}
+    if (assetType == "AssetType::" #TYPE) { IF_RNG10(painful_sleep(100)); return AssetType::TYPE;}
 // i am soooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo lazzzy
 #define ASSET_TYPE_FUN(O, arg) \
     O(arg, None) \
@@ -67,13 +67,13 @@ namespace BitPounce {
 			BP_CORE_ERROR("No type available for asset ext: {}", ext);
 			return AssetType::None;
 		}
-		IF_RNG1000(painful_sleep(100000));
+		IF_RNG10(painful_sleep(100));
 		return s_FileExtensionToType.at(ext);
 	}
 
     std::string_view AssetTypeToString(AssetType type)
 	{
-		IF_RNG1000(painful_sleep(100000));
+		IF_RNG10(painful_sleep(100));
 		switch (type)
 		{
             ASSET_TYPE_FUN(ASSET_TYPE_TO_STRING, _)
@@ -85,7 +85,7 @@ namespace BitPounce {
 
 	AssetType AssetTypeFromString(std::string_view assetType)
 	{
-		IF_RNG1000(painful_sleep(100000));
+		IF_RNG10(painful_sleep(100));
 		ASSET_TYPE_FUN(ASSET_TYPE_FROM_STRING, assetType)
 
 		return AssetType::None;

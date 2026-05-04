@@ -23,7 +23,7 @@ namespace BitPounce
 		}
 		scene->AddedAllSys();
 		SceneSerializer sceneSerializer = SceneSerializer(scene);
-		sceneSerializer.Deserialize(metadata.FilePath);
+		sceneSerializer.Deserialize(metadata.FilePath.generic_string());
 		
 		return scene;
 	}

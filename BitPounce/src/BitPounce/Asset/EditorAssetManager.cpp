@@ -51,7 +51,7 @@ namespace BitPounce
 		AssetMetadata metadata = AssetMetadata();
 		metadata.FilePath = filepath;
 
-		metadata.Type = Asset::GetTypeFromFileExtension(filepath.extension());
+		metadata.Type = Asset::GetTypeFromFileExtension(filepath.extension().generic_string());
 		{
 			AssetPreLoadedEvent preloadedEvent = AssetPreLoadedEvent(metadata, handle);
 			Application::Get().OnEvent(preloadedEvent);
@@ -59,7 +59,7 @@ namespace BitPounce
 		Ref<Asset> asset = AssetImporter::ImportAsset(handle, metadata);
 		asset->Handle = handle;
 
-		metadata.Type = Asset::GetTypeFromFileExtension(filepath.extension());
+		metadata.Type = Asset::GetTypeFromFileExtension(filepath.extension().generic_string());
 		{
 			AssetLoadedEvent loadedEvent = AssetLoadedEvent(metadata, handle);
 			Application::Get().OnEvent(loadedEvent);

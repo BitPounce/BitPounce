@@ -31,7 +31,11 @@ function exposeBitPounceDeps()
 
     -- Platform-specific libraries
     filter "system:windows"
-        links { "GLFW", "ImGui", "Opengl32.lib" }
+        links { "GLFW", "ImGui", "Opengl32.lib", "angelscript.lib" }
+		libdirs
+		{
+			"../BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/winbin/Release"
+		}
 
     filter "system:linux"
         links
@@ -82,6 +86,7 @@ project "BitPounce"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++23"
+	staticruntime "Off"
 
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
@@ -138,11 +143,12 @@ project "BitPounce"
 
 	filter "files:vendor/**.*"
 		flags { "NoPCH" }
+	filter "files:src/**.c"
+		flags { "NoPCH" }
 	filter {}
 
 	filter "system:windows"
 		cppdialect "C++23"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines

@@ -2,6 +2,7 @@ project "Box2D"
     location "build/Box2D"
     kind "StaticLib"
     language "C"
+	staticruntime "Off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

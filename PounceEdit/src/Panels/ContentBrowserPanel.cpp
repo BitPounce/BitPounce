@@ -89,12 +89,12 @@ namespace BitPounce {
 
 				if (!isDirectory)
 				{
-				    if (Asset::GetTypeFromFileExtension(childPath.extension()) == AssetType::Texture2D)
+				    if (Asset::GetTypeFromFileExtension(childPath.extension().generic_string()) == AssetType::Texture2D)
 				    {
 						auto tex = AssetManager::GetAsset<Texture2D>(m_TreeNodes[treeNodeIndex].Handle);
 						icon = tex;
 				    }
-					else if (Asset::GetTypeFromFileExtension(childPath.extension()) == AssetType::Font)
+					else if (Asset::GetTypeFromFileExtension(childPath.extension().generic_string()) == AssetType::Font)
 					{
 						auto font = AssetManager::GetAsset<Font>(m_TreeNodes[treeNodeIndex].Handle);
 						icon = font->GetAtlasTexture();
@@ -104,7 +104,7 @@ namespace BitPounce {
 				
 
 				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-				if(ImGui::ImageButton("##icon", (ImTextureID)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0,1 }, { 1,0 }) && Asset::GetTypeFromFileExtension(childPath.extension()) == AssetType::Audio)
+				if(ImGui::ImageButton("##icon", (ImTextureID)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0,1 }, { 1,0 }) && Asset::GetTypeFromFileExtension(childPath.extension().generic_string()) == AssetType::Audio)
 				{
 					auto audio = AssetManager::GetAsset<Audio>(m_TreeNodes[treeNodeIndex].Handle) ;
 					audio->Play();

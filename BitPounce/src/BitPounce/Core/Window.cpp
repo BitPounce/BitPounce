@@ -19,10 +19,12 @@ namespace BitPounce
 	{
 #ifdef BP_PLATFORM_WINDOWS
 		return CreateScope<WindowsWindow>(props);
-#elifdef BP_PLATFORM_WEB
+#endif
+		#ifdef BP_PLATFORM_WEB
 
 		return CreateScope<WebWindow>(props);
-#elifdef BP_PLATFORM_LINUX
+#endif
+#ifdef BP_PLATFORM_LINUX
 		return CreateScope<LinuxWindow>(props);
 #else
 		return nullptr;

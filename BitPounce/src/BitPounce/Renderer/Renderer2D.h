@@ -9,7 +9,9 @@
 
 #define BP_RENDERER2D_USE_BATCH_RENDERING 1
 
-namespace BitPounce {
+namespace BitPounce 
+{
+	
 
 	class Renderer2D
 	{
@@ -31,6 +33,11 @@ namespace BitPounce {
 			glm::vec4 Colour{ 1.0f };
 			float Kerning = 0.0f;
 			float LineSpacing = 0.0f;
+		};
+		struct TileQuad
+		{
+			glm::vec3 pos;
+			AssetHandle tex;
 		};
 		static void DrawString(const std::string& string, Ref<Font> font, const glm::mat4& transform, const TextParams& textParams, int entityID = -1);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);

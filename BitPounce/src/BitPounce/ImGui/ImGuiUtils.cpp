@@ -62,4 +62,24 @@ namespace BitPounce
 
 		ImGui::PopID();
     }
+    Entity ImGuiUtils::DrawEntitySelect(const std::string &label)
+    {
+		ImGui::Button((std::string("##HAHA_BUTTEN_") + label + "IMGUI").c_str(), ImVec2{100, 100});
+		if(ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENT_SELECT"))
+			{
+				// Making sure that the data is good is for chickens, we are not chickens!!! 🐔🐔🐔
+				Entity* temp = (Entity*)payload->Data;
+				Entity ent = Entity(*temp);
+
+				return ent;
+			}
+			ImGui::EndDragDropTarget();
+		}
+		ImGui::SameLine();
+		ImGui::Text(label.c_str());
+
+        return Entity();
+    }
 }

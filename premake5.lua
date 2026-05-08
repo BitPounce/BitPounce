@@ -7,7 +7,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Global defaults
 filter {}
-    defines { "FMT_UNICODE=0", "remainderf(x,y)=((float)remainder((x),(y)))" }
+    defines { "FMT_UNICODE=0" }
 
 -- Platform-specific
 filter "system:windows"

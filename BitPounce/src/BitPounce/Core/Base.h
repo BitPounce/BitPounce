@@ -17,6 +17,7 @@
 #include "Assert.h"
 
 #define BP_BIND_EVENT_FN(fn) [this](auto&& e) { return this->fn(std::forward<decltype(e)>(e)); }
+#define BP_BIND_VOID_NO_ARGS_FN(fn) [this]() { this->fn(); }
 #define NULL0 0
 
 

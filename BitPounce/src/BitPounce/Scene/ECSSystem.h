@@ -62,5 +62,6 @@ namespace BitPounce
 		void INIT_INT(Scene* scene);
 		friend class ECSSystemManager;
 		friend class Scene;
+		friend class Physics2DSystem;
 	};
 }

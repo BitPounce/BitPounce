@@ -26,9 +26,19 @@ namespace BitPounce
 		
 		ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
 		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
-		if (ImGui::IsItemClicked())
+		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 		{
 			m_SelectionContext = entity;
+		}
+
+		{
+			Entity* temp = new Entity(entity);
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ENT_SELECT", temp, sizeof(Entity));;
+				ImGui::EndDragDropSource();
+			}
+			delete temp;
 		}
 
 		if (opened)

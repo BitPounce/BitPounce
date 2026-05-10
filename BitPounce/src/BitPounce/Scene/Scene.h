@@ -19,6 +19,7 @@ namespace BitPounce {
 	struct CameraComponent;
 	struct TransformComponent;
 
+
 	class Scene: public Asset
 	{
 	public:

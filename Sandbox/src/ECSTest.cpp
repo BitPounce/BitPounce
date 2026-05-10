@@ -1,5 +1,7 @@
 #include <BitPounce.h>
 #include "ECSTest.h"
+#include "GameInit.h"
+
 static BitPounce::Ref<BitPounce::Audio> s_Audio;
 
 ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
@@ -12,14 +14,25 @@ void ECSTest::OnAttach()
 {
 	m_Project = BitPounce::Project::Load("assets/SandboxProject/SandboxProject.bpproj", false);
 	BitPounce::AssetMap assetMap = m_Project->GetRuntimeAssetManager()->GetAssetMap();
+
 	
 	m_Project->GetSceneManager().AddAssetMap(assetMap);
 	s_Audio =BitPounce::Audio::Create("assets/file_example_WAV_10MG.wav");
 	s_Audio->Play();
-	BitPounce::Entity ent = m_Project->GetSceneManager().GetScene()->CreateEntity("Test");
-	auto&& tilemap = ent.AddComponent<BitPounce::TilemapComponent>();
+	//BitPounce::Entity ent = m_Project->GetSceneManager().GetScene()->CreateEntity("Test");
+	//auto&& tilemap = ent.AddComponent<BitPounce::TilemapComponent>();
+//
+	//tilemap.renderer2D_tiles.push_back({glm::mat4(1), 547497271197996637});
+	m_Scene = GameLoad();
 
-	tilemap.renderer2D_tiles.push_back({glm::mat4(1), 547497271197996637});
+	BitPounce::FramebufferSpecification fbSpec;
+	fbSpec.Attachments = { BitPounce::FramebufferTextureFormat::RGBA8, BitPounce::FramebufferTextureFormat::Depth };
+	fbSpec.Width = BitPounce::Application::Get().GetWindow().GetWidth();
+	fbSpec.Height = BitPounce::Application::Get().GetWindow().GetHeight();
+	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
+	m_Shader = BitPounce::Shader::Create("assets/shaders/Test.glsl");
+	m_Shader->Bind();
+	m_Shader->SetInt("u_Texture", 0);
 }
 
 void ECSTest::OnDetach() 
@@ -29,10 +42,19 @@ void ECSTest::OnDetach()
 
 void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 {
+	m_Framebuffer->Bind();
 	BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	BitPounce::RenderCommand::Clear();
 
-	m_Project->GetSceneManager().GetScene()->OnUpdateRuntime(ts);
+	m_Scene->OnUpdate(ts);
+	m_Framebuffer->Unbind();
+	
+	BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+	BitPounce::RenderCommand::Clear();
+	m_Shader->Bind();
+	m_Shader->SetInt("u_Texture", 0);
+	m_Framebuffer->BindAsTexture();
+	BitPounce::Renderer::DrawFullScreenQuad();
 }
 
 void ECSTest::OnImGuiRender(BitPounce::Timestep& ts) 
@@ -48,7 +70,9 @@ void ECSTest::OnImGuiRender(BitPounce::Timestep& ts)
 	
 
 	ImGui::End();
-	m_Project->GetSceneManager().GetScene()->OnImguiDraw(ts);
+	m_Scene->OnImguiDraw(ts);
+	m_Console.OnImGuiDraw();
+	//m_Project->GetSceneManager().GetScene()->OnImguiDraw(ts);
 }
 
 void ECSTest::OnEvent(BitPounce::Event &e)
@@ -56,9 +80,8 @@ void ECSTest::OnEvent(BitPounce::Event &e)
 	BitPounce::EventDispatcher dispatcher(e);
 	dispatcher.Dispatch<BitPounce::AssetPreLoadedEvent>(BP_BIND_EVENT_FN(ECSTest::OnAssetPreloaded));
 	dispatcher.Dispatch<BitPounce::WindowResizeEvent>(BP_BIND_EVENT_FN(ECSTest::OnWindowResize));
-
-	if(m_Project && m_Project->GetSceneManager().GetScene())
-		m_Project->GetSceneManager().GetScene()->OnEvent(e);
+	if(m_Scene)
+		m_Scene->OnEvent(e);
 }
 
 bool ECSTest::OnAssetPreloaded(BitPounce::AssetPreLoadedEvent &e)
@@ -86,6 +109,7 @@ bool ECSTest::OnScenePreloaded(BitPounce::AssetPreLoadedEvent &e)
 
 bool ECSTest::OnWindowResize(BitPounce::WindowResizeEvent &e)
 {
-	m_Project->GetSceneManager().GetScene()->OnViewportResize(e.GetWidth(), e.GetHeight());
+	m_Scene->OnViewportResize(e.GetWidth(), e.GetHeight());
+	m_Framebuffer->Resize(e.GetWidth(), e.GetHeight());
     return false;
 }

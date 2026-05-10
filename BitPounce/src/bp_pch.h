@@ -15,6 +15,7 @@
 #include "BitPounce/Core/Application.h"
 #include "BitPounce/Core/FileSystem.h"
 #include "BitPounce/Core/Input.h"
+#include "BitPounce/Core/MiniMT.h"
 
 #include <iostream>
 #include <memory>

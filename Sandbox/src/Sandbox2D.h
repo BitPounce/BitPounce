@@ -19,6 +19,7 @@ public:
 	
 private:
 	BitPounce::SystemManager m_SysManager;
+	BitPounce::ImGuiConsoleWindow m_Console;
 	BitPounce::OrthographicCameraController m_CameraController;
 	float m_time = 0.0f;
 

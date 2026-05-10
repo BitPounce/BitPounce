@@ -207,25 +207,56 @@ namespace BitPounce {
 		//entt::entity EntityHandle = entt::null
     };
 
-	struct GMTile
+	// Represents a merged tile rectangle
+	struct GreedyQuad
+	{
+	    glm::vec3 pos;      // world position of min corner
+	    glm::vec3 size;     // width, height
+	    AssetHandle texture;
+	};
+
+	// For BSP node
+	struct PartitionNode
+	{
+	    std::vector<Renderer2D::TileQuad> tiles;
+	    std::vector<GreedyQuad> meshes;   // final merged quads in this node
+	    std::unique_ptr<PartitionNode> left;
+	    std::unique_ptr<PartitionNode> right;
+	};
+
+
+struct GMTile
 	{
 		glm::mat4 pos;
 		// UNUSED AT THE THIS TIME
 		std::array<glm::vec2, 4> uvs;
 		AssetHandle Texture;
 	};
+
 	struct TilemapComponent
 	{
 		std::vector<GMTile> renderer2D_tiles;
 		std::vector<Renderer2D::TileQuad> tiles;
 		bool isMod = true;
+		void Reserve(size_t size)
+		{
+			renderer2D_tiles.reserve(size);
+			tiles.reserve(size);
+			isMod = true;
+		}
 		void AddTile(const Renderer2D::TileQuad& quad)
 		{
 			tiles.push_back(quad);
 			GMTile gm {};
 			gm.pos = glm::mat4(1.0) * glm::translate(glm::mat4(1.0), quad.pos);
 			gm.Texture = quad.tex;
+			renderer2D_tiles.push_back(gm);
 			isMod = true;
+		}
+
+		std::vector<GMTile> GetRenderer2DTiles()
+		{
+			return renderer2D_tiles;
 		}
 
 		void RemoveAll()
@@ -235,4 +266,5 @@ namespace BitPounce {
 			isMod = true;
 		}
 	};
+
 }

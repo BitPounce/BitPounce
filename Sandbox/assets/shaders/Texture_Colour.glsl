@@ -49,6 +49,8 @@ else if (v_TexIndex == 30.0) texColor = texture(u_Textures[30], v_TexCoord);
 else if (v_TexIndex == 31.0) texColor = texture(u_Textures[31], v_TexCoord);
 
     color = texColor * v_Colour;
+    //color = vec4(v_TexCoord,0,1);
+    //color.a = 1.0;
 
     if(color.a <= 0.01)
     {

@@ -18,7 +18,11 @@ public:
 	
 private:
 	BitPounce::Ref<BitPounce::Project> m_Project;
+	BitPounce::Ref<BitPounce::Scene> m_Scene;
+	BitPounce::ImGuiConsoleWindow m_Console;
 	BitPounce::OrthographicCamera m_Camera;
+	BitPounce::Ref<BitPounce::Framebuffer> m_Framebuffer;
+	BitPounce::Ref<BitPounce::Shader> m_Shader;
 	bool OnAssetPreloaded(BitPounce::AssetPreLoadedEvent& e);
 	bool OnScenePreloaded(BitPounce::AssetPreLoadedEvent& e);
 	bool OnWindowResize(BitPounce::WindowResizeEvent& e);

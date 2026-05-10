@@ -793,7 +793,7 @@ namespace BitPounce
 
     void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const std::array<glm::vec2, 4> uvs, const glm::vec4 &tintColour, int entityID)
     {
-		if(!ObstructionCulling(transform))
+		if(false)
 		{
 			return;
 		}

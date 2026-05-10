@@ -16,8 +16,18 @@
 			"Type": "AssetType::Font"
 		},
 		{
+			"FilePath": "textures/Player Up.png",
+			"Handle": 2119118811714063594,
+			"Type": "AssetType::Texture2D"
+		},
+		{
 			"FilePath": "textures/Player Up (219th copy).png",
 			"Handle": 3231077236826106527,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "textures/Wall01.png",
+			"Handle": 3771104731740525241,
 			"Type": "AssetType::Texture2D"
 		},
 		{
@@ -54,6 +64,16 @@
 			"FilePath": "scenes/Test.bitPounce",
 			"Handle": 12678243516906091914,
 			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "textures/PlayerMain.png",
+			"Handle": 14445449532535313356,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "textures/WALL0.png",
+			"Handle": 16611798124123392899,
+			"Type": "AssetType::Texture2D"
 		},
 		{
 			"FilePath": "textures/Checkerboard.png",

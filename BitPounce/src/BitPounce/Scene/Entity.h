@@ -23,6 +23,7 @@ namespace BitPounce
 			T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
 
 			m_Scene->OnComponentAdded<T>(*this, component);
+			BP_CORE_INFO("{}", (size_t)&component);
 			return component;
 		}
 

@@ -9,12 +9,14 @@ project "PounceEdit"
 	files
 	{
 		"src/**.h",
-		"src/**.cpp"
+		"src/**.cpp",
+		"../GameLib/src/**.cpp"
 	}
 
 	includedirs
 	{
 		"src",
+		"../GameLib/src",
 		"../BitPounce/src",
 		"../BitPounce/",
 		"../BitPounce/vendor/spdlog/include",

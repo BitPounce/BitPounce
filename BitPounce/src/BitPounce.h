@@ -1,5 +1,8 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
+
 #include "BitPounce/Audio/AudioDevice.h"
 #include "BitPounce/Audio/Audio.h"
 
@@ -17,6 +20,7 @@
 #include <BitPounce/Core/SystemManager.h>
 #include "BitPounce/Core/Console.h"
 #include "BitPounce/Core/ConsoleRegistrars.h"
+#include "BitPounce/Core/MiniMT.h"
 
 #include "BitPounce/ImGui/ConsoleWindow.h"
 

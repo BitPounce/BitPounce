@@ -2,6 +2,7 @@
 #include "Platform/OpenGL/OpenGLFramebuffer.h"
 
 #include "gl.h"
+#include "OpenGLFramebuffer.h"
 
 namespace BitPounce {
 
@@ -303,4 +304,10 @@ namespace BitPounce {
 #endif
     }
 
-} // namespace BitPounce
+    void OpenGLFramebuffer::BindAsTexture(uint32_t index, uint32_t texIndex)
+    {
+        glActiveTexture(GL_TEXTURE0 + texIndex);
+        glBindTexture(GL_TEXTURE_2D, GetColorAttachmentRendererID(index));
+    }
+
+} //

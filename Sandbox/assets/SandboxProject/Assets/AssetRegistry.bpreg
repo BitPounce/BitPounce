@@ -6,6 +6,11 @@
 			"Type": "AssetType::Texture2D"
 		},
 		{
+			"FilePath": "auto/10.wav",
+			"Handle": 575184564776375355,
+			"Type": "AssetType::Audio"
+		},
+		{
 			"FilePath": "file_example_WAV_10MG.wav",
 			"Handle": 1227631349085125902,
 			"Type": "AssetType::Audio"
@@ -16,13 +21,18 @@
 			"Type": "AssetType::Font"
 		},
 		{
-			"FilePath": "textures/Player Up.png",
-			"Handle": 2119118811714063594,
+			"FilePath": "textures/Evil01.png",
+			"Handle": 1993844519112669131,
 			"Type": "AssetType::Texture2D"
 		},
 		{
-			"FilePath": "textures/Player Up (219th copy).png",
-			"Handle": 3231077236826106527,
+			"FilePath": "textures/props.png",
+			"Handle": 2865921970978295481,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "textures/gun03.png",
+			"Handle": 2922514105519681440,
 			"Type": "AssetType::Texture2D"
 		},
 		{
@@ -31,29 +41,14 @@
 			"Type": "AssetType::Texture2D"
 		},
 		{
-			"FilePath": "scenes/Example.bitPounce",
-			"Handle": 6701898145733331557,
-			"Type": "AssetType::Scene"
-		},
-		{
-			"FilePath": "textures/SubTexTest.png",
-			"Handle": 7816482924039285401,
+			"FilePath": "textures/gun02.png",
+			"Handle": 5260800240978246632,
 			"Type": "AssetType::Texture2D"
 		},
 		{
-			"FilePath": "scenes/TestS.bitPounce",
-			"Handle": 8217511961463226670,
-			"Type": "AssetType::Scene"
-		},
-		{
-			"FilePath": "scenes/TestFS.bitPounce",
-			"Handle": 8866904119218306389,
-			"Type": "AssetType::Scene"
-		},
-		{
-			"FilePath": "scenes/fhghgtfgfhfhgfhghgf.bitPounce",
-			"Handle": 9264739820967115457,
-			"Type": "AssetType::Scene"
+			"FilePath": "textures/gun04.png",
+			"Handle": 8357955715329051680,
+			"Type": "AssetType::Texture2D"
 		},
 		{
 			"FilePath": "scenes/Physics2D.bitPounce",
@@ -61,13 +56,18 @@
 			"Type": "AssetType::Scene"
 		},
 		{
-			"FilePath": "scenes/Test.bitPounce",
-			"Handle": 12678243516906091914,
-			"Type": "AssetType::Scene"
+			"FilePath": "textures/gun01.png",
+			"Handle": 13101426457884025154,
+			"Type": "AssetType::Texture2D"
 		},
 		{
 			"FilePath": "textures/PlayerMain.png",
 			"Handle": 14445449532535313356,
+			"Type": "AssetType::Texture2D"
+		},
+		{
+			"FilePath": "textures/borring Window.png",
+			"Handle": 14759989677347709154,
 			"Type": "AssetType::Texture2D"
 		},
 		{

@@ -2,19 +2,18 @@
 #include <BitPounce.h>
 #include "Componens.h"
 
-class PlayerSystem : public BitPounce::ECSSystem
+class EnemySystem : public BitPounce::ECSSystem
 {
 
 public:
     virtual BitPounce::System* clone() const override
 	{
-		return new PlayerSystem(*this);
+		return new EnemySystem(*this);
 	}
     virtual void OnUpdate(BitPounce::Timestep& ts) override;
-    virtual void OnImGuiDraw(BitPounce::Timestep& ts) override;
-    PlayerSystem(/* args */);
-    ~PlayerSystem();
+    EnemySystem(/* args */);
+    ~EnemySystem();
 private:
-    
+    /* data */
 };
 

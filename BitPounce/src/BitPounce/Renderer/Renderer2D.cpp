@@ -397,7 +397,7 @@ namespace BitPounce
 
 	void Renderer2D::Flush()
 	{
-		if (true)
+		if (s_Data.QuadIndexCount)
 		{
 			s_Data.QuadShader->Bind();
 			uint32_t dataSize = (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase;

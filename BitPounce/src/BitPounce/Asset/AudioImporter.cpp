@@ -22,6 +22,8 @@ namespace BitPounce
 	Ref<Audio> AudioImporter::LoadAsset(BitPouncePack::PackAsset &packAsset)
 	{
 		const auto a = std::get_if<BitPouncePack::PackAudio>(&packAsset);
-		return Audio::Create(*a);
+		Ref<Audio> audio = Audio::Create(*a);
+		audio->Handle = a->AssetHandle;
+		return audio;
 	}
 }

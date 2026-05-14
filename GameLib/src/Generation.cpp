@@ -12,6 +12,7 @@ static std::array<glm::ivec2, 4> s_DirList = {
 };
 static int iterations = (32);
 static constexpr int CORRIDOR_WIDTH = 1;
+static std::vector<std::function<bool(glm::ivec2 pos, std::mt19937& rng, BoundsInt room)>> m_Callback;
 
 static void SplitVertically(int minWidth, std::queue<BoundsInt>& roomsQueue, BoundsInt room, std::mt19937& rng)
 {
@@ -381,6 +382,7 @@ static std::unordered_set<glm::ivec2> ConnectRooms(std::vector<glm::ivec2> roomC
 static std::unordered_set<glm::ivec2> BSP_CreateRooms(std::mt19937& rng)
 {
 	auto roomsList = BinarySpacePartitioning(BoundsInt(glm::ivec3(0,0,0), glm::ivec3(40,40,0)), 8,8, rng);
+	
 	std::unordered_set<glm::ivec2> floor{};
 	floor = CreateSimpleRooms(roomsList);
 
@@ -389,6 +391,17 @@ static std::unordered_set<glm::ivec2> BSP_CreateRooms(std::mt19937& rng)
 	for(auto room : roomsList)
 	{
 		roomCenters.emplace_back((glm::ivec2)room.center());
+		for (int x = room.min().x - 1; x < room.max().x - 1; x++)
+		{
+			for (int y = room.min().y - 1; y < room.max().y - 1; y++)
+			{
+				std::uniform_int_distribution<int> CallBackDist(0, m_Callback.size() - 1);
+				m_Callback[CallBackDist(rng)](glm::ivec2(x,y), rng, room);
+					
+			}
+			
+		}
+		
 	}
 	std::unordered_set<glm::ivec2> corridors = ConnectRooms(roomCenters, rng);
 	floor.merge(corridors);
@@ -396,10 +409,14 @@ static std::unordered_set<glm::ivec2> BSP_CreateRooms(std::mt19937& rng)
 	return floor;
 }
 
-BitPounce::Entity GenDungeon(BitPounce::Ref<BitPounce::Scene> scene)
+void AddPlacingItemsCallback(std::function<bool(glm::ivec2 pos, std::mt19937& rng, BoundsInt room)> callback)
 {
-	uint32_t seed = 435435;
-	std::mt19937 rng(seed);
+	m_Callback.push_back(callback);
+}
+
+BitPounce::Entity GenDungeon(BitPounce::Ref<BitPounce::Scene> scene, uint32_t seed)
+{
+	std::mt19937 rng(seed / 35 * 24 >> 2);
 	BitPounce::Entity ent = scene->CreateEntity();
 	BitPounce::TilemapComponent& tilemapComponent = ent.AddComponent<BitPounce::TilemapComponent>();
 	BP_CORE_INFO("{}", (size_t)&tilemapComponent);
@@ -417,6 +434,6 @@ BitPounce::Entity GenDungeon(BitPounce::Ref<BitPounce::Scene> scene)
 
 	}
 	CreateWalls(data, tilemapComponent, scene);
-
+	m_Callback.clear();
 	return ent;
 }

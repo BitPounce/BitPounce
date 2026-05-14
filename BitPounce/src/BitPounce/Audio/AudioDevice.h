@@ -21,6 +21,7 @@ namespace BitPounce
 		static void SetLooping(AudioID id, bool loop);
 		static bool UnLoad(AudioID id);
 		static void SetWorldVolume(float volume);
+		static float GetWorldVolume();
 		static BitPouncePack::PackAudio AudioToPackAudio(AudioID id);
 	};
 }

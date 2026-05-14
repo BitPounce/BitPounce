@@ -3,9 +3,9 @@
 
 namespace BitPounce
 {
-	Ref<Audio> Audio::Create(std::filesystem::path filepath)
+	Ref<Audio> Audio::Create(const std::filesystem::path& filepath, bool loop)
 	{
-		return CreateRef<Audio>(filepath);
+		return CreateRef<Audio>(filepath, loop);
 	}
 
 	Ref<Audio> Audio::Create(const BitPouncePack::PackAudio &packAudio, bool loop)
@@ -38,9 +38,9 @@ namespace BitPounce
 		return id;
 	}
 
-	Audio::Audio(std::filesystem::path filepath)
+	Audio::Audio(const std::filesystem::path& filepath, bool loop)
 	{
-		id = AudioDevice::Load(filepath);
+		id = AudioDevice::Load(filepath, loop);
 	}
 
 	Audio::Audio(const BitPouncePack::PackAudio &packAudio, bool loop)

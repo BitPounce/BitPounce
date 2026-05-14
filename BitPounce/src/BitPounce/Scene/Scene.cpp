@@ -289,7 +289,7 @@ namespace BitPounce {
 	}
 	bool Scene::OnResize(WindowResizeEvent &e)
 	{
-		
+		return false;
 	}
 
 	template<typename T>

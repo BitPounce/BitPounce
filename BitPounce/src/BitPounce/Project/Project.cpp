@@ -36,7 +36,7 @@ namespace BitPounce
 				}
 				s_ActiveProject->m_AssetManager = runtimeAssetManager;
 				s_ActiveProject->m_SceneManager.AddAssetMap(s_ActiveProject->GetRuntimeAssetManager()->GetAssetMap());
-				s_ActiveProject->m_SceneManager.LoadScene(s_ActiveProject->GetConfig().StartScene.filename());
+				s_ActiveProject->m_SceneManager.LoadScene(s_ActiveProject->GetConfig().StartScene.filename().generic_string());
 			}
 			
 			return s_ActiveProject;

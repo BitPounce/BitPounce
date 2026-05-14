@@ -3,7 +3,6 @@
 
 
 BitPounce is a unity like game engine, Currently not much is implemented.
-This is a game for the [UGJ#127](https://itch.io/jam/untitled-game-jam-127)
 
 ## Getting Started
 VS 2022 or gcc is recommended, BitPounce is untested on other environments.

@@ -184,7 +184,6 @@ void Sandbox2D::OnImGuiRender(BitPounce::Timestep& ts)
 {
 	
     m_SysManager.OnImGuiDraw(ts);
-    m_Console.OnImGuiDraw();
 
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));

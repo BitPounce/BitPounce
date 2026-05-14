@@ -30,7 +30,7 @@ namespace BitPounce
 	{
 	public:
 		Physics2DSystem()
-			: m_PhysicsWorld(b2_nullWorldId), m_Accumulator(0.0f), m_Gravity(0.0f, 0.0f) {m_name = "2D Physics System";}
+			: m_PhysicsWorld(b2_nullWorldId), m_Accumulator(0.0f), m_Gravity(0.0f, -10.0f) {m_name = "2D Physics System";}
 
 		~Physics2DSystem()
 		{
@@ -411,8 +411,6 @@ namespace BitPounce
 					glm::vec3 translation, rotation, scale;
 					Math::DecomposeTransform(mat, translation, rotation, scale);
 					b2Body_SetTransform(*(b2BodyId*)(rb2d.RuntimeBody), {translation.x, translation.y}, b2MakeRot(rotation.z));
-					// AWAKE UP!
-					b2Body_SetAwake(*(b2BodyId*)(rb2d.RuntimeBody), true);
 				}
 			});
 

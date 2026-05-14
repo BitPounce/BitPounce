@@ -19,8 +19,7 @@
                 "${workspaceFolder}/BitPounce/vendor/nlohmannjson/single_include",
                 "${workspaceFolder}/BitPounce/vendor/box2d/include",
                 "${workspaceFolder}/BitPounce/vendor/angelscript/sdk/angelscript/include",
-                "${workspaceFolder}/BitPounce/vendor/angelscript/sdk/add_on",
-                "${workspaceFolder}/GameLib/src"
+                "${workspaceFolder}/BitPounce/vendor/angelscript/sdk/add_on"
             ],
             "defines": [],
             "cStandard": "c17",

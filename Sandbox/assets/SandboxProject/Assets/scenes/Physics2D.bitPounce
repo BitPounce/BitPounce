@@ -31,7 +31,9 @@
 				"SpriteSize": [
 					64,
 					64
-				]
+				],
+				"TextureID": 7816482924039285401,
+				"UseSpriteSheet": true
 			},
 			"TagComponent": {
 				"Tag": "Sprite Sheet Player"

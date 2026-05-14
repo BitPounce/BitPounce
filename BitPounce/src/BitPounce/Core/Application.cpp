@@ -69,8 +69,6 @@ namespace BitPounce
 		}
 #endif
 
-		m_Window->SetVSync(false);
-
 		return m_ErrorCode;
 	}
 

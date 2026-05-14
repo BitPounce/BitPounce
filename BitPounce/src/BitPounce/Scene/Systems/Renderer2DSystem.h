@@ -41,10 +41,12 @@ namespace BitPounce
 			{
 				auto& tilemap = view.get<TilemapComponent>(entity);
 
-				// Render the greedy mesh (each GreedyQuad becomes one draw call)
-				for (const auto& quad : tilemap.renderer2D_tiles)
+				for (auto& tile : tilemap.renderer2D_tiles)
 				{
-				    Renderer2D::DrawQuad(quad.pos, AssetManager::GetAsset<Texture2D>(quad.Texture));
+					if (!tile.Texture)
+						continue;
+
+					Renderer2D::DrawQuad(tile.pos, AssetManager::GetAsset<Texture2D>(tile.Texture));
 				}
 			}
 		}
@@ -114,6 +116,13 @@ namespace BitPounce
 				nlohmann::json j;
 				j["Tiles"] = nlohmann::json::array();
 
+				for (auto& tile : tilemap.renderer2D_tiles)
+				{
+					nlohmann::json t;
+					t["Pos"] = tile.pos;
+					t["Texture"] = tile.Texture.operator uint64_t();
+					j["Tiles"].push_back(t);
+				}
 
 				for (auto& ent : json["Entities"])
 					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
@@ -154,13 +163,10 @@ namespace BitPounce
 					auto& j = entJson["SpriteRenderer"];
 					SpriteRendererComponent c;
 
-					c.Colour = j["Colour"].get<glm::vec4>();
-					if (j.contains("SpriteSize"))
-						c.SpriteSize = j["SpriteSize"].get<glm::ivec2>();
-					if (j.contains("SpriteIndex"))
-						c.SpriteIndex = j["SpriteIndex"].get<glm::ivec2>();
-					if (j.contains("UseSpriteSheet"))
-						c.UseSpriteSheet = j["UseSpriteSheet"];
+					c.Colour = j["Colour"];
+					c.SpriteSize = j["SpriteSize"];
+					c.SpriteIndex = j["SpriteIndex"];
+					c.UseSpriteSheet = j["UseSpriteSheet"];
 
 					if (j.contains("TextureID"))
 						c.Texture = j["TextureID"].get<uint64_t>();

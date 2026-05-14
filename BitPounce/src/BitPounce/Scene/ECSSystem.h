@@ -64,5 +64,4 @@ namespace BitPounce
 		friend class Scene;
 		friend class Physics2DSystem;
 	};
-
 }

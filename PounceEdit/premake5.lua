@@ -1,6 +1,7 @@
 project "PounceEdit"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
@@ -24,16 +25,15 @@ project "PounceEdit"
 	exposeBitPounceDeps();
 
 	links
-{
-    "BitPounce",        -- must come first
-    "msdf-atlas-gen",
-    "msdfgen",          -- 🔥 after BitPounce
-    "freetype"          -- 🔥 last
-}
+	{
+	    "BitPounce",        -- must come first
+	    "msdf-atlas-gen",
+	    "msdfgen",          -- after BitPounce
+	    "freetype"          -- last
+	}
 
 	filter "system:linux"
 		cppdialect "C++23"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -57,7 +57,6 @@ project "PounceEdit"
 
 	filter "system:windows"
 		cppdialect "C++23"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines

@@ -1,463 +1,105 @@
-[2026-05-03 16:58:57.114] [BIT POUNCE] [info] Logger initialized successfully
-[2026-05-03 16:58:57.114] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
-[2026-05-03 16:58:57.797] [BIT POUNCE] [info] OpenGL Info:
-[2026-05-03 16:58:57.797] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-05-03 16:58:57.797] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-05-03 16:58:57.797] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.142
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Texture.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Texture_Colour.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (2921 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Texture_Vertex.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-
-layout(location = 0) out vec4 color;
-layout(location = 1) out int color2;
-flat in int v_EntityID;
-
-in vec4 v_Colour;
-in vec2 v_TexCoord;
-in float v_TexIndex;
-
-uniform float m_TillingFactor;
-uniform vec4 u_Color;
-uniform sampler2D u_Textures[32];
-
-void main()
-{
-    vec4 texColor = vec4(1.0);
-
-    // OpenGL requires constant sampler indexing
-    if (v_TexIndex ==  0.0)  texColor = texture(u_Textures[0],  v_TexCoord);
-else if (v_TexIndex == 1.0)  texColor = texture(u_Textures[1],  v_TexCoord);
-else if (v_TexIndex == 2.0)  texColor = texture(u_Textures[2],  v_TexCoord);
-else if (v_TexIndex == 3.0)  texColor = texture(u_Textures[3],  v_TexCoord);
-else if (v_TexIndex == 4.0)  texColor = texture(u_Textures[4],  v_TexCoord);
-else if (v_TexIndex == 5.0)  texColor = texture(u_Textures[5],  v_TexCoord);
-else if (v_TexIndex == 6.0)  texColor = texture(u_Textures[6],  v_TexCoord);
-else if (v_TexIndex == 7.0)  texColor = texture(u_Textures[7],  v_TexCoord);
-else if (v_TexIndex == 8.0)  texColor = texture(u_Textures[8],  v_TexCoord);
-else if (v_TexIndex == 9.0)  texColor = texture(u_Textures[9],  v_TexCoord);
-else if (v_TexIndex == 11.0) texColor = texture(u_Textures[11], v_TexCoord);
-else if (v_TexIndex == 12.0) texColor = texture(u_Textures[12], v_TexCoord);
-else if (v_TexIndex == 13.0) texColor = texture(u_Textures[13], v_TexCoord);
-else if (v_TexIndex == 10.0) texColor = texture(u_Textures[10], v_TexCoord);
-else if (v_TexIndex == 14.0) texColor = texture(u_Textures[14], v_TexCoord);
-else if (v_TexIndex == 15.0) texColor = texture(u_Textures[15], v_TexCoord);
-else if (v_TexIndex == 16.0) texColor = texture(u_Textures[16], v_TexCoord);
-else if (v_TexIndex == 17.0) texColor = texture(u_Textures[17], v_TexCoord);
-else if (v_TexIndex == 18.0) texColor = texture(u_Textures[18], v_TexCoord);
-else if (v_TexIndex == 19.0) texColor = texture(u_Textures[19], v_TexCoord);
-else if (v_TexIndex == 20.0) texColor = texture(u_Textures[20], v_TexCoord);
-else if (v_TexIndex == 21.0) texColor = texture(u_Textures[21], v_TexCoord);
-else if (v_TexIndex == 22.0) texColor = texture(u_Textures[22], v_TexCoord);
-else if (v_TexIndex == 23.0) texColor = texture(u_Textures[23], v_TexCoord);
-else if (v_TexIndex == 24.0) texColor = texture(u_Textures[24], v_TexCoord);
-else if (v_TexIndex == 25.0) texColor = texture(u_Textures[25], v_TexCoord);
-else if (v_TexIndex == 26.0) texColor = texture(u_Textures[26], v_TexCoord);
-else if (v_TexIndex == 27.0) texColor = texture(u_Textures[27], v_TexCoord);
-else if (v_TexIndex == 28.0) texColor = texture(u_Textures[28], v_TexCoord);
-else if (v_TexIndex == 29.0) texColor = texture(u_Textures[29], v_TexCoord);
-else if (v_TexIndex == 30.0) texColor = texture(u_Textures[30], v_TexCoord);
-else if (v_TexIndex == 31.0) texColor = texture(u_Textures[31], v_TexCoord);
-
-    color = texColor * v_Colour;
-
-    if(color.a <= 0.01)
-    {
-        discard;
-    }
-
-    color2 = v_EntityID;
-}
-
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Colour;
-layout(location = 2) in vec2 a_TexCoord;
-layout(location = 3) in float a_TexID;
-layout(location = 4) in int a_EntityID;
-
-uniform mat4 u_ViewProjection;
-uniform mat4 u_Transform;
-
-out vec4 v_Colour;
-out vec2 v_TexCoord;
-out float v_TexIndex;
-flat out int v_EntityID;
-
-void main()
-{
-	v_Colour = a_Colour;
-	v_TexCoord = a_TexCoord;
-	v_TexIndex = a_TexID;
-	v_EntityID = a_EntityID;
-	gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
-}
-
-
-
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Circle.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-layout(location = 0) out vec4 colour;
-layout(location = 1) out int colour2;
-
-in float v_Fade;
-in vec3 v_LocalPosition;
-in vec4 v_Colour;
-in float v_Thickness;
-flat in int v_EntityID;
-
-void main()
-{
-    float dis = 1.0 - length(v_LocalPosition);
-    float circle = smoothstep(0.0, v_Fade, dis);
-    circle *= smoothstep(v_Thickness + v_Fade, v_Thickness, dis);
-
-    if (circle == 0.0)
-		discard;
-
-    // Set output color
-    colour = v_Colour;
-	colour.a *= circle;
-
-	colour2 = v_EntityID;
-
-}
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-layout(location = 0) in vec3 a_WorldPosition;
-layout(location = 1) in vec3 a_LocalPosition;
-layout(location = 2) in vec4 a_Colour;
-layout(location = 3) in float a_Thickness;
-layout(location = 4) in float a_Fade;
-layout(location = 5) in int a_EntityID;
-
-out float v_Fade;
-out vec3 v_LocalPosition;
-out vec4 v_Colour;
-out float v_Thickness;
-flat out int v_EntityID;
-
-uniform mat4 u_ViewProjection;
-
-void main()
-{
-	v_LocalPosition = a_LocalPosition;
-	v_Colour = a_Colour;
-	v_Thickness = a_Thickness;
-	v_Fade = a_Fade;
-
-	v_EntityID = a_EntityID;
-
-	gl_Position = u_ViewProjection * vec4(a_WorldPosition, 1.0);
-}
-
-
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Line.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-layout(location = 0) out vec4 o_Colour;
-layout(location = 1) out int o_EntityID;
-
-in vec4 v_Colour;
-flat in int v_EntityID;
-
-
-void main()
-{
-	o_Colour = v_Colour;
-	o_EntityID = v_EntityID;
-}
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Colour;
-layout(location = 2) in int a_EntityID;
-
-uniform mat4 u_ViewProjection;
-
-out vec4 v_Colour;
-flat out int v_EntityID;
-
-void main()
-{
-	v_Colour = a_Colour;
-	v_EntityID = a_EntityID;
-
-	gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
-}
-
-
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] assets/shaders/Text.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-in vec4 v_Color;
-in vec2 v_TexCoord;
-flat in int v_TexIndex;      // <-- receives the texture slot index
-flat in int v_EntityID;
-
-layout(location = 0) out vec4 color;
-layout(location = 1) out int color2;
-
-uniform sampler2D u_Textures[32];
-
-// ====== Controls ======
-float u_MtsdfBlend = 0.2;
-float u_Softness   = 0.0;
-
-vec4  u_OutlineColor = vec4(0.0, 0.0, 0.0, 1.0);
-float u_OutlineWidth = 0.0;
-
-vec2  u_ShadowOffset = vec2(0.0);
-vec4  u_ShadowColor  = vec4(0.0, 0.0, 0.0, 0.5);
-
-vec2 sqr(vec2 x) { return x*x; }
-
-float screenPxRange() {
-    const float pxRange = 3.0;
-    vec2 unitRange = vec2(pxRange) / vec2(textureSize(u_Textures[0], 0));
-    vec2 screenTexSize = inversesqrt(sqr(dFdx(v_TexCoord)) + sqr(dFdy(v_TexCoord)));
-    return max(0.5 * dot(unitRange, screenTexSize), 1.0);
-}
-
-float median(float r, float g, float b) {
-    return max(min(r, g), min(max(r, g), b));
-}
-
-float sampleDistance(vec2 uv, int texIndex)
-{
-    // The big if-else chain – compiler will flatten to constant-index texture fetches
-    vec4 tex;
-         if (texIndex == 0)  tex = texture(u_Textures[0], uv);
-    else if (texIndex == 1)  tex = texture(u_Textures[1], uv);
-    else if (texIndex == 2)  tex = texture(u_Textures[2], uv);
-    else if (texIndex == 3)  tex = texture(u_Textures[3], uv);
-    else if (texIndex == 4)  tex = texture(u_Textures[4], uv);
-    else if (texIndex == 5)  tex = texture(u_Textures[5], uv);
-    else if (texIndex == 6)  tex = texture(u_Textures[6], uv);
-    else if (texIndex == 7)  tex = texture(u_Textures[7], uv);
-    else if (texIndex == 8)  tex = texture(u_Textures[8], uv);
-    else if (texIndex == 9)  tex = texture(u_Textures[9], uv);
-    else if (texIndex == 10) tex = texture(u_Textures[10], uv);
-    else if (texIndex == 11) tex = texture(u_Textures[11], uv);
-    else if (texIndex == 12) tex = texture(u_Textures[12], uv);
-    else if (texIndex == 13) tex = texture(u_Textures[13], uv);
-    else if (texIndex == 14) tex = texture(u_Textures[14], uv);
-    else if (texIndex == 15) tex = texture(u_Textures[15], uv);
-    else if (texIndex == 16) tex = texture(u_Textures[16], uv);
-    else if (texIndex == 17) tex = texture(u_Textures[17], uv);
-    else if (texIndex == 18) tex = texture(u_Textures[18], uv);
-    else if (texIndex == 19) tex = texture(u_Textures[19], uv);
-    else if (texIndex == 20) tex = texture(u_Textures[20], uv);
-    else if (texIndex == 21) tex = texture(u_Textures[21], uv);
-    else if (texIndex == 22) tex = texture(u_Textures[22], uv);
-    else if (texIndex == 23) tex = texture(u_Textures[23], uv);
-    else if (texIndex == 24) tex = texture(u_Textures[24], uv);
-    else if (texIndex == 25) tex = texture(u_Textures[25], uv);
-    else if (texIndex == 26) tex = texture(u_Textures[26], uv);
-    else if (texIndex == 27) tex = texture(u_Textures[27], uv);
-    else if (texIndex == 28) tex = texture(u_Textures[28], uv);
-    else if (texIndex == 29) tex = texture(u_Textures[29], uv);
-    else if (texIndex == 30) tex = texture(u_Textures[30], uv);
-    else if (texIndex == 31) tex = texture(u_Textures[31], uv);
-    else tex = vec4(0,0,0,1); // fallback
-
-    float msdf = median(tex.r, tex.g, tex.b);
-    float sdf  = tex.a;
-    return mix(msdf, sdf, u_MtsdfBlend);
-}
-
-void main()
-{
-    float sd = sampleDistance(v_TexCoord, v_TexIndex);
-
-    float w = fwidth(sd);
-    float alpha = smoothstep(0.5 - w - u_Softness,
-                             0.5 + w + u_Softness,
-                             sd);
-
-    if (alpha <= 0.0)
-        discard;
-
-    float outline = 0.0;
-    if (u_OutlineWidth > 0.0)
-    {
-        outline = smoothstep(
-            0.5 - u_OutlineWidth - w,
-            0.5 - u_OutlineWidth + w,
-            sd
-        );
-    }
-
-    float shadowAlpha = 0.0;
-    if (length(u_ShadowOffset) > 0.0)
-    {
-        float shadowSD = sampleDistance(v_TexCoord + u_ShadowOffset, v_TexIndex);
-        shadowAlpha = smoothstep(0.5 - w, 0.5 + w, shadowSD);
-    }
-
-    vec3 baseColor = v_Color.rgb;
-    vec3 finalColor = baseColor;
-
-    finalColor = mix(u_ShadowColor.rgb, finalColor, alpha);
-    float finalAlpha = max(alpha, shadowAlpha * u_ShadowColor.a);
-
-    if (u_OutlineWidth > 0.0)
-    {
-        finalColor = mix(u_OutlineColor.rgb, finalColor, alpha);
-        finalAlpha = max(finalAlpha, outline);
-    }
-
-    finalAlpha *= v_Color.a;
-
-    if (finalAlpha <= 0.0)
-        discard;
-
-    finalColor = pow(finalColor, vec3(1.0 / 2.2));
-
-    color = vec4(finalColor, finalAlpha);
-    color2 = v_EntityID;
-}
-[2026-05-03 16:58:57.798] [BIT POUNCE] [info] #version 300 es
-precision mediump float;
-// Vertex Shader
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec4 a_Color;
-layout(location = 2) in vec2 a_TexCoord;
-layout(location = 3) in int  a_TexID;           // <-- new
-layout(location = 4) in int a_EntityID; // optional editor info
-
-uniform mat4 u_ViewProjection;
-
-out vec4 v_Color;
-out vec2 v_TexCoord;
-flat out int v_TexIndex;      // <-- pass to fragment as flat
-flat out int v_EntityID;
-
-void main()
-{
-    v_Color = a_Color;
-    v_TexCoord = a_TexCoord;
-    v_TexIndex = a_TexID;
-    v_EntityID = a_EntityID;
-
-    gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
-}
-
-
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
-[2026-05-03 16:58:57.811] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-03 16:58:57.814] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
-[2026-05-03 16:58:57.814] [BIT POUNCE] [info] Resources/Icons/ContentBrowser/Flor.png
-[2026-05-03 16:58:57.814] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/Flor.png
-[2026-05-03 16:58:57.814] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
-[2026-05-03 16:58:57.814] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
-[2026-05-03 16:58:57.818] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
-[2026-05-03 16:58:57.818] [BIT POUNCE] [info] Resources/Icons/ContentBrowser/File.png
-[2026-05-03 16:58:57.818] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/File.png
-[2026-05-03 16:58:57.818] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/File.png (15757 bytes)
-[2026-05-03 16:58:57.818] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png
-[2026-05-03 16:59:01.593] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj (206 bytes)
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] WHY
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce (4820 bytes)
-[2026-05-03 16:59:01.594] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
-[2026-05-03 16:59:01.598] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
-[2026-05-03 16:59:01.598] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
-[2026-05-03 16:59:01.598] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
-[2026-05-03 16:59:01.599] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png (3223061 bytes)
-[2026-05-03 16:59:01.602] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
-[2026-05-03 16:59:01.920] [BIT POUNCE] [info] Loaded PNG in 0.322s
-[2026-05-03 16:59:01.920] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-03 16:59:01.920] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Loaded font atlas from cache: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.json
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Loading file: Resources/Icons/Icon.png
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Resources/Icons/Icon.png
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/Icon.png
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/Icon.png (574956 bytes)
-[2026-05-03 16:59:01.933] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Icon.png
-[2026-05-03 16:59:02.033] [BIT POUNCE] [info] Loading file: Resources/Icons/Play.png
-[2026-05-03 16:59:02.033] [BIT POUNCE] [info] Resources/Icons/Play.png
-[2026-05-03 16:59:02.033] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/Play.png
-[2026-05-03 16:59:02.034] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/Play.png (18505 bytes)
-[2026-05-03 16:59:02.034] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Play.png
-[2026-05-03 16:59:02.035] [BIT POUNCE] [info] Loading file: Resources/Icons/P.png
-[2026-05-03 16:59:02.035] [BIT POUNCE] [info] Resources/Icons/P.png
-[2026-05-03 16:59:02.035] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/P.png
-[2026-05-03 16:59:02.035] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/P.png (17649 bytes)
-[2026-05-03 16:59:02.035] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/P.png
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as (876 bytes)
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
-[2026-05-03 16:59:02.039] [BIT POUNCE] [info] Built module 'scripts' with 1 files
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png (1434 bytes)
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png (386778 bytes)
-[2026-05-03 16:59:02.040] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
-[2026-05-03 16:59:02.051] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
-[2026-05-03 16:59:02.051] [BIT POUNCE] [info] /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
-[2026-05-03 16:59:02.051] [BIT POUNCE] [info] Reading file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
-[2026-05-03 16:59:02.051] [BIT POUNCE] [info] Successfully read file from disk: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png (1059103 bytes)
-[2026-05-03 16:59:02.052] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
-[2026-05-03 16:59:02.218] [BIT POUNCE] [info] Loaded PNG in 0.167s
-[2026-05-03 16:59:02.218] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
-[2026-05-03 16:59:02.218] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
-[2026-05-03 16:59:02.225] [BIT POUNCE] [info] Loaded font atlas from cache: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.json
+[2026-05-08 17:29:48.210] [BIT POUNCE] [info] Logger initialized successfully
+[2026-05-08 17:29:48.210] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
+[2026-05-08 17:29:49.519] [BIT POUNCE] [info] OpenGL Info:
+[2026-05-08 17:29:49.519] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-05-08 17:29:49.519] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-05-08 17:29:49.519] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.142
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (2921 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
+[2026-05-08 17:29:49.520] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-05-08 17:29:49.575] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-05-08 17:29:49.622] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-08 17:29:49.622] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-08 17:29:49.622] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
+[2026-05-08 17:29:49.622] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-08 17:29:49.624] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
+[2026-05-08 17:29:49.624] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/File.png
+[2026-05-08 17:29:49.624] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/File.png (15757 bytes)
+[2026-05-08 17:29:49.624] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj (206 bytes)
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/SandboxProject.bpproj
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] WHY
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce (4820 bytes)
+[2026-05-08 17:29:53.187] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scenes/Physics2D.bitPounce
+[2026-05-08 17:29:53.190] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
+[2026-05-08 17:29:53.190] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
+[2026-05-08 17:29:53.191] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png (3223061 bytes)
+[2026-05-08 17:29:53.192] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.png
+[2026-05-08 17:29:53.497] [BIT POUNCE] [info] Loaded PNG in 0.307s
+[2026-05-08 17:29:53.497] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
+[2026-05-08 17:29:53.497] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
+[2026-05-08 17:29:53.510] [BIT POUNCE] [info] Loaded font atlas from cache: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_14462421104056971038.json
+[2026-05-08 17:29:53.510] [BIT POUNCE] [info] Loading file: Resources/Icons/Icon.png
+[2026-05-08 17:29:53.510] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/Icon.png
+[2026-05-08 17:29:53.510] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/Icon.png (574956 bytes)
+[2026-05-08 17:29:53.510] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Icon.png
+[2026-05-08 17:29:53.610] [BIT POUNCE] [info] Loading file: Resources/Icons/Play.png
+[2026-05-08 17:29:53.610] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/Play.png
+[2026-05-08 17:29:53.610] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/Play.png (18505 bytes)
+[2026-05-08 17:29:53.610] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/Play.png
+[2026-05-08 17:29:53.611] [BIT POUNCE] [info] Loading file: Resources/Icons/P.png
+[2026-05-08 17:29:53.611] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/P.png
+[2026-05-08 17:29:53.611] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/P.png (17649 bytes)
+[2026-05-08 17:29:53.611] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/P.png
+[2026-05-08 17:29:53.615] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-05-08 17:29:53.615] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-05-08 17:29:53.615] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as (876 bytes)
+[2026-05-08 17:29:53.615] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/scripts/main.as
+[2026-05-08 17:29:53.615] [BIT POUNCE] [info] Built module 'scripts' with 1 files
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png (1434 bytes)
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/SubTexTest.png
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png (386778 bytes)
+[2026-05-08 17:29:53.616] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/textures/Player.png
+[2026-05-08 17:29:53.627] [BIT POUNCE] [info] Loading file: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
+[2026-05-08 17:29:53.627] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
+[2026-05-08 17:29:53.627] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png (1059103 bytes)
+[2026-05-08 17:29:53.627] [BIT POUNCE] [info] Loaded file successfully: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.png
+[2026-05-08 17:29:53.798] [BIT POUNCE] [info] Loaded PNG in 0.171s
+[2026-05-08 17:29:53.798] [BIT POUNCE] [info] Reading file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-08 17:29:53.798] [BIT POUNCE] [info] Successfully read file into RAM: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
+[2026-05-08 17:29:53.805] [BIT POUNCE] [info] Loaded font atlas from cache: /mnt/library/Games_In_C++/26/1/BitPounce/PounceEdit/assets/SandboxProject/Assets/Cache/font_cache_3689559604807646692.json

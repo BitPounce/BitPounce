@@ -72,7 +72,7 @@ namespace BitPounce {
 		ScriptEngine::Init();
 
 		ScriptEngine::BuildScripts({Project::GetAssetFileSystemPath("scripts")});
-
+		m_Loaded = true;
 	}
 	
 	void EditorLayer::OnDetach()
@@ -157,6 +157,7 @@ namespace BitPounce {
 	
 	void EditorLayer::OnUpdate(Timestep& ts)
 	{
+		if (!m_Loaded) { return; }
 		m_time += ts;
 	
 		if(m_time >= 10)
@@ -246,6 +247,7 @@ namespace BitPounce {
 	
 	void EditorLayer::OnImGuiRender(BitPounce::Timestep& ts)
 	{
+		if (!m_Loaded) { return; }
 		Dockspace([this, &ts]() { this->OnDockSpace(ts); });
 	
 	

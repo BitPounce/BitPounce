@@ -1,5 +1,6 @@
 #include <BitPounce.h>
 #include "ECSTest.h"
+static BitPounce::Ref<BitPounce::Audio> s_Audio;
 
 ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 {
@@ -11,8 +12,14 @@ void ECSTest::OnAttach()
 {
 	m_Project = BitPounce::Project::Load("assets/SandboxProject/SandboxProject.bpproj", false);
 	BitPounce::AssetMap assetMap = m_Project->GetRuntimeAssetManager()->GetAssetMap();
-	m_Project->GetSceneManager().AddAssetMap(assetMap);
 	
+	m_Project->GetSceneManager().AddAssetMap(assetMap);
+	s_Audio =BitPounce::Audio::Create("assets/file_example_WAV_10MG.wav");
+	s_Audio->Play();
+	BitPounce::Entity ent = m_Project->GetSceneManager().GetScene()->CreateEntity("Test");
+	auto&& tilemap = ent.AddComponent<BitPounce::TilemapComponent>();
+
+	tilemap.renderer2D_tiles.push_back({glm::mat4(1), 547497271197996637});
 }
 
 void ECSTest::OnDetach() 

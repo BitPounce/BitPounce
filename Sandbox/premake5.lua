@@ -1,6 +1,7 @@
 project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
@@ -55,7 +56,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++23"
-		staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines

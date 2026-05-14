@@ -1,0 +1,4 @@
+E:/Games_In_C++/26/bp1/BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/winbin/CMakeFiles/angelscript.dir
+E:/Games_In_C++/26/bp1/BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/winbin/CMakeFiles/INSTALL.dir
+E:/Games_In_C++/26/bp1/BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/winbin/CMakeFiles/ALL_BUILD.dir
+E:/Games_In_C++/26/bp1/BitPounce/vendor/angelscript/sdk/angelscript/projects/cmake/winbin/CMakeFiles/ZERO_CHECK.dir

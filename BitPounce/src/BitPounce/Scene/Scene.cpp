@@ -159,6 +159,7 @@ namespace BitPounce {
 		ECSSystem::CopyComponentBASE<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<AngelScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		ECSSystem::CopyComponentBASE<TextComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		ECSSystem::CopyComponentBASE<TilemapComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		// O(N² × M²) btw 
 		// let this be the last hack in this engine pls!
@@ -192,6 +193,8 @@ namespace BitPounce {
 					} // OMG its still going!
 				} 
 			} // Almost.. there.
+
+			
 		} 
 
 		return newScene;
@@ -354,6 +357,11 @@ namespace BitPounce {
 
 	template<>
 	void ECSSystem::OnComponentAdded<AngelScriptComponent>(Entity entity, AngelScriptComponent& component)
+	{
+	}
+
+	template<>
+	void ECSSystem::OnComponentAdded<TilemapComponent>(Entity entity, TilemapComponent& component)
 	{
 	}
 }

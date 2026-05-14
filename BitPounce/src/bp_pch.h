@@ -12,6 +12,7 @@
 #include "BitPounce/Core/FileSystem.h"
 #include "BitPounce/Core/Buffer.h"
 #include "BitPounce/Core/UUID.h"
+#include "BitPounce/Core/Application.h"
 #include "BitPounce/Core/FileSystem.h"
 #include "BitPounce/Core/Input.h"
 #include "BitPounce/Core/Application.h"
@@ -30,6 +31,7 @@
 
 #ifdef BP_PLATFORM_WINDOWS
 	#include <Windows.h>
-#elifdef BP_PLATFORM_WEB 
+#endif 
+#ifdef BP_PLATFORM_WEB 
 	#include <emscripten.h>
 #endif 

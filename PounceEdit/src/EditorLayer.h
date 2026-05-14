@@ -61,6 +61,7 @@ namespace BitPounce {
 		Entity m_HoveredEntity;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
+		bool m_Loaded = false;
 		Ref<Texture2D> m_PlayerTexture;
 		Ref<Texture2D> m_Icon;
 		Ref<Texture2D> m_CheckerboardTexture;

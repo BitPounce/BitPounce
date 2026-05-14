@@ -191,13 +191,48 @@ namespace BitPounce {
 		CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
 	};
 
-
+	struct DistanceJoint2D
+	{
+		Entity ConnectedEntity = Entity(entt::null, nullptr);
+		bool IsSpring = false;
+    	float FrequencyHz = 2.0f;
+    	float DampingRatio = 0.5f;
+		void* RuntimeJoint = nullptr;
+	};
 
 	struct AngelScriptComponent
     {
         std::string ScriptClassName;
         void* ScriptObject = nullptr;
-		//entt::entity EntityHandle = entt::null;
+		//entt::entity EntityHandle = entt::null
     };
-	
+
+	struct GMTile
+	{
+		glm::mat4 pos;
+		// UNUSED AT THE THIS TIME
+		std::array<glm::vec2, 4> uvs;
+		AssetHandle Texture;
+	};
+	struct TilemapComponent
+	{
+		std::vector<GMTile> renderer2D_tiles;
+		std::vector<Renderer2D::TileQuad> tiles;
+		bool isMod = true;
+		void AddTile(const Renderer2D::TileQuad& quad)
+		{
+			tiles.push_back(quad);
+			GMTile gm {};
+			gm.pos = glm::mat4(1.0) * glm::translate(glm::mat4(1.0), quad.pos);
+			gm.Texture = quad.tex;
+			isMod = true;
+		}
+
+		void RemoveAll()
+		{
+			renderer2D_tiles.clear();
+			tiles.clear();
+			isMod = true;
+		}
+	};
 }

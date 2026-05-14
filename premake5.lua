@@ -1,32 +1,36 @@
 workspace "BitPounce"
-	architecture "x64"
+    architecture "x64"
 
-	configurations
-	{
-		"Debug",
-		"Release",
-		"Dist"
-	}
+    configurations { "Debug", "Release", "Dist" }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-defines {
-	"FMT_UNICODE=0"
-}
+-- Global defaults
+filter {}
+    defines { "FMT_UNICODE=0" }
 
+-- Platform-specific
+filter "system:windows"
+    staticruntime "Off"
+    cdialect "C17"
+filter {}
+
+-- Groups
 group "Core"
-include "BitPounce"
-include "PounceEdit"
+    include "BitPounce"
+    include "PounceEdit"
 group ""
 
 include "Sandbox"
+
 group "Dependencies"
-	include "box2d.lua"
-	include "BitPounce/vendor/GLFW"
-	include "BitPounce/vendor/imgui"
-	include "BitPounce/vendor/BitPouncePack"
-	group "Font"
-		include "BitPounce/vendor/msdf-atlas-gen"
-	group "Dependencies"
-	--include "BitPounce/vendor/rttr"
+    include "box2d.lua"
+    include "BitPounce/vendor/GLFW"
+    include "BitPounce/vendor/imgui"
+    include "BitPounce/vendor/BitPouncePack"
+
+    group "Dependencies/Font"
+        include "BitPounce/vendor/msdf-atlas-gen"
+    group "Dependencies"
+
 group ""

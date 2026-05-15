@@ -18,6 +18,7 @@ public:
 	void DrawSetingsMenu(BitPounce::Timestep& ts);
 	
 private:
+	bool m_hasReadedInfo = false;
 	uint32_t m_Score = 0;
 	uint32_t m_HighScore = 0;
 	bool m_IsInAWindow = false;

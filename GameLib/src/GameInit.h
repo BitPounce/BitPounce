@@ -73,9 +73,10 @@ BitPounce::Ref<BitPounce::Scene> GameLoad(GameCallbacks& gameCallbacks, uint32_t
     });
 
     AddPlacingItemsCallback([scene, player](glm::ivec2 pos, std::mt19937& rng, BoundsInt room){
-        std::uniform_int_distribution distribution(15, 22);
+        std::uniform_int_distribution distribution(15, 29);
         // Whats 9+10? 21!!!!!!
-        if(distribution(rng) != 21)
+        int var = distribution(rng);
+        if(var != 21 && var != 16 && var != 17 && var != 28)
         {
             return true;
         }
@@ -86,9 +87,22 @@ BitPounce::Ref<BitPounce::Scene> GameLoad(GameCallbacks& gameCallbacks, uint32_t
         auto&& enemy = ent.AddComponent<Enemy>();
         enemy.Player = player;
         spriteRenderer.UseSpriteSheet = true;
+        spriteRenderer.Colour = glm::vec4(1, 0, 0, 1);
         spriteRenderer.SpriteSize = glm::ivec2(64,64);
         spriteRenderer.Texture = 1993844519112669131;
         spriteRenderer.SpriteIndex = glm::ivec2(0,2);
+        if (var == 16)
+        {
+            // FAST
+            enemy.speed = 7.0f;
+            spriteRenderer.Colour = glm::vec4(0, 0, 1, 1);
+        }
+        if (var == 17)
+        {
+            enemy.speed = 4.f;
+            spriteRenderer.Colour = glm::vec4(0.6, 0, 0, 1);
+            auto&& swap = ent.AddComponent<SwapEnemy>();
+        }
         return true;
     });
     const uint32_t MAX_WINDOWS = 5;

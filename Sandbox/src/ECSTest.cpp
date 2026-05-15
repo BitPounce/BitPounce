@@ -80,14 +80,18 @@ void ECSTest::OnAttach()
 
 	if(file.is_open())
 	{
-	    nlohmann::json json;
-	    file >> json;
+		nlohmann::json json;
+		file >> json;
 
-	    if(json.contains("HighScore"))
-	        m_HighScore = json["HighScore"];
+		if(json.contains("HighScore"))
+			m_HighScore = json["HighScore"];
 
-	    file.close();
+		file.close();
 	}
+
+
+	//m_Scene = BitPounce::CreateRef<BitPounce::Scene>();
+	//m_Scene->CreateEntity("Camr")
 }
 
 void ECSTest::OnDetach() 
@@ -193,7 +197,19 @@ void ECSTest::OnEvent(BitPounce::Event &e)
 
 void ECSTest::DrawMainMenu(BitPounce::Timestep &ts)
 {
-	
+	if (!m_hasReadedInfo)
+	{
+		ImGui::Begin("Info");
+		ImGui::Text("This \"game\" is about mirror dimensions!");
+		ImGui::Text("WASD to move");
+		ImGui::Text("Jump into a mirror to enter the mirror dimensions");
+		if (ImGui::Button("Yea! yea! i know")) 
+		{
+			m_hasReadedInfo = true;
+		}
+		ImGui::End();
+		return;
+	}
 
 	ImGui::Begin("Main Menu");
 	if(ImGui::Button("Play"))
@@ -244,11 +260,11 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 			std::string label = std::to_string(modes[i].width) + " x " + std::to_string(modes[i].height) + " @" + std::to_string(modes[i].refreshRate) + "hz";
 			bool isSelected = (selectedMode == i);
 			if(ImGui::Selectable(label.c_str(), isSelected))
-            {
-                selectedMode = i;
-            }
+			{
+				selectedMode = i;
+			}
 			if(isSelected)
-                ImGui::SetItemDefaultFocus();
+				ImGui::SetItemDefaultFocus();
 		}
 		ImGui::EndCombo();
 	}
@@ -257,42 +273,42 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 		const GLFWvidmode& mode = modes[selectedMode];
 
 		if(fullscreen)
-        {
-            glfwSetWindowMonitor(
-                window,
-                monitor,
-                0,
-                0,
-                mode.width,
-                mode.height,
-                mode.refreshRate
-            );
-        }
-        else
-        {
+		{
+			glfwSetWindowMonitor(
+				window,
+				monitor,
+				0,
+				0,
+				mode.width,
+				mode.height,
+				mode.refreshRate
+			);
+		}
+		else
+		{
 			
-            glfwSetWindowMonitor(
-                window,
-                nullptr,
-                100,
-                100,
-                mode.width,
-                mode.height,
-                0
-            );
-        }
+			glfwSetWindowMonitor(
+				window,
+				nullptr,
+				100,
+				100,
+				mode.width,
+				mode.height,
+				0
+			);
+		}
 
-        m_Framebuffer->Resize(mode.width, mode.height);
+		m_Framebuffer->Resize(mode.width, mode.height);
 
-        float aspectRatio =
-            (float)mode.width / (float)mode.height;
+		float aspectRatio =
+			(float)mode.width / (float)mode.height;
 
-        m_Camera.SetProjection(
-            -aspectRatio * 5,
-             aspectRatio * 5,
-            -5,
-             1
-        );
+		m_Camera.SetProjection(
+			-aspectRatio * 5,
+			 aspectRatio * 5,
+			-5,
+			 1
+		);
 		
 	}
 
@@ -313,7 +329,7 @@ bool ECSTest::OnAssetPreloaded(BitPounce::AssetPreLoadedEvent &e)
 		{
 			return OnScenePreloaded(e);
 		}
-    return false;
+	return false;
 }
 
 bool ECSTest::OnScenePreloaded(BitPounce::AssetPreLoadedEvent &e)
@@ -326,8 +342,8 @@ bool ECSTest::OnScenePreloaded(BitPounce::AssetPreLoadedEvent &e)
 		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::AngelScriptSystem>());
 
 		e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
-        return false;
-    return false;
+		return false;
+	return false;
 }
 
 bool ECSTest::OnWindowResize(BitPounce::WindowResizeEvent &e)
@@ -337,5 +353,5 @@ bool ECSTest::OnWindowResize(BitPounce::WindowResizeEvent &e)
 	m_Framebuffer->Resize(e.GetWidth(), e.GetHeight());
 	float aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 1);
-    return false;
+	return false;
 }

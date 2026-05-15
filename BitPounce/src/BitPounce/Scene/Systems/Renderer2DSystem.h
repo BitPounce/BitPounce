@@ -162,8 +162,8 @@ namespace BitPounce
 					if (j.contains("UseSpriteSheet"))
 						c.UseSpriteSheet = j["UseSpriteSheet"];
 
-					if (j.contains("TextureID"))
-						c.Texture = j["TextureID"].get<uint64_t>();
+					//if (j.contains("TextureID"))
+					//	c.Texture = j["TextureID"].get<uint64_t>();
 
 					entity.AddComponent<SpriteRendererComponent>(c);
 				}
@@ -190,8 +190,8 @@ namespace BitPounce
 					c.textParams.Kerning = j["Kerning"];
 					c.textParams.LineSpacing = j["LineSpacing"];
 
-					if (j.contains("FontID"))
-						c.FontHandle = j["FontID"].get<uint64_t>();
+					//if (j.contains("FontID"))
+					//	c.FontHandle = j["FontID"].get<uint64_t>();
 
 					entity.AddComponent<TextComponent>(c);
 				}

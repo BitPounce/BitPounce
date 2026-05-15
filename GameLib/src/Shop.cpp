@@ -22,10 +22,10 @@ void Shop_Load(std::vector<Item> items)
 	s_Shop.items = items;
 
 	Item item = {};
-	item.fireRate = 2;
+	item.fireRate = 9;
 	item.ID = 0;
 	item.Money = 0;
-	item.radius = 0.5f;
+	item.radius = 1.5f;
 	item.texHandle = 13101426457884025154;
 	s_Shop.items.push_back(item);
 

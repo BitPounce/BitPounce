@@ -67,6 +67,12 @@ struct Enemy
     BitPounce::Timer Timer2;
 };
 
+struct SwapEnemy
+{
+    float swapCallback = 0.5f;
+    BitPounce::Timer Timer;
+};
+
 struct Window
 {
     uint32_t seed;

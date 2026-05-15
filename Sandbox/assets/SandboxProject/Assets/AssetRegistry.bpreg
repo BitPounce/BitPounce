@@ -6,16 +6,6 @@
 			"Type": "AssetType::Texture2D"
 		},
 		{
-			"FilePath": "auto/10.wav",
-			"Handle": 575184564776375355,
-			"Type": "AssetType::Audio"
-		},
-		{
-			"FilePath": "file_example_WAV_10MG.wav",
-			"Handle": 1227631349085125902,
-			"Type": "AssetType::Audio"
-		},
-		{
 			"FilePath": "fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf",
 			"Handle": 1441554370544208483,
 			"Type": "AssetType::Font"
@@ -73,11 +63,6 @@
 		{
 			"FilePath": "textures/WALL0.png",
 			"Handle": 16611798124123392899,
-			"Type": "AssetType::Texture2D"
-		},
-		{
-			"FilePath": "textures/Checkerboard.png",
-			"Handle": 17924858911134459790,
 			"Type": "AssetType::Texture2D"
 		}
 	]

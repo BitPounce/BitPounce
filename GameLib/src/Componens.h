@@ -45,6 +45,7 @@ struct HealthSystem
 
 struct Player
 {
+    BitPounce::Entity gun;
     BitPounce::Entity tilemap;
     uint8_t frime = 0;
     uint8_t fps = 4;

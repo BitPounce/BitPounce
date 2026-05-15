@@ -30,6 +30,39 @@ void PlayerSystem::OnUpdate(BitPounce::Timestep &ts)
 		if (cam.second)
 			cam.second->Translation = transform.Translation;
 
+		auto gun = player.gun;
+		auto& gunTransform = gun.GetComponent<BitPounce::TransformComponent>();
+		auto& gunSprite = gun.GetComponent<BitPounce::SpriteRendererComponent>();
+		Item item = Shop_GetItem();
+		gunSprite.Texture = item.texHandle;
+		auto mousePos = BitPounce::Input::GetMousePosition();
+		auto wordMousePos = BitPounce::Camera::PixelToWorld(mousePos, cam.first->Camera.GetProjection() * glm::inverse(cam.second->GetTransform()), glm::ivec2(BitPounce::Application::Get().GetWindow().GetWidth(), BitPounce::Application::Get().GetWindow().GetHeight()));
+
+		glm::vec2 gunPos = gunTransform.Translation;
+		glm::vec2 mouse = wordMousePos;
+		glm::vec2 gunDir = gunPos - mouse;
+
+		glm::vec2 dirToMouse = wordMousePos - glm::vec2(transform.Translation.x, transform.Translation.y);
+		float length = glm::length(dirToMouse);
+		if (length > 0.0001f) {
+			dirToMouse = dirToMouse / length;
+		}
+		else {
+			dirToMouse = glm::vec2(1.0f, 0.0f);
+		}
+
+
+		float radius = 1.2f;
+		glm::vec2 offset = dirToMouse * radius;
+		gunTransform.Translation = glm::vec3(
+			transform.Translation.x + offset.x,
+			transform.Translation.y + offset.y,
+			gunTransform.Translation.z
+		);
+
+		float angle = atan2(dirToMouse.y, dirToMouse.x);
+		gunTransform.Rotation.z = angle;
+
 		if(player.Timer.Elapsed() >= 1.0f / player.fps)
 		{
 			player.frime++;
@@ -40,7 +73,7 @@ void PlayerSystem::OnUpdate(BitPounce::Timestep &ts)
 			player.frime = 0;
 		}
 		float sig = (sinf(player.Timer.Elapsed() * 100) + 1) / 2;
-	sr.SpriteIndex = glm::ivec2(player.frime, 14);
+		sr.SpriteIndex = glm::ivec2(player.frime, 14);
 
 		glm::vec2 dir{0.f, 0.f};
 		if (BitPounce::Input::IsKeyPressed(BP_KEY_W)) dir.y += 1;
@@ -145,10 +178,22 @@ void PlayerSystem::OnUpdate(BitPounce::Timestep &ts)
 
 void PlayerSystem::OnImGuiDraw(BitPounce::Timestep &ts)
 {
-	ImGui::Begin("Player");
-	ImGui::DragInt("X", &s_IMG_X);
-	ImGui::DragInt("Y", &s_IMG_Y);
-	ImGui::End();
+}
+
+void PlayerSystem::OnRuntimeStart()
+{
+	auto& registry = m_Scene->GetRegistry(*this);
+	auto view = registry.view<Player, BitPounce::TransformComponent>();
+
+	for (auto entity : view)
+	{
+		auto& player = view.get<Player>(entity);
+		auto& transform = view.get<BitPounce::TransformComponent>(entity);
+
+		BitPounce::Entity ent = m_Scene->CreateEntity();
+		ent.AddComponent<BitPounce::SpriteRendererComponent>();
+		player.gun = ent;
+	}
 }
 
 PlayerSystem::PlayerSystem() 
@@ -170,5 +215,5 @@ void BitPounce::ECSSystem::OnComponentAdded<Player>(Entity entity, Player& compo
 template<>
 void BitPounce::ECSSystem::OnComponentAdded<::Window>(Entity entity, ::Window& component)
 {
-        
+		
 }

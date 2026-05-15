@@ -161,7 +161,7 @@ void Shop_ImGuiDraw()
 
 	for (auto&& item : s_Shop.items)
 	{
-		ImGui::ImageButton(std::to_string(item.texHandle.operator uint64_t()).c_str(), (void*)BitPounce::AssetManager::GetAsset<BitPounce::Texture2D>(item.texHandle)->GetRendererID(), ImVec2(100,100));
+		ImGui::ImageButton(std::to_string(item.texHandle.operator uint64_t()).c_str(), (void*)BitPounce::AssetManager::GetAsset<BitPounce::Texture2D>(item.texHandle)->GetRendererID(), ImVec2(100,100), { 0, 1 }, { 1, 0 });
 		bool playerHasItem = false;
 		for (auto&& item2 : s_Shop.player_items)
 		{

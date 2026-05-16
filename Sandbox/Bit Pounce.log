@@ -1,94 +1,94 @@
-[2026-05-15 20:59:13.852] [BIT POUNCE] [info] Logger initialized successfully
-[2026-05-15 20:59:13.854] [BIT POUNCE] [info] Creating window Mirror Dive (1600, 900)
-[2026-05-15 20:59:14.762] [BIT POUNCE] [info] OpenGL Info:
-[2026-05-15 20:59:14.762] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-05-15 20:59:14.762] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2
-[2026-05-15 20:59:14.768] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 591.86
-[2026-05-15 20:59:14.782] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-05-15 20:59:14.785] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
-[2026-05-15 20:59:14.786] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
-[2026-05-15 20:59:14.786] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
-[2026-05-15 20:59:14.786] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
-[2026-05-15 20:59:14.787] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
-[2026-05-15 20:59:14.788] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
-[2026-05-15 20:59:14.788] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
-[2026-05-15 20:59:14.788] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
-[2026-05-15 20:59:14.790] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
-[2026-05-15 20:59:14.794] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (2978 bytes)
-[2026-05-15 20:59:14.798] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
-[2026-05-15 20:59:14.818] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
-[2026-05-15 20:59:14.885] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
-[2026-05-15 20:59:14.948] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
-[2026-05-15 20:59:15.050] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
-[2026-05-15 20:59:15.097] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
-[2026-05-15 20:59:15.104] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
-[2026-05-15 20:59:15.150] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
-[2026-05-15 20:59:15.153] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
-[2026-05-15 20:59:15.154] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
-[2026-05-15 20:59:15.155] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
-[2026-05-15 20:59:15.165] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
-[2026-05-15 20:59:15.169] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
-[2026-05-15 20:59:15.355] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-15 20:59:15.361] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-15 20:59:15.366] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Bold.ttf (130860 bytes)
-[2026-05-15 20:59:15.367] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Bold.ttf
-[2026-05-15 20:59:15.367] [BIT POUNCE] [info] Loading file: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-15 20:59:15.368] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-15 20:59:15.370] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/OpenSans/static/OpenSans-Regular.ttf (130832 bytes)
-[2026-05-15 20:59:15.372] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/OpenSans/static/OpenSans-Regular.ttf
-[2026-05-15 20:59:15.378] [BIT POUNCE] [info] Loading file: shop.json
-[2026-05-15 20:59:15.379] [BIT POUNCE] [info] Reading file into RAM: shop.json
-[2026-05-15 20:59:15.379] [BIT POUNCE] [info] Successfully read file into RAM: shop.json (84 bytes)
-[2026-05-15 20:59:15.380] [BIT POUNCE] [info] Loaded file successfully: shop.json
-[2026-05-15 20:59:15.380] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.381] [BIT POUNCE] [info] Loading file: assets/SandboxProject/SandboxProject.bpproj
-[2026-05-15 20:59:15.381] [BIT POUNCE] [info] Reading file into RAM: assets/SandboxProject/SandboxProject.bpproj
-[2026-05-15 20:59:15.382] [BIT POUNCE] [info] Successfully read file into RAM: assets/SandboxProject/SandboxProject.bpproj (206 bytes)
-[2026-05-15 20:59:15.382] [BIT POUNCE] [info] Loaded file successfully: assets/SandboxProject/SandboxProject.bpproj
-[2026-05-15 20:59:15.383] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.383] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.384] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.384] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.384] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.388] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.389] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.390] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.390] [BIT POUNCE] [info] WHY
-[2026-05-15 20:59:15.391] [BIT POUNCE] [info] pack.bpp
-[2026-05-15 20:59:15.711] [BIT POUNCE] [info] PackTexture 547497271197996637
-[2026-05-15 20:59:15.720] [BIT POUNCE] [info] PackFont 1441554370544208483
-[2026-05-15 20:59:15.720] [BIT POUNCE] [info] 1441554370544208483
-[2026-05-15 20:59:15.764] [BIT POUNCE] [info] Reconstructed font from PackFont (atlas 4096x4096)
-[2026-05-15 20:59:15.766] [BIT POUNCE] [info] PackTexture 1993844519112669131
-[2026-05-15 20:59:15.766] [BIT POUNCE] [info] PackTexture 2865921970978295481
-[2026-05-15 20:59:15.767] [BIT POUNCE] [info] PackTexture 2922514105519681440
-[2026-05-15 20:59:15.768] [BIT POUNCE] [info] PackTexture 3771104731740525241
-[2026-05-15 20:59:15.768] [BIT POUNCE] [info] PackTexture 5260800240978246632
-[2026-05-15 20:59:15.769] [BIT POUNCE] [info] PackTexture 8357955715329051680
-[2026-05-15 20:59:15.769] [BIT POUNCE] [info] PackScene 16340414562716912673
-[2026-05-15 20:59:15.770] [BIT POUNCE] [info] PackTexture 13101426457884025154
-[2026-05-15 20:59:15.771] [BIT POUNCE] [info] PackTexture 14445449532535313356
-[2026-05-15 20:59:15.774] [BIT POUNCE] [info] PackTexture 14759989677347709154
-[2026-05-15 20:59:15.778] [BIT POUNCE] [info] PackTexture 16611798124123392899
-[2026-05-15 20:59:15.778] [BIT POUNCE] [info] Loaded Asset: 547497271197996637
-[2026-05-15 20:59:15.779] [BIT POUNCE] [info] Loaded Asset: 1441554370544208483
-[2026-05-15 20:59:15.779] [BIT POUNCE] [info] Loaded Asset: 1993844519112669131
-[2026-05-15 20:59:15.779] [BIT POUNCE] [info] Loaded Asset: 2865921970978295481
-[2026-05-15 20:59:15.779] [BIT POUNCE] [info] Loaded Asset: 2922514105519681440
-[2026-05-15 20:59:15.780] [BIT POUNCE] [info] Loaded Asset: 3771104731740525241
-[2026-05-15 20:59:15.780] [BIT POUNCE] [info] Loaded Asset: 5260800240978246632
-[2026-05-15 20:59:15.780] [BIT POUNCE] [info] Loaded Asset: 8357955715329051680
-[2026-05-15 20:59:15.781] [BIT POUNCE] [info] Loaded Asset: 13085641753409503442
-[2026-05-15 20:59:15.781] [BIT POUNCE] [info] Loaded Asset: 13101426457884025154
-[2026-05-15 20:59:15.782] [BIT POUNCE] [info] Loaded Asset: 14445449532535313356
-[2026-05-15 20:59:15.782] [BIT POUNCE] [info] Loaded Asset: 14759989677347709154
-[2026-05-15 20:59:15.782] [BIT POUNCE] [info] Loaded Asset: 16611798124123392899
-[2026-05-15 20:59:15.796] [BIT POUNCE] [info] Loading file: assets/shaders/Test.glsl
-[2026-05-15 20:59:15.797] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Test.glsl
-[2026-05-15 20:59:15.799] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Test.glsl (3315 bytes)
-[2026-05-15 20:59:15.799] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Test.glsl
-[2026-05-15 20:59:15.799] [BIT POUNCE] [info] Loading file: assets/shaders/BasicVextex.glsl
-[2026-05-15 20:59:15.800] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/BasicVextex.glsl
-[2026-05-15 20:59:15.800] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/BasicVextex.glsl (241 bytes)
-[2026-05-15 20:59:15.801] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/BasicVextex.glsl
-[2026-05-15 20:59:20.052] [BIT POUNCE] [info] 2440295751488
+[2026-05-16 14:13:43.837] [BIT POUNCE] [info] Logger initialized successfully
+[2026-05-16 14:13:43.837] [BIT POUNCE] [info] Creating window Mirror Dive (1600, 900)
+[2026-05-16 14:13:44.366] [BIT POUNCE] [info] OpenGL Info:
+[2026-05-16 14:13:44.366] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-05-16 14:13:44.366] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
+[2026-05-16 14:13:44.366] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.142
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (3191 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
+[2026-05-16 14:13:44.367] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Loading file: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Loading file: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
+[2026-05-16 14:13:44.395] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Loading file: shop.json
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Reading file into RAM: shop.json
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Successfully read file into RAM: shop.json (76 bytes)
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Loaded file successfully: shop.json
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Loading file: assets/MirrorDive/MirrorDive.bpproj
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Reading file into RAM: assets/MirrorDive/MirrorDive.bpproj
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Successfully read file into RAM: assets/MirrorDive/MirrorDive.bpproj (202 bytes)
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] Loaded file successfully: assets/MirrorDive/MirrorDive.bpproj
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] WHY
+[2026-05-16 14:13:44.413] [BIT POUNCE] [info] pack.bpp
+[2026-05-16 14:13:44.469] [BIT POUNCE] [info] PackTexture 547497271197996637
+[2026-05-16 14:13:44.470] [BIT POUNCE] [info] PackFont 1441554370544208483
+[2026-05-16 14:13:44.470] [BIT POUNCE] [info] 1441554370544208483
+[2026-05-16 14:13:44.493] [BIT POUNCE] [info] Reconstructed font from PackFont (atlas 4096x4096)
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 1993844519112669131
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 2865921970978295481
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 2922514105519681440
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 3771104731740525241
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 5260800240978246632
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackTexture 8357955715329051680
+[2026-05-16 14:13:44.494] [BIT POUNCE] [info] PackScene 1611480142089260272
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] PackTexture 13101426457884025154
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] PackTexture 14445449532535313356
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] PackTexture 14759989677347709154
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] PackTexture 16611798124123392899
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 547497271197996637
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 1441554370544208483
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 1993844519112669131
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 2865921970978295481
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 2922514105519681440
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 3771104731740525241
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 5260800240978246632
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 8357955715329051680
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 13101426457884025154
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 13517665393599348445
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 14445449532535313356
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 14759989677347709154
+[2026-05-16 14:13:44.495] [BIT POUNCE] [info] Loaded Asset: 16611798124123392899
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Loading file: assets/shaders/Test.glsl
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Test.glsl
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Test.glsl (3359 bytes)
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Test.glsl
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Loading file: assets/shaders/BasicVextex.glsl
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/BasicVextex.glsl
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/BasicVextex.glsl (241 bytes)
+[2026-05-16 14:13:44.498] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/BasicVextex.glsl
+[2026-05-16 14:13:51.548] [BIT POUNCE] [info] 93825049626672

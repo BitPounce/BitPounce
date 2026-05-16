@@ -1,7 +1,7 @@
 {
 	"Project": {
 		"AssetDirectory": "Assets",
-		"Name": "SandboxProject",
+		"Name": "MirrorDive",
 		"StartScene": "scenes/Physics2D.bitPounce",
 		"AssetRegistryPath": "AssetRegistry.bpreg",
         "AssetPacks": ["pack.bpp"]

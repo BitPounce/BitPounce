@@ -24,6 +24,7 @@ private:
 	bool m_IsInAWindow = false;
 	bool m_IsSettingsWindowOpen = false;
 	bool m_PlayerHasLost = false;
+	bool m_ConsloeOpen = false;
 	uint32_t seed = 466456;
 	BitPounce::Ref<BitPounce::Project> m_Project;
 	BitPounce::Ref<BitPounce::Scene> m_Scene;

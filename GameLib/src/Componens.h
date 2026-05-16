@@ -1,6 +1,7 @@
 #pragma once
 
 #include <BitPounce.h>
+#include <random>
 
 template<typename T, T min>
 struct HealthSystem
@@ -51,9 +52,10 @@ struct Player
     uint8_t fps = 4;
     BitPounce::Timer Timer;
     bool HasMoved = false;
+    std::mt19937 rng;
     BitPounce::Timer Timer2;
     std::vector<BitPounce::Ref<BitPounce::Audio>> Audios;
-    std::function<void(uint32_t seed)> onWin;
+    std::function<void(uint32_t seed, std::mt19937& rng)> onWin;
     std::function<void()> onKilledEnemy;
 };
 

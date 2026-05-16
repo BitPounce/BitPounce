@@ -104,7 +104,7 @@ INCLUDES += -I"${ENGINE_DIR}/vendor/angelscript/sdk/add_on" -I"$(ENGINE_DIR)/ven
 
 CXXFLAGS += -DFMT_HEADER_ONLY -DGLFW_INCLUDE_NONE -msimd128 -msse2 -DFT2_BUILD_LIBRARY -sASSERTIONS
 # Compiler options (empty default)
-OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128 --use-port=emdawnwebgpu
+OPTIONS := $(CXXFLAGS) -gsource-map -fmacro-prefix-map=$(ENGINE_DIR)/src/=  -msimd128 --use-port=emdawnwebgpu -O3
 
 all: print-info $(DIST_DIR)/libBitPounce.a
 

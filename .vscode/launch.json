@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch Sandbox",
+            "name": "(gdb) Launch MirrorDive",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
+            "program": "${workspaceRoot}/bin/Debug-linux-x86_64/MirrorDive/MirrorDive",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/Sandbox",

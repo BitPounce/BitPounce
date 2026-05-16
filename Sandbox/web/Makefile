@@ -92,7 +92,7 @@ OPTIONS := \
 	$(LINKDIRS) \
 	$(LINKS) \
 	-s LLD_REPORT_UNDEFINED \
-	-sASSERTIONS
+	-sASSERTIONS -O3 --closure 1
 
 # Default target
 all: buildEngine prepare-assets $(DIST_DIR)/index.html
@@ -155,7 +155,7 @@ $(DIST_DIR)/index.html: $(OBJ) $(ENGINE_LIB)
 		-Wl,--whole-archive -lBitPounce -Wl,--no-whole-archive \
 		-sEXPORTED_FUNCTIONS='["_main","_malloc","_free"]' \
 		-sEXPORTED_RUNTIME_METHODS='["ccall","cwrap","requestFullscreen"]' \
-		$(OPTIONS) \
+		$(OPTIONS) --shell-file shell_minimal.html \
 		--preload-file assets
 
 	@rm -rf ./assets

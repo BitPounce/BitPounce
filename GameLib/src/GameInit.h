@@ -14,7 +14,7 @@ BP_REGISTER_CMD("set_cam_size", "", [](const std::vector<std::string>& args)
 struct GameCallbacks
 {
     std::function<void()> PlayerDied;
-    std::function<void(uint32_t windowSeed)> InAWindow;
+    std::function<void(uint32_t windowSeed, std::mt19937& rng)> InAWindow;
     std::function<void()> OnKilledEnemy;
 };
 
@@ -43,10 +43,24 @@ BitPounce::Ref<BitPounce::Scene> GameLoad(GameCallbacks& gameCallbacks, uint32_t
     };
     auto&& playerTransform = player.GetComponent<BitPounce::TransformComponent>();
     playerRB.Type = BitPounce::Rigidbody2DComponent::BodyType::Dynamic;
+    auto&& playerComponent = player.AddComponent<Player>();
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/1.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/2.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/3.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/4.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/5.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/6.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/7.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/8.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/9.wav"));
+    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/10.wav"));
+    playerComponent.onKilledEnemy = gameCallbacks.OnKilledEnemy;
+    playerComponent.onWin = gameCallbacks.InAWindow;
     
 
-    AddPlacingItemsCallback([&playerTransform, &cam](glm::ivec2 pos,std::mt19937& rng, BoundsInt room){
+    AddPlacingItemsCallback([&playerTransform, &cam, &playerComponent](glm::ivec2 pos,std::mt19937& rng, BoundsInt room){
         playerTransform.Translation = room.center();
+        playerComponent.rng = rng;
         //cam.Camera.SetOrthographicSize(100);
         return true;
     });
@@ -95,12 +109,12 @@ BitPounce::Ref<BitPounce::Scene> GameLoad(GameCallbacks& gameCallbacks, uint32_t
         {
             // FAST
             enemy.speed = 7.0f;
-            spriteRenderer.Colour = glm::vec4(0, 0, 1, 1);
+            spriteRenderer.Colour = glm::vec4(0, 1, 1, 1);
         }
         if (var == 17)
         {
             enemy.speed = 4.f;
-            spriteRenderer.Colour = glm::vec4(0.6, 0, 0, 1);
+            spriteRenderer.Colour = glm::vec4(0.6, 0.6, 0.6, 1);
             auto&& swap = ent.AddComponent<SwapEnemy>();
         }
         return true;
@@ -132,19 +146,7 @@ BitPounce::Ref<BitPounce::Scene> GameLoad(GameCallbacks& gameCallbacks, uint32_t
         return true;
     });
 
-    auto&& playerComponent = player.AddComponent<Player>();
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/1.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/2.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/3.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/4.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/5.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/6.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/7.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/8.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/9.wav"));
-    playerComponent.Audios.push_back(BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/10.wav"));
-    playerComponent.onKilledEnemy = gameCallbacks.OnKilledEnemy;
-    playerComponent.onWin = gameCallbacks.InAWindow;
+    
     BitPounce::Entity ent = GenDungeon(scene, seed);
     playerComponent.tilemap = ent;
     playerRendor.Colour = glm::vec4(1,1,1,1);

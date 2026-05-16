@@ -123,14 +123,14 @@ void PlayerSystem::OnUpdate(BitPounce::Timestep &ts)
 					auto wordMousePos = BitPounce::Camera::PixelToWorld(BitPounce::Input::GetMousePosition(), cam.first->Camera.GetProjection() * glm::inverse(cam.second->GetTransform()), glm::ivec2(BitPounce::Application::Get().GetWindow().GetWidth(), BitPounce::Application::Get().GetWindow().GetHeight()));
 					if(glm::distance(wordMousePos, glm::vec2(windowTransform.Translation)) <= 0.1f)
 					{
-						player.onWin(window.seed);
+						player.onWin(window.seed, player.rng);
 					}
 				}
 				else
 				{
 					if(glm::distance(glm::vec2(transform.Translation), glm::vec2(windowTransform.Translation)) <= 2.0f)
 					{
-						player.onWin(window.seed);
+						player.onWin(window.seed, player.rng);
 					}
 				}
 

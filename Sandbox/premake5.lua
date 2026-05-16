@@ -1,4 +1,4 @@
-project "Sandbox"
+project "MirrorDive"
 	kind "ConsoleApp"
 	language "C++"
 	staticruntime "Off"

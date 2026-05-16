@@ -20,7 +20,7 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 
 
 	Item item03 = {};
-	item03.name = "2 guned";
+	item03.name = "its lecking";
 	item03.fireRate = 9;
 	item03.ID = 2;
 	item03.Money = 500;
@@ -28,7 +28,7 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 	item03.texHandle = 2922514105519681440;
 
 	Item item04 = {};
-	item04.name = "2 guned";
+	item04.name = "the gun from Grab & Cash, if you know you know";
 	item04.fireRate = 10;
 	item04.ID = 3;
 	item04.Money = 1000;
@@ -38,9 +38,77 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 	
 }
 
+struct OKLCH {
+    double L;
+    double C;
+    double H;
+};
+
+
+OKLCH random_oklch(std::mt19937& gen)
+{
+    
+
+    // Good practical ranges
+    std::uniform_real_distribution<> lightness(0.6, 0.85);
+    std::uniform_real_distribution<> chroma(0.08, 0.22);
+    std::uniform_real_distribution<> hue(0.0, 360.0);
+
+    return {
+        lightness(gen),
+        chroma(gen),
+        hue(gen)
+    };
+}
+
+struct RGBf {
+    float r, g, b; // 0.0 - 1.0
+};
+
+RGBf oklch_to_rgbf(float L, float C, float H_deg)
+{
+    float h = H_deg * (float)M_PI / 180.0f;
+
+    // OKLCH -> OKLab
+    float a = C * std::cos(h);
+    float b = C * std::sin(h);
+
+    // OKLab -> LMS
+    float l_ = L + 0.3963377774f * a + 0.2158037573f * b;
+    float m_ = L - 0.1055613458f * a - 0.0638541728f * b;
+    float s_ = L - 0.0894841775f * a - 1.2914855480f * b;
+
+    float l = l_ * l_ * l_;
+    float m = m_ * m_ * m_;
+    float s = s_ * s_ * s_;
+
+    // LMS -> linear sRGB
+    float r = +4.0767416621f * l - 3.3077115913f * m + 0.2309699292f * s;
+    float g = -1.2684380046f * l + 2.6097574011f * m - 0.3413193965f * s;
+    float bl = -0.0041960863f * l - 0.7034186147f * m + 1.7076147010f * s;
+
+    // gamma correction (linear -> sRGB)
+    auto gamma = [](float x) -> float
+{
+    x = std::max(0.0f, x);   // key fix
+
+    if (x <= 0.0031308f)
+        return 12.92f * x;
+
+    return 1.055f * std::pow(x, 1.0f / 2.4f) - 0.055f;
+};
+
+    RGBf out;
+    out.r = gamma(r);
+    out.g = gamma(g);
+    out.b = gamma(bl);
+
+    return out;
+}
+
 void ECSTest::OnAttach() 
 {
-	m_Project = BitPounce::Project::Load("assets/SandboxProject/SandboxProject.bpproj", false);
+	m_Project = BitPounce::Project::Load("assets/MirrorDive/MirrorDive.bpproj", false);
 	BitPounce::AssetMap assetMap = m_Project->GetRuntimeAssetManager()->GetAssetMap();
 
 	
@@ -68,12 +136,12 @@ void ECSTest::OnAttach()
 	fbSpec.Width = BitPounce::Application::Get().GetWindow().GetWidth();
 	fbSpec.Height = BitPounce::Application::Get().GetWindow().GetHeight();
 	float aspectRatio = (float)fbSpec.Width / (float)fbSpec.Height;
-	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 1);
+	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 5);
 	m_Framebuffer = BitPounce::Framebuffer::Create(fbSpec);
 	m_Shader = BitPounce::Shader::Create("assets/shaders/Test.glsl");
 	m_Shader->Bind();
 	m_Shader->SetInt("u_Texture", 0);
-	m_MainAudio = BitPounce::Audio::Create("assets/SandboxProject/Assets/auto/ghfgfjjyfhgj.wav", true);
+	m_MainAudio = BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/ghfgfjjyfhgj.wav", true);
 	m_MainAudio->Play();
 
 	std::ifstream file("game.json");
@@ -92,6 +160,8 @@ void ECSTest::OnAttach()
 
 	//m_Scene = BitPounce::CreateRef<BitPounce::Scene>();
 	//m_Scene->CreateEntity("Camr")
+
+	m_Shader->SetFloat4("u_Colour", glm::vec4(1));
 }
 
 void ECSTest::OnDetach() 
@@ -107,11 +177,15 @@ void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 		callbacks.PlayerDied = [this]()
 		{
 			m_PlayerHasLost = true;
+			m_Shader->SetFloat4("u_Colour", glm::vec4(1));
 		};
-		callbacks.InAWindow = [this](uint32_t seed)
+		callbacks.InAWindow = [this](uint32_t seed, std::mt19937& rng)
 		{
 			m_IsInAWindow = true;
 			this->seed = seed;
+			OKLCH oklch = random_oklch(rng);
+			RGBf rgb = oklch_to_rgbf(oklch.L, oklch.C, oklch.H);
+			m_Shader->SetFloat4("u_Colour", {rgb.r, rgb.g, rgb.b, 1});
 		};
 		callbacks.OnKilledEnemy = [this]()
 		{
@@ -163,7 +237,7 @@ void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 }
 
 void ECSTest::OnImGuiRender(BitPounce::Timestep& ts) 
-{
+{/*
 	ImGui::Begin("Render Data");
 	BitPounce::Renderer2D::Renderer2DData renderer2d = BitPounce::Renderer2D::Get();
 
@@ -174,14 +248,15 @@ void ECSTest::OnImGuiRender(BitPounce::Timestep& ts)
 	ImGui::Text((std::string("Vertices: ") + std::to_string(renderer2d.Vertices)).c_str());
 	
 
-	ImGui::End();
+	ImGui::End();*/
 	if(m_Scene)
 		m_Scene->OnImguiDraw(ts);
 	else
 	{
 		DrawMainMenu(ts);
 	}
-	m_Console.OnImGuiDraw();
+	if(m_ConsloeOpen)
+		m_Console.OnImGuiDraw();
 	Shop_ImGuiDraw();
 	//m_Project->GetSceneManager().GetScene()->OnImguiDraw(ts);
 }
@@ -191,6 +266,14 @@ void ECSTest::OnEvent(BitPounce::Event &e)
 	BitPounce::EventDispatcher dispatcher(e);
 	dispatcher.Dispatch<BitPounce::AssetPreLoadedEvent>(BP_BIND_EVENT_FN(ECSTest::OnAssetPreloaded));
 	dispatcher.Dispatch<BitPounce::WindowResizeEvent>(BP_BIND_EVENT_FN(ECSTest::OnWindowResize));
+	dispatcher.Dispatch<BitPounce::KeyPressedEvent>([this](BitPounce::KeyPressedEvent& key)
+	{
+		if(key.GetKeyCode() == (int)BP_KEY_ESC)
+		{
+			m_ConsloeOpen = !m_ConsloeOpen;
+		}
+		return false;
+	});
 	if(m_Scene)
 		m_Scene->OnEvent(e);
 }
@@ -241,6 +324,7 @@ void ECSTest::DrawMainMenu(BitPounce::Timestep &ts)
 
 void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 {
+	#ifndef BP_PLATFORM_WEB
 	static bool fullscreen = false;
 	static int selectedMode = 0;
 	GLFWwindow* window = static_cast<GLFWwindow*>(BitPounce::Application::Get().GetWindow().GetNativeWindow());
@@ -248,8 +332,10 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 
 	int modeCount = 0;
 	const GLFWvidmode* modes = glfwGetVideoModes(monitor, &modeCount);
+	#endif
 
 	ImGui::Begin("Settings", &m_IsSettingsWindowOpen);
+	#ifndef BP_PLATFORM_WEB
 
 	ImGui::Checkbox("Fullscreen", &fullscreen);
 	std::string currentRes = std::to_string(modes[selectedMode].width) + " x " + std::to_string(modes[selectedMode].height);
@@ -307,10 +393,11 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 			-aspectRatio * 5,
 			 aspectRatio * 5,
 			-5,
-			 1
+			 5
 		);
 		
 	}
+	#endif
 
 	{
 		float temp = BitPounce::AudioDevice::GetWorldVolume() * 100.f;
@@ -352,6 +439,6 @@ bool ECSTest::OnWindowResize(BitPounce::WindowResizeEvent &e)
 		m_Scene->OnViewportResize(e.GetWidth(), e.GetHeight());
 	m_Framebuffer->Resize(e.GetWidth(), e.GetHeight());
 	float aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 1);
+	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 5);
 	return false;
 }

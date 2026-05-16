@@ -331,37 +331,55 @@ static glm::ivec2 FindClosestPointTo(glm::ivec2 currentRoomCenter, std::vector<g
 	return closest;
 }
 
-static std::unordered_set<glm::ivec2> CreateCorridor(glm::ivec2 currentRoomCenter, glm::ivec2 destination)
+static std::unordered_set<glm::ivec2> CreateCorridor(glm::ivec2 start, glm::ivec2 end)
 {
-	std::unordered_set<glm::ivec2> corridor{};
-	auto position = currentRoomCenter;
-	corridor.emplace(position);
-	while (position.y != destination.y)
-	{
-		if(destination.y > position.y)
-		{
-			position += glm::ivec2(0, 1);
-		}
-		if(destination.y < position.y)
-		{
-			position += glm::ivec2(0, -1);
-		}
-		corridor.emplace(position);
-	}
-	while (position.x != destination.x)
-	{
-		if(destination.x > position.x)
-		{
-			position += glm::ivec2(1, 0);
-		}
-		if(destination.x < position.x)
-		{
-			position += glm::ivec2(-1, 0);
-		}
-		corridor.emplace(position);
-	}
+    std::unordered_set<glm::ivec2> corridor;
+    std::vector<glm::ivec2> centerPath;
 
-	return corridor;
+    glm::ivec2 pos = start;
+    centerPath.push_back(pos);
+    while (pos.y != end.y) {
+        pos += (end.y > pos.y) ? glm::ivec2(0, 1) : glm::ivec2(0, -1);
+        centerPath.push_back(pos);
+    }
+    while (pos.x != end.x) {
+        pos += (end.x > pos.x) ? glm::ivec2(1, 0) : glm::ivec2(-1, 0);
+        centerPath.push_back(pos);
+    }
+
+    int w = CORRIDOR_WIDTH;
+    for (size_t i = 0; i < centerPath.size(); ++i) {
+        glm::ivec2 p = centerPath[i];
+        glm::ivec2 dir(0, 0);
+
+        if (i < centerPath.size() - 1)
+            dir = centerPath[i + 1] - p;
+        else if (i > 0)
+            dir = p - centerPath[i - 1];
+
+        if (dir == glm::ivec2(0, 0)) {
+            for (int dx = -w; dx <= w; ++dx)
+                for (int dy = -w; dy <= w; ++dy)
+                    corridor.insert(p + glm::ivec2(dx, dy));
+        } else {
+            glm::ivec2 perp(-dir.y, dir.x);
+            for (int d = -w; d <= w; ++d)
+                corridor.insert(p + perp * d);
+        }
+    }
+
+    for (size_t i = 1; i < centerPath.size() - 1; ++i) {
+        glm::ivec2 prev = centerPath[i - 1];
+        glm::ivec2 cur  = centerPath[i];
+        glm::ivec2 next = centerPath[i + 1];
+        if ((prev.x != cur.x && cur.x != next.x) || (prev.y != cur.y && cur.y != next.y)) {
+            for (int dx = -w; dx <= w; ++dx)
+                for (int dy = -w; dy <= w; ++dy)
+                    corridor.insert(cur + glm::ivec2(dx, dy));
+        }
+    }
+
+    return corridor;
 }
 static std::unordered_set<glm::ivec2> ConnectRooms(std::vector<glm::ivec2> roomCenters, std::mt19937& rng)
 {

@@ -34,8 +34,8 @@ namespace BitPounce {
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     
         #endif
 
-        BufferBase openSansBoldBuffer = FileSystem::LoadFile("assets/fonts/OpenSans/static/OpenSans-Bold.ttf");
-        BufferBase openSansNormalBuffer = FileSystem::LoadFile("assets/fonts/OpenSans/static/OpenSans-Regular.ttf");
+        BufferBase openSansBoldBuffer = FileSystem::LoadFile("assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf");
+        BufferBase openSansNormalBuffer = FileSystem::LoadFile("assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf");
         
         io.Fonts->AddFontFromMemoryTTF(openSansBoldBuffer.As<void>(), (int)openSansBoldBuffer.Size, 18.0f);
         io.Fonts->AddFontFromMemoryTTF(openSansNormalBuffer.As<void>(), (int)openSansNormalBuffer.Size, 18.0f);

@@ -12,6 +12,88 @@ struct Shop
 	uint64_t currItem = 0;
 };
 
+bool WrappedButton(const char* label, const char* text, float width)
+{
+    ImGuiWindow* window = ImGui::GetCurrentWindow();
+    if (window->SkipItems)
+        return false;
+
+    ImGuiContext& g = *GImGui;
+    const ImGuiStyle& style = g.Style;
+
+    ImGuiID id = window->GetID(label);
+
+    if (width <= 0.0f)
+        width = ImGui::CalcItemWidth();
+
+    const float wrap_width =
+        width - style.FramePadding.x * 2.0f;
+
+    // Calculate wrapped text size
+    ImVec2 text_size = ImGui::CalcTextSize(
+        text,
+        nullptr,
+        false,
+        wrap_width);
+
+    ImVec2 size(
+        width,
+        text_size.y + style.FramePadding.y * 2.0f);
+
+    ImRect bb(window->DC.CursorPos,
+        ImVec2(window->DC.CursorPos.x + size.x, window->DC.CursorPos.y + size.y));
+
+    ImGui::ItemSize(size);
+
+    if (!ImGui::ItemAdd(bb, id))
+        return false;
+
+    // Native button behavior
+    bool hovered, held;
+    bool pressed = ImGui::ButtonBehavior(
+        bb,
+        id,
+        &hovered,
+        &held);
+
+    // Native ImGui button colors
+    const ImU32 col = ImGui::GetColorU32(
+        (held && hovered) ? ImGuiCol_ButtonActive :
+        hovered ? ImGuiCol_ButtonHovered :
+        ImGuiCol_Button);
+
+    // Draw button frame
+    ImGui::RenderNavHighlight(bb, id);
+
+    ImGui::RenderFrame(
+        bb.Min,
+        bb.Max,
+        col,
+        true,
+        style.FrameRounding);
+
+    // Text position
+    ImVec2 text_pos(
+        bb.Min.x + style.FramePadding.x,
+        bb.Min.y + style.FramePadding.y);
+
+    // Draw wrapped text
+    window->DrawList->PushClipRect(bb.Min, bb.Max, true);
+
+    window->DrawList->AddText(
+        ImGui::GetFont(),
+        ImGui::GetFontSize(),
+        text_pos,
+        ImGui::GetColorU32(ImGuiCol_Text),
+        text,
+        nullptr,
+        wrap_width);
+
+    window->DrawList->PopClipRect();
+
+    return pressed;
+}
+
 static Shop s_Shop;
 
 void Shop_Save();
@@ -22,6 +104,7 @@ void Shop_Load(std::vector<Item> items)
 	s_Shop.items = items;
 
 	Item item = {};
+	item.name = "Basic";
 	item.fireRate = 9;
 	item.ID = 0;
 	item.Money = 0;
@@ -170,12 +253,14 @@ void Shop_ImGuiDraw()
 				playerHasItem = true;
 			}
 		}
+		std::string text = (std::string("Buy £") + std::to_string(item.Money) + std::string(" ") + item.name);
+		float textSize = ImGui::CalcTextSize(text.c_str()).x;
 		ImGui::PushID((std::string("fgjgghjfjhgjjkyfhjyb") + std::to_string(item.texHandle.operator uint64_t())).c_str());
 		if(playerHasItem && ImGui::Button("E"))
 		{
 			s_Shop.currItem = item.ID;
 		}
-		else if (!playerHasItem && ImGui::Button((std::string("Buy £") + std::to_string(item.Money) + std::string(" ") + item.name).c_str()))
+		else if (!playerHasItem && WrappedButton((std::string("##") + text).c_str(), text.c_str(), 100))
 		{
 			Shop_Buy(item.ID);
 		}

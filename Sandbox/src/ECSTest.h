@@ -1,5 +1,8 @@
 #pragma once
 #include <BitPounce.h>
+#include "Platform/OpenGL/gl.h"
+// one hell of a path
+#include <BitPounce/../../vendor/GLFW/include/GLFW/glfw3.h>
 
 class ECSTest: public BitPounce::Layer
 {
@@ -18,12 +21,24 @@ public:
 	void DrawSetingsMenu(BitPounce::Timestep& ts);
 	
 private:
+	bool m_ApplyDisplaySettings = false;
 	bool m_hasReadedInfo = false;
+	bool m_Fullscreen = false;
+	int m_SelectedMode = 0;
+	BitPounce::Timer m_Timer;
+#ifdef BP_PLATFORM_WEB
+	int KERNEL_RADIUS = 1;
+#else
+	int KERNEL_RADIUS = 5;
+#endif
 	uint32_t m_Score = 0;
 	uint32_t m_HighScore = 0;
 	bool m_IsInAWindow = false;
 	bool m_IsSettingsWindowOpen = false;
 	bool m_PlayerHasLost = false;
+	bool m_PlayerHasWined = false;
+	int m_WindowsToWin = 10;
+	int m_WindowsPlayerHasJumped = 0;
 	bool m_ConsloeOpen = false;
 	uint32_t seed = 466456;
 	BitPounce::Ref<BitPounce::Project> m_Project;

@@ -132,10 +132,10 @@ namespace BitPounce
 	bool Application::OnWindowResize(WindowResizeEvent &e)
 	{
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-#ifdef BP_PLATFORM_WINDOWS
-		if (m_APPTimerLOLsdrtfthfgghghghkghghkgvj.Elapsed() >= 10)
-			Update();
-#endif
+//#ifdef BP_PLATFORM_WINDOWS
+//		if (m_APPTimerLOLsdrtfthfgghghghkghghkgvj.Elapsed() >= 10)
+//			Update();
+//#endif
     	return false;
 	}
 }

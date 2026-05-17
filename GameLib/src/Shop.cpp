@@ -256,7 +256,7 @@ void Shop_ImGuiDraw()
 		std::string text = (std::string("Buy £") + std::to_string(item.Money) + std::string(" ") + item.name);
 		float textSize = ImGui::CalcTextSize(text.c_str()).x;
 		ImGui::PushID((std::string("fgjgghjfjhgjjkyfhjyb") + std::to_string(item.texHandle.operator uint64_t())).c_str());
-		if(playerHasItem && ImGui::Button("E"))
+		if(playerHasItem && ImGui::Button("Equip"))
 		{
 			s_Shop.currItem = item.ID;
 		}

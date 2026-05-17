@@ -3,13 +3,7 @@
 #include "Enemy.h"
 #include "Generation.h"
 
-static BitPounce::CameraComponent s_Cam = BitPounce::CameraComponent();
 
-BP_REGISTER_CMD("set_cam_size", "", [](const std::vector<std::string>& args)
-{
-	float camSize = std::stof(args[0]);
-    s_Cam.Camera.SetOrthographicSize(camSize);
-});
 
 struct GameCallbacks
 {

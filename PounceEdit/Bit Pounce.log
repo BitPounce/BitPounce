@@ -1,31 +1,46 @@
-[2026-05-16 13:52:21.785] [BIT POUNCE] [info] Logger initialized successfully
-[2026-05-16 13:52:21.785] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
-[2026-05-16 13:52:22.658] [BIT POUNCE] [info] OpenGL Info:
-[2026-05-16 13:52:22.658] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
-[2026-05-16 13:52:22.658] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce RTX 3060/PCIe/SSE2
-[2026-05-16 13:52:22.658] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 580.142
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (2921 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
-[2026-05-16 13:52:22.659] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
-[2026-05-16 13:52:22.688] [BIT POUNCE] [info] Loading file: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:45.837] [BIT POUNCE] [info] Logger initialized successfully
+[2026-05-16 20:36:45.841] [BIT POUNCE] [info] Creating window PounceEdit (1600, 900)
+[2026-05-16 20:36:46.976] [BIT POUNCE] [info] OpenGL Info:
+[2026-05-16 20:36:47.031] [BIT POUNCE] [info]   Vendor: NVIDIA Corporation
+[2026-05-16 20:36:47.090] [BIT POUNCE] [info]   Renderer: NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2
+[2026-05-16 20:36:47.090] [BIT POUNCE] [info]   Version: 4.6.0 NVIDIA 591.86
+[2026-05-16 20:36:47.094] [BIT POUNCE] [info] Loading file: assets/shaders/Texture.glsl
+[2026-05-16 20:36:47.096] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture.glsl
+[2026-05-16 20:36:47.097] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture.glsl (117 bytes)
+[2026-05-16 20:36:47.140] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture.glsl
+[2026-05-16 20:36:47.140] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 20:36:47.170] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 20:36:47.174] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Vertex.glsl (516 bytes)
+[2026-05-16 20:36:47.176] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Vertex.glsl
+[2026-05-16 20:36:47.176] [BIT POUNCE] [info] Loading file: assets/shaders/Texture_Colour.glsl
+[2026-05-16 20:36:47.176] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Texture_Colour.glsl
+[2026-05-16 20:36:47.193] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Texture_Colour.glsl (2921 bytes)
+[2026-05-16 20:36:47.193] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Texture_Colour.glsl
+[2026-05-16 20:36:47.195] [BIT POUNCE] [info] Loading file: assets/shaders/Circle.glsl
+[2026-05-16 20:36:47.236] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Circle.glsl
+[2026-05-16 20:36:47.236] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Circle.glsl (1127 bytes)
+[2026-05-16 20:36:47.237] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Circle.glsl
+[2026-05-16 20:36:47.238] [BIT POUNCE] [info] Loading file: assets/shaders/Line.glsl
+[2026-05-16 20:36:47.241] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Line.glsl
+[2026-05-16 20:36:47.242] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Line.glsl (539 bytes)
+[2026-05-16 20:36:47.244] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Line.glsl
+[2026-05-16 20:36:47.246] [BIT POUNCE] [info] Loading file: assets/shaders/Text.glsl
+[2026-05-16 20:36:47.257] [BIT POUNCE] [info] Reading file into RAM: assets/shaders/Text.glsl
+[2026-05-16 20:36:47.258] [BIT POUNCE] [info] Successfully read file into RAM: assets/shaders/Text.glsl (5102 bytes)
+[2026-05-16 20:36:47.259] [BIT POUNCE] [info] Loaded file successfully: assets/shaders/Text.glsl
+[2026-05-16 20:36:47.433] [BIT POUNCE] [info] Loading file: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.436] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.438] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
+[2026-05-16 20:36:47.438] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.438] [BIT POUNCE] [info] Loading file: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.439] [BIT POUNCE] [info] Reading file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.439] [BIT POUNCE] [info] Successfully read file into RAM: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf (34900 bytes)
+[2026-05-16 20:36:47.440] [BIT POUNCE] [info] Loaded file successfully: assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf
+[2026-05-16 20:36:47.446] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-16 20:36:47.458] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-16 20:36:47.459] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/Flor.png (12068 bytes)
+[2026-05-16 20:36:47.459] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/Flor.png
+[2026-05-16 20:36:47.465] [BIT POUNCE] [info] Loading file: Resources/Icons/ContentBrowser/File.png
+[2026-05-16 20:36:47.483] [BIT POUNCE] [info] Reading file into RAM: Resources/Icons/ContentBrowser/File.png
+[2026-05-16 20:36:47.484] [BIT POUNCE] [info] Successfully read file into RAM: Resources/Icons/ContentBrowser/File.png (15757 bytes)
+[2026-05-16 20:36:47.484] [BIT POUNCE] [info] Loaded file successfully: Resources/Icons/ContentBrowser/File.png

@@ -30,9 +30,9 @@ namespace BitPounce {
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        #ifndef __EMSCRIPTEN__
-        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     
-        #endif
+        //#ifndef __EMSCRIPTEN__
+        //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     
+        //#endif
 
         BufferBase openSansBoldBuffer = FileSystem::LoadFile("assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf");
         BufferBase openSansNormalBuffer = FileSystem::LoadFile("assets/fonts/LcdSolid-VPzB/LcdSolid-VPzB.ttf");

@@ -1,0 +1,10 @@
+{
+	"Fullscreen": true,
+	"KernelRadius": 11,
+	"Resolution": {
+		"height": 1080,
+		"refreshRate": 60,
+		"width": 1920
+	},
+	"Volume": 0.5
+}

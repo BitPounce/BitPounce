@@ -2,8 +2,6 @@
 #include "ECSTest.h"
 #include "GameInit.h"
 #include "Shop.h"
-// one hell of a path
-#include <BitPounce/../../vendor/GLFW/include/GLFW/glfw3.h>
 
 //static BitPounce::Ref<BitPounce::Audio> s_Audio;
 
@@ -12,10 +10,10 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 
 	Item item01 = {};
 	item01.name = "2 guned";
-	item01.fireRate = 3;
+	item01.fireRate = 9;
 	item01.ID = 1;
 	item01.Money = 100;
-	item01.radius = 1.f;
+	item01.radius = 1.8f;
 	item01.texHandle = 5260800240978246632;
 
 
@@ -24,11 +22,11 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 	item03.fireRate = 9;
 	item03.ID = 2;
 	item03.Money = 500;
-	item03.radius = 2.f;
+	item03.radius = 2.5f;
 	item03.texHandle = 2922514105519681440;
 
 	Item item04 = {};
-	item04.name = "the gun from Grab & Cash, if you know you know";
+	item04.name = "The gun from Grab & Cash, if you know, you know";
 	item04.fireRate = 10;
 	item04.ID = 3;
 	item04.Money = 1000;
@@ -39,71 +37,71 @@ ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
 }
 
 struct OKLCH {
-    double L;
-    double C;
-    double H;
+	double L;
+	double C;
+	double H;
 };
 
 
 OKLCH random_oklch(std::mt19937& gen)
 {
-    
+	
 
-    // Good practical ranges
-    std::uniform_real_distribution<> lightness(0.6, 0.85);
-    std::uniform_real_distribution<> chroma(0.08, 0.22);
-    std::uniform_real_distribution<> hue(0.0, 360.0);
+	// Good practical ranges
+	std::uniform_real_distribution<> lightness(0.6, 0.85);
+	std::uniform_real_distribution<> chroma(0.08, 0.5);
+	std::uniform_real_distribution<> hue(0.0, 360.0);
 
-    return {
-        lightness(gen),
-        chroma(gen),
-        hue(gen)
-    };
+	return {
+		lightness(gen),
+		chroma(gen),
+		hue(gen)
+	};
 }
 
 struct RGBf {
-    float r, g, b; // 0.0 - 1.0
+	float r, g, b; // 0.0 - 1.0
 };
 
 RGBf oklch_to_rgbf(float L, float C, float H_deg)
 {
-    float h = H_deg * (float)M_PI / 180.0f;
+	float h = H_deg * (float)IM_PI / 180.0f;
 
-    // OKLCH -> OKLab
-    float a = C * std::cos(h);
-    float b = C * std::sin(h);
+	// OKLCH -> OKLab
+	float a = C * std::cos(h);
+	float b = C * std::sin(h);
 
-    // OKLab -> LMS
-    float l_ = L + 0.3963377774f * a + 0.2158037573f * b;
-    float m_ = L - 0.1055613458f * a - 0.0638541728f * b;
-    float s_ = L - 0.0894841775f * a - 1.2914855480f * b;
+	// OKLab -> LMS
+	float l_ = L + 0.3963377774f * a + 0.2158037573f * b;
+	float m_ = L - 0.1055613458f * a - 0.0638541728f * b;
+	float s_ = L - 0.0894841775f * a - 1.2914855480f * b;
 
-    float l = l_ * l_ * l_;
-    float m = m_ * m_ * m_;
-    float s = s_ * s_ * s_;
+	float l = l_ * l_ * l_;
+	float m = m_ * m_ * m_;
+	float s = s_ * s_ * s_;
 
-    // LMS -> linear sRGB
-    float r = +4.0767416621f * l - 3.3077115913f * m + 0.2309699292f * s;
-    float g = -1.2684380046f * l + 2.6097574011f * m - 0.3413193965f * s;
-    float bl = -0.0041960863f * l - 0.7034186147f * m + 1.7076147010f * s;
+	// LMS -> linear sRGB
+	float r = +4.0767416621f * l - 3.3077115913f * m + 0.2309699292f * s;
+	float g = -1.2684380046f * l + 2.6097574011f * m - 0.3413193965f * s;
+	float bl = -0.0041960863f * l - 0.7034186147f * m + 1.7076147010f * s;
 
-    // gamma correction (linear -> sRGB)
-    auto gamma = [](float x) -> float
-{
-    x = std::max(0.0f, x);   // key fix
+	// gamma correction (linear -> sRGB)
+	auto gamma = [](float x) -> float
+	{
+		x = std::clamp(x, 0.0f, 1.5f);   // key fix
 
-    if (x <= 0.0031308f)
-        return 12.92f * x;
+		if (x <= 0.0031308f)
+			return 12.92f * x;
 
-    return 1.055f * std::pow(x, 1.0f / 2.4f) - 0.055f;
-};
+		return 1.055f * std::pow(x, 1.0f / 2.4f) - 0.055f;
+	};
 
-    RGBf out;
-    out.r = gamma(r);
-    out.g = gamma(g);
-    out.b = gamma(bl);
+	RGBf out;
+	out.r = gamma(r);
+	out.g = gamma(g);
+	out.b = gamma(bl);
 
-    return out;
+	return out;
 }
 
 void ECSTest::OnAttach() 
@@ -141,6 +139,7 @@ void ECSTest::OnAttach()
 	m_Shader = BitPounce::Shader::Create("assets/shaders/Test.glsl");
 	m_Shader->Bind();
 	m_Shader->SetInt("u_Texture", 0);
+	m_Shader->SetInt("KERNEL_RADIUS", KERNEL_RADIUS);
 	m_MainAudio = BitPounce::Audio::Create("assets/MirrorDive/Assets/auto/ghfgfjjyfhgj.wav", true);
 	m_MainAudio->Play();
 
@@ -154,6 +153,39 @@ void ECSTest::OnAttach()
 		if(json.contains("HighScore"))
 			m_HighScore = json["HighScore"];
 
+		file.close();
+	}
+	file = std::ifstream("settings.json");
+	if (file.is_open())
+	{
+		nlohmann::json json;
+		file >> json;
+
+		BitPounce::AudioDevice::SetWorldVolume(json["Volume"]);
+		KERNEL_RADIUS = json["KernelRadius"];
+		m_Fullscreen = json["Fullscreen"];
+
+		int w = json["Resolution"]["width"];
+		int h = json["Resolution"]["height"];
+		int refresh = json["Resolution"]["refreshRate"];
+
+#ifndef BP_PLATFORM_WEB
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		int modeCount = 0;
+		const GLFWvidmode* modes = glfwGetVideoModes(monitor, &modeCount);
+		for (int i = 0; i < modeCount; i++)
+		{
+			if (modes[i].width == w &&
+				modes[i].height == h &&
+				modes[i].refreshRate == refresh)
+			{
+				m_SelectedMode = i;
+				break;
+			}
+		}
+
+		m_ApplyDisplaySettings = true;
+#endif
 		file.close();
 	}
 
@@ -171,6 +203,40 @@ void ECSTest::OnDetach()
 
 void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 {
+	if (m_ApplyDisplaySettings)
+	{
+		m_ApplyDisplaySettings = false;
+
+#ifndef BP_PLATFORM_WEB
+		GLFWwindow* window =
+			static_cast<GLFWwindow*>(BitPounce::Application::Get().GetWindow().GetNativeWindow());
+
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+		int modeCount = 0;
+		const GLFWvidmode* modes = glfwGetVideoModes(monitor, &modeCount);
+
+		const GLFWvidmode& mode = modes[m_SelectedMode];
+
+		if (m_Fullscreen)
+		{
+			glfwSetWindowMonitor(window, monitor, 0, 0,
+				mode.width, mode.height,
+				mode.refreshRate);
+		}
+		else
+		{
+			glfwSetWindowMonitor(window, nullptr, 100, 100,
+				mode.width, mode.height, 0);
+		}
+
+		m_Framebuffer->Resize(mode.width, mode.height);
+
+		float aspectRatio = (float)mode.width / (float)mode.height;
+		m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 5);
+#endif
+	}
+
 	if(m_IsInAWindow)
 	{
 		GameCallbacks callbacks = {};
@@ -181,6 +247,12 @@ void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 		};
 		callbacks.InAWindow = [this](uint32_t seed, std::mt19937& rng)
 		{
+			m_WindowsPlayerHasJumped++;
+			if (m_WindowsToWin == m_WindowsPlayerHasJumped)
+			{
+				m_PlayerHasWined = true;
+				m_Shader->SetFloat4("u_Colour", glm::vec4(1));
+			}
 			m_IsInAWindow = true;
 			this->seed = seed;
 			OKLCH oklch = random_oklch(rng);
@@ -213,24 +285,36 @@ void ECSTest::OnUpdate(BitPounce::Timestep &ts)
 
 	if(m_Scene)
 		m_Scene->OnUpdate(ts);
+	BitPounce::Renderer2D::BeginScene(m_Camera);
 	if(m_PlayerHasLost)
 	{
-		BitPounce::Renderer2D::BeginScene(m_Camera);
-		BitPounce::Renderer2D::DrawString("LOSER!!", BitPounce::AssetManager::GetAsset<BitPounce::Font>(1441554370544208483), glm::mat4(1), {});
-
-		BitPounce::Renderer2D::EndScene();
+		BitPounce::Renderer2D::DrawString("LOSER!!", BitPounce::AssetManager::GetAsset<BitPounce::Font>(1441554370544208483), glm::mat4(1), {});	
 	}
-	
+	if (m_PlayerHasWined)
+	{
+		BitPounce::Renderer2D::DrawString("WIN!!", BitPounce::AssetManager::GetAsset<BitPounce::Font>(1441554370544208483), glm::mat4(1), {});
+
+	}
+	BitPounce::Renderer2D::DrawQuad(glm::vec2(0, 0), glm::vec2(1 ), glm::vec4(1));
+	BitPounce::Renderer2D::DrawQuad(glm::vec2(0, 1), glm::vec2(1), glm::vec4(.9f));
+	BitPounce::Renderer2D::DrawQuad(glm::vec2(1, 0), glm::vec2(1), glm::vec4(.9f));
+	BitPounce::Renderer2D::DrawQuad(glm::vec2(1, 1), glm::vec2(1), glm::vec4(.9f));
+	BitPounce::Renderer2D::DrawQuad(glm::vec2(0, 0), glm::vec2(1), glm::vec4(1));
+	BitPounce::Renderer2D::EndScene();
 	m_Framebuffer->Unbind();
 	
 	BitPounce::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	BitPounce::RenderCommand::Clear();
+	glDepthMask(GL_FALSE);
 	m_Shader->Bind();
+	m_Shader->SetInt("KERNEL_RADIUS", KERNEL_RADIUS);
 	m_Shader->SetInt("u_Texture", 0);
+	//m_Shader->SetFloat3("u_Time", glm::vec3(glm::sin(m_Timer.Elapsed()), m_Timer.Elapsed(), glm::cos(m_Timer.Elapsed())));
 	m_Framebuffer->BindAsTexture();
 	BitPounce::Renderer::DrawFullScreenQuad();
+	glDepthMask(GL_TRUE);
 
-	if(m_PlayerHasLost)
+	if(m_PlayerHasLost || m_PlayerHasWined)
 	{
 		m_Scene.reset((BitPounce::Scene*)nullptr);
 	}
@@ -300,6 +384,29 @@ void ECSTest::DrawMainMenu(BitPounce::Timestep &ts)
 		m_PlayerHasLost = false;
 		m_IsInAWindow = true;
 		m_Score = 0;
+		std::mt19937 rng(seed);
+		OKLCH oklch = random_oklch(rng);
+		RGBf rgb = oklch_to_rgbf(oklch.L, oklch.C, oklch.H);
+		m_Shader->SetFloat4("u_Colour", { rgb.r, rgb.g, rgb.b, 1 });
+		m_PlayerHasWined = false;
+		m_WindowsToWin = 10;
+		m_WindowsPlayerHasJumped = 0;
+		
+	}
+
+	if (ImGui::Button("Play Inf"))
+	{
+		m_PlayerHasLost = false;
+		m_IsInAWindow = true;
+		m_Score = 0;
+		std::mt19937 rng(seed);
+		OKLCH oklch = random_oklch(rng);
+		RGBf rgb = oklch_to_rgbf(oklch.L, oklch.C, oklch.H);
+		m_Shader->SetFloat4("u_Colour", { rgb.r, rgb.g, rgb.b, 1 });
+		m_PlayerHasWined = false;
+		m_WindowsToWin = -1;
+		m_WindowsPlayerHasJumped = 0;
+
 	}
 	ImGui::Text((std::string("Score: ") + std::to_string(m_Score)).c_str());
 	ImGui::Text((std::string("High Score: ") + std::to_string(m_HighScore)).c_str());
@@ -325,8 +432,6 @@ void ECSTest::DrawMainMenu(BitPounce::Timestep &ts)
 void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 {
 	#ifndef BP_PLATFORM_WEB
-	static bool fullscreen = false;
-	static int selectedMode = 0;
 	GLFWwindow* window = static_cast<GLFWwindow*>(BitPounce::Application::Get().GetWindow().GetNativeWindow());
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 
@@ -337,17 +442,17 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 	ImGui::Begin("Settings", &m_IsSettingsWindowOpen);
 	#ifndef BP_PLATFORM_WEB
 
-	ImGui::Checkbox("Fullscreen", &fullscreen);
-	std::string currentRes = std::to_string(modes[selectedMode].width) + " x " + std::to_string(modes[selectedMode].height);
+	ImGui::Checkbox("Fullscreen", &m_Fullscreen);
+	std::string currentRes = std::to_string(modes[m_SelectedMode].width) + " x " + std::to_string(modes[m_SelectedMode].height);
 	if(ImGui::BeginCombo("Resolution", currentRes.c_str()))
 	{
 		for(int i = 0; i < modeCount; i++)
 		{
 			std::string label = std::to_string(modes[i].width) + " x " + std::to_string(modes[i].height) + " @" + std::to_string(modes[i].refreshRate) + "hz";
-			bool isSelected = (selectedMode == i);
+			bool isSelected = (m_SelectedMode == i);
 			if(ImGui::Selectable(label.c_str(), isSelected))
 			{
-				selectedMode = i;
+				m_SelectedMode = i;
 			}
 			if(isSelected)
 				ImGui::SetItemDefaultFocus();
@@ -356,45 +461,7 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 	}
 	if(ImGui::Button("Apply"))
 	{
-		const GLFWvidmode& mode = modes[selectedMode];
-
-		if(fullscreen)
-		{
-			glfwSetWindowMonitor(
-				window,
-				monitor,
-				0,
-				0,
-				mode.width,
-				mode.height,
-				mode.refreshRate
-			);
-		}
-		else
-		{
-			
-			glfwSetWindowMonitor(
-				window,
-				nullptr,
-				100,
-				100,
-				mode.width,
-				mode.height,
-				0
-			);
-		}
-
-		m_Framebuffer->Resize(mode.width, mode.height);
-
-		float aspectRatio =
-			(float)mode.width / (float)mode.height;
-
-		m_Camera.SetProjection(
-			-aspectRatio * 5,
-			 aspectRatio * 5,
-			-5,
-			 5
-		);
+		m_ApplyDisplaySettings = true;
 		
 	}
 	#endif
@@ -405,31 +472,44 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 		{
 			BitPounce::AudioDevice::SetWorldVolume(temp / 100.f);
 		}
+		ImGui::SliderInt("Kernel radius", &KERNEL_RADIUS, 1, 30);
 	}
+	if (ImGui::Button("Save"))
+	{
+		const GLFWvidmode& mode = modes[m_SelectedMode];
 
+		nlohmann::json json;
+		json["Volume"] = BitPounce::AudioDevice::GetWorldVolume();
+		json["KernelRadius"] = KERNEL_RADIUS;
+
+		json["Fullscreen"] = m_Fullscreen;
+		json["Resolution"] = {{"width", mode.width}, {"height", mode.height},{"refreshRate", mode.refreshRate}};
+
+		std::ofstream file("settings.json");
+		file << json.dump(1, 9);
+	}
 	ImGui::End();
 }
 
 bool ECSTest::OnAssetPreloaded(BitPounce::AssetPreLoadedEvent &e)
 {
 	if(e.GetMetadata().Type == BitPounce::AssetType::Scene)
-		{
-			return OnScenePreloaded(e);
-		}
+	{
+		return OnScenePreloaded(e);
+	}
 	return false;
 }
 
 bool ECSTest::OnScenePreloaded(BitPounce::AssetPreLoadedEvent &e)
 {
 	// Yes, this causes a memory leak. Too bad!
-		BitPounce::SceneAssetMetadata* sceneAssetMetadata = new BitPounce::SceneAssetMetadata();
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Renderer2DSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::CameraSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Physics2DSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::AngelScriptSystem>());
+	BitPounce::SceneAssetMetadata* sceneAssetMetadata = new BitPounce::SceneAssetMetadata();
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Renderer2DSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::CameraSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Physics2DSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::AngelScriptSystem>());
 
-		e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
-		return false;
+	e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
 	return false;
 }
 
@@ -437,6 +517,7 @@ bool ECSTest::OnWindowResize(BitPounce::WindowResizeEvent &e)
 {
 	if(m_Scene)
 		m_Scene->OnViewportResize(e.GetWidth(), e.GetHeight());
+
 	m_Framebuffer->Resize(e.GetWidth(), e.GetHeight());
 	float aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 	m_Camera.SetProjection(-aspectRatio * 5, aspectRatio * 5, -5, 5);

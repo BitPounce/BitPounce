@@ -443,17 +443,19 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 	#ifndef BP_PLATFORM_WEB
 
 	ImGui::Checkbox("Fullscreen", &m_Fullscreen);
-	std::string currentRes = std::to_string(modes[m_SelectedMode].width) + " x " + std::to_string(modes[m_SelectedMode].height);
+	std::string currentRes = std::to_string(modes[m_SelectedMode].width) + " x " + std::to_string(modes[m_SelectedMode].height) + " @" + std::to_string(modes[m_SelectedMode].refreshRate) + "hz";
 	if(ImGui::BeginCombo("Resolution", currentRes.c_str()))
 	{
 		for(int i = 0; i < modeCount; i++)
 		{
 			std::string label = std::to_string(modes[i].width) + " x " + std::to_string(modes[i].height) + " @" + std::to_string(modes[i].refreshRate) + "hz";
 			bool isSelected = (m_SelectedMode == i);
+			ImGui::PushID((label + std::to_string(i)).c_str());
 			if(ImGui::Selectable(label.c_str(), isSelected))
 			{
 				m_SelectedMode = i;
 			}
+			ImGui::PopID();
 			if(isSelected)
 				ImGui::SetItemDefaultFocus();
 		}

@@ -476,6 +476,7 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 		}
 		ImGui::SliderInt("Kernel radius", &KERNEL_RADIUS, 1, 30);
 	}
+	#ifndef BP_PLATFORM_WEB
 	if (ImGui::Button("Save"))
 	{
 		const GLFWvidmode& mode = modes[m_SelectedMode];
@@ -491,6 +492,7 @@ void ECSTest::DrawSetingsMenu(BitPounce::Timestep &ts)
 		file << json.dump(1, 9);
 	}
 	ImGui::End();
+	#endif
 }
 
 bool ECSTest::OnAssetPreloaded(BitPounce::AssetPreLoadedEvent &e)

@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdint>
 #include <string>
+#include <nlohmann/json.hpp>
+#include <BitPounce/Core/FileSystem.h>
 
 namespace BitPounce
 {
@@ -48,5 +50,45 @@ namespace BitPounce
 		int build;
 		std::string commit;
 		std::string date;
+
+		VersionInfo() = default;
+
+		VersionInfo(Version version, int build, std::string commit, std::string date)
+		{
+			this->version = version;
+			this->build = build;
+			this->commit = commit;
+			this->date = date;
+		}
+
+		VersionInfo(const std::filesystem::path& filepath)
+		{
+			BufferBase buffer = FileSystem::LoadFile(filepath);
+			std::string jsonStr((char*)buffer.Data, buffer.Size);
+			nlohmann::json json = nlohmann::json::parse(jsonStr);
+
+			if (json.contains("version"))
+			{
+				std::string v = json["version"];
+				int maj = 0, min = 0, pat = 0;
+				std::sscanf(v.c_str(), "%d.%d.%d", &maj, &min, &pat);
+				version = Version(maj, min, pat);
+			}
+		
+			if (json.contains("build"))
+				build = json["build"].get<int>();
+			else
+				build = 0;
+		
+			if (json.contains("commit"))
+				commit = json["commit"].get<std::string>();
+			else
+				commit = "";
+		
+			if (json.contains("date"))
+				date = json["date"].get<std::string>();
+			else
+				date = "";
+		}
 	};
 }

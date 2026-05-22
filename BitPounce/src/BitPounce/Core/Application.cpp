@@ -22,6 +22,14 @@ namespace BitPounce
 	{
 
 		s_Instance = this;
+		m_Version = VersionInfo("version.json");
+		BP_CORE_INFO("Engine version info:");
+		BP_CORE_INFO("	Version: {}", m_Version.version.toString());
+		BP_CORE_INFO("	Build: {}", m_Version.build);
+		#ifdef BP_DEBUG
+		BP_CORE_INFO("	Commit: {}", m_Version.commit);
+		BP_CORE_INFO("	Date: {}", m_Version.date);
+		#endif
 		
 		m_Window = Window::Create(WindowProps(props.Title, props.Width, props.Height, props.IconPath));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));

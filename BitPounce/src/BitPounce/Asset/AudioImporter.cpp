@@ -15,7 +15,7 @@ namespace BitPounce
 	bool AudioImporter::ExportAudio(AssetHandle handle, const AssetMetadata &metadata, BitPouncePack::Pack &pack)
 	{
 		Ref<Audio> asset = AssetManager::GetAsset<Audio>(handle);
-		BitPouncePack::PackAudio packAudio = AudioDevice::AudioToPackAudio(asset->GetID());
+		BitPouncePack::PackAudio packAudio = AudioDevice::AudioToPackAudio(asset->GetID(), handle);
 		pack.assets.push_back(BitPouncePack::PackAsset{ std::move(packAudio) });
 		return true;
 	}

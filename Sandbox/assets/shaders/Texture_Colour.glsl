@@ -8,7 +8,7 @@ in float v_TexIndex;
 
 uniform float m_TillingFactor;
 uniform vec4 u_Color;
-uniform sampler2D u_Textures[32];
+uniform sampler2D u_Textures[GL_MAX_TEXTURE_IMAGE_UNITS];
 
 void main()
 {

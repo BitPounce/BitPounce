@@ -34,7 +34,7 @@ flat in int v_EntityID;
 layout(location = 0) out vec4 color;
 layout(location = 1) out int color2;
 
-uniform sampler2D u_Textures[32];
+uniform sampler2D u_Textures[GL_MAX_TEXTURE_IMAGE_UNITS];
 
 // ====== Controls ======
 float u_MtsdfBlend = 0.2;

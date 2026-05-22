@@ -16,6 +16,7 @@ namespace BitPounce
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
 		
+		
 
 		#ifdef BP_PLATFORM_WEB
 		int version = gladLoadGLES2((GLADloadfunc)glfwGetProcAddress);
@@ -25,13 +26,23 @@ namespace BitPounce
 		BP_CORE_ASSERT(version, "Failed to initialize Glad!");
 
 		BP_CORE_INFO("OpenGL Info:");
-		BP_CORE_INFO("  Vendor: {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
-		BP_CORE_INFO("  Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
-		BP_CORE_INFO("  Version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+		BP_CORE_INFO("	Vendor: {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		GLint maxTextureUnits;
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+		BP_CORE_INFO("	Max Texture Units: {}", maxTextureUnits);
+		BP_CORE_INFO("	Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+		BP_CORE_INFO("	Version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 	}
 
 	void OpenGLContext::SwapBuffers()
 	{
 		glfwSwapBuffers(m_WindowHandle);
 	}
+
+    uint32_t OpenGLContext::GetMaxTextureUnits() const
+    {
+		GLint maxTextureUnits;
+		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+        return maxTextureUnits;
+    }
 }

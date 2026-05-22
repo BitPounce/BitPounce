@@ -1,3 +1,4 @@
+#pragma once
 #include "AudioDevice.h"
 #include "BitPounce/Core/Base.h"
 #include "BitPounce/Asset/Asset.h"

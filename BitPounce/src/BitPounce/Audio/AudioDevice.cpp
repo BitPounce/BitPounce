@@ -556,7 +556,7 @@ namespace BitPounce
 	{
 		s_Data->worldVolume = volume;
 	}
-	BitPouncePack::PackAudio AudioDevice::AudioToPackAudio(AudioID id)
+	BitPouncePack::PackAudio AudioDevice::AudioToPackAudio(AudioID id, AssetHandle handle)
 	{
 		if (!s_Data || !s_Data->initialized || id == 0)
 			return {};
@@ -598,7 +598,7 @@ namespace BitPounce
 		result.SampleRate = sampleRate;
 		result.format     = packFormat;
 		result.HashType   = 0;                     // 0 = SHA-256
-		result.AssetHandle = static_cast<uint64_t>(id);
+		result.AssetHandle = handle;
 
 		// Save current decoder position, then seek to start
 		ma_uint64 originalPos;

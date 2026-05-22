@@ -164,9 +164,12 @@ namespace BitPounce
 					SpriteRendererComponent c;
 
 					c.Colour = j["Colour"];
-					c.SpriteSize = j["SpriteSize"];
-					c.SpriteIndex = j["SpriteIndex"];
-					c.UseSpriteSheet = j["UseSpriteSheet"];
+					if (j.contains("SpriteSize"))
+						c.SpriteSize = j["SpriteSize"];
+					if (j.contains("SpriteIndex"))
+						c.SpriteIndex = j["SpriteIndex"];
+					if (j.contains("UseSpriteSheet"))
+						c.UseSpriteSheet = j["UseSpriteSheet"];
 
 					if (j.contains("TextureID"))
 						c.Texture = j["TextureID"].get<uint64_t>();

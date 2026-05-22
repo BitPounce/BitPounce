@@ -22,6 +22,7 @@ namespace BitPounce
 		bool IsVSync() const override;
 
 		virtual void* GetNativeWindow() const override;
+		virtual GraphicsContext& GetGraphicsContext() const override { return *m_Context; };
 	private:
 		void SetupGLFWCallback();
 		virtual void Init(const WindowProps& props);

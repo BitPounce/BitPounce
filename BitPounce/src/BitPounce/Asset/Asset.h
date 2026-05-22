@@ -1,6 +1,8 @@
 #pragma once
 
 #include "BitPounce/Core/UUID.h"
+#include <map>
+#include <BitPounce/Core/Base.h>
 
 namespace BitPounce 
 {

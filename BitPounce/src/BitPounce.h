@@ -27,7 +27,16 @@
 #include "BitPounce/Events/AssetManagerEvent.h"
 #include "BitPounce/Events/SceneEvent.h"
 
+#include "BitPounce/Asset/Asset.h"
 #include "BitPounce/Asset/AssetImporter.h"
+#include "BitPounce/Asset/AssetManager.h"
+#include "BitPounce/Asset/AssetManagerBase.h"
+#include "BitPounce/Asset/AssetMetadata.h"
+#include "BitPounce/Asset/RuntimeAssetManager.h"
+#include "BitPounce/Asset/AudioImporter.h"
+#include "BitPounce/Asset/FontImporter.h"
+#include "BitPounce/Asset/SceneImporter.h"
+#include "BitPounce/Asset/TextureImporter.h"
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"

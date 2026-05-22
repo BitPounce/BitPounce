@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Generate version.json
@@ -20,14 +20,12 @@ jobs:
           COMMIT=$(git rev-parse --short HEAD)
           DATE=$(date -I)
 
-          cat <<EOF > version.json
-{
-  "version": "$VERSION",
-  "build": $BUILD,
-  "commit": "$COMMIT",
-  "date": "$DATE"
-}
-EOF
+          printf '{\n' > version.json
+          printf '  "version": "%s",\n' "$VERSION" >> version.json
+          printf '  "build": %s,\n' "$BUILD" >> version.json
+          printf '  "commit": "%s",\n' "$COMMIT" >> version.json
+          printf '  "date": "%s"\n' "$DATE" >> version.json
+          printf '}\n' >> version.json
 
       - name: Commit changes
         run: |

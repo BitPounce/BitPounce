@@ -29,11 +29,36 @@ jobs:
           printf '  "date": "%s"\n' "$DATE" >> version.json
           printf '}\n' >> version.json
 
+          printf '{\n' > BitPounce/version.json
+          printf '  "version": "%s",\n' "$VERSION" >> BitPounce/version.json
+          printf '  "build": %s,\n' "$BUILD" >> BitPounce/version.json
+          printf '  "commit": "%s",\n' "$COMMIT" >> BitPounce/version.json
+          printf '  "date": "%s"\n' "$DATE" >> BitPounce/version.json
+          printf '}\n' >> BitPounce/version.json
+
+          printf '{\n' > PounceEdit/version.json
+          printf '  "version": "%s",\n' "$VERSION" >> PounceEdit/version.json
+          printf '  "build": %s,\n' "$BUILD" >> PounceEdit/version.json
+          printf '  "commit": "%s",\n' "$COMMIT" >> PounceEdit/version.json
+          printf '  "date": "%s"\n' "$DATE" >> PounceEdit/version.json
+          printf '}\n' >> PounceEdit/version.json
+
+          printf '{\n' > Sandbox/version.json
+          printf '  "version": "%s",\n' "$VERSION" >> Sandbox/version.json
+          printf '  "build": %s,\n' "$BUILD" >> Sandbox/version.json
+          printf '  "commit": "%s",\n' "$COMMIT" >> PounceEdit/version.json
+          printf '  "date": "%s"\n' "$DATE" >> Sandbox/version.json
+          printf '}\n' >> Sandbox/version.json
+
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add version.json
+          git add BitPounce/version.json
+          git add PounceEdit/version.json
+          git add Sandbox/version.json
           git commit -m "Auto update version.json [skip ci]" || exit 0
           git push

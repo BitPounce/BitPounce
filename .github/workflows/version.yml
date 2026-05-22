@@ -46,7 +46,7 @@ jobs:
           printf '{\n' > Sandbox/version.json
           printf '  "version": "%s",\n' "$VERSION" >> Sandbox/version.json
           printf '  "build": %s,\n' "$BUILD" >> Sandbox/version.json
-          printf '  "commit": "%s",\n' "$COMMIT" >> PounceEdit/version.json
+          printf '  "commit": "%s",\n' "$COMMIT" >> Sandbox/version.json
           printf '  "date": "%s"\n' "$DATE" >> Sandbox/version.json
           printf '}\n' >> Sandbox/version.json
 

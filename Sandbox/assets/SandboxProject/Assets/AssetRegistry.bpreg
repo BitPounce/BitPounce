@@ -46,6 +46,11 @@
 			"Type": "AssetType::Scene"
 		},
 		{
+			"FilePath": "textures/brick.png",
+			"Handle": 10233731665991405532,
+			"Type": "AssetType::Texture2D"
+		},
+		{
 			"FilePath": "scenes/Physics2D.bitPounce",
 			"Handle": 12112684405258325721,
 			"Type": "AssetType::Scene"
@@ -54,6 +59,11 @@
 			"FilePath": "scenes/Test.bitPounce",
 			"Handle": 12678243516906091914,
 			"Type": "AssetType::Scene"
+		},
+		{
+			"FilePath": "textures/SpecularMap.png",
+			"Handle": 13123200920654724351,
+			"Type": "AssetType::Texture2D"
 		},
 		{
 			"FilePath": "textures/Checkerboard.png",

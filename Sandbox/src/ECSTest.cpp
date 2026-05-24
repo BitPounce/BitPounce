@@ -2,10 +2,10 @@
 #include "ECSTest.h"
 static BitPounce::Ref<BitPounce::Audio> s_Audio;
 
-ECSTest::ECSTest() : m_Camera(-5, 5, -5, 5)
+ECSTest::ECSTest(BitPounce::UILayer* ui) : m_Camera(-5, 5, -5, 5)
 {
-	
-	
+
+	m_UILayer = ui;
 }
 
 void ECSTest::OnAttach() 
@@ -14,12 +14,32 @@ void ECSTest::OnAttach()
 	BitPounce::AssetMap assetMap = m_Project->GetRuntimeAssetManager()->GetAssetMap();
 	
 	m_Project->GetSceneManager().AddAssetMap(assetMap);
-	s_Audio =BitPounce::Audio::Create("assets/file_example_WAV_10MG.wav");
+	for(auto&& asset : assetMap)
+	{
+		if(asset.second->GetType() == BitPounce::AssetType::Audio)
+		{
+			s_Audio = BitPounce::AssetManager::GetAsset<BitPounce::Audio>(asset.first);
+			s_Audio->SetLooping(true);
+		}
+	}
+	
 	s_Audio->Play();
 	//BitPounce::Entity ent = m_Project->GetSceneManager().GetScene()->CreateEntity("Test");
 	//auto&& tilemap = ent.AddComponent<BitPounce::TilemapComponent>();
 
 	//tilemap.renderer2D_tiles.push_back({glm::mat4(1), 547497271197996637});
+
+	auto root = BitPounce::CreateRef<BitPounce::UIRoot>();
+	root->SetPosition(glm::vec2(100.0f, 100.0f));
+
+	// Add a red rectangle
+	auto buttonContent = std::make_unique<BitPounce::UIImageElement>(BitPounce::AssetManager::GetAsset<BitPounce::Texture2D>(547497271197996637));
+	BitPounce::UIButtonElement* button = new BitPounce::UIButtonElement(FBounds2(glm::vec2(50.0f, 150.0f), glm::vec2(150.0f, 50.0f)), std::move(buttonContent));
+	button->SetOnClickCallback([]() { BP_INFO("Button clicked!"); });
+	button->SetOnHoveredCallback([]() { BP_INFO("Button Hovered"); });
+	root->AddElement(std::unique_ptr<BitPounce::UIElement>(button));
+
+	m_UILayer->AddRoot(root);
 }
 
 void ECSTest::OnDetach() 
@@ -64,23 +84,22 @@ void ECSTest::OnEvent(BitPounce::Event &e)
 bool ECSTest::OnAssetPreloaded(BitPounce::AssetPreLoadedEvent &e)
 {
 	if(e.GetMetadata().Type == BitPounce::AssetType::Scene)
-		{
-			return OnScenePreloaded(e);
-		}
+	{
+		return OnScenePreloaded(e);
+	}
     return false;
 }
 
 bool ECSTest::OnScenePreloaded(BitPounce::AssetPreLoadedEvent &e)
 {
 	// Yes, this causes a memory leak. Too bad!
-		BitPounce::SceneAssetMetadata* sceneAssetMetadata = new BitPounce::SceneAssetMetadata();
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Renderer2DSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::CameraSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Physics2DSystem>());
-		sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::AngelScriptSystem>());
+	BitPounce::SceneAssetMetadata* sceneAssetMetadata = new BitPounce::SceneAssetMetadata();
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Renderer2DSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::CameraSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::Physics2DSystem>());
+	sceneAssetMetadata->Systems.push_back(BitPounce::CreateRef<BitPounce::AngelScriptSystem>());
 
-		e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
-        return false;
+	e.GetMetadata().data = std::optional<void*>((void*)sceneAssetMetadata);
     return false;
 }
 

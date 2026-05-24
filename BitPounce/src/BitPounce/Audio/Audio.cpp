@@ -46,6 +46,7 @@ namespace BitPounce
 	Audio::Audio(const BitPouncePack::PackAudio &packAudio, bool loop)
 	{
 		id = AudioDevice::Load(packAudio, loop);
+		this->Handle = packAudio.AssetHandle;
 	}
 
 	Audio::~Audio()

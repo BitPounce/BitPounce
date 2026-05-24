@@ -30,6 +30,7 @@ namespace BitPounce
 			{
 				case ImageFormat::RGB8:  return GL_RGB8;
 				case ImageFormat::RGBA8: return GL_RGBA8;
+				case ImageFormat::RGBA32F: return GL_RGBA32F;
 				case ImageFormat::RG8: return GL_RG8;
 			}
 
@@ -146,6 +147,11 @@ namespace BitPounce
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		}
 
+		if(specification.Format == ImageFormat::RGBA32F)
+		{
+			BP_CORE_ASSERT("specification.Format == ImageFormat::RGBA32F in OpenGLTexture2D::OpenGLTexture2D(const TextureSpecification &specification, const std::string &path)");
+		}
+
 		GLenum format = GL_RGB;
 		if (channels == 1) format = GL_RED;
 		else if (channels == 3) format = GL_RGB;
@@ -173,7 +179,17 @@ namespace BitPounce
 
 		Bind();
 		int data_size = m_Width * m_Height * channels;
-		GLubyte* pixels = new GLubyte[data_size];
+		void* pixels = nullptr;
+		if(m_Specification.Format == ImageFormat::RGBA32F)
+		{
+			data_size = m_Width * m_Height * channels * sizeof(float);
+			pixels = malloc(data_size);
+		}
+		else
+		{
+			pixels = new GLubyte[data_size];
+		}
+		
 
 		stbi_flip_vertically_on_write(1);
 
@@ -184,7 +200,11 @@ namespace BitPounce
 			glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RendererID, 0);
 
-			glReadPixels(0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+			GLenum type =
+    			(m_Specification.Format == ImageFormat::RGBA32F)
+    			? GL_FLOAT
+    			: GL_UNSIGNED_BYTE;
+			glReadPixels(0, 0, m_Width, m_Height, Utils::BitPounceImageFormatToGLInternalFormat(m_Specification.Format), type, pixels);
 
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			glDeleteFramebuffers(1, &fbo);
@@ -192,7 +212,10 @@ namespace BitPounce
 
 		stbi_write_png(filepath.generic_string().c_str(), m_Width, m_Height, channels, pixels, m_Width * channels);
 
-		delete[] pixels;
+		if (m_Specification.Format == ImageFormat::RGBA32F)
+	    	delete[] static_cast<float*>(pixels);
+		else
+		    delete[] static_cast<GLubyte*>(pixels);
 	}
 
     Buffer OpenGLTexture2D::GetData()
@@ -205,7 +228,16 @@ namespace BitPounce
 
 		Bind();
 		int data_size = m_Width * m_Height * channels;
-		GLubyte* pixels = new GLubyte[data_size];
+		void* pixels = nullptr;
+		if(m_Specification.Format == ImageFormat::RGBA32F)
+		{
+			data_size = m_Width * m_Height * channels * sizeof(float);
+			pixels = malloc(data_size);
+		}
+		else
+		{
+			pixels = new GLubyte[data_size];
+		}
 
 		stbi_flip_vertically_on_write(1);
 
@@ -217,7 +249,11 @@ namespace BitPounce
 
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RendererID, 0);
 
-			glReadPixels(0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, pixels);
+			GLenum type =
+    			(m_Specification.Format == ImageFormat::RGBA32F)
+    			? GL_FLOAT
+    			: GL_UNSIGNED_BYTE;
+			glReadPixels(0, 0, m_Width, m_Height, Utils::BitPounceImageFormatToGLInternalFormat(m_Specification.Format), type, pixels);
 
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			glDeleteFramebuffers(1, &fbo);
@@ -225,19 +261,32 @@ namespace BitPounce
 
 		Buffer buffer = Buffer(data_size);
 		memcpy(buffer.As<void>(), pixels, data_size);
-		delete[] pixels;
+		if (m_Specification.Format == ImageFormat::RGBA32F)
+	    	delete[] static_cast<float*>(pixels);
+		else
+		    delete[] static_cast<GLubyte*>(pixels);
 		return buffer;
     }
 
     void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		GLenum type = GL_UNSIGNED_BYTE;
+		GLenum internalFormat = Utils::BitPounceImageFormatToGLInternalFormat(m_Specification.Format);
 		if(m_DataFormat == GL_RG)
 		{
 			bpp = 2;
 		}
+		if(m_Specification.Format == ImageFormat::RGBA32F)
+		{
+			bpp *= sizeof(float);
+			type = GL_FLOAT;
+		}
 		BP_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
-		glTexImage2D(GL_TEXTURE_2D, 0, m_DataFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
+		
+		
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, m_DataFormat, type, data);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const

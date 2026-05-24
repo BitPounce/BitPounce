@@ -30,6 +30,9 @@ namespace BitPounce
 		GLint maxTextureUnits;
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
 		BP_CORE_INFO("	Max Texture Units: {}", maxTextureUnits);
+
+		GLint bits;
+		glGetIntegerv(0x0D56, &bits);
 		BP_CORE_INFO("	Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
 		BP_CORE_INFO("	Version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 	}

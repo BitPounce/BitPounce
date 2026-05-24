@@ -1,12 +1,12 @@
 #pragma once
 #include <BitPounce.h>
 
-class ECSTest: public BitPounce::Layer
+class Test3D: public BitPounce::Layer
 {
 
 public:
-	ECSTest(BitPounce::UILayer* ui);
-	virtual ~ECSTest() = default;
+	Test3D(BitPounce::UILayer* ui);
+	virtual ~Test3D() = default;
 
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
@@ -18,11 +18,14 @@ public:
 	
 private:
 	BitPounce::Ref<BitPounce::Project> m_Project;
-	BitPounce::OrthographicCamera m_Camera;
+    BitPounce::EditorCamera m_Camera;
 	bool OnAssetPreloaded(BitPounce::AssetPreLoadedEvent& e);
 	bool OnScenePreloaded(BitPounce::AssetPreLoadedEvent& e);
 	bool OnWindowResize(BitPounce::WindowResizeEvent& e);
 	BitPounce::UILayer* m_UILayer;
+    BitPounce::Ref<BitPounce::Shader> m_Shader;
+    BitPounce::Ref<BitPounce::Texture2D> m_Tex;
+    BitPounce::Ref<BitPounce::Mesh> m_Mesh;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

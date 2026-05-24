@@ -3,6 +3,7 @@
 #include "Example.h"
 #include "Sandbox2D.h"
 #include "ECSTest.h"
+#include "3DTest.h"
 
 class Sandbox : public BitPounce::Application
 {
@@ -12,7 +13,10 @@ public:
 	{
 		//PushLayer(new ExampleLayer());
 		//PushLayer(new Sandbox2D());
-		PushLayer(new ECSTest());
+		BitPounce::UILayer* UILayer = new BitPounce::UILayer();
+		//PushLayer(new ECSTest(UILayer));
+		PushLayer(new Test3D(UILayer));
+		//PushOverlay(UILayer);
 	}
 
 	~Sandbox()

@@ -12,7 +12,11 @@ namespace BitPounce {
 		//glEnable(GL_CULL_FACE);  
 		//glFrontFace(GL_CCW);  
 
-		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LESS);
+glDepthMask(GL_TRUE);
+glDisable(GL_BLEND);
 		#ifndef BP_PLATFORM_WEB
 		glEnable(GL_LINE_SMOOTH);
 		#endif

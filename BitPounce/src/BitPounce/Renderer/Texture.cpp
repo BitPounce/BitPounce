@@ -54,4 +54,16 @@ namespace BitPounce
 		BP_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
     }
+    std::string TextureTypeToString(TextureType type)
+    {
+		switch(type)
+		{
+			case TextureType::Diffuse:
+				return "diffuse";
+			case TextureType::Specular:
+				return "specular";
+		}
+
+        return std::string();
+    }
 }

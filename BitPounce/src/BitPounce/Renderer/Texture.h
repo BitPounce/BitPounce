@@ -32,6 +32,13 @@ namespace BitPounce
 		bool GenerateMips = true;
 	};
 
+	enum class TextureType : uint8_t
+	{
+		Specular = 0,
+		Diffuse,
+		Count
+	};
+	std::string TextureTypeToString(TextureType type);
 	
 	class Texture : public Asset
 	{

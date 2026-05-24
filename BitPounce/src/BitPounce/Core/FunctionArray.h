@@ -60,7 +60,7 @@ namespace BitPounce
 			}
 		}
 
-		explicit operator bool() const noexcept { return !functions.empty(); }
+		explicit operator bool() const noexcept { return !empty(); }
 		bool empty() const noexcept { return functions.empty(); }
 		size_t size() const noexcept { return functions.size(); }
 

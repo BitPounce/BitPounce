@@ -67,3 +67,5 @@
 #include "BitPounce/Utils/PlatformUtils.h"
 
 #include "BitPounce/Math/Math.h"
+
+#include "BitPounce/UI/UILayer.h"

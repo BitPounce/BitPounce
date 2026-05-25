@@ -155,7 +155,7 @@ void PlayerSystem::OnUpdate(BitPounce::Timestep &ts)
 		playerRect.w = 1 / 1.9;
 		for(auto&& tile : player.tilemap.GetComponent<BitPounce::TilemapComponent>().tiles)
 		{
-			if(tile.tex != WALL_0) {continue;}
+			if(tile.tex != (uint64_t)WALL_0) {continue;}
 			wallRect.x = tile.pos.x - .5f;
 			wallRect.y = tile.pos.y - .5f;
 			if(!s_Flying && BitPounce::RectCheckCollision(playerRect, wallRect))

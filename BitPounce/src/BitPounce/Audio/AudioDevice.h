@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <cstdint>
 #include <BitPouncePack/BitPouncePack.h>
+#include <BitPounce/Asset/Asset.h>
 
 namespace BitPounce
 {
@@ -22,6 +23,6 @@ namespace BitPounce
 		static bool UnLoad(AudioID id);
 		static void SetWorldVolume(float volume);
 		static float GetWorldVolume();
-		static BitPouncePack::PackAudio AudioToPackAudio(AudioID id);
+		static BitPouncePack::PackAudio AudioToPackAudio(AudioID id, AssetHandle handle);
 	};
 }

@@ -69,6 +69,7 @@ namespace BitPounce
 		static const uint32_t MaxQuads = 10000;
 		static const uint32_t MaxVertices = MaxQuads * 4;
 		static const uint32_t MaxIndices = MaxQuads * 6;
+		uint32_t GPU_MaxTextureSlots = 32;
 		static const uint32_t MaxTextureSlots = 32;
 
 		Ref<VertexArray> QuadVertexArray;
@@ -123,7 +124,7 @@ namespace BitPounce
 
 	struct alignas(16) Plane
 	{
-	    glm::vec4 p; // xyz = normal, w = distance
+		glm::vec4 p; // xyz = normal, w = distance
 	};
 
 	static Renderer2DData s_Data;
@@ -154,69 +155,69 @@ namespace BitPounce
 
 	static bool ObstructionCulling(const glm::mat4& model, const glm::vec3& localMin = {-0.5f, -0.5f, -0.5f}, const glm::vec3& localMax = { 0.5f,  0.5f,  0.5f})
 	{
-	    glm::vec3 center  = (localMin + localMax) * 0.5f;
-	    glm::vec3 extents = (localMax - localMin) * 0.5f;
+		glm::vec3 center  = (localMin + localMax) * 0.5f;
+		glm::vec3 extents = (localMax - localMin) * 0.5f;
 
-	    glm::vec3 worldCenter = glm::vec3(model * glm::vec4(center, 1.0f));
+		glm::vec3 worldCenter = glm::vec3(model * glm::vec4(center, 1.0f));
 
-	    glm::mat3 m(model);
-	    glm::mat3 absM(
-	        glm::abs(m[0]),
-	        glm::abs(m[1]),
-	        glm::abs(m[2])
-	    );
+		glm::mat3 m(model);
+		glm::mat3 absM(
+			glm::abs(m[0]),
+			glm::abs(m[1]),
+			glm::abs(m[2])
+		);
 
-	    glm::vec3 worldExtents = absM * extents;
+		glm::vec3 worldExtents = absM * extents;
 
-	    // Pre-broadcast center/extents
-	    const __m128 cx = _mm_set1_ps(worldCenter.x);
-	    const __m128 cy = _mm_set1_ps(worldCenter.y);
-	    const __m128 cz = _mm_set1_ps(worldCenter.z);
+		// Pre-broadcast center/extents
+		const __m128 cx = _mm_set1_ps(worldCenter.x);
+		const __m128 cy = _mm_set1_ps(worldCenter.y);
+		const __m128 cz = _mm_set1_ps(worldCenter.z);
 
-	    const __m128 ex = _mm_set1_ps(worldExtents.x);
-	    const __m128 ey = _mm_set1_ps(worldExtents.y);
-	    const __m128 ez = _mm_set1_ps(worldExtents.z);
+		const __m128 ex = _mm_set1_ps(worldExtents.x);
+		const __m128 ey = _mm_set1_ps(worldExtents.y);
+		const __m128 ez = _mm_set1_ps(worldExtents.z);
 
-	    // Precompute sign mask once (avoid per-plane cost)
-	    const __m128 signMask = _mm_set1_ps(-0.0f);
+		// Precompute sign mask once (avoid per-plane cost)
+		const __m128 signMask = _mm_set1_ps(-0.0f);
 
-	    for (int i = 0; i < 6; i++)
-	    {
-	        const glm::vec4& p = s_Data.frustum.planes[i];
+		for (int i = 0; i < 6; i++)
+		{
+			const glm::vec4& p = s_Data.frustum.planes[i];
 
-	        const __m128 nx = _mm_set1_ps(p.x);
-	        const __m128 ny = _mm_set1_ps(p.y);
-	        const __m128 nz = _mm_set1_ps(p.z);
-	        const __m128 d  = _mm_set1_ps(p.w);
+			const __m128 nx = _mm_set1_ps(p.x);
+			const __m128 ny = _mm_set1_ps(p.y);
+			const __m128 nz = _mm_set1_ps(p.z);
+			const __m128 d  = _mm_set1_ps(p.w);
 
-	        // dot(normal, center) + d
-	        const __m128 dist =
-	            _mm_add_ps(
-	                _mm_add_ps(_mm_mul_ps(nx, cx), _mm_mul_ps(ny, cy)),
-	                _mm_add_ps(_mm_mul_ps(nz, cz), d)
-	            );
+			// dot(normal, center) + d
+			const __m128 dist =
+				_mm_add_ps(
+					_mm_add_ps(_mm_mul_ps(nx, cx), _mm_mul_ps(ny, cy)),
+					_mm_add_ps(_mm_mul_ps(nz, cz), d)
+				);
 
-	        // abs(normal)
-	        const __m128 ax = _mm_andnot_ps(signMask, nx);
-	        const __m128 ay = _mm_andnot_ps(signMask, ny);
-	        const __m128 az = _mm_andnot_ps(signMask, nz);
+			// abs(normal)
+			const __m128 ax = _mm_andnot_ps(signMask, nx);
+			const __m128 ay = _mm_andnot_ps(signMask, ny);
+			const __m128 az = _mm_andnot_ps(signMask, nz);
 
-	        // radius = abs(normal) dot extents
-	        const __m128 radius =
-	            _mm_add_ps(
-	                _mm_add_ps(_mm_mul_ps(ax, ex), _mm_mul_ps(ay, ey)),
-	                _mm_mul_ps(az, ez)
-	            );
+			// radius = abs(normal) dot extents
+			const __m128 radius =
+				_mm_add_ps(
+					_mm_add_ps(_mm_mul_ps(ax, ex), _mm_mul_ps(ay, ey)),
+					_mm_mul_ps(az, ez)
+				);
 
-	        // dist < -radius
-	        const __m128 negRadius = _mm_sub_ps(_mm_setzero_ps(), radius);
-	        const __m128 cmp = _mm_cmplt_ps(dist, negRadius);
+			// dist < -radius
+			const __m128 negRadius = _mm_sub_ps(_mm_setzero_ps(), radius);
+			const __m128 cmp = _mm_cmplt_ps(dist, negRadius);
 
-	        if (_mm_movemask_ps(cmp))
-	            return false;
-	    }
+			if (_mm_movemask_ps(cmp))
+				return false;
+		}
 
-	    return true;
+		return true;
 	}
 
 	void Renderer2D::FlushAndReset()
@@ -242,6 +243,7 @@ namespace BitPounce
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+		s_Data.GPU_MaxTextureSlots = Application::Get().GetWindow().GetGraphicsContext().GetMaxTextureUnits();
 
 		uint32_t* quadIndices = new uint32_t[s_Data.MaxIndices];
 		uint32_t offset = 0;
@@ -298,7 +300,7 @@ namespace BitPounce
 			{ ShaderDataType::Float3, "a_Position"     },
 			{ ShaderDataType::Float4, "a_Color"        },
 			{ ShaderDataType::Float2, "a_TexCoord"     },
-			{ ShaderDataType::Int,  "a_TexID" },
+			{ ShaderDataType::Int,    "a_TexID"		   },
 			{ ShaderDataType::Int,    "a_EntityID"     }
 		});
 		s_Data.TextVertexArray->AddVertexBuffer(s_Data.TextVertexBuffer);
@@ -310,8 +312,8 @@ namespace BitPounce
 		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 
-		int32_t samplers[s_Data.MaxTextureSlots];
-		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
+		int32_t samplers[s_Data.GPU_MaxTextureSlots];
+		for (uint32_t i = 0; i < s_Data.GPU_MaxTextureSlots; i++)
 			samplers[i] = i;
 
 		s_Data.QuadShader = Shader::Create("assets/shaders/Texture.glsl");
@@ -320,7 +322,7 @@ namespace BitPounce
 		s_Data.TextShader = Shader::Create("assets/shaders/Text.glsl");
 		s_Data.QuadShader->Bind();
 		s_Data.QuadShader->SetInt("u_Texture", 0);
-		s_Data.QuadShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+		s_Data.QuadShader->SetIntArray("u_Textures", samplers, s_Data.GPU_MaxTextureSlots);
 
 		s_Data.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
 		s_Data.QuadVertexPositions[1] = {  0.5f, -0.5f, 0.0f, 1.0f };
@@ -397,7 +399,7 @@ namespace BitPounce
 
 	void Renderer2D::Flush()
 	{
-		if (s_Data.QuadIndexCount)
+		if (true)
 		{
 			s_Data.QuadShader->Bind();
 			uint32_t dataSize = (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase;
@@ -432,22 +434,22 @@ namespace BitPounce
 
 		if (s_Data.TextIndexCount)
 		{
-		    uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.TextVertexBufferPtr - (uint8_t*)s_Data.TextVertexBufferBase);
-		    s_Data.TextVertexBuffer->SetData(s_Data.TextVertexBufferBase, dataSize);
+			uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.TextVertexBufferPtr - (uint8_t*)s_Data.TextVertexBufferBase);
+			s_Data.TextVertexBuffer->SetData(s_Data.TextVertexBufferBase, dataSize);
 		
-		    // Bind all used font textures
-		    for (uint32_t i = 0; i < s_Data.FontTextureSlotIndex; i++)
-		        s_Data.FontTextureSlots[i]->Bind(i);
+			// Bind all used font textures
+			for (uint32_t i = 0; i < s_Data.FontTextureSlotIndex; i++)
+				s_Data.FontTextureSlots[i]->Bind(i);
 		
-		    s_Data.TextShader->Bind();
-		    // Set the texture array uniform (once, could be done in Init)
-		    int samplers[s_Data.MaxTextureSlots];
-		    for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
-		        samplers[i] = i;
-		    s_Data.TextShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+			s_Data.TextShader->Bind();
+			// Set the texture array uniform (once, could be done in Init)
+			int samplers[s_Data.GPU_MaxTextureSlots];
+			for (uint32_t i = 0; i < s_Data.GPU_MaxTextureSlots; i++)
+				samplers[i] = i;
+			s_Data.TextShader->SetIntArray("u_Textures", samplers, s_Data.GPU_MaxTextureSlots);
 		
-		    RenderCommand::DrawIndexed(s_Data.TextVertexArray, s_Data.TextIndexCount);
-		    s_Data.RenderData.RenderCalls++;
+			RenderCommand::DrawIndexed(s_Data.TextVertexArray, s_Data.TextIndexCount);
+			s_Data.RenderData.RenderCalls++;
 		}
 	}
 
@@ -551,17 +553,17 @@ namespace BitPounce
 			float textureIndex = -1.0f;
 			for (uint32_t i = 0; i < s_Data.FontTextureSlotIndex; i++)
 			{
-			    if (*s_Data.FontTextureSlots[i] == *fontAtlas)
-			    {
-			        textureIndex = (float)i;
-			        break;
-			    }
+				if (*s_Data.FontTextureSlots[i] == *fontAtlas)
+				{
+					textureIndex = (float)i;
+					break;
+				}
 			}
 			if (textureIndex < 0.0f)
 			{
-			    textureIndex = (float)s_Data.FontTextureSlotIndex;
-			    s_Data.FontTextureSlots[s_Data.FontTextureSlotIndex] = fontAtlas;
-			    s_Data.FontTextureSlotIndex++;
+				textureIndex = (float)s_Data.FontTextureSlotIndex;
+				s_Data.FontTextureSlots[s_Data.FontTextureSlotIndex] = fontAtlas;
+				s_Data.FontTextureSlotIndex++;
 			}
 
 			// render here
@@ -771,15 +773,15 @@ namespace BitPounce
 		s_Data.QuadIndexCount += 6;
 	}
 
-    void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const glm::u32vec2 subTexSize, const glm::u32vec2 subTexIndex, const glm::vec4 &tintColour, int entityID)
-    {
+	void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const glm::u32vec2 subTexSize, const glm::u32vec2 subTexIndex, const glm::vec4 &tintColour, int entityID)
+	{
 		glm::u32vec2 texSize = glm::u32vec2(texture->GetWidth(), texture->GetHeight());
 
-    	// Compute pixel coordinates of the four corners of the sub‑texture
-    	glm::u32vec2 a = subTexIndex * subTexSize;                               // top‑left
-    	glm::u32vec2 b = glm::u32vec2((subTexIndex.x + 1) * subTexSize.x, subTexIndex.y * subTexSize.y);            // top‑right
-    	glm::u32vec2 c = (subTexIndex + glm::u32vec2(1, 1)) * subTexSize;        // bottom‑right
-    	glm::u32vec2 e = glm::u32vec2(subTexIndex.x * subTexSize.x, (subTexIndex.y + 1) * subTexSize.y);      // bottom‑left
+		// Compute pixel coordinates of the four corners of the sub‑texture
+		glm::u32vec2 a = subTexIndex * subTexSize;                               // top‑left
+		glm::u32vec2 b = glm::u32vec2((subTexIndex.x + 1) * subTexSize.x, subTexIndex.y * subTexSize.y);            // top‑right
+		glm::u32vec2 c = (subTexIndex + glm::u32vec2(1, 1)) * subTexSize;        // bottom‑right
+		glm::u32vec2 e = glm::u32vec2(subTexIndex.x * subTexSize.x, (subTexIndex.y + 1) * subTexSize.y);      // bottom‑left
 
 		std::array<glm::vec2, 4> uvs = {a,b,c,e};
 
@@ -789,11 +791,11 @@ namespace BitPounce
 		}
 
 		DrawQuad(transform, texture, uvs, tintColour, entityID);
-    }
+	}
 
-    void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const std::array<glm::vec2, 4> uvs, const glm::vec4 &tintColour, int entityID)
-    {
-		if(false)
+	void Renderer2D::DrawQuad(const glm::mat4 &transform, const Ref<Texture2D> &texture, const std::array<glm::vec2, 4> uvs, const glm::vec4 &tintColour, int entityID)
+	{
+		if(!ObstructionCulling(transform))
 		{
 			return;
 		}
@@ -832,9 +834,9 @@ namespace BitPounce
 		}
 
 		s_Data.QuadIndexCount += 6;
-    }
+	}
 
-    void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
+	void Renderer2D::DrawRotatedQuad(const glm::vec2 &position, const glm::vec2 &size, float rotation, const glm::vec4 &colour)
 	{
 		DrawRotatedQuad(glm::vec3(position, 0), size, rotation, colour);
 	}

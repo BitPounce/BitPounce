@@ -31,8 +31,8 @@ namespace BitPounce
 	// ---------- Constants ----------
 	constexpr size_t MAX_COMMANDS = 64;
 	constexpr float  MAX_VOLUME   = 1.0f;
-	constexpr ma_uint32 PERIOD_SIZE_FRAMES = 2048 * 2;
-	constexpr ma_uint32 PERIOD_COUNT       = 3 * 2;
+	constexpr ma_uint32 PERIOD_SIZE_FRAMES = 1024;
+	constexpr ma_uint32 PERIOD_COUNT       = 2;
 
 	// ---------- Audio Source ----------
 	struct AudioSource
@@ -144,10 +144,9 @@ namespace BitPounce
 
 	static inline float SoftClip(float x)
 	{
-		//if (x > 1.0f) return 1.0f;
-		//if (x < -1.0f) return -1.0f;
-		//return x * (1.5f - 0.5f * x * x);
-		return x;
+		if (x > 1.0f) return 1.0f;
+		if (x < -1.0f) return -1.0f;
+		return x * (1.5f - 0.5f * x * x);
 	}
 
 	static void DataCallback(ma_device* device, void* output, const void*, ma_uint32 frameCount)
@@ -283,8 +282,7 @@ namespace BitPounce
 
 		auto* source = new AudioSource();   // raw allocation
 
-		ma_result initErrorCode = ma_decoder_init_file(filepath.string().c_str(), nullptr, &source->decoder);
-		if (initErrorCode != MA_SUCCESS)
+		if (ma_decoder_init_file(filepath.string().c_str(), nullptr, &source->decoder) != MA_SUCCESS)
 		{
 			delete source;
 			return 0;
@@ -458,7 +456,6 @@ namespace BitPounce
 				source->decoder.outputSampleRate,
 				s_Data->device.sampleRate
 			);
-
 		if (ma_data_converter_init(&converterConfig, nullptr, &source->converter) != MA_SUCCESS) {
 			ma_decoder_uninit(&source->decoder);
 			delete source;
@@ -559,12 +556,12 @@ namespace BitPounce
 	{
 		s_Data->worldVolume = volume;
 	}
-    float AudioDevice::GetWorldVolume()
+	float AudioDevice::GetWorldVolume()
     {
         return s_Data->worldVolume;
     }
-    BitPouncePack::PackAudio AudioDevice::AudioToPackAudio(AudioID id)
-    {
+	BitPouncePack::PackAudio AudioDevice::AudioToPackAudio(AudioID id, AssetHandle handle)
+	{
 		if (!s_Data || !s_Data->initialized || id == 0)
 			return {};
 
@@ -605,7 +602,7 @@ namespace BitPounce
 		result.SampleRate = sampleRate;
 		result.format     = packFormat;
 		result.HashType   = 0;                     // 0 = SHA-256
-		result.AssetHandle = static_cast<uint64_t>(id);
+		result.AssetHandle = handle;
 
 		// Save current decoder position, then seek to start
 		ma_uint64 originalPos;

@@ -114,6 +114,13 @@ namespace BitPounce
 				nlohmann::json j;
 				j["Tiles"] = nlohmann::json::array();
 
+				for (auto& tile : tilemap.renderer2D_tiles)
+				{
+					nlohmann::json t;
+					t["Pos"] = tile.pos;
+					t["Texture"] = tile.Texture.operator uint64_t();
+					j["Tiles"].push_back(t);
+				}
 
 				for (auto& ent : json["Entities"])
 					if (ent["entityID"].get<uint32_t>() == (uint32_t)entity)
@@ -154,16 +161,16 @@ namespace BitPounce
 					auto& j = entJson["SpriteRenderer"];
 					SpriteRendererComponent c;
 
-					c.Colour = j["Colour"].get<glm::vec4>();
+					c.Colour = j["Colour"];
 					if (j.contains("SpriteSize"))
-						c.SpriteSize = j["SpriteSize"].get<glm::ivec2>();
+						c.SpriteSize = j["SpriteSize"];
 					if (j.contains("SpriteIndex"))
-						c.SpriteIndex = j["SpriteIndex"].get<glm::ivec2>();
+						c.SpriteIndex = j["SpriteIndex"];
 					if (j.contains("UseSpriteSheet"))
 						c.UseSpriteSheet = j["UseSpriteSheet"];
 
-					//if (j.contains("TextureID"))
-					//	c.Texture = j["TextureID"].get<uint64_t>();
+					if (j.contains("TextureID"))
+						c.Texture = j["TextureID"].get<uint64_t>();
 
 					entity.AddComponent<SpriteRendererComponent>(c);
 				}
@@ -190,8 +197,8 @@ namespace BitPounce
 					c.textParams.Kerning = j["Kerning"];
 					c.textParams.LineSpacing = j["LineSpacing"];
 
-					//if (j.contains("FontID"))
-					//	c.FontHandle = j["FontID"].get<uint64_t>();
+					if (j.contains("FontID"))
+						c.FontHandle = j["FontID"].get<uint64_t>();
 
 					entity.AddComponent<TextComponent>(c);
 				}

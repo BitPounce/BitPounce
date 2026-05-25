@@ -183,7 +183,19 @@ namespace BitPounce {
 			s_GLFWInitialized = true;
 		}
 
+		glfwSetErrorCallback([](int error, const char* description)
+		{
+		    std::cerr << "GLFW Error (" << error << "): "
+		              << description << std::endl;
+		});
+
+		glfwWindowHint(GLFW_DEPTH_BITS, 24);
+
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		if(!m_Window)
+		{
+			return;
+		}
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);

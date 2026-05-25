@@ -14,6 +14,7 @@ namespace BitPounce
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;
+		virtual uint32_t GetMaxTextureUnits() const override;
 	private:
 		GLFWwindow* m_WindowHandle;
 	};

@@ -12,6 +12,19 @@ namespace BitPounce {
 		UUID(const UUID&) = default;
 
 		operator uint64_t() const { return m_UUID; }
+
+		constexpr bool operator==(const UUID& other) const {
+			return m_UUID == other.m_UUID;
+		}
+
+		constexpr bool operator==(const uint64_t& other) const {
+			return m_UUID == other;
+		}
+
+		// HACK: too remove some warning
+		constexpr bool operator==(const int& other) const {
+			return m_UUID == other;
+		}
 	private:
 		uint64_t m_UUID;
 	};

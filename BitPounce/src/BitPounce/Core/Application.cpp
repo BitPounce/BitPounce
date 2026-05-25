@@ -22,6 +22,21 @@ namespace BitPounce
 	{
 
 		s_Instance = this;
+		if(!std::filesystem::exists("version.json"))
+		{
+			m_Version = {};
+		}
+		else
+		{
+			m_Version = VersionInfo("version.json");
+		}
+		BP_CORE_INFO("Engine version info:");
+		BP_CORE_INFO("	Version: {}", m_Version.version.toString());
+		BP_CORE_INFO("	Build: {}", m_Version.build);
+		#ifdef BP_DEBUG
+		BP_CORE_INFO("	Commit: {}", m_Version.commit);
+		BP_CORE_INFO("	Date: {}", m_Version.date);
+		#endif
 		
 		m_Window = Window::Create(WindowProps(props.Title, props.Width, props.Height, props.IconPath));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -68,7 +83,6 @@ namespace BitPounce
 			Update();
 		}
 #endif
-
 
 		return m_ErrorCode;
 	}
@@ -123,8 +137,11 @@ namespace BitPounce
 		
 
 		// HACK
+		#ifdef BP_PLATFORM_WINDOWS
 		// HACK
-		
+		if(m_APPTimerLOLsdrtfthfgghghghkghghkgvj.Elapsed() >= 10)
+			Update();
+		#endif
 
 		m_IsPoolingEvents = false;
 	}
@@ -132,10 +149,6 @@ namespace BitPounce
 	bool Application::OnWindowResize(WindowResizeEvent &e)
 	{
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-//#ifdef BP_PLATFORM_WINDOWS
-//		if (m_APPTimerLOLsdrtfthfgghghghkghghkgvj.Elapsed() >= 10)
-//			Update();
-//#endif
     	return false;
 	}
 }

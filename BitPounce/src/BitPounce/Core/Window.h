@@ -3,6 +3,7 @@
 
 #include "BitPounce/Core/Base.h"
 #include "BitPounce/Events/Event.h"
+#include "BitPounce/Renderer/GraphicsContext.h"
 
 namespace BitPounce
 {
@@ -37,6 +38,7 @@ namespace BitPounce
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		virtual GraphicsContext& GetGraphicsContext() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

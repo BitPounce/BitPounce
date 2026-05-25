@@ -20,7 +20,7 @@ namespace BitPounce
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
-
+		virtual GraphicsContext& GetGraphicsContext() const override { return *m_Context; };
 		
 
 		virtual void* GetNativeWindow() const override;

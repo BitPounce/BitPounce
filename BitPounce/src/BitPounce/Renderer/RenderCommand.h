@@ -1,6 +1,9 @@
 #pragma once
 
 #include "RendererAPI.h"
+#include "Mesh.h"
+#include "Model.h"
+#include "Shader.h"
 
 namespace BitPounce {
 
@@ -32,6 +35,20 @@ namespace BitPounce {
 		{
 			vertexArray->Bind();
 			s_RendererAPI->DrawIndexed(vertexArray, indexCount);
+		}
+
+		inline static void DrawIndexed(const std::shared_ptr<Mesh>& mesh, std::shared_ptr<Shader>& shader, uint32_t indexCount = 0)
+		{
+			mesh->Bind(shader);
+			DrawIndexed(mesh->m_VertexArray, indexCount);
+		}
+
+		inline static void DrawIndexed(const std::shared_ptr<Model>& model, std::shared_ptr<Shader>& shader)
+		{
+			for (unsigned int i = 0; i < model->m_Meshes.size(); i++)
+			{
+				DrawIndexed(model->m_Meshes[i], shader);
+			}
 		}
 
 		static void DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)

@@ -4,6 +4,8 @@
 
 namespace BitPounce {
 
+
+	// if i add c++ Scripting
 	class ScriptableEntity
 	{
 	public:

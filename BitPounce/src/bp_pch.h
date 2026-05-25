@@ -15,7 +15,6 @@
 #include "BitPounce/Core/Application.h"
 #include "BitPounce/Core/FileSystem.h"
 #include "BitPounce/Core/Input.h"
-#include "BitPounce/Core/MiniMT.h"
 #include "BitPounce/Core/Application.h"
 
 #include <iostream>
@@ -36,3 +35,8 @@
 #ifdef BP_PLATFORM_WEB 
 	#include <emscripten.h>
 #endif 
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/type_ptr.hpp>

@@ -63,6 +63,7 @@ namespace BitPounce
 		int m_ErrorCode = -1;
 		bool m_IsRunning = true;
 		bool m_IsPoolingEvents = false;
+		VersionInfo m_Version;
 		
 		bool OnWindowResize(WindowResizeEvent& e);
 		

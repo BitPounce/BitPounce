@@ -1,8 +1,5 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-
 #include "BitPounce/Audio/AudioDevice.h"
 #include "BitPounce/Audio/Audio.h"
 
@@ -20,7 +17,6 @@
 #include <BitPounce/Core/SystemManager.h>
 #include "BitPounce/Core/Console.h"
 #include "BitPounce/Core/ConsoleRegistrars.h"
-#include "BitPounce/Core/MiniMT.h"
 
 #include "BitPounce/ImGui/ConsoleWindow.h"
 
@@ -31,7 +27,16 @@
 #include "BitPounce/Events/AssetManagerEvent.h"
 #include "BitPounce/Events/SceneEvent.h"
 
+#include "BitPounce/Asset/Asset.h"
 #include "BitPounce/Asset/AssetImporter.h"
+#include "BitPounce/Asset/AssetManager.h"
+#include "BitPounce/Asset/AssetManagerBase.h"
+#include "BitPounce/Asset/AssetMetadata.h"
+#include "BitPounce/Asset/RuntimeAssetManager.h"
+#include "BitPounce/Asset/AudioImporter.h"
+#include "BitPounce/Asset/FontImporter.h"
+#include "BitPounce/Asset/SceneImporter.h"
+#include "BitPounce/Asset/TextureImporter.h"
 
 #include "BitPounce/Renderer/Buffer.h"
 #include "BitPounce/Renderer/GraphicsContext.h"
@@ -40,6 +45,7 @@
 #include "BitPounce/Renderer/Renderer.h"
 #include "BitPounce/Renderer/RendererAPI.h"
 #include "BitPounce/Renderer/Shader.h"
+#include "BitPounce/Renderer/Renderer3D.h"
 #include "BitPounce/Renderer/VertexArray.h"
 #include "BitPounce/Renderer/Texture.h"
 #include "BitPounce/Renderer/OrthographicCameraController.h"
@@ -62,3 +68,5 @@
 #include "BitPounce/Utils/PlatformUtils.h"
 
 #include "BitPounce/Math/Math.h"
+
+#include "BitPounce/UI/UILayer.h"

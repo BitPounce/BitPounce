@@ -104,19 +104,39 @@ namespace BitPounce {
 			BP_CORE_ASSERT(result, "stb_include_string failed: {}", error);
 
 			std::string fixedResult = result;
-    free(result);
+    		free(result);
+				
+    		size_t linePos = 0;
+    		while ((linePos = fixedResult.find("#line")) != std::string::npos)
+    		{
+    		    size_t endLine = fixedResult.find_first_of("\r\n", linePos);
+    		    if (endLine == std::string::npos)
+    		        endLine = fixedResult.size();
+    		    fixedResult.erase(linePos, endLine - linePos);
+    		}
 
-    size_t linePos = 0;
-    while ((linePos = fixedResult.find("#line")) != std::string::npos)
-    {
-        size_t endLine = fixedResult.find_first_of("\r\n", linePos);
-        if (endLine == std::string::npos)
-            endLine = fixedResult.size();
-        fixedResult.erase(linePos, endLine - linePos);
-    }
+			linePos = 0;
+			GLint maxTextureUnits;
+			glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+			{
+				const std::string token = "GL_MAX_TEXTURE_IMAGE_UNITS";
+    			const std::string replacement = std::to_string(maxTextureUnits);
+				
+    			linePos = 0;
+    			while ((linePos = fixedResult.find(token, linePos)) != std::string::npos)
+    			{
+    			    fixedResult.replace(linePos, token.length(), replacement);
+    			    linePos += replacement.length();
+    			}
+			}
+			
+		
+    		src.second = fixedResult;
 
-    src.second = fixedResult;
+			
 		}
+
+	
 
 		
 

@@ -185,7 +185,7 @@ namespace BitPounce {
 
 		if (props.IconPath != "NULL")
 			SetWindowIconSafe(m_Window, props.IconPath);
-
+			
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 

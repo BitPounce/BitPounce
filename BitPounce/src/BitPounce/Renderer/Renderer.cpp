@@ -1,6 +1,7 @@
 #include "bp_pch.h"
 #include "Renderer.h"
 #include "Renderer2D.h"
+#include "Renderer3D.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -11,9 +12,10 @@ namespace BitPounce
 
 	void Renderer::Init()
 	{
-	    RenderCommand::Init();
-	    Renderer2D::Init();
-	    s_FullScreenQuad = VertexArray::Create();
+		RenderCommand::Init();
+		Renderer2D::Init();
+		Renderer3D::Init();
+		s_FullScreenQuad = VertexArray::Create();
 
 	    float QuadVertices[] = {
 	        // Position        // UV
@@ -51,15 +53,15 @@ namespace BitPounce
 	void Renderer::EndScene()
 	{
 	}
-
-    void Renderer::DrawFullScreenQuad()
+	
+	void Renderer::DrawFullScreenQuad()
     {
 		s_FullScreenQuad->Bind();
 		RenderCommand::DrawIndexed(s_FullScreenQuad);
     }
 
-    void Renderer::Submit(const std::shared_ptr<Shader> &shader, const std::shared_ptr<VertexArray> &vertexArray, const glm::mat4 &transform)
-    {
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);

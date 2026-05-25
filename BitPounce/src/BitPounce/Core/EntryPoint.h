@@ -3,8 +3,6 @@
 
 #include "Application.h"
 
-
-
 int main()
 {
 	BitPounce::Logger::Initialize();

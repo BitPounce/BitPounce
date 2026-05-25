@@ -266,5 +266,5 @@ struct GMTile
 			isMod = true;
 		}
 	};
-
+	
 }

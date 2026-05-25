@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AssetManagerBase.h"
+#include "Asset.h"
 
 namespace BitPounce {
 
